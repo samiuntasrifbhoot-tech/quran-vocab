@@ -1,2424 +1,470 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <link rel="manifest" href="manifest.json">
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js');}</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>কুরআনিক শব্দকোষ - ৮০% কুরআন বুঝুন</title>
-    <!-- Premium Fonts & Confetti Library -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        :root {
-            /* Light Mode Variables */
-            --app-bg: #f4efe6;
-            --primary: #0b3d24;
-            --gold: #cfa052;
-            --surface: #ffffff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --success: #059669;
-            --border: #e2e8f0;
-            --radius-xl: 28px;
-            --radius-lg: 18px;
-            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.04);
-            --card-learned-bg: #f4fdf8;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>কুরআনিক শব্দকোষ</title>
+  <meta name="description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ ও রূপতত্ত্বভিত্তিক ফ্ল্যাশকার্ড">
+  <meta property="og:title" content="কুরআনিক শব্দকোষ">
+  <meta property="og:description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ ও রূপতত্ত্বভিত্তিক ফ্ল্যাশকার্ড">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
 
-        body.dark-mode {
-            /* Premium Dark Mode Variables */
-            --app-bg: #0f172a; 
-            --primary: #cfa052; 
-            --surface: #1e293b;
-            --text-dark: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --shadow-card: 0 4px 12px rgba(0,0,0,0.3);
-            --card-learned-bg: #064e3b;
-        }
+  <!-- Google Fonts & Confetti -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
-
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background-color: #cbd5e1;
-            display: flex; justify-content: center;
-            min-height: 100vh; overflow: hidden;
-        }
-
-        .app-frame {
-            width: 100%; max-width: 480px; background: var(--app-bg);
-            height: 100vh; position: relative; box-shadow: 0 0 40px rgba(0,0,0,0.2);
-            overflow: hidden; transition: background-color 0.3s;
-        }
-
-        .screen {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--app-bg); display: flex; flex-direction: column;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s;
-        }
-
-        #home-screen { transform: translateX(0); z-index: 1; }
-        #list-screen { transform: translateX(100%); z-index: 2; }
-        #flashcard-screen { transform: translateX(100%); z-index: 3; }
-
-        /* ================= HOME ================= */
-        .header-artistic {
-            background: linear-gradient(145deg, #0b3d24 0%, #062b18 100%); color: white;
-            padding: 45px 25px 70px 25px; position: relative;
-            border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; text-align: center;
-        }
-        body.dark-mode .header-artistic { background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%); border-bottom: 1px solid var(--border); }
-        
-        .theme-btn {
-            position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.15); border: none;
-            width: 42px; height: 42px; border-radius: 50%; color: var(--gold); cursor: pointer; z-index: 10;
-        }
-        .theme-btn svg { width: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;}
-        
-        .bismillah { font-family: 'Amiri', serif; font-size: 28px; color: var(--gold); margin-bottom: 10px; }
-        .header-title { font-size: 24px; font-weight: 700; }
-        .header-subtitle { font-size: 14px; color: rgba(255,255,255,0.7); }
-
-        .dashboard { padding: 0 20px; margin-top: -45px; position: relative; z-index: 10; flex: 1; overflow-y: auto;}
-        .dashboard::-webkit-scrollbar { display: none; }
-
-        .progress-card { background: var(--surface); border-radius: var(--radius-xl); padding: 25px 20px; text-align: center; border: 1px solid var(--border); margin-bottom: 25px; transition: 0.3s;}
-        .progress-circle-wrap { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .progress-circle-inner { width: 100px; height: 100px; background: var(--surface); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column;}
-        .progress-percent { font-size: 26px; font-weight: 700; color: var(--primary);}
-        .progress-text { font-size: 12px; color: var(--text-muted); font-weight: 600; margin-top: 4px;}
-
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 20px; }
-        .menu-full { grid-column: span 2; }
-        .menu-btn { background: var(--surface); border-radius: var(--radius-lg); padding: 20px 15px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--border); cursor: pointer;}
-        .menu-icon { width: 45px; height: 45px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
-        .menu-icon svg { width: 24px; fill: currentColor; }
-        .menu-info { display: flex; flex-direction: column; }
-        .menu-title { font-size: 16px; font-weight: 700; color: var(--text-dark); }
-        .menu-count { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-
-        /* ================= LIST ================= */
-        .list-app-bar { background: var(--surface); padding: 15px 20px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid var(--border);}
-        .back-btn { width: 40px; height: 40px; border-radius: 50%; background: var(--app-bg); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer;}
-        .back-btn svg { width: 22px; stroke: var(--text-dark); stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round;}
-        .list-title { font-size: 18px; font-weight: 700; color: var(--text-dark); flex: 1; }
-
-        .search-area { padding: 15px; background: var(--app-bg);}
-        .search-box { width: 100%; padding: 14px 20px; border: 1px solid var(--border); border-radius: 30px; font-size: 15px; font-family: inherit; color: var(--text-dark); background: var(--surface); outline: none;}
-
-        .words-list { flex: 1; padding: 0 15px 20px 15px; overflow-y: auto; scrollbar-width: none; }
-        .words-list::-webkit-scrollbar { display: none; }
-        
-        .word-card { background: var(--surface); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid var(--border); border-left: 4px solid var(--gold); cursor: pointer; transition: 0.3s;}
-        .word-card.learned { background: var(--card-learned-bg); border-color: var(--success); border-left-color: var(--success); }
-        
-        .check-box { width: 28px; height: 28px; border-radius: 8px; border: 2px solid var(--text-muted); display: flex; align-items: center; justify-content: center; transition: 0.3s; flex-shrink: 0;}
-        .word-card.learned .check-box { background: var(--success); border-color: var(--success); transform: scale(1.05);}
-        .check-box svg { width: 14px; stroke: white; stroke-width: 3.5; fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 20; stroke-dashoffset: 20; transition: 0.3s;}
-        .word-card.learned .check-box svg { stroke-dashoffset: 0; }
-
-        .word-content { flex: 1; display: flex; justify-content: space-between; align-items: center;}
-        .text-bn { display: flex; flex-direction: column; gap: 4px; }
-        .word-cat { font-size: 10px; background: var(--app-bg); color: var(--primary); padding: 2px 8px; border-radius: 12px; width: fit-content; font-weight: 700;}
-        .word-card.learned .word-cat { background: rgba(5, 150, 105, 0.15); color: var(--success); }
-        .meaning { font-size: 15px; font-weight: 600; color: var(--text-dark); }
-        .meaning-en { font-size: 12px; color: var(--text-muted); }
-        .arabic-word { font-family: 'Amiri', serif; font-size: 26px; color: var(--primary); direction: rtl; font-weight: 700;}
-
-        /* ================= FLASHCARD ================= */
-        .fc-area { flex: 1; position: relative; overflow: hidden; padding: 20px;}
-        .fc-card { position: absolute; width: calc(100% - 40px); height: 400px; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--border); box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 30px; transition: transform 0.3s; cursor: grab;}
-        .fc-cat-tag { position: absolute; top: 20px; font-size: 12px; background: rgba(207, 160, 82, 0.15); color: var(--gold); padding: 5px 15px; border-radius: 20px; font-weight: 600;}
-        .fc-ar { font-family: 'Amiri', serif; font-size: 55px; color: var(--primary); margin-bottom: 25px; line-height: 1.2; font-weight: 700;}
-        .fc-bn { font-size: 26px; font-weight: 700; color: var(--text-dark); margin-bottom: 5px;}
-        .fc-en { font-size: 16px; color: var(--text-muted); }
-        .fc-controls { display: flex; justify-content: space-evenly; padding: 20px 40px 40px; background: var(--app-bg);}
-        .fc-btn { width: 65px; height: 65px; border-radius: 50%; border: none; background: var(--surface); display: flex; justify-content: center; align-items: center; cursor: pointer;}
-        .fc-btn.nope { border: 2px solid #ef4444; color: #ef4444; }
-        .fc-btn.like { border: 2px solid var(--success); color: var(--success); }
-        .fc-btn svg { width: 30px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-    </style>
+  <!-- Application Styles -->
+  <link rel="stylesheet" href="css/app.css">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
 </head>
 <body>
 
-<div class="app-frame">
-    <!-- ================= HOME SCREEN ================= -->
-    <div id="home-screen" class="screen">
-        <header class="header-artistic">
-            <button class="theme-btn" onclick="toggleTheme()" id="theme-btn-icon">
-                <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-            </button>
-            <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-            <div class="header-title">কুরআনিক ফ্রিকোয়েন্সি</div>
-            <div class="header-subtitle">৮০% কুরআন বোঝার জন্য সর্বাধিক ব্যবহৃত শব্দাবলি</div>
-        </header>
+<div class="app-viewport">
 
-        <div class="dashboard">
-            <div class="progress-card">
-                <div class="progress-circle-wrap" id="circle-progress">
-                    <div class="progress-circle-inner">
-                        <span class="progress-percent" id="ui-percent">0%</span>
-                        <span class="progress-text">অগ্রগতি</span>
-                    </div>
-                </div>
-                <div style="font-size: 15px; font-weight: 700; color: var(--text-dark);" id="ui-progress-text">০ / ২০০০ শব্দ</div>
+  <!-- Screens Container -->
+  <div class="screen-container">
+
+    <!-- ================= 1. HOME SCREEN (DAILY MISSION) ================= -->
+    <div id="home-screen" class="screen active">
+      <div class="scroll-content" style="padding: 0 0 75px 0;">
+        <!-- Top Curved Green Banner -->
+        <div class="quran-hero-curved">
+          <div class="hero-top-actions">
+            <button class="hero-circle-btn" onclick="app.switchScreen('progress')" title="কারিকুলাম ও রূপতত্ত্ব">
+              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            </button>
+            <button class="hero-circle-btn" id="theme-toggle-btn" onclick="app.toggleTheme()" title="ডার্ক / লাইট মোড">
+              <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+          </div>
+
+          <div class="hero-center-content">
+            <div class="hero-bismillah-gold">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+            <h1 class="hero-main-title">কুরআনিক শব্দকোষ</h1>
+            <p class="hero-subtitle">কুরআনিক আরবির ২০০০ মৌলিক শব্দ ও রূপতত্ত্ব</p>
+          </div>
+        </div>
+
+        <div class="home-cards-container">
+          <!-- Card 1: Progress Summary -->
+          <div class="screenshot-card progress-summary-card" onclick="app.showStatusWords('mastered')">
+            <div class="summary-percent" id="home-mastered-pct">0%</div>
+            <div class="summary-sub">শেখা হয়েছে</div>
+            <div class="summary-footer-count" id="home-mastered-count-text">0 / 2000 শব্দ শেখা শেষ</div>
+          </div>
+
+          <!-- Card 2: Flashcard Practice -->
+          <div class="screenshot-card flashcard-row-card" onclick="app.startDailySession()">
+            <div class="icon-square-box flashcard-icon-box">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+                <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+              </svg>
+            </div>
+            <div class="card-text-box">
+              <div class="card-primary-title">ফ্ল্যাশকার্ড প্র্যাকটিস</div>
+              <div class="card-secondary-subtitle" id="home-flashcard-due-sub">2000 টি শব্দ বাকি</div>
+            </div>
+          </div>
+
+          <!-- Card Row 3: 3 options in this line -->
+          <div class="three-cards-row">
+            <!-- Left: শব্দকোষ -->
+            <div class="screenshot-card mini-action-card" onclick="app.switchScreen('vocab')">
+              <div class="icon-square-box mint-box">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                </svg>
+              </div>
+              <div class="card-primary-title">শব্দকোষ</div>
+              <div class="card-secondary-subtitle" id="home-vocab-count-sub">2000 টি শব্দ</div>
             </div>
 
-            <div class="menu-grid">
-                <!-- Flashcard Menu -->
-                <div class="menu-btn menu-full" onclick="openFlashcard()">
-                    <div class="menu-icon gold" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">
-                        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line></svg>
-                    </div>
-                    <div class="menu-info">
-                        <span class="menu-title">ফ্ল্যাশকার্ড (রিভিশন)</span>
-                        <span class="menu-count">সোয়াইপ করে শিখুন</span>
-                    </div>
-                </div>
-
-                <div class="menu-btn menu-full" onclick="openScreen('all', 'সম্পূর্ণ শব্দকোষ')">
-                    <div class="menu-icon gold">
-                        <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </div>
-                    <div class="menu-info">
-                        <span class="menu-title">সম্পূর্ণ শব্দকোষ</span>
-                        <span class="menu-count" id="ui-count-all">2000 টি শব্দ</span>
-                    </div>
-                </div>
-
-                <div class="menu-btn" onclick="openScreen('learned', 'আয়ত্ত করা শব্দ')">
-                    <div class="menu-icon" style="background: rgba(5, 150, 105, 0.15); color: #059669;">
-                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                    </div>
-                    <div class="menu-info">
-                        <span class="menu-title">শিখেছি</span>
-                        <span class="menu-count" id="ui-count-learned">0 টি</span>
-                    </div>
-                </div>
-
-                <div class="menu-btn" onclick="openScreen('unlearned', 'বাকি থাকা শব্দ')">
-                    <div class="menu-icon" style="background: rgba(148, 163, 184, 0.15); color: #64748b;">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle></svg>
-                    </div>
-                    <div class="menu-info">
-                        <span class="menu-title">বাকি আছে</span>
-                        <span class="menu-count" id="ui-count-remaining">2000 টি</span>
-                    </div>
-                </div>
+            <!-- Middle: যেসব শব্দ শিখেছি (টিক দেওয়া হয়েছে) -->
+            <div class="screenshot-card mini-action-card middle-learned-card" onclick="app.showStatusWords('mastered')">
+              <div class="icon-square-box green-tick-box">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <div class="card-primary-title">শেখা শব্দ</div>
+              <div class="card-secondary-subtitle" id="home-learned-count-sub">0 টি শেখা</div>
             </div>
+
+            <!-- Right: রিভিউ বাকি -->
+            <div class="screenshot-card mini-action-card" onclick="app.showStatusWords('due')">
+              <div class="icon-square-box lavender-box">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="card-primary-title">রিভিউ বাকি</div>
+              <div class="card-secondary-subtitle" id="home-due-count-sub">0 টি বাকি</div>
+            </div>
+          </div>
+
+          <!-- Section 4: ২০টি শিখন লেভেল (প্রতিটিতে ১০০ শব্দ) - 4x5 Grid from Screenshot -->
+          <div class="screenshot-card levels-foldable-card">
+            <div class="levels-header-bar" onclick="app.toggleLevelsFold()">
+              <div>
+                <div class="levels-main-title">২০টি শিখন লেভেল (প্রতিটিতে ১০০ শব্দ)</div>
+                <div class="levels-sub-title">মৌলিক অব্যয় থেকে শুরু করে ধাপে ধাপে গভীর ভাবার্থ</div>
+              </div>
+              <span class="mission-badge" id="levels-fold-indicator" style="font-size:11px; white-space:nowrap;">ফোল্ড করা ▸</span>
+            </div>
+
+            <!-- 4x5 Grid from Screenshot -->
+            <div id="home-levels-grid-container" style="display: none; margin-top: 14px; border-top: 1px solid var(--border-light); padding-top: 12px;">
+              <div class="levels-chips-grid" id="home-levels-grid-chips">
+                <!-- 20 Chips Rendered by JS: L1 to L20 with 0% -->
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- ================= LIST SCREEN ================= -->
-    <div id="list-screen" class="screen">
-        <div class="list-app-bar">
-            <button class="back-btn" onclick="history.back()">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <div class="list-title" id="list-title-text">লিস্ট</div>
-        </div>
-        <div class="search-area">
-            <input type="text" class="search-box" id="search-input" placeholder="🔍 আরবি বা বাংলায় খুঁজুন...">
-        </div>
-        <div class="words-list" id="words-list-container"></div>
+    <!-- ================= 2. VOCABULARY SCREEN ================= -->
+    <div id="vocab-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">কুরআনিক শব্দকোষ</div>
+        <span class="mission-badge" id="vocab-count-badge">২০০০ শব্দ</span>
+      </div>
+
+      <!-- Category Filter Strip -->
+      <div class="filter-strip">
+        <button class="pill-btn cat-pill active" data-cat="all">সকল</button>
+        <button class="pill-btn cat-pill" data-cat="Grammar / function words">অব্যয় ও সর্বনাম</button>
+        <button class="pill-btn cat-pill" data-cat="Actions">ক্রিয়া (Verbs)</button>
+        <button class="pill-btn cat-pill" data-cat="Allah / Divine Attributes">আল্লাহ ও সিফাত</button>
+        <button class="pill-btn cat-pill" data-cat="Worship">ইবাদত</button>
+        <button class="pill-btn cat-pill" data-cat="Faith">ঈমান ও বিশ্বাস</button>
+        <button class="pill-btn cat-pill" data-cat="Judgment">আখিরাত</button>
+        <button class="pill-btn cat-pill" data-cat="People">মানুষ ও সৃষ্টি</button>
+      </div>
+
+      <div class="search-container">
+        <input type="text" class="search-input" id="vocab-search-input" placeholder="🔍 আরবি, বাংলা, ইংরেজি বা রুট দিয়ে খুঁজুন...">
+      </div>
+
+      <div class="scroll-content" id="vocab-items-list">
+        <!-- Rendered by JS -->
+      </div>
     </div>
 
-    <!-- ================= FLASHCARD SCREEN ================= -->
-    <div id="flashcard-screen" class="screen">
-        <div class="list-app-bar">
-            <button class="back-btn" onclick="history.back()">
-                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <div class="list-title">ফ্ল্যাশকার্ড</div>
-        </div>
-        <div class="fc-area" id="fc-area"></div>
-        <div class="fc-controls">
-            <button class="fc-btn nope" onclick="triggerSwipe('left')">
-                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            </button>
-            <button class="fc-btn like" onclick="triggerSwipe('right')">
-                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            </button>
-        </div>
+    <!-- ================= 3. QUIZ / ACTIVE RECALL SCREEN ================= -->
+    <div id="quiz-screen" class="screen">
+      <div class="top-bar">
+        <button class="icon-btn" onclick="app.switchScreen('home')">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title">সক্রিয় স্মরণ ও মূল্যায়ন</div>
+        <span class="mission-badge" id="quiz-progress-badge">১ / ১৫</span>
+      </div>
+
+      <div class="scroll-content" id="quiz-body-container">
+        <!-- Active Flashcard / Quiz Item Rendered by JS -->
+      </div>
     </div>
+
+    <!-- ================= 4. QURAN AYAH READER SCREEN ================= -->
+    <div id="quran-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">কুরআনের প্রেক্ষাপট পাঠ</div>
+        <span class="mission-badge">আয়াত বিশ্লেষণ</span>
+      </div>
+
+      <div style="padding: 10px 16px; background: var(--surface-alt); font-size: 12px; color: var(--text-secondary); border-bottom:1px solid var(--border);">
+        💡 <em>যেকোনো শব্দে স্পর্শ করুন — শব্দটির ব্যাকরণিক পরিচিতি, অর্থ ও মূলধাতু দেখতে পাবেন।</em>
+      </div>
+
+      <div class="scroll-content" id="quran-verses-container">
+        <!-- Verses Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ================= 5. PROGRESS & ROOTS SCREEN ================= -->
+    <div id="progress-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">শিখন অগ্রগতি ও বিশ্লেষণ</div>
+        <button class="icon-btn" onclick="app.openModal('settings-modal')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+      </div>
+
+      <div class="scroll-content">
+        <!-- Overview Stats -->
+        <div class="card-section">
+          <div class="section-title">সামগ্রিক পরিসংখ্যান</div>
+          <div class="mission-metrics">
+            <div class="metric-box">
+              <div class="metric-num" id="stat-total-words">০ / ২০০০</div>
+              <div class="metric-label">মোট পড়া শব্দ</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num" id="stat-accuracy">১০০%</div>
+              <div class="metric-label">স্মরণ যথার্থতা</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-num" id="stat-streak">১ দিন</div>
+              <div class="metric-label">ধারাবাহিকতা</div>
+            </div>
+          </div>
+
+          <!-- Mastery Breakdown -->
+          <div class="section-title" style="margin-top:14px; font-size:13px;">দক্ষতার স্তর (SM-2 Spaced Repetition)</div>
+          <div class="mastery-chips">
+            <div class="mastery-chip">
+              <div class="mastery-chip-num" id="tier-count-new">২০০০</div>
+              <div class="mastery-chip-lbl">নতুন</div>
+            </div>
+            <div class="mastery-chip">
+              <div class="mastery-chip-num" id="tier-count-learning">০</div>
+              <div class="mastery-chip-lbl">শিখছি</div>
+            </div>
+            <div class="mastery-chip">
+              <div class="mastery-chip-num" id="tier-count-familiar">০</div>
+              <div class="mastery-chip-lbl">পরিচিত</div>
+            </div>
+            <div class="mastery-chip">
+              <div class="mastery-chip-num" id="tier-count-strong">০</div>
+              <div class="mastery-chip-lbl">দক্ষ</div>
+            </div>
+            <div class="mastery-chip">
+              <div class="mastery-chip-num" id="tier-count-mastered">০</div>
+              <div class="mastery-chip-lbl">আয়ত্তে</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weak Words Drill Alert -->
+        <div class="card-section" id="weak-words-section" style="display:none; border:1px solid #fca5a5; background:#fef2f2;">
+          <div style="font-size:14px; font-weight:700; color:var(--danger); margin-bottom:4px;">⚠️ দুর্বল শব্দসমূহ জোরদার করুন</div>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;" id="weak-words-count">কিছু শব্দে ভুল হয়েছে। এগুলো এখনই রিভিশন দিন।</p>
+          <button class="pill-btn" style="background:var(--danger); color:white; border:none;" onclick="app.startSpecificPractice('weak')">দুর্বল শব্দ ড্রিল শুরু করুন</button>
+        </div>
+
+        <!-- Triliteral Roots Explorer -->
+        <div class="section-title" style="margin: 18px 0 10px 4px;">মূলধাতু অন্বেষণ (Triliteral Roots)</div>
+        <div id="roots-grid-container">
+          <!-- Rendered by JS -->
+        </div>
+
+        <!-- Grammar Foundations -->
+        <div class="section-title" style="margin: 18px 0 10px 4px;">ব্যাকরণ ও রূপতত্ত্ব গাইড</div>
+        <div id="grammar-guide-container">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" data-screen="home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+      <span>মিশন</span>
+    </button>
+    <button class="nav-tab" data-screen="vocab">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+      <span>শব্দকোষ</span>
+    </button>
+    <button class="nav-tab" data-screen="quiz">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      <span>অনুশীলন</span>
+    </button>
+    <button class="nav-tab" data-screen="quran">
+      <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+      <span>কুরআন পাঠ</span>
+    </button>
+    <button class="nav-tab" data-screen="progress">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+      <span>অগ্রগতি</span>
+    </button>
+  </nav>
+
+  <!-- ================= MODAL: WORD DETAIL ================= -->
+  <div class="modal-overlay" id="word-detail-modal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <span class="mission-badge" id="m-id-tag">QCV-0001</span>
+        <button class="icon-btn" onclick="app.closeModal('word-detail-modal')">✕</button>
+      </div>
+
+      <div style="text-align:center; padding-bottom:16px; border-bottom:1px solid var(--border); margin-bottom:14px;">
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+          <div class="arabic-lemma" id="m-ar-lemma" style="font-size:46px;">مِنْ</div>
+          <button class="icon-btn" onclick="app.playPronunciation(document.getElementById('m-ar-lemma').textContent)" title="উচ্চারণ শুনুন">
+            <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </button>
+        </div>
+        <div class="ar-translit" id="m-translit" style="font-size:15px; margin-bottom:6px;">min</div>
+        <div class="word-bn-title" id="m-bn-meaning" style="font-size:22px;">থেকে, হইতে</div>
+        <div class="word-en-sub" id="m-en-meaning" style="font-size:14px;">from, of</div>
+      </div>
+
+      <div class="mission-metrics" style="grid-template-columns: 1fr 1fr; margin-bottom:14px;">
+        <div class="metric-box">
+          <div class="metric-label">শব্দশ্রেণি ও রূপ</div>
+          <div class="metric-num" id="m-pos-val" style="font-size:13px;">Preposition</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">মূলধাতু (Root)</div>
+          <div class="metric-num" id="m-root-val" style="font-size:13px;">-</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">কুরআনে পুনরাবৃত্তি</div>
+          <div class="metric-num" id="m-freq-val" style="font-size:13px;">৩২২৬ বার</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">অগ্রাধিকার স্কোর</div>
+          <div class="metric-num" id="m-score-val" style="font-size:13px;">৯৮.৫ / ১০০</div>
+        </div>
+      </div>
+
+      <!-- Ayah Context -->
+      <div class="ayah-card" id="m-verse-box" style="margin-bottom:14px;">
+        <div class="ayah-meta">
+          <span>কুরআনের আয়াত থেকে উদাহরণ</span>
+          <span id="m-verse-ref">সূরা ১, আয়াত ১</span>
+        </div>
+        <div class="ayah-arabic-text" id="m-verse-ar" style="font-size:20px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div class="ayah-bn-translation" id="m-verse-bn">শুরু করছি আল্লাহর নামে যিনি পরম করুণাময়, অতি দয়ালু।</div>
+        <div class="ayah-en-translation" id="m-verse-en">In the name of Allah, the Entirely Merciful, the Especially Merciful.</div>
+      </div>
+
+      <!-- Linguistic Note -->
+      <div class="card-section" style="margin-bottom:14px; background:var(--surface-alt);">
+        <div style="font-size:11px; font-weight:700; color:var(--gold); margin-bottom:4px;">ভাষাতাত্ত্বিক অন্তর্ভুক্তি ও প্রয়োগ:</div>
+        <div id="m-explanation-text" style="font-size:13px; line-height:1.4; color:var(--text-primary);">-</div>
+      </div>
+
+      <!-- Related Words -->
+      <div id="m-related-roots-sec" style="display:none; margin-bottom:14px;">
+        <div style="font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">একই মূলধাতুর অন্যান্য শব্দ:</div>
+        <div id="m-related-chips" style="display:flex; gap:6px; flex-wrap:wrap;"></div>
+      </div>
+
+      <!-- AI Tutor Prompt Button -->
+      <button class="btn-primary" onclick="app.openAITutor()" style="margin-top:10px;">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        কুরআনিক শিক্ষকের সাহায্য নিন (AI Tutor)
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: AI TUTOR ================= -->
+  <div class="modal-overlay" id="ai-tutor-modal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div style="font-size:16px; font-weight:700; color:var(--primary);" id="ai-tutor-title">কুরআনিক গৃহশিক্ষক</div>
+        <button class="icon-btn" onclick="app.closeModal('ai-tutor-modal')">✕</button>
+      </div>
+
+      <div style="display:flex; gap:6px; overflow-x:auto; margin-bottom:12px; scrollbar-width:none;">
+        <button class="pill-btn" onclick="app.openAITutor('আয়াতে এর প্রয়োগ ও ভূমিকা বুঝিয়ে বলুন')">আয়াতে প্রয়োগ</button>
+        <button class="pill-btn" onclick="app.openAITutor('মনে রাখার সহজ কৌশল কী?')">মনে রাখার কৌশল</button>
+        <button class="pill-btn" onclick="app.openAITutor('মূলধাতু ও রূপতত্ত্ব ব্যাখ্যা করুন')">মূলধাতু ব্যাখ্যা</button>
+      </div>
+
+      <div id="ai-tutor-content" style="background:var(--surface-alt); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; font-size:14px; line-height:1.6; margin-bottom:14px; max-height:360px; overflow-y:auto;">
+        <!-- Injected by JS -->
+      </div>
+
+      <div style="display:flex; gap:8px;">
+        <input type="text" class="search-input" id="ai-tutor-custom-q" placeholder="নির্দিষ্ট কোনো প্রশ্ন থাকলে লিখুন...">
+        <button class="pill-btn" style="background:var(--primary); color:white; border:none;" onclick="app.openAITutor(document.getElementById('ai-tutor-custom-q').value)">জিজ্ঞেস করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: SETTINGS & BACKUP ================= -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div style="font-size:17px; font-weight:700; color:var(--text-primary);">সেটিংস ও ব্যাকআপ</div>
+        <button class="icon-btn" onclick="app.closeModal('settings-modal')">✕</button>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">দৈনিক পড়ার সময় লক্ষ্য</div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <button class="pill-btn" onclick="app.finishOnboarding(10)">১০ মিনিট</button>
+          <button class="pill-btn" onclick="app.finishOnboarding(15)">১৫ মিনিট</button>
+          <button class="pill-btn" onclick="app.finishOnboarding(20)">২০ মিনিট</button>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">ডেটা ব্যাকআপ ও রিস্টোর</div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">আপনার শিখন অগ্রগতি সুরক্ষিত রাখতে ব্যাকআপ ফাইল ডাউনলোড করুন অথবা অন্য ডিভাইস থেকে রিস্টোর করুন।</p>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-primary" style="font-size:13px; padding:10px;" onclick="app.exportDataFile()">📥 ব্যাকআপ ডাউনলোড</button>
+          <button class="pill-btn" style="flex:1; border:1px solid var(--border);" onclick="app.triggerImport()">📤 রিস্টোর করুন</button>
+          <input type="file" id="import-file-input" style="display:none;" accept=".json" onchange="app.handleFileImport(event)">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: ONBOARDING ================= -->
+  <div class="modal-overlay" id="onboarding-modal">
+    <div class="modal-sheet" style="text-align:center;">
+      <div style="font-size:44px; margin-bottom:8px;">📖✨</div>
+      <div style="font-family:'Amiri',serif; font-size:24px; color:var(--gold); margin-bottom:4px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h2 style="font-size:20px; font-weight:700; color:var(--primary); margin-bottom:8px;">কুরআনিক শব্দকোষে স্বাগতম</h2>
+      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:18px;">
+        কুরআন বোঝার জন্য ২০০০টি সর্বাধিক ব্যবহৃত মৌলিক শব্দ, রূপতত্ত্ব ও ব্যাকরণ শেখার ৯০ দিনের একটি সুবিন্যস্ত বৈজ্ঞানিক সিস্টেম।
+      </p>
+
+      <div class="card-section" style="text-align:left; margin-bottom:18px;">
+        <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:4px;">দৈনিক কতটুকু সময় দিতে চান?</div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <button class="pill-btn" onclick="app.finishOnboarding(10)">১০ মিনিট</button>
+          <button class="pill-btn active" onclick="app.finishOnboarding(15)">১৫ মিনিট</button>
+          <button class="pill-btn" onclick="app.finishOnboarding(20)">২০ মিনিট</button>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="app.finishOnboarding(15)">আমার শিখন যাত্রা শুরু করুন</button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: STATUS WORDS LIST ================= -->
+  <div class="modal-overlay" id="status-words-modal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <div>
+          <div style="font-size:16px; font-weight:700; color:var(--text-primary);" id="status-modal-title">শেখা হয়ে গেছে এমন শব্দ</div>
+          <div style="font-size:12px; color:var(--text-muted);" id="status-modal-count">০টি শব্দ পাওয়া গেছে</div>
+        </div>
+        <button class="icon-btn" onclick="app.closeModal('status-words-modal')">✕</button>
+      </div>
+
+      <div style="margin-bottom: 12px; display: flex; gap: 8px;">
+        <button class="btn-primary" id="status-modal-practice-btn" style="padding: 10px; font-size: 13px;" onclick="app.startFilteredPractice()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px; height:16px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          এই শব্দগুলো চর্চা করুন
+        </button>
+      </div>
+
+      <div id="status-modal-words-list" style="max-height: 55vh; overflow-y: auto;">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<script>
-/* 
-=========================================================
-আপনার ২০০০ শব্দের লিস্টটি নিচের wordsData এর ভেতর বসান
-========================================================= 
-*/
-const wordsData = [
-  [1, "مِنْ", "থেকে", "From", "অব্যয়"],
-  [2, "مَا", "যা / নয়", "What/Not", "সর্বনাম/নেতিবাচক"],
-  [3, "فِي", "মধ্যে", "In", "অব্যয়"],
-  [4, "إِلَى", "দিকে", "To/Towards", "অব্যয়"],
-  [5, "عَلَى", "উপরে", "On/Upon", "অব্যয়"],
-  [6, "اللَّهُ", "আল্লাহ", "Allah", "নাম/সত্তা"],
-  [7, "رَبِّ", "প্রতিপালক", "Lord", "নাম/সত্তা"],
-  [8, "يَوْمِ", "দিন", "Day", "বিশেষ্য"],
-  [9, "النَّاسِ", "মানুষ", "People", "বিশেষ্য"],
-  [10, "الْأَرْضِ", "পৃথিবী", "Earth", "বিশেষ্য"],
-  [11, "السَّمَاوَاتِ", "আকাশসমূহ", "Heavens", "বিশেষ্য"],
-  [12, "كِتَابِ", "কিতাব", "Book", "বিশেষ্য"],
-  [13, "رَسُولِ", "রাসূল", "Messenger", "বিশেষ্য"],
-  [14, "قَالَ", "বললেন", "He said", "ক্রিয়া"],
-  [15, "كَانَ", "ছিল", "He was", "ক্রিয়া"],
-  [16, "جَعَلَ", "করলেন/বানালেন", "He made", "ক্রিয়া"],
-  [17, "عَمِلَ", "কাজ করল", "He did", "ক্রিয়া"],
-  [18, "عَلِمَ", "জানলেন", "He knew", "ক্রিয়া"],
-  [19, "آمَنَ", "ঈমান আনল", "He believed", "ক্রিয়া"],
-  [20, "كَفَرَ", "অস্বীকার করল", "He disbelieved", "ক্রিয়া"],
-  [21, "ظَلَمَ", "যুলুম করল", "He wronged", "ক্রিয়া"],
-  [22, "هَدَى", "পথ দেখালেন", "He guided", "ক্রিয়া"],
-  [23, "ضَلَّ", "পথ হারাল", "He went astray", "ক্রিয়া"],
-  [24, "رَحِمَ", "দয়া করলেন", "He had mercy", "ক্রিয়া"],
-  [25, "غَفَرَ", "ক্ষমা করলেন", "He forgave", "ক্রিয়া"],
-  [26, "نَصَرَ", "সাহায্য করলেন", "He helped", "ক্রিয়া"],
-  [27, "شَكَرَ", "কৃতজ্ঞ হল", "He thanked", "ক্রিয়া"],
-  [28, "صَبَرَ", "ধৈর্য ধারণ করল", "He was patient", "ক্রিয়া"],
-  [29, "صَلَاةِ", "সালাত", "Prayer", "বিশেষ্য"],
-  [30, "زَكَاةِ", "যাকাত", "Charity", "বিশেষ্য"],
-  [31, "حَجِّ", "হজ্জ", "Pilgrimage", "বিশেষ্য"],
-  [32, "صَوْمِ", "সিয়াম", "Fasting", "বিশেষ্য"],
-  [33, "حَقِّ", "সত্য", "Truth", "বিশেষ্য"],
-  [34, "بَاطِلِ", "মিথ্যা/অসার", "Falsehood", "বিশেষ্য"],
-  [35, "خَيْرِ", "কল্যাণ", "Good", "বিশেষ্য"],
-  [36, "شَرِّ", "অমঙ্গল", "Evil", "বিশেষ্য"],
-  [37, "حَلَالِ", "হালাল", "Lawful", "বিশেষ্য"],
-  [38, "حَرَامِ", "হারাম", "Forbidden", "বিশেষ্য"],
-  [39, "طَيِّبِ", "পবিত্র/উত্তম", "Pure/Good", "বিশেষণ"],
-  [40, "خَبِيثِ", "অপবিত্র/নিকৃষ্ট", "Evil/Impure", "বিশেষণ"],
-  [41, "نُورِ", "আলো", "Light", "বিশেষ্য"],
-  [42, "ظُلُمَاتِ", "অন্ধকারসমূহ", "Darknesses", "বিশেষ্য"],
-  [43, "حَيَاةِ", "জীবন", "Life", "বিশেষ্য"],
-  [44, "مَوْتِ", "মৃত্যু", "Death", "বিশেষ্য"],
-  [45, "دُنْيَا", "দুনিয়া", "Worldly life", "বিশেষ্য"],
-  [46, "آخِرَةِ", "আখিরাত", "Hereafter", "বিশেষ্য"],
-  [47, "جَنَّةِ", "জান্নাত", "Paradise", "বিশেষ্য"],
-  [48, "نَارِ", "জাহান্নামের আগুন", "Fire", "বিশেষ্য"],
-  [49, "مَلِكِ", "বাদশাহ", "King", "বিশেষ্য"],
-  [50, "عَرْشِ", "আরশ", "Throne", "বিশেষ্য"],
-  [51, "كُرْسِيِّ", "কুরসি", "Footstool", "বিশেষ্য"],
-  [52, "لَوْحِ", "লাওহ", "Tablet", "বিশেষ্য"],
-  [53, "قَلَمِ", "কলম", "Pen", "বিশেষ্য"],
-  [54, "خَلَقَ", "সৃষ্টি করলেন", "He created", "ক্রিয়া"],
-  [55, "أَمَرَ", "আদেশ দিলেন", "He commanded", "ক্রিয়া"],
-  [56, "نَهَى", "নিষেধ করলেন", "He forbade", "ক্রিয়া"],
-  [57, "أَكَلَ", "খেল", "He ate", "ক্রিয়া"],
-  [58, "شَرِبَ", "পান করল", "He drank", "ক্রিয়া"],
-  [59, "نِكَاحِ", "বিয়ে", "Marriage", "বিশেষ্য"],
-  [60, "طَلَاقِ", "তালাক", "Divorce", "বিশেষ্য"],
-  [61, "بَيْعِ", "ক্রয়-বিক্রয়", "Trade", "বিশেষ্য"],
-  [62, "شِرَاءِ", "ক্রয়", "Purchase", "বিশেষ্য"],
-  [63, "قَرْضِ", "ঋণ", "Loan", "বিশেষ্য"],
-  [64, "رِبَا", "সুদ", "Usury", "বিশেষ্য"],
-  [65, "مِيرَاثِ", "উত্তরাধিকার", "Inheritance", "বিশেষ্য"],
-  [66, "وَصِيَّةِ", "ওসিয়ত", "Will/Bequest", "বিশেষ্য"],
-  [67, "شَهَادَةِ", "সাক্ষ্য", "Testimony", "বিশেষ্য"],
-  [68, "حُكْمِ", "আইন/শাসন", "Judgment", "বিশেষ্য"],
-  [69, "عَدْلِ", "ন্যায়", "Justice", "বিশেষ্য"],
-  [70, "إِحْسَانِ", "ইহসান", "Excellence/Beneficence", "বিশেষ্য"],
-  [71, "جِهَادِ", "জিহাদ", "Struggle", "বিশেষ্য"],
-  [72, "قِتَالِ", "যুদ্ধ", "Fighting", "বিশেষ্য"],
-  [73, "صُلْحِ", "সন্ধি", "Peace/Reconciliation", "বিশেষ্য"],
-  [74, "سَلْمِ", "শান্তি", "Peace", "বিশেষ্য"],
-  [75, "حَرْبِ", "যুদ্ধ", "War", "বিশেষ্য"],
-  [76, "عَدُوِّ", "শত্রু", "Enemy", "বিশেষ্য"],
-  [77, "وَلِيِّ", "অভিভাবক/বন্ধু", "Protector/Friend", "বিশেষ্য"],
-  [78, "كَافِرِ", "কাফির", "Disbeliever", "বিশেষ্য"],
-  [79, "مُؤْمِنِ", "মুমিন", "Believer", "বিশেষ্য"],
-  [80, "مُسْلِمِ", "মুসলিম", "Muslim", "বিশেষ্য"],
-  [81, "مُتَّقِي", "মুত্তাকী", "God-fearing", "বিশেষ্য"],
-  [82, "فَاجِرِ", "পাপী", "Sinner/Wicked", "বিশেষ্য"],
-  [83, "صَالِحِ", "সালেহ (সৎকর্মশীল)", "Righteous", "বিশেষণ"],
-  [84, "طَالِحِ", "অসৎ", "Corrupt", "বিশেষণ"],
-  [85, "كَرِيمِ", "সম্মানিত/দয়ালু", "Generous/Noble", "বিশেষণ"],
-  [86, "ذَلِيلِ", "অপমানিত", "Dispised/Humbled", "বিশেষণ"],
-  [87, "عَزِيزِ", "সম্মানিত/পরাক্রমশালী", "Mighty", "বিশেষণ"],
-  [88, "حَكِيمِ", "প্রজ্ঞাময়", "Wise", "বিশেষণ"],
-  [89, "عَلِيمِ", "সর্বজ্ঞ", "All-Knowing", "বিশেষণ"],
-  [90, "خَبِيرِ", "সবকিছুর খবর রাখেন", "All-Aware", "বিশেষণ"],
-  [91, "بَصِيرِ", "সর্বদ্রষ্টা", "All-Seeing", "বিশেষণ"],
-  [92, "سَمِيعِ", "সর্বশ্রোতা", "All-Hearing", "বিশেষণ"],
-  [93, "قَدِيرِ", "সর্বশক্তিমান", "All-Powerful", "বিশেষণ"],
-  [94, "غَفُورِ", "ক্ষমাশীল", "Forgiving", "বিশেষণ"],
-  [95, "رَحِيمِ", "অতি দয়ালু", "Merciful", "বিশেষণ"],
-  [96, "رَحْمَٰنِ", "রহমান (পরম করুণাময়)", "Most Gracious", "বিশেষণ"],
-  [97, "قُدُّوسِ", "পবিত্র", "Holy", "বিশেষণ"],
-  [98, "سَلَامِ", "শান্তিদাতা", "Source of Peace", "বিশেষণ"],
-  [99, "مُؤْمِنِ", "শান্তিদাতা/রক্ষক", "Giver of Security", "বিশেষণ"],
-  [100, "مُهَيْمِنِ", "সংরক্ষক", "Overseer", "বিশেষণ"],
-  [101, "عَظِيمِ", "মহান", "Great", "বিশেষণ"],
-  [102, "كَبِيرِ", "বৃহৎ/মহান", "Great/Supreme", "বিশেষণ"],
-  [103, "عَلِيِّ", "উচ্চ/মহীয়ান", "Most High", "বিশেষণ"],
-  [104, "كَرِيمِ", "সম্মানিত", "Generous", "বিশেষণ"],
-  [105, "رَءُوفِ", "স্নেহশীল", "Kind/Compassionate", "বিশেষণ"],
-  [106, "تَوَّابِ", "তওবা কবুলকারী", "Accepter of Repentance", "বিশেষণ"],
-  [107, "شَكُورِ", "গুণগ্রাহী", "Appreciative", "বিশেষণ"],
-  [108, "حَلِيمِ", "ধৈর্যশীল/সহনশীল", "Forbearing", "বিশেষণ"],
-  [109, "وَلِيِّ", "অভিভাবক", "Protector", "বিশেষণ"],
-  [110, "حَمِيدِ", "প্রশংসিত", "Praiseworthy", "বিশেষণ"],
-  [111, "مَجِيدِ", "সম্মানিত/উচ্চ", "Glorious", "বিশেষণ"],
-  [112, "شَهِيدِ", "সাক্ষী", "Witness", "বিশেষণ"],
-  [113, "حَقِّ", "সত্য", "Truth", "বিশেষণ"],
-  [114, "مُبِينِ", "স্পষ্ট", "Clear", "বিশেষণ"],
-  [115, "قَرِيبِ", "নিকটবর্তী", "Near", "বিশেষণ"],
-  [116, "مُجِيبِ", "উত্তরদাতা", "Responder", "বিশেষণ"],
-  [117, "وَاحِدِ", "এক", "One", "বিশেষণ"],
-  [118, "أَحَدِ", "অদ্বিতীয়", "Unique", "বিশেষণ"],
-  [119, "صَمَدِ", "অমুখাপেক্ষী", "Self-Sufficient", "বিশেষণ"],
-  [120, "قَادِرِ", "ক্ষমতাবান", "Able", "বিশেষণ"],
-  [121, "مُقْتَدِرِ", "সর্বশক্তিমান", "All-Determining", "বিশেষণ"],
-  [122, "بَارِئِ", "সৃষ্টিকর্তা", "Maker", "বিশেষণ"],
-  [123, "مُصَوِّرِ", "রূপদানকারী", "Shaper", "বিশেষণ"],
-  [124, "غَنِيِّ", "অমুখাপেক্ষী", "Self-Sufficient", "বিশেষণ"],
-  [125, "مُغْنِي", "অভাবমোচনকারী", "Enricher", "বিশেষণ"],
-  [126, "مُفْلِحِ", "সফলকাম", "Successful", "বিশেষণ"],
-  [127, "خَالِدِ", "চিরস্থায়ী", "Eternal", "বিশেষণ"],
-  [128, "أَبَدِ", "অনন্তকাল", "Forever", "বিশেষ্য"],
-  [129, "أَزَلِ", "অনাদি", "Eternal without beginning", "বিশেষ্য"],
-  [130, "دَائِمِ", "স্থায়ী", "Perpetual", "বিশেষণ"],
-  [131, "بَاقِي", "বাকি থাকা", "Remaining", "বিশেষণ"],
-  [132, "فَانِي", "নশ্বর", "Perishing", "বিশেষণ"],
-  [133, "أَوَّلِ", "প্রথম", "First", "বিশেষণ"],
-  [134, "آخِرِ", "শেষ", "Last", "বিশেষণ"],
-  [135, "ظَاهِرِ", "প্রকাশ্য", "Outer/Manifest", "বিশেষণ"],
-  [136, "بَاطِنِ", "অন্তরালস্থ", "Inner/Hidden", "বিশেষণ"],
-  [137, "جَبَّارِ", "পরাক্রমশালী", "Compeller", "বিশেষণ"],
-  [138, "مُتَكَبِّرِ", "মহিমান্বিত", "Proud/Majestic", "বিশেষণ"],
-  [139, "خَالِقِ", "স্রষ্টা", "Creator", "বিশেষণ"],
-  [140, "بَارِئِ", "সৃষ্টিকর্তা", "Originator", "বিশেষণ"],
-  [141, "مُصَوِّرِ", "আকৃতিদাতা", "Fashioner", "বিশেষণ"],
-  [142, "قَابِضِ", "জীবন সংকোচনকারী", "Withholder", "বিশেষণ"],
-  [143, "بَاسِطِ", "জীবন প্রসারণকারী", "Expander", "বিশেষণ"],
-  [144, "خَافِضِ", "সম্মানহীনকারী", "Abaser", "বিশেষণ"],
-  [145, "رَافِعِ", "সম্মানদাতা", "Exalter", "বিশেষণ"],
-  [146, "مُعِزِّ", "সম্মান দানকারী", "Honorer", "বিশেষণ"],
-  [147, "مُذِلِّ", "অপমানকারী", "Dishonorer", "বিশেষণ"],
-  [148, "عَدْلِ", "ন্যায়বিচারক", "Just", "বিশেষণ"],
-  [149, "لَطِيفِ", "সূক্ষ্মদর্শী/দয়াময়", "Subtle/Kind", "বিশেষণ"],
-  [150, "خَبِيرِ", "জ্ঞানী", "All-Aware", "বিশেষণ"],
-  [151, "حَلِيمِ", "ধৈর্যশীল", "Forbearing", "বিশেষণ"],
-  [152, "عَلِيِّ", "মহীয়ান", "Most High", "বিশেষণ"],
-  [153, "كَبِيرِ", "মহান", "Great", "বিশেষণ"],
-  [154, "حَفِيظِ", "সংরক্ষক", "Preserver", "বিশেষণ"],
-  [155, "مُقِيتِ", "শক্তি ও খাদ্যদাতা", "Sustainer", "বিশেষণ"],
-  [156, "حَسِيبِ", "হিসাব গ্রহণকারী", "Reckoner", "বিশেষণ"],
-  [157, "جَلِيلِ", "মহিমান্বিত", "Majestic", "বিশেষণ"],
-  [158, "كَرِيمِ", "দয়ালু/সম্মানিত", "Generous", "বিশেষণ"],
-  [159, "رَقِيبِ", "পরিদর্শক", "Watchful", "বিশেষণ"],
-  [160, "مُجِيبِ", "উত্তরদাতা", "Answerer", "বিশেষণ"],
-  [161, "وَاسِعِ", "প্রশস্ত/সর্বব্যাপী", "Vast/All-Encompassing", "বিশেষণ"],
-  [162, "حَكِيمِ", "প্রজ্ঞাময়", "Wise", "বিশেষণ"],
-  [163, "وَدُودِ", "প্রেমময়", "Loving", "বিশেষণ"],
-  [164, "مَجِيدِ", "মর্যাদাপূর্ণ", "Glorious", "বিশেষণ"],
-  [165, "بَاعِثِ", "পুনরুত্থানকারী", "Resurrector", "বিশেষণ"],
-  [166, "شَهِيدِ", "সাক্ষী", "Witness", "বিশেষণ"],
-  [167, "حَقِّ", "সত্য", "Truth", "বিশেষণ"],
-  [168, "وَكِيلِ", "ভারপ্রাপ্ত", "Trustee/Disposer", "বিশেষণ"],
-  [169, "قَوِيِّ", "শক্তিশালী", "Strong", "বিশেষণ"],
-  [170, "مَتِينِ", "দৃঢ়", "Firm", "বিশেষণ"],
-  [171, "وَلِيِّ", "অভিভাবক", "Protector", "বিশেষণ"],
-  [172, "حَمِيدِ", "প্রশংসিত", "Praiseworthy", "বিশেষণ"],
-  [173, "مُحْصِي", "গণনাকারী", "Counter/Recorder", "বিশেষণ"],
-  [174, "مُبْدِئِ", "প্রথমবার সৃষ্টি", "Originator", "বিশেষণ"],
-  [175, "مُعِيدِ", "পুনরায় সৃষ্টি", "Reproducer", "বিশেষণ"],
-  [176, "مُحْيِي", "জীবনদাতা", "Giver of Life", "বিশেষণ"],
-  [177, "مُمِيتِ", "মৃত্যুদাতা", "Bringer of Death", "বিশেষণ"],
-  [178, "حَيِّ", "চিরঞ্জীব", "Ever-Living", "বিশেষণ"],
-  [179, "قَيُّومِ", "স্বয়ংসম্পূর্ণ", "Self-Subsisting", "বিশেষণ"],
-  [180, "وَاجِدِ", "পাওয়ার অধিকারী", "Finder", "বিশেষণ"],
-  [181, "مَاجِدِ", "সম্মানিত", "Glorious", "বিশেষণ"],
-  [182, "أَحَدِ", "এক", "One", "বিশেষণ"],
-  [183, "صَمَدِ", "অমুখাপেক্ষী", "Eternal Refuge", "বিশেষণ"],
-  [184, "لَمْ يَلِدْ", "তিনি কাউকে জন্ম দেননি", "He begets not", "বাক্যাংশ"],
-  [185, "وَلَمْ يُولَدْ", "এবং তাঁকে কেউ জন্ম দেয়নি", "Nor is He begotten", "বাক্যাংশ"],
-  [186, "كُفُوًا", "সমান", "Equal", "বিশেষণ"],
-  [187, "إِلَٰهٍ", "উপাস্য", "God", "বিশেষ্য"],
-  [188, "رَسُولٍ", "রাসূল", "Messenger", "বিশেষ্য"],
-  [189, "نَبِيٍّ", "নবী", "Prophet", "বিশেষ্য"],
-  [190, "وَحْيٍ", "অহী", "Revelation", "বিশেষ্য"],
-  [191, "كِتَابٍ", "কিতাব", "Book", "বিশেষ্য"],
-  [192, "قُرْآنِ", "কুরআন", "Quran", "বিশেষ্য"],
-  [193, "فُرْقَانِ", "ফুরকান (সত্য-মিথ্যার পার্থক্যকারী)", "Criterion", "বিশেষ্য"],
-  [194, "سُورَةٍ", "সূরা", "Chapter", "বিশেষ্য"],
-  [195, "آيَةٍ", "আয়াত", "Verse", "বিশেষ্য"],
-  [196, "ذِكْرِ", "স্মরণ/উপদেশ", "Reminder", "বিশেষ্য"],
-  [197, "حِكْمَةٍ", "প্রজ্ঞা", "Wisdom", "বিশেষ্য"],
-  [198, "رَحْمَةٍ", "দয়া", "Mercy", "বিশেষ্য"],
-  [199, "بَرَكَةٍ", "বরকত", "Blessing", "বিশেষ্য"],
-  [200, "هُدًى", "পথনির্দেশ", "Guidance", "বিশেষ্য"],
-  [201, "رَحْمَٰنِ", "রহমান", "Most Gracious", "বিশেষণ"],
-  [202, "رَحِيمِ", "রহিম", "Most Merciful", "বিশেষণ"],
-  [203, "مَالِكِ", "মালিক", "Master", "বিশেষ্য"],
-  [204, "مَلِكِ", "বাদশাহ", "King", "বিশেষ্য"],
-  [205, "قُدُّوسِ", "পবিত্র", "Holy", "বিশেষণ"],
-  [206, "سَلَامِ", "শান্তিদাতা", "Peace", "বিশেষণ"],
-  [207, "مُؤْمِنِ", "রক্ষাকারী", "Guardian of Faith", "বিশেষণ"],
-  [208, "مُهَيْمِنِ", "সংরক্ষক", "Overseer", "বিশেষণ"],
-  [209, "عَزِيزِ", "পরাক্রমশালী", "Mighty", "বিশেষণ"],
-  [210, "جَبَّارِ", "শক্তিশালী", "Compeller", "বিশেষণ"],
-  [211, "مُتَكَبِّرِ", "মহিমান্বিত", "Majestic", "বিশেষণ"],
-  [212, "خَالِقِ", "স্রষ্টা", "Creator", "বিশেষণ"],
-  [213, "بَارِئِ", "সৃষ্টিকর্তা", "Originator", "বিশেষণ"],
-  [214, "مُصَوِّرِ", "রূপদানকারী", "Shaper", "বিশেষণ"],
-  [215, "غَفَّارِ", "ক্ষমাশীল", "Forgiving", "বিশেষণ"],
-  [216, "قَهَّارِ", "পরাক্রমশালী", "Subduer", "বিশেষণ"],
-  [217, "وَهَّابِ", "দানশীল", "Giver", "বিশেষণ"],
-  [218, "رَزَّاقِ", "রিজিকদাতা", "Provider", "বিশেষণ"],
-  [219, "فَتَّاحِ", "বিজয়দাতা", "Opener", "বিশেষণ"],
-  [220, "عَلِيمِ", "সর্বজ্ঞ", "All-Knowing", "বিশেষণ"],
-  [221, "قَابِضِ", "সংকোচনকারী", "Withholder", "বিশেষণ"],
-  [222, "بَاسِطِ", "প্রসারণকারী", "Expander", "বিশেষণ"],
-  [223, "خَافِضِ", "সম্মানহীনকারী", "Abaser", "বিশেষণ"],
-  [224, "رَافِعِ", "সম্মানদাতা", "Exalter", "বিশেষণ"],
-  [225, "مُعِزِّ", "সম্মান দানকারী", "Honorer", "বিশেষণ"],
-  [226, "مُذِلِّ", "অপমানকারী", "Dishonorer", "বিশেষণ"],
-  [227, "سَمِيعِ", "সর্বশ্রোতা", "All-Hearing", "বিশেষণ"],
-  [228, "بَصِيرِ", "সর্বদ্রষ্টা", "All-Seeing", "বিশেষণ"],
-  [229, "حَكَمِ", "বিচারক", "Judge", "বিশেষণ"],
-  [230, "عَدْلِ", "ন্যায়বিচারক", "Just", "বিশেষণ"],
-  [231, "لَطِيفِ", "সূক্ষ্মদর্শী", "Subtle", "বিশেষণ"],
-  [232, "خَبِيرِ", "জ্ঞানী", "All-Aware", "বিশেষণ"],
-  [233, "حَلِيمِ", "ধৈর্যশীল", "Forbearing", "বিশেষণ"],
-  [234, "عَظِيمِ", "মহান", "Great", "বিশেষণ"],
-  [235, "غَفُورِ", "ক্ষমাশীল", "Forgiving", "বিশেষণ"],
-  [236, "شَكُورِ", "গুণগ্রাহী", "Appreciative", "বিশেষণ"],
-  [237, "عَلِيِّ", "মহীয়ান", "Most High", "বিশেষণ"],
-  [238, "كَبِيرِ", "মহান", "Great", "বিশেষণ"],
-  [239, "حَفِيظِ", "সংরক্ষক", "Preserver", "বিশেষণ"],
-  [240, "مُقِيتِ", "খাদ্যদাতা", "Sustainer", "বিশেষণ"],
-  [241, "حَسِيبِ", "হিসাব গ্রহণকারী", "Reckoner", "বিশেষণ"],
-  [242, "جَلِيلِ", "মহিমান্বিত", "Majestic", "বিশেষণ"],
-  [243, "كَرِيمِ", "দয়ালু", "Generous", "বিশেষণ"],
-  [244, "رَقِيبِ", "পরিদর্শক", "Watchful", "বিশেষণ"],
-  [245, "مُجِيبِ", "উত্তরদাতা", "Answerer", "বিশেষণ"],
-  [246, "وَاسِعِ", "প্রশস্ত", "Vast", "বিশেষণ"],
-  [247, "حَكِيمِ", "প্রজ্ঞাময়", "Wise", "বিশেষণ"],
-  [248, "وَدُودِ", "প্রেমময়", "Loving", "বিশেষণ"],
-  [249, "مَجِيدِ", "মর্যাদাপূর্ণ", "Glorious", "বিশেষণ"],
-  [250, "بَاعِثِ", "পুনরুত্থানকারী", "Resurrector", "বিশেষণ"],
-  [251, "شَهِيدِ", "সাক্ষী", "Witness", "বিশেষণ"],
-  [252, "حَقِّ", "সত্য", "Truth", "বিশেষণ"],
-  [253, "وَكِيلِ", "ভারপ্রাপ্ত", "Trustee", "বিশেষণ"],
-  [254, "قَوِيِّ", "শক্তিশালী", "Strong", "বিশেষণ"],
-  [255, "مَتِينِ", "দৃঢ়", "Firm", "বিশেষণ"],
-  [256, "وَلِيِّ", "অভিভাবক", "Protector", "বিশেষণ"],
-  [257, "حَمِيدِ", "প্রশংসিত", "Praiseworthy", "বিশেষণ"],
-  [258, "مُحْصِي", "গণনাকারী", "Reckoner", "বিশেষণ"],
-  [259, "مُبْدِئِ", "আদি স্রষ্টা", "Originator", "বিশেষণ"],
-  [260, "مُعِيدِ", "পুনঃসৃষ্টিকারী", "Reproducer", "বিশেষণ"],
-  [261, "مُحْيِي", "জীবনদাতা", "Giver of Life", "বিশেষণ"],
-  [262, "مُمِيتِ", "মৃত্যুদাতা", "Bringer of Death", "বিশেষণ"],
-  [263, "حَيِّ", "চিরঞ্জীব", "Ever-Living", "বিশেষণ"],
-  [264, "قَيُّومِ", "স্বয়ংসম্পূর্ণ", "Self-Subsisting", "বিশেষণ"],
-  [265, "وَاجِدِ", "পাওয়ার অধিকারী", "Finder", "বিশেষণ"],
-  [266, "مَاجِدِ", "সম্মানিত", "Glorious", "বিশেষণ"],
-  [267, "وَاحِدِ", "এক", "One", "বিশেষণ"],
-  [268, "أَحَدِ", "অদ্বিতীয়", "Unique", "বিশেষণ"],
-  [269, "صَمَدِ", "অমুখাপেক্ষী", "Eternal Refuge", "বিশেষণ"],
-  [270, "قَدِيرِ", "সক্ষম", "Able", "বিশেষণ"],
-  [271, "مُقْتَدِرِ", "সর্বশক্তিমান", "All-Powerful", "বিশেষণ"],
-  [272, "سَمَاءِ", "আকাশ", "Sky", "বিশেষ্য"],
-  [273, "أَرْضِ", "পৃথিবী", "Earth", "বিশেষ্য"],
-  [274, "جِبَالِ", "পাহাড়", "Mountains", "বিশেষ্য"],
-  [275, "بَحْرِ", "সমুদ্র", "Sea", "বিশেষ্য"],
-  [276, "نَهْرِ", "নদী", "River", "বিশেষ্য"],
-  [277, "نَجْمِ", "তারা", "Star", "বিশেষ্য"],
-  [278, "قَمَرِ", "চাঁদ", "Moon", "বিশেষ্য"],
-  [279, "شَمْسِ", "সূর্য", "Sun", "বিশেষ্য"],
-  [280, "نَارِ", "আগুন", "Fire", "বিশেষ্য"],
-  [281, "مَاءِ", "পানি", "Water", "বিশেষ্য"],
-  [282, "رِيحِ", "বায়ু", "Wind", "বিশেষ্য"],
-  [283, "سَحَابِ", "মেঘ", "Cloud", "বিশেষ্য"],
-  [284, "مَطَرِ", "বৃষ্টি", "Rain", "বিশেষ্য"],
-  [285, "نَبَاتِ", "উদ্ভিদ", "Plant", "বিশেষ্য"],
-  [286, "شَجَرِ", "গাছ", "Tree", "বিশেষ্য"],
-  [287, "ثَمَرِ", "ফল", "Fruit", "বিশেষ্য"],
-  [288, "زَرْعِ", "শস্য", "Crop", "বিশেষ্য"],
-  [289, "أَنْعَامِ", "গবাদি পশু", "Cattle", "বিশেষ্য"],
-  [290, "غَنَمِ", "ছাগল/ভেড়া", "Sheep/Goat", "বিশেষ্য"],
-  [291, "بَقَرِ", "গরু", "Cow", "বিশেষ্য"],
-  [292, "إِبِلِ", "উট", "Camel", "বিশেষ্য"],
-  [293, "خَيْلِ", "ঘোড়া", "Horse", "বিশেষ্য"],
-  [294, "بِغَالِ", "খচ্চর", "Mule", "বিশেষ্য"],
-  [295, "حَمِيرِ", "গাধা", "Donkey", "বিশেষ্য"],
-  [296, "طَيْرِ", "পাখি", "Bird", "বিশেষ্য"],
-  [297, "نَحْلِ", "মৌমাছি", "Bee", "বিশেষ্য"],
-  [298, "عَنْكَبُوتِ", "মাকড়সা", "Spider", "বিশেষ্য"],
-  [299, "ذُبَابِ", "মাছি", "Fly", "বিশেষ্য"],
-  [300, "نَمْلِ", "পিঁপড়া", "Ant", "বিশেষ্য"],
-  [301, "إِنْسَانِ", "মানুষ", "Human", "বিশেষ্য"],
-  [302, "وَلَدِ", "সন্তান", "Child", "বিশেষ্য"],
-  [303, "بِنْتِ", "মেয়ে", "Daughter", "বিশেষ্য"],
-  [304, "ابْنِ", "ছেলে", "Son", "বিশেষ্য"],
-  [305, "أَبِ", "পিতা", "Father", "বিশেষ্য"],
-  [306, "أُمِّ", "মাতা", "Mother", "বিশেষ্য"],
-  [307, "أَخِ", "ভাই", "Brother", "বিশেষ্য"],
-  [308, "أُخْتِ", "বোন", "Sister", "বিশেষ্য"],
-  [309, "زَوْجِ", "স্বামী", "Husband", "বিশেষ্য"],
-  [310, "زَوْجَةِ", "স্ত্রী", "Wife", "বিশেষ্য"],
-  [311, "عَمِّ", "চাচা", "Uncle (paternal)", "বিশেষ্য"],
-  [312, "خَالِ", "মামা", "Uncle (maternal)", "বিশেষ্য"],
-  [313, "عَمَّةِ", "ফুফু", "Aunt (paternal)", "বিশেষ্য"],
-  [314, "خَالَةِ", "মামী", "Aunt (maternal)", "বিশেষ্য"],
-  [315, "قَرَابَةِ", "আত্মীয়তা", "Kinship", "বিশেষ্য"],
-  [316, "رَحِمِ", "জরায়ু/আত্মীয়", "Womb/Relation", "বিশেষ্য"],
-  [317, "جَارِ", "প্রতিবেশী", "Neighbor", "বিশেষ্য"],
-  [318, "صَاحِبِ", "সাথী", "Companion", "বিশেষ্য"],
-  [319, "ضَيْفِ", "মেহমান", "Guest", "বিশেষ্য"],
-  [320, "يَتِيمِ", "এতিম", "Orphan", "বিশেষ্য"],
-  [321, "مِسْكِينِ", "মিসকিন", "Needy", "বিশেষ্য"],
-  [322, "فَقِيرِ", "দরিদ্র", "Poor", "বিশেষ্য"],
-  [323, "غَنِيِّ", "ধনী", "Rich", "বিশেষণ"],
-  [324, "عَبْدِ", "দাস/বান্দা", "Slave/Servant", "বিশেষ্য"],
-  [325, "حُرِّ", "স্বাধীন", "Free", "বিশেষণ"],
-  [326, "أَسِيرِ", "বন্দী", "Prisoner", "বিশেষ্য"],
-  [327, "سَفِينَةِ", "নৌকা", "Ship", "বিশেষ্য"],
-  [328, "بَابِ", "দরজা", "Door", "বিশেষ্য"],
-  [329, "بَيْتِ", "গৃহ", "House", "বিশেষ্য"],
-  [330, "مَسْجِدِ", "মসজিদ", "Mosque", "বিশেষ্য"],
-  [331, "مَدِينَةِ", "নগরী", "City", "বিশেষ্য"],
-  [332, "قَرْيَةِ", "গ্রাম", "Village", "বিশেষ্য"],
-  [333, "طَرِيقِ", "পথ", "Path", "বিশেষ্য"],
-  [334, "صِرَاطِ", "সিরাত", "Straight Path", "বিশেষ্য"],
-  [335, "جِسْرِ", "সেতু", "Bridge", "বিশেষ্য"],
-  [336, "حَائِطِ", "প্রাচীর", "Wall", "বিশেষ্য"],
-  [337, "بِئْرِ", "কূপ", "Well", "বিশেষ্য"],
-  [338, "زَيْتِ", "তেল", "Oil", "বিশেষ্য"],
-  [339, "لَبَنِ", "দুধ", "Milk", "বিশেষ্য"],
-  [340, "عَسَلِ", "মধু", "Honey", "বিশেষ্য"],
-  [341, "خَمْرِ", "মদ", "Wine", "বিশেষ্য"],
-  [342, "لَحْمِ", "মাংস", "Meat", "বিশেষ্য"],
-  [343, "دَمِ", "রক্ত", "Blood", "বিশেষ্য"],
-  [344, "عَظْمِ", "হাড়", "Bone", "বিশেষ্য"],
-  [345, "جِلْدِ", "চামড়া", "Skin", "বিশেষ্য"],
-  [346, "لِسَانِ", "জিহ্বা", "Tongue", "বিশেষ্য"],
-  [347, "عَيْنِ", "চোখ", "Eye", "বিশেষ্য"],
-  [348, "أُذُنِ", "কান", "Ear", "বিশেষ্য"],
-  [349, "قَلْبِ", "হৃদয়", "Heart", "বিশেষ্য"],
-  [350, "عَقْلِ", "বুদ্ধি", "Intellect", "বিশেষ্য"],
-  [351, "رُوحِ", "রূহ", "Spirit", "বিশেষ্য"],
-  [352, "نَفْسِ", "আত্মা", "Soul", "বিশেষ্য"],
-  [353, "يَدِ", "হাত", "Hand", "বিশেষ্য"],
-  [354, "رِجْلِ", "পা", "Foot", "বিশেষ্য"],
-  [355, "وَجْهِ", "মুখমণ্ডল", "Face", "বিশেষ্য"],
-  [356, "ظَهْرِ", "পিঠ", "Back", "বিশেষ্য"],
-  [357, "بَطْنِ", "পেট", "Belly", "বিশেষ্য"],
-  [358, "رَأْسِ", "মাথা", "Head", "বিশেষ্য"],
-  [359, "رَقَبَةِ", "গর্দান", "Neck", "বিশেষ্য"],
-  [360, "فَمِ", "মুখ", "Mouth", "বিশেষ্য"],
-  [361, "شَعْرِ", "চুল", "Hair", "বিশেষ্য"],
-  [362, "لِحْيَةِ", "দাড়ি", "Beard", "বিশেষ্য"],
-  [363, "سِنِّ", "দাঁত", "Tooth", "বিশেষ্য"],
-  [364, "ظُفْرِ", "নখ", "Nail", "বিশেষ্য"],
-  [365, "مَرَضِ", "রোগ", "Illness", "বিশেষ্য"],
-  [366, "شِفَاءِ", "আরোগ্য", "Cure", "বিশেষ্য"],
-  [367, "خَوْفِ", "ভয়", "Fear", "বিশেষ্য"],
-  [368, "رَجَاءِ", "আশা", "Hope", "বিশেষ্য"],
-  [369, "حُزْنِ", "দুঃখ", "Sadness", "বিশেষ্য"],
-  [370, "فَرَحِ", "আনন্দ", "Joy", "বিশেষ্য"],
-  [371, "صَبْرِ", "ধৈর্য", "Patience", "বিশেষ্য"],
-  [372, "شُكْرِ", "কৃতজ্ঞতা", "Gratitude", "বিশেষ্য"],
-  [373, "ذَنْبِ", "পাপ", "Sin", "বিশেষ্য"],
-  [374, "عَفْوِ", "ক্ষমা", "Pardon", "বিশেষ্য"],
-  [375, "مَغْفِرَةِ", "ক্ষমা", "Forgiveness", "বিশেষ্য"],
-  [376, "تَوْبَةِ", "তওবা", "Repentance", "বিশেষ্য"],
-  [377, "حَسَنَةِ", "পুণ্য", "Good deed", "বিশেষ্য"],
-  [378, "سَيِّئَةِ", "পাপকাজ", "Bad deed", "বিশেষ্য"],
-  [379, "ثَوَابِ", "পুরস্কার", "Reward", "বিশেষ্য"],
-  [380, "عِقَابِ", "শাস্তি", "Punishment", "বিশেষ্য"],
-  [381, "جَزَاءِ", "প্রতিদান", "Recompense", "বিশেষ্য"],
-  [382, "بَلَاءِ", "পরীক্ষা", "Trial", "বিশেষ্য"],
-  [383, "فِتْنَةِ", "ফিতনা", "Temptation/Trial", "বিশেষ্য"],
-  [384, "نِعْمَةِ", "নি'মত", "Blessing", "বিশেষ্য"],
-  [385, "نَقْمَةِ", "শাস্তি", "Wrath", "বিশেষ্য"],
-  [386, "قُوَّةِ", "শক্তি", "Strength", "বিশেষ্য"],
-  [387, "ضَعْفِ", "দুর্বলতা", "Weakness", "বিশেষ্য"],
-  [388, "عِلْمِ", "জ্ঞান", "Knowledge", "বিশেষ্য"],
-  [389, "جَهْلِ", "অজ্ঞতা", "Ignorance", "বিশেষ্য"],
-  [390, "هُدًى", "পথনির্দেশ", "Guidance", "বিশেষ্য"],
-  [391, "ضَلَالِ", "পথভ্রষ্টতা", "Misguidance", "বিশেষ্য"],
-  [392, "رِزْقِ", "রিজিক", "Provision", "বিশেষ্য"],
-  [393, "عَمَلِ", "কর্ম", "Deed", "বিশেষ্য"],
-  [394, "سَعْيِ", "চেষ্টা", "Effort", "বিশেষ্য"],
-  [395, "حَسَابِ", "হিসাব", "Reckoning", "বিশেষ্য"],
-  [396, "مِيزَانِ", "মিজান", "Scale", "বিশেষ্য"],
-  [397, "صِرَاطِ", "সিরাত", "Path", "বিশেষ্য"],
-  [398, "جَنَّةِ", "জান্নাত", "Paradise", "বিশেষ্য"],
-  [399, "نَارِ", "জাহান্নাম", "Hellfire", "বিশেষ্য"],
-  [400, "خُلْدِ", "চিরস্থায়ী অবস্থান", "Eternity", "বিশেষ্য"],
-  [401, "سُرُرٍ", "সিংহাসন/উচ্চ আসন", "Thrones", "বিশেষ্য"],
-  [402, "أَرَائِكَ", "আসন", "Couches", "বিশেষ্য"],
-  [403, "نَمَارِقُ", "কুশন", "Cushions", "বিশেষ্য"],
-  [404, "زَرَابِيُّ", "মোড়ানো বিছানা", "Carpets", "বিশেষ্য"],
-  [405, "أَكْوَابٍ", "পেয়ালা", "Cups", "বিশেষ্য"],
-  [406, "أَبَارِيقُ", "জগ", "Ewers", "বিশেষ্য"],
-  [407, "كَأْسٍ", "পানপাত্র", "Goblet", "বিশেষ্য"],
-  [408, "زَنْجَبِيلِ", "আদা", "Ginger", "বিশেষ্য"],
-  [409, "سَلْسَبِيلٍ", "সালসাবিল (ঝরনা)", "Salsabil", "বিশেষ্য"],
-  [410, "طِينٍ", "কাদামাটি", "Clay", "বিশেষ্য"],
-  [411, "صَلْصَالٍ", "পোড়া মাটি", "Pottery clay", "বিশেষ্য"],
-  [412, "حَمَإٍ", "পচা কাদা", "Black mud", "বিশেষ্য"],
-  [413, "مَرْجٍ", "মিশ্রিত পানি", "Mixed water", "বিশেষ্য"],
-  [414, "يَاقُوتٍ", "মণি", "Ruby", "বিশেষ্য"],
-  [415, "مَرْجَانٍ", "মুক্তা", "Coral", "বিশেষ্য"],
-  [416, "لُؤْلُؤٍ", "মুক্তা", "Pearl", "বিশেষ্য"],
-  [417, "ذَهَبٍ", "সোনা", "Gold", "বিশেষ্য"],
-  [418, "فِضَّةٍ", "রূপা", "Silver", "বিশেষ্য"],
-  [419, "حَدِيدٍ", "লোহা", "Iron", "বিশেষ্য"],
-  [420, "نُحَاسٍ", "পিতল", "Brass", "বিশেষ্য"],
-  [421, "قِطْرٍ", "গলিত পিতল", "Molten brass", "বিশেষ্য"],
-  [422, "صُفْرٍ", "হলুদ", "Yellow", "বিশেষণ"],
-  [423, "بَيْضَاءَ", "সাদা", "White", "বিশেষণ"],
-  [424, "سَوْدَاءَ", "কালো", "Black", "বিশেষণ"],
-  [425, "حَمْرَاءَ", "লাল", "Red", "বিশেষণ"],
-  [426, "خَضْرَاءَ", "সবুজ", "Green", "বিশেষণ"],
-  [427, "زَرْقَاءَ", "নীল", "Blue", "বিশেষণ"],
-  [428, "صَفْرَاءَ", "হলুদ", "Yellow", "বিশেষণ"],
-  [429, "غَلِيظِ", "রুক্ষ", "Harsh", "বিশেষণ"],
-  [430, "لَيِّنِ", "কোমল", "Soft", "বিশেষণ"],
-  [431, "قَاسِي", "কঠিন", "Hard", "বিশেষণ"],
-  [432, "رَطْبٍ", "স্যাঁতসেঁতে", "Moist", "বিশেষণ"],
-  [433, "يَابِسٍ", "শুষ্ক", "Dry", "বিশেষণ"],
-  [434, "حَارٍ", "গরম", "Hot", "বিশেষণ"],
-  [435, "بَارِدٍ", "ঠান্ডা", "Cold", "বিশেষণ"],
-  [436, "طَاهِرٍ", "পবিত্র", "Pure", "বিশেষণ"],
-  [437, "نَجِسٍ", "অপবিত্র", "Impure", "বিশেষণ"],
-  [438, "صَغِيرٍ", "ছোট", "Small", "বিশেষণ"],
-  [439, "كَبِيرٍ", "বড়", "Big", "বিশেষণ"],
-  [440, "قَصِيرٍ", "খাটো", "Short", "বিশেষণ"],
-  [441, "طَوِيلٍ", "লম্বা", "Tall", "বিশেষণ"],
-  [442, "قَرِيبٍ", "নিকটবর্তী", "Near", "বিশেষণ"],
-  [443, "بَعِيدٍ", "দূরবর্তী", "Far", "বিশেষণ"],
-  [444, "جَدِيدٍ", "নতুন", "New", "বিশেষণ"],
-  [445, "قَدِيمٍ", "পুরনো", "Old", "বিশেষণ"],
-  [446, "صَعْبٍ", "কঠিন", "Difficult", "বিশেষণ"],
-  [447, "سَهْلٍ", "সহজ", "Easy", "বিশেষণ"],
-  [448, "غَنِيٍّ", "ধনী", "Rich", "বিশেষণ"],
-  [449, "فَقِيرٍ", "দরিদ্র", "Poor", "বিশেষণ"],
-  [450, "قَوِيٍّ", "শক্তিশালী", "Strong", "বিশেষণ"],
-  [451, "ضَعِيفٍ", "দুর্বল", "Weak", "বিশেষণ"],
-  [452, "حَكِيمٍ", "প্রজ্ঞাময়", "Wise", "বিশেষণ"],
-  [453, "جَاهِلٍ", "অজ্ঞ", "Ignorant", "বিশেষণ"],
-  [454, "ظَالِمٍ", "যালিম", "Wrongdoer", "বিশেষণ"],
-  [455, "عَادِلٍ", "ন্যায়পরায়ণ", "Just", "বিশেষণ"],
-  [456, "صَادِقٍ", "সত্যবাদী", "Truthful", "বিশেষণ"],
-  [457, "كَاذِبٍ", "মিথ্যাবাদী", "Liar", "বিশেষণ"],
-  [458, "تَائِبٍ", "তওবাকারী", "Repentant", "বিশেষণ"],
-  [459, "ذَاكِرٍ", "স্মরণকারী", "Remembering", "বিশেষণ"],
-  [460, "سَاجِدٍ", "সিজদারত", "Prostrating", "বিশেষণ"],
-  [461, "رَاكِعٍ", "রুকুকারী", "Bowing", "বিশেষণ"],
-  [462, "قَانِتٍ", "অনুগত", "Devout", "বিশেষণ"],
-  [463, "خَاشِعٍ", "বিনয়ী", "Humble", "বিশেষণ"],
-  [464, "صَابِرٍ", "ধৈর্যশীল", "Patient", "বিশেষণ"],
-  [465, "شَاكِرٍ", "কৃতজ্ঞ", "Thankful", "বিশেষণ"],
-  [466, "مُحْسِنٍ", "সৎকর্মশীল", "Good-doer", "বিশেষণ"],
-  [467, "مُسْرِفٍ", "সীমালঙ্ঘনকারী", "Extravagant", "বিশেষণ"],
-  [468, "مُفْسِدٍ", "অশান্তিকারী", "Corruptor", "বিশেষণ"],
-  [469, "مُعْتَدٍ", "সীমা লঙ্ঘনকারী", "Transgressor", "বিশেষণ"],
-  [470, "مُخْلِصٍ", "আন্তরিক", "Sincere", "বিশেষণ"],
-  [471, "مُرْتَابٍ", "সন্দেহপোষণকারী", "Doubter", "বিশেষণ"],
-  [472, "مُنَافِقٍ", "মুনাফিক", "Hypocrite", "বিশেষ্য"],
-  [473, "مُشْرِكٍ", "মুশরিক", "Polytheist", "বিশেষ্য"],
-  [474, "مَجُوسٍ", "অগ্নিপূজক", "Magi", "বিশেষ্য"],
-  [475, "صَابِئِينَ", "সাবি সম্প্রদায়", "Sabians", "বিশেষ্য"],
-  [476, "نَصَارَىٰ", "খ্রিস্টান", "Christians", "বিশেষ্য"],
-  [477, "يَهُودِ", "ইহুদি", "Jews", "বিশেষ্য"],
-  [478, "فِرْعَوْنَ", "ফেরাউন", "Pharaoh", "বিশেষ্য"],
-  [479, "هَامَانَ", "হামান", "Haman", "বিশেষ্য"],
-  [480, "قَارُونَ", "কারুন", "Korah", "বিশেষ্য"],
-  [481, "جَالُوتَ", "জালুত", "Goliath", "বিশেষ্য"],
-  [482, "طَالُوتَ", "তালুত", "Saul", "বিশেষ্য"],
-  [483, "إِبْلِيسَ", "ইবলিস", "Iblis", "বিশেষ্য"],
-  [484, "شَيْطَانِ", "শয়তান", "Satan", "বিশেষ্য"],
-  [485, "جِبْرِيلَ", "জিবরাইল", "Gabriel", "বিশেষ্য"],
-  [486, "مِيكَائِيلَ", "মিকাইল", "Michael", "বিশেষ্য"],
-  [487, "إِسْرَافِيلَ", "ইসরাফিল", "Israfil", "বিশেষ্য"],
-  [488, "عِزْرَائِيلَ", "আজরাইল", "Azrael", "বিশেষ্য"],
-  [489, "مَالِكٍ", "মালেক (জাহান্নামের রক্ষী)", "Malik", "বিশেষ্য"],
-  [490, "رِضْوَانَ", "রিদওয়ান (জান্নাতের রক্ষী)", "Ridwan", "বিশেষ্য"],
-  [491, "هُودٍ", "হুদ", "Hud", "বিশেষ্য"],
-  [492, "صَالِحٍ", "সালেহ", "Saleh", "বিশেষ্য"],
-  [493, "شُعَيْبٍ", "শুয়াইব", "Shuayb", "বিশেষ্য"],
-  [494, "لُوطٍ", "লুত", "Lot", "বিশেষ্য"],
-  [495, "يُونُسَ", "ইউনুস", "Jonah", "বিশেষ্য"],
-  [496, "يَعْقُوبَ", "ইয়াকুব", "Jacob", "বিশেষ্য"],
-  [497, "يُوسُفَ", "ইউসুফ", "Joseph", "বিশেষ্য"],
-  [498, "إِبْرَاهِيمَ", "ইব্রাহিম", "Abraham", "বিশেষ্য"],
-  [499, "إِسْمَاعِيلَ", "ইসমাইল", "Ishmael", "বিশেষ্য"],
-  [500, "إِسْحَاقَ", "ইসহাক", "Isaac", "বিশেষ্য"],
-  [501, "أَيُّهَا", "হে (সম্বোধন)", "O (vocative)", "সর্বনাম"],
-  [502, "يَا", "হে", "O", "অব্যয়"],
-  [503, "ٱلَّذِينَ", "যারা", "Those who", "সর্বনাম"],
-  [504, "إِنَّ", "নিশ্চয়ই", "Indeed", "অব্যয়"],
-  [505, "أَنَّ", "যে / নিশ্চয়", "That", "অব্যয়"],
-  [506, "عَلَيْهِمْ", "তাদের উপর", "Upon them", "সর্বনাম+অব্যয়"],
-  [507, "بِهِمْ", "তাদের দ্বারা", "By them", "সর্বনাম+অব্যয়"],
-  [508, "لَهُمْ", "তাদের জন্য", "For them", "সর্বনাম+অব্যয়"],
-  [509, "فِيهِمْ", "তাদের মধ্যে", "Among them", "সর্বনাম+অব্যয়"],
-  [510, "إِلَيْهِمْ", "তাদের দিকে", "To them", "সর্বনাম+অব্যয়"],
-  [511, "مِنْهُمْ", "তাদের থেকে", "From them", "সর্বনাম+অব্যয়"],
-  [512, "عَنْهُمْ", "তাদের থেকে (পৃথক)", "Away from them", "সর্বনাম+অব্যয়"],
-  [513, "أَنْتُمْ", "তোমরা", "You (plural)", "সর্বনাম"],
-  [514, "نَحْنُ", "আমরা", "We", "সর্বনাম"],
-  [515, "أَنَا", "আমি", "I", "সর্বনাম"],
-  [516, "هُوَ", "সে", "He", "সর্বনাম"],
-  [517, "هُمْ", "তারা", "They", "সর্বনাম"],
-  [518, "أَنْتَ", "তুমি", "You (singular)", "সর্বনাম"],
-  [519, "نَفْسِهِ", "তার নিজের", "Himself", "সর্বনাম"],
-  [520, "بَعْضِهِمْ", "তাদের কেউ কেউ", "Some of them", "সর্বনাম"],
-  [521, "كُلِّ", "প্রত্যেক", "Every", "বিশেষণ"],
-  [522, "بَعْضِ", "কিছু", "Some", "বিশেষণ"],
-  [523, "أَكْثَرِ", "অধিকাংশ", "Most", "বিশেষণ"],
-  [524, "أَقَلِّ", "অল্পাংশ", "Few", "বিশেষণ"],
-  [525, "غَيْرِ", "অন্য / ব্যতীত", "Other than", "অব্যয়"],
-  [526, "مِثْلِ", "মতো / সমতুল্য", "Like", "অব্যয়"],
-  [527, "بَعْدَ", "পরে", "After", "অব্যয়"],
-  [528, "قَبْلَ", "আগে", "Before", "অব্যয়"],
-  [529, "عِنْدَ", "নিকটে", "Near / With", "অব্যয়"],
-  [530, "بَيْنَ", "মধ্যে", "Between", "অব্যয়"],
-  [531, "تَحْتَ", "নিচে", "Under", "অব্যয়"],
-  [532, "فَوْقَ", "উপরে", "Above", "অব্যয়"],
-  [533, "حَوْلَ", "চারদিকে", "Around", "অব্যয়"],
-  [534, "أَمَامَ", "সম্মুখে", "In front of", "অব্যয়"],
-  [535, "خَلْفَ", "পেছনে", "Behind", "অব্যয়"],
-  [536, "مَعَ", "সাথে", "With", "অব্যয়"],
-  [537, "ثُمَّ", "তারপর", "Then", "অব্যয়"],
-  [538, "حَتَّىٰ", "যতক্ষণ না / পর্যন্ত", "Until", "অব্যয়"],
-  [539, "أَمْ", "নাকি (প্রশ্নে)", "Or (question)", "অব্যয়"],
-  [540, "بَلْ", "বরং", "Rather", "অব্যয়"],
-  [541, "قَدْ", "ইতোমধ্যে / নিশ্চয়", "Already", "অব্যয়"],
-  [542, "سَوْفَ", "শীঘ্রই", "Soon", "অব্যয়"],
-  [543, "لَنْ", "কখনোই না", "Never", "অব্যয়"],
-  [544, "لَمْ", "না (অতীত নেতিবাচক)", "Did not", "অব্যয়"],
-  [545, "لِمَ", "কেন", "Why", "প্রশ্নবোধক"],
-  [546, "كَيْفَ", "কিভাবে", "How", "প্রশ্নবোধক"],
-  [547, "أَيْنَ", "কোথায়", "Where", "প্রশ্নবোধক"],
-  [548, "مَتَىٰ", "কখন", "When", "প্রশ্নবোধক"],
-  [549, "هَلْ", "কি (প্রশ্ন)", "Is it?", "প্রশ্নবোধক"],
-  [550, "أَ", "কি (প্রশ্ন)", "Question prefix", "প্রশ্নবোধক"],
-  [551, "أَخَذَ", "গ্রহণ করলেন", "He took", "ক্রিয়া"],
-  [552, "تَرَكَ", "ছেড়ে দিলেন", "He left", "ক্রিয়া"],
-  [553, "وَجَدَ", "পেলেন", "He found", "ক্রিয়া"],
-  [554, "فَتَحَ", "খুললেন", "He opened", "ক্রিয়া"],
-  [555, "غَلَقَ", "বন্ধ করলেন", "He closed", "ক্রিয়া"],
-  [556, "كَسَبَ", "অর্জন করল", "He earned", "ক্রিয়া"],
-  [557, "خَسِرَ", "ক্ষতিগ্রস্ত হল", "He lost", "ক্রিয়া"],
-  [558, "رَبِحَ", "লাভ করল", "He profited", "ক্রিয়া"],
-  [559, "دَخَلَ", "প্রবেশ করল", "He entered", "ক্রিয়া"],
-  [560, "خَرَجَ", "বের হল", "He exited", "ক্রিয়া"],
-  [561, "جَاءَ", "আসলেন", "He came", "ক্রিয়া"],
-  [562, "ذَهَبَ", "গেল", "He went", "ক্রিয়া"],
-  [563, "رَجَعَ", "ফিরল", "He returned", "ক্রিয়া"],
-  [564, "نَظَرَ", "তাকাল", "He looked", "ক্রিয়া"],
-  [565, "رَأَىٰ", "দেখলেন", "He saw", "ক্রিয়া"],
-  [566, "سَمِعَ", "শুনলেন", "He heard", "ক্রিয়া"],
-  [567, "أَحَبَّ", "ভালোবাসলেন", "He loved", "ক্রিয়া"],
-  [568, "كَرِهَ", "অপছন্দ করলেন", "He disliked", "ক্রিয়া"],
-  [569, "رَضِيَ", "সন্তুষ্ট হলেন", "He was pleased", "ক্রিয়া"],
-  [570, "غَضِبَ", "রাগান্বিত হলেন", "He became angry", "ক্রিয়া"],
-  [571, "خَافَ", "ভয় করল", "He feared", "ক্রিয়া"],
-  [572, "أَمِنَ", "নিরাপদ হল", "He was secure", "ক্রিয়া"],
-  [573, "رَجَا", "আশা করল", "He hoped", "ক্রিয়া"],
-  [574, "قَنِطَ", "নিরাশ হল", "He despaired", "ক্রিয়া"],
-  [575, "صَدَّقَ", "সত্যায়িত করল", "He confirmed", "ক্রিয়া"],
-  [576, "كَذَّبَ", "মিথ্যা প্রতিপন্ন করল", "He denied", "ক্রিয়া"],
-  [577, "فَسَقَ", "আদেশ লঙ্ঘন করল", "He transgressed", "ক্রিয়া"],
-  [578, "عَصَىٰ", "অবাধ্য হল", "He disobeyed", "ক্রিয়া"],
-  [579, "أَطَاعَ", "আজ্ঞা মানল", "He obeyed", "ক্রিয়া"],
-  [580, "أَشْرَكَ", "শিরক করল", "He associated partners", "ক্রিয়া"],
-  [581, "أَضَلَّ", "পথভ্রষ্ট করল", "He misguided", "ক্রিয়া"],
-  [582, "أَهْلَكَ", "ধ্বংস করল", "He destroyed", "ক্রিয়া"],
-  [583, "أَنْجَىٰ", "উদ্ধার করল", "He saved", "ক্রিয়া"],
-  [584, "أَغْنَىٰ", "অভাবমোচন করল", "He enriched", "ক্রিয়া"],
-  [585, "أَفْقَرَ", "দরিদ্র করল", "He made poor", "ক্রিয়া"],
-  [586, "أَحْيَا", "জীবিত করল", "He gave life", "ক্রিয়া"],
-  [587, "أَمَاتَ", "মৃত্যু দিল", "He caused death", "ক্রিয়া"],
-  [588, "أَنْبَتَ", "উৎপন্ন করল", "He grew", "ক্রিয়া"],
-  [589, "أَخْرَجَ", "বের করল", "He brought out", "ক্রিয়া"],
-  [590, "أَدْخَلَ", "ভিতরে প্রবেশ করাল", "He admitted", "ক্রিয়া"],
-  [591, "أَنْزَلَ", "নাযিল করলেন", "He sent down", "ক্রিয়া"],
-  [592, "أَرْسَلَ", "প্রেরণ করলেন", "He sent", "ক্রিয়া"],
-  [593, "أَوْحَىٰ", "অহী করলেন", "He revealed", "ক্রিয়া"],
-  [594, "أَمَرَ", "আদেশ দিলেন", "He commanded", "ক্রিয়া"],
-  [595, "نَهَىٰ", "নিষেধ করলেন", "He forbade", "ক্রিয়া"],
-  [596, "أَذِنَ", "অনুমতি দিলেন", "He permitted", "ক্রিয়া"],
-  [597, "مَنَعَ", "বাধা দিল", "He prevented", "ক্রিয়া"],
-  [598, "وَعَدَ", "ওয়াদা করলেন", "He promised", "ক্রিয়া"],
-  [599, "أَوْفَىٰ", "পূর্ণ করল", "He fulfilled", "ক্রিয়া"],
-  [600, "أَخْلَفَ", "ওয়াদা ভঙ্গ করল", "He broke promise", "ক্রিয়া"],
-  [601, "فَعَلَ", "করলেন", "He did", "ক্রিয়া"],
-  [602, "صَنَعَ", "নির্মাণ করলেন", "He made", "ক্রিয়া"],
-  [603, "بَنَىٰ", "নির্মাণ করল", "He built", "ক্রিয়া"],
-  [604, "هَدَمَ", "ধ্বংস করল", "He demolished", "ক্রিয়া"],
-  [605, "جَمَعَ", "একত্র করল", "He gathered", "ক্রিয়া"],
-  [606, "فَرَّقَ", "বিচ্ছিন্ন করল", "He separated", "ক্রিয়া"],
-  [607, "ضَرَبَ", "আঘাত করল", "He struck", "ক্রিয়া"],
-  [608, "قَتَلَ", "হত্যা করল", "He killed", "ক্রিয়া"],
-  [609, "ذَبَحَ", "জবাই করল", "He slaughtered", "ক্রিয়া"],
-  [610, "أَكْرَمَ", "সম্মান করলেন", "He honored", "ক্রিয়া"],
-  [611, "أَهَانَ", "অপমান করলেন", "He disgraced", "ক্রিয়া"],
-  [612, "عَلَّمَ", "শিক্ষা দিলেন", "He taught", "ক্রিয়া"],
-  [613, "دَرَىٰ", "জানতে পারল", "He knew", "ক্রিয়া"],
-  [614, "حَسِبَ", "মনে করল", "He thought", "ক্রিয়া"],
-  [615, "ظَنَّ", "ধারণা করল", "He assumed", "ক্রিয়া"],
-  [616, "يَقِينَ", "নিশ্চিত জ্ঞান", "Certainty", "বিশেষ্য"],
-  [617, "شَكَّ", "সন্দেহ করল", "He doubted", "ক্রিয়া"],
-  [618, "رَابَ", "সন্দেহে পড়ল", "He was doubtful", "ক্রিয়া"],
-  [619, "آتَىٰ", "দান করলেন", "He gave", "ক্রিয়া"],
-  [620, "مَنَّ", "উপকার করল", "He bestowed", "ক্রিয়া"],
-  [621, "أَعْطَىٰ", "দান করল", "He gave", "ক্রিয়া"],
-  [622, "سَأَلَ", "প্রশ্ন করল / চাইল", "He asked", "ক্রিয়া"],
-  [623, "دَعَا", "ডাকলেন / দোয়া করল", "He called", "ক্রিয়া"],
-  [624, "أَجَابَ", "উত্তর দিলেন", "He answered", "ক্রিয়া"],
-  [625, "قَبِلَ", "গ্রহণ করলেন", "He accepted", "ক্রিয়া"],
-  [626, "رَدَّ", "ফিরিয়ে দিল", "He rejected/returned", "ক্রিয়া"],
-  [627, "زَادَ", "বাড়ালেন", "He increased", "ক্রিয়া"],
-  [628, "نَقَصَ", "কমালেন", "He decreased", "ক্রিয়া"],
-  [629, "بَدَّلَ", "পরিবর্তন করলেন", "He changed", "ক্রিয়া"],
-  [630, "غَيَّرَ", "অন্যরূপ করল", "He altered", "ক্রিয়া"],
-  [631, "حَوَّلَ", "স্থানান্তর করলেন", "He transferred", "ক্রিয়া"],
-  [632, "قَلَبَ", "উল্টে দিল", "He turned", "ক্রিয়া"],
-  [633, "فَتَحَ", "বিজয় দিলেন", "He opened/granted victory", "ক্রিয়া"],
-  [634, "نَصَرَ", "সাহায্য করলেন", "He helped", "ক্রিয়া"],
-  [635, "خَذَلَ", "সাহায্য ছাড়লেন", "He abandoned", "ক্রিয়া"],
-  [636, "وَكَلَ", "ছেড়ে দিল", "He left", "ক্রিয়া"],
-  [637, "تَوَكَّلَ", "ভরসা করল", "He relied", "ক্রিয়া"],
-  [638, "اِتَّبَعَ", "অনুসরণ করল", "He followed", "ক্রিয়া"],
-  [639, "اقْتَدَىٰ", "অনুকরণ করল", "He imitated", "ক্রিয়া"],
-  [640, "اهْتَدَىٰ", "পথ পেল", "He was guided", "ক্রিয়া"],
-  [641, "ضَلَّ", "পথ হারাল", "He went astray", "ক্রিয়া"],
-  [642, "غَوَىٰ", "বিপথগামী হল", "He erred", "ক্রিয়া"],
-  [643, "رَشَدَ", "সৎপথ পেল", "He was rightly guided", "ক্রিয়া"],
-  [644, "سَفِهَ", "মূর্খতার কাজ করল", "He was foolish", "ক্রিয়া"],
-  [645, "حَلُمَ", "ধৈর্য ধরল", "He was forbearing", "ক্রিয়া"],
-  [646, "ظَرُفَ", "সুন্দর ব্যবহার করল", "He was refined", "ক্রিয়া"],
-  [647, "لَطُفَ", "সূক্ষ্ম দয়া করলেন", "He was kind", "ক্রিয়া"],
-  [648, "قَسَا", "কঠোর হল", "He was harsh", "ক্রিয়া"],
-  [649, "لَيَّنَ", "নরম করল", "He softened", "ক্রিয়া"],
-  [650, "صَعُبَ", "কঠিন হল", "It became difficult", "ক্রিয়া"],
-  [651, "سَهُلَ", "সহজ হল", "It became easy", "ক্রিয়া"],
-  [652, "قَرُبَ", "নিকটবর্তী হল", "It came near", "ক্রিয়া"],
-  [653, "بَعُدَ", "দূরে হল", "It became far", "ক্রিয়া"],
-  [654, "كَبُرَ", "বড় হল", "It became great", "ক্রিয়া"],
-  [655, "صَغُرَ", "ছোট হল", "It became small", "ক্রিয়া"],
-  [656, "كَثُرَ", "অধিক হল", "It became many", "ক্রিয়া"],
-  [657, "قَلَّ", "অল্প হল", "It became few", "ক্রিয়া"],
-  [658, "طَالَ", "দীর্ঘ হল", "It became long", "ক্রিয়া"],
-  [659, "قَصُرَ", "ছোট হল", "It became short", "ক্রিয়া"],
-  [660, "شَرُفَ", "সম্মানিত হল", "He became noble", "ক্রিয়া"],
-  [661, "لَؤُمَ", "নীচ হল", "He became mean", "ক্রিয়া"],
-  [662, "حَسُنَ", "সুন্দর হল", "It became beautiful", "ক্রিয়া"],
-  [663, "قَبُحَ", "কুৎসিত হল", "It became ugly", "ক্রিয়া"],
-  [664, "عَظُمَ", "মহান হল", "It became great", "ক্রিয়া"],
-  [665, "جَلَّ", "মহিমান্বিত হল", "He was majestic", "ক্রিয়া"],
-  [666, "سَادَ", "নেতা হল", "He became leader", "ক্রিয়া"],
-  [667, "عَزَّ", "শক্তিশালী হল", "He became mighty", "ক্রিয়া"],
-  [668, "ذَلَّ", "অপমানিত হল", "He became humiliated", "ক্রিয়া"],
-  [669, "فَازَ", "সফল হল", "He succeeded", "ক্রিয়া"],
-  [670, "خَابَ", "ব্যর্থ হল", "He failed", "ক্রিয়া"],
-  [671, "نَجَحَ", "কৃতকার্য হল", "He prospered", "ক্রিয়া"],
-  [672, "فَلَحَ", "সফলকাম হল", "He attained success", "ক্রিয়া"],
-  [673, "أَفْلَحَ", "সফল হল", "He succeeded", "ক্রিয়া"],
-  [674, "حَاقَ", "পড়ল (শাস্তি)", "It befell", "ক্রিয়া"],
-  [675, "نَزَلَ", "নাযিল হল / অবতরণ করল", "It descended", "ক্রিয়া"],
-  [676, "صَعِدَ", "উঠল", "He ascended", "ক্রিয়া"],
-  [677, "عَلَا", "উচ্চে গেল", "He rose", "ক্রিয়া"],
-  [678, "سَفَلَ", "নিচে গেল", "He went down", "ক্রিয়া"],
-  [679, "أَشْرَقَ", "উদিত হল", "It shone", "ক্রিয়া"],
-  [680, "أَظْلَمَ", "অন্ধকার হল", "It darkened", "ক্রিয়া"],
-  [681, "أَضَاءَ", "আলোকিত করল", "It illuminated", "ক্রিয়া"],
-  [682, "أَحْرَقَ", "পোড়াল", "He burned", "ক্রিয়া"],
-  [683, "أَذَابَ", "গলাল", "He melted", "ক্রিয়া"],
-  [684, "جَمَّدَ", "হিমায়িত করল", "He froze", "ক্রিয়া"],
-  [685, "غَلَىٰ", "ফুটল", "It boiled", "ক্রিয়া"],
-  [686, "بَرَدَ", "ঠান্ডা হল", "It became cold", "ক্রিয়া"],
-  [687, "سَخُنَ", "গরম হল", "It became hot", "ক্রিয়া"],
-  [688, "أَكَلَ", "খেল", "He ate", "ক্রিয়া"],
-  [689, "شَرِبَ", "পান করল", "He drank", "ক্রিয়া"],
-  [690, "جَاعَ", "ক্ষুধার্ত হল", "He became hungry", "ক্রিয়া"],
-  [691, "عَطِشَ", "তৃষ্ণার্ত হল", "He became thirsty", "ক্রিয়া"],
-  [692, "شَبِعَ", "পেট ভরল", "He became full", "ক্রিয়া"],
-  [693, "رَوِيَ", "তৃষ্ণা মিটল", "He was quenched", "ক্রিয়া"],
-  [694, "مَرِضَ", "অসুস্থ হল", "He became ill", "ক্রিয়া"],
-  [695, "شُفِيَ", "আরোগ্য লাভ করল", "He was healed", "ক্রিয়া"],
-  [696, "حَيِيَ", "লজ্জিত হল", "He felt shy", "ক্রিয়া"],
-  [697, "نَامَ", "ঘুমাল", "He slept", "ক্রিয়া"],
-  [698, "قَامَ", "দাঁড়াল", "He stood", "ক্রিয়া"],
-  [699, "جَلَسَ", "বসল", "He sat", "ক্রিয়া"],
-  [700, "مَشَىٰ", "হাঁটল", "He walked", "ক্রিয়া"],
-  [701, "رَكَضَ", "দৌড়াল", "He ran", "ক্রিয়া"],
-  [702, "طَارَ", "উড়ল", "He flew", "ক্রিয়া"],
-  [703, "سَبَحَ", "সাঁতার কাটল", "He swam", "ক্রিয়া"],
-  [704, "زَحَفَ", "হামাগুড়ি দিল", "He crawled", "ক্রিয়া"],
-  [705, "وَقَفَ", "দাঁড়াল", "He stopped", "ক্রিয়া"],
-  [706, "نَادَىٰ", "ডাকল", "He called out", "ক্রিয়া"],
-  [707, "صَاحَ", "চিৎকার করল", "He shouted", "ক্রিয়া"],
-  [708, "بَكَىٰ", "কাঁদল", "He wept", "ক্রিয়া"],
-  [709, "ضَحِكَ", "হাসল", "He laughed", "ক্রিয়া"],
-  [710, "فَرِحَ", "আনন্দিত হল", "He rejoiced", "ক্রিয়া"],
-  [711, "حَزِنَ", "দুঃখিত হল", "He became sad", "ক্রিয়া"],
-  [712, "غَضِبَ", "রাগান্বিত হল", "He became angry", "ক্রিয়া"],
-  [713, "رَضِيَ", "সন্তুষ্ট হল", "He was pleased", "ক্রিয়া"],
-  [714, "غَفَرَ", "ক্ষমা করলেন", "He forgave", "ক্রিয়া"],
-  [715, "عَفَا", "উপেক্ষা করলেন/ক্ষমা করলেন", "He pardoned", "ক্রিয়া"],
-  [716, "صَفَحَ", "মাফ করে দিলেন", "He overlooked", "ক্রিয়া"],
-  [717, "تَابَ", "তওবা করল", "He repented", "ক্রিয়া"],
-  [718, "أَنَابَ", "ফিরে এল (আল্লাহর দিকে)", "He turned repentantly", "ক্রিয়া"],
-  [719, "أَوَّابَ", "অধিক তওবাকারী", "Often returning", "বিশেষণ"],
-  [720, "رَاغِبَ", "আগ্রহী", "Desirous", "বিশেষণ"],
-  [721, "رَاهِبَ", "ভীত", "Fearful", "বিশেষণ"],
-  [722, "خَاشِعَ", "বিনয়ী", "Humble", "বিশেষণ"],
-  [723, "خَاضِعَ", "অনুগত", "Submissive", "বিশেষণ"],
-  [724, "ذَلِيلَ", "অপমানিত", "Abased", "বিশেষণ"],
-  [725, "عَزِيزَ", "সম্মানিত", "Honored", "বিশেষণ"],
-  [726, "كَرِيمَ", "মহানুভব", "Noble", "বিশেষণ"],
-  [727, "هَيِّنَ", "সহজ/নম্র", "Easy/Gentle", "বিশেষণ"],
-  [728, "لَيِّنَ", "কোমল", "Soft", "বিশেষণ"],
-  [729, "غَلِيظَ", "রুক্ষ", "Harsh", "বিশেষণ"],
-  [730, "فَظًّا", "কর্কশ", "Rude", "বিশেষণ"],
-  [731, "جَبَّارًا", "দম্ভী", "Tyrant", "বিশেষণ"],
-  [732, "مُتَكَبِّرًا", "অহংকারী", "Arrogant", "বিশেষণ"],
-  [733, "فَاخِرًا", "বড়াইকারী", "Boastful", "বিশেষণ"],
-  [734, "مُخْتَالًا", "গর্বিত", "Haughty", "বিশেষণ"],
-  [735, "مَرَحًا", "উল্লাসকারী", "Exultant", "বিশেষণ"],
-  [736, "أَشِرًا", "দর্পিত", "Insolent", "বিশেষণ"],
-  [737, "بَطِرًا", "অকৃতজ্ঞ (সুখের সময়)", "Ungrateful in ease", "বিশেষণ"],
-  [738, "كَفُورًا", "অকৃতজ্ঞ", "Ungrateful", "বিশেষণ"],
-  [739, "شَكُورًا", "কৃতজ্ঞ", "Grateful", "বিশেষণ"],
-  [740, "صَبُورًا", "ধৈর্যশীল", "Patient", "বিশেষণ"],
-  [741, "حَلِيمًا", "সহনশীল", "Forbearing", "বিশেষণ"],
-  [742, "رَءُوفًا", "স্নেহশীল", "Compassionate", "বিশেষণ"],
-  [743, "رَحِيمًا", "দয়ালু", "Merciful", "বিশেষণ"],
-  [744, "غَفُورًا", "ক্ষমাশীল", "Forgiving", "বিশেষণ"],
-  [745, "تَوَّابًا", "তওবা গ্রহণকারী", "Accepter of repentance", "বিশেষণ"],
-  [746, "قَابِلَ", "গ্রহণকারী", "Accepter", "বিশেষণ"],
-  [747, "مُجِيبَ", "উত্তরদাতা", "Responder", "বিশেষণ"],
-  [748, "سَرِيعَ", "দ্রুত", "Swift", "বিশেষণ"],
-  [749, "بَطِيءَ", "মন্থর", "Slow", "বিশেষণ"],
-  [750, "قَوِيَّ", "শক্তিশালী", "Strong", "বিশেষণ"],
-  [751, "ضَعِيفَ", "দুর্বল", "Weak", "বিশেষণ"],
-  [752, "غَنِيَّ", "অমুখাপেক্ষী", "Self-sufficient", "বিশেষণ"],
-  [753, "فَقِيرَ", "নিঃস্ব", "Needy", "বিশেষণ"],
-  [754, "صَعْبَ", "কঠিন", "Difficult", "বিশেষণ"],
-  [755, "سَهْلَ", "সহজ", "Easy", "বিশেষণ"],
-  [756, "قَرِيبَ", "নিকটবর্তী", "Near", "বিশেষণ"],
-  [757, "بَعِيدَ", "দূরবর্তী", "Far", "বিশেষণ"],
-  [758, "جَدِيدَ", "নতুন", "New", "বিশেষণ"],
-  [759, "عَتِيقَ", "পুরাতন", "Old/Ancient", "বিশেষণ"],
-  [760, "قَدِيمَ", "প্রাচীন", "Ancient", "বিশেষণ"],
-  [761, "أَوَّلَ", "প্রথম", "First", "বিশেষণ"],
-  [762, "آخِرَ", "শেষ", "Last", "বিশেষণ"],
-  [763, "قُدَّامَ", "সম্মুখে", "In front of", "অব্যয়"],
-  [764, "وَرَاءَ", "পেছনে", "Behind", "অব্যয়"],
-  [765, "فَوْقَ", "উপরে", "Above", "অব্যয়"],
-  [766, "تَحْتَ", "নিচে", "Under", "অব্যয়"],
-  [767, "يَمِينَ", "ডান দিকে", "Right side", "বিশেষ্য"],
-  [768, "شِمَالَ", "বাম দিকে", "Left side", "বিশেষ্য"],
-  [769, "أَمَامَ", "সম্মুখে", "Front", "অব্যয়"],
-  [770, "خَلْفَ", "পশ্চাতে", "Behind", "অব্যয়"],
-  [771, "حِجَابٍ", "পর্দা", "Veil", "বিশেষ্য"],
-  [772, "سِتْرٍ", "আচ্ছাদন", "Covering", "বিশেষ্য"],
-  [773, "نُقْطَةٍ", "বিন্দু", "Dot", "বিশেষ্য"],
-  [774, "خَطٍّ", "রেখা", "Line", "বিশেষ্য"],
-  [775, "كِتَابَةٍ", "লেখা", "Writing", "বিশেষ্য"],
-  [776, "قِرَاءَةٍ", "পাঠ", "Reading", "বিশেষ্য"],
-  [777, "حِفْظٍ", "সংরক্ষণ", "Preservation", "বিশেষ্য"],
-  [778, "ذِكْرٍ", "স্মরণ", "Remembrance", "বিশেষ্য"],
-  [779, "فِكْرٍ", "চিন্তা", "Thought", "বিশেষ্য"],
-  [780, "تَدَبُّرٍ", "গভীর চিন্তা", "Reflection", "বিশেষ্য"],
-  [781, "تَفَكُّرٍ", "চিন্তাভাবনা", "Contemplation", "বিশেষ্য"],
-  [782, "تَذَكُّرٍ", "স্মরণ", "Reminding", "বিশেষ্য"],
-  [783, "اعْتِبَارٍ", "উপদেশ গ্রহণ", "Admonition", "বিশেষ্য"],
-  [784, "مَوْعِظَةٍ", "উপদেশ", "Exhortation", "বিশেষ্য"],
-  [785, "بَصِيرَةٍ", "প্রজ্ঞা/দৃষ্টি", "Insight", "বিশেষ্য"],
-  [786, "بُرْهَانٍ", "প্রমাণ", "Proof", "বিশেষ্য"],
-  [787, "سُلْطَانٍ", "কর্তৃত্ব/প্রমাণ", "Authority", "বিশেষ্য"],
-  [788, "حُجَّةٍ", "যুক্তি", "Argument", "বিশেষ্য"],
-  [789, "عُذْرٍ", "অজুহাত", "Excuse", "বিশেষ্য"],
-  [790, "عُقُوبَةٍ", "শাস্তি", "Punishment", "বিশেষ্য"],
-  [791, "نَكَالٍ", "দৃষ্টান্তমূলক শাস্তি", "Exemplary punishment", "বিশেষ্য"],
-  [792, "وَبَالٍ", "খারাপ পরিণতি", "Evil consequence", "বিশেষ্য"],
-  [793, "غِرَارٍ", "প্রতারনা", "Deceit", "বিশেষ্য"],
-  [794, "خَدِيعَةٍ", "ছলনা", "Trickery", "বিশেষ্য"],
-  [795, "مَكْرٍ", "চক্রান্ত", "Plot", "বিশেষ্য"],
-  [796, "كَيْدٍ", "ষড়যন্ত্র", "Intrigue", "বিশেষ্য"],
-  [797, "حِيلَةٍ", "কৌশল", "Stratagem", "বিশেষ্য"],
-  [798, "ضَرَرٍ", "ক্ষতি", "Harm", "বিশেষ্য"],
-  [799, "نَفْعٍ", "উপকার", "Benefit", "বিশেষ্য"],
-  [800, "مَضَرَّةٍ", "অমঙ্গল", "Detriment", "বিশেষ্য"],
-  [801, "صَلَاحٍ", "সংশোধন", "Reform", "বিশেষ্য"],
-  [802, "فَسَادٍ", "অশান্তি", "Corruption", "বিশেষ্য"],
-  [803, "خَيْرٍ", "কল্যাণ", "Goodness", "বিশেষ্য"],
-  [804, "شَرٍّ", "অকল্যাণ", "Evil", "বিশেষ্য"],
-  [805, "نَفْعٍ", "ফায়দা", "Benefit", "বিশেষ্য"],
-  [806, "بَرَكَةٍ", "বরকত", "Blessing", "বিশেষ্য"],
-  [807, "نَقْمَةٍ", "ক্রোধ/শাস্তি", "Wrath", "বিশেষ্য"],
-  [808, "نِعْمَةٍ", "নি'মত", "Favor", "বিশেষ্য"],
-  [809, "نِقْمَةٍ", "শাস্তি", "Punishment", "বিশেষ্য"],
-  [810, "حَسَنَةٍ", "পুণ্য কাজ", "Good deed", "বিশেষ্য"],
-  [811, "سَيِّئَةٍ", "পাপ কাজ", "Bad deed", "বিশেষ্য"],
-  [812, "خَطِيئَةٍ", "গুনাহ", "Sin", "বিশেষ্য"],
-  [813, "إِثْمٍ", "পাপ", "Sin", "বিশেষ্য"],
-  [814, "وِزْرٍ", "পাপের বোঝা", "Burden of sin", "বিশেষ্য"],
-  [815, "ذَنْبٍ", "অপরাধ", "Offense", "বিশেষ্য"],
-  [816, "جُرْمٍ", "অপরাধ", "Crime", "বিশেষ্য"],
-  [817, "عُدْوَانٍ", "সীমালঙ্ঘন", "Transgression", "বিশেষ্য"],
-  [818, "بَغْيٍ", "বিদ্রোহ", "Rebellion", "বিশেষ্য"],
-  [819, "طُغْيَانٍ", "সীমালঙ্ঘন", "Excess", "বিশেষ্য"],
-  [820, "غُلْوٍ", "চরমপন্থা", "Extremism", "বিশেষ্য"],
-  [821, "إِفْكٍ", "মিথ্যা অপবাদ", "Slander", "বিশেষ্য"],
-  [822, "بُهْتَانٍ", "মিথ্যা অভিযোগ", "False accusation", "বিশেষ্য"],
-  [823, "زُورٍ", "মিথ্যা", "Falsehood", "বিশেষ্য"],
-  [824, "كَذِبٍ", "মিথ্যা", "Lying", "বিশেষ্য"],
-  [825, "صِدْقٍ", "সত্যবাদিতা", "Truthfulness", "বিশেষ্য"],
-  [826, "أَمَانَةٍ", "আমানত", "Trust", "বিশেষ্য"],
-  [827, "خِيَانَةٍ", "খেয়ানত", "Betrayal", "বিশেষ্য"],
-  [828, "غِشٍّ", "প্রতারনা", "Cheating", "বিশেষ্য"],
-  [829, "نُصْحٍ", "সৎ উপদেশ", "Sincere advice", "বিশেষ্য"],
-  [830, "إِخْلَاصٍ", "আন্তরিকতা", "Sincerity", "বিশেষ্য"],
-  [831, "إِحْسَانٍ", "ইহসান", "Beneficence", "বিশেষ্য"],
-  [832, "إِسَاءَةٍ", "অত্যাচার", "Mistreatment", "বিশেষ্য"],
-  [833, "عَدْلٍ", "ন্যায়বিচার", "Justice", "বিশেষ্য"],
-  [834, "قِسْطٍ", "ন্যায়পরায়ণতা", "Equity", "বিশেষ্য"],
-  [835, "جَوْرٍ", "অত্যাচার", "Injustice", "বিশেষ্য"],
-  [836, "ظُلْمٍ", "যুলুম", "Wrongdoing", "বিশেষ্য"],
-  [837, "حُرْمَةٍ", "সম্মান/মর্যাদা", "Sanctity", "বিশেষ্য"],
-  [838, "كَرَامَةٍ", "সম্মান", "Honor", "বিশেষ্য"],
-  [839, "إِهَانَةٍ", "অপমান", "Humiliation", "বিশেষ্য"],
-  [840, "ذِلَّةٍ", "লাঞ্ছনা", "Dishonor", "বিশেষ্য"],
-  [841, "عِزَّةٍ", "সম্মান", "Honor", "বিশেষ্য"],
-  [842, "عَظَمَةٍ", "মহত্ত্ব", "Greatness", "বিশেষ্য"],
-  [843, "كِبْرِيَاءَ", "অহংকার", "Pride", "বিশেষ্য"],
-  [844, "تَوَاضُعٍ", "নম্রতা", "Humility", "বিশেষ্য"],
-  [845, "خُضُوعٍ", "বিনয়", "Submissiveness", "বিশেষ্য"],
-  [846, "خُشُوعٍ", "নম্রতা (সালাতে)", "Humility in prayer", "বিশেষ্য"],
-  [847, "خَوْفٍ", "ভয়", "Fear", "বিশেষ্য"],
-  [848, "رَجَاءٍ", "আশা", "Hope", "বিশেষ্য"],
-  [849, "طَمَعٍ", "লোভ", "Greed", "বিশেষ্য"],
-  [850, "حِرْصٍ", "অতি লোভ", "Covetousness", "বিশেষ্য"],
-  [851, "حَسَدٍ", "হিংসা", "Envy", "বিশেষ্য"],
-  [852, "بُغْضٍ", "বিদ্বেষ", "Hatred", "বিশেষ্য"],
-  [853, "ضَغِينَةٍ", "শত্রুতা", "Malice", "বিশেষ্য"],
-  [854, "غِلٍّ", "বিদ্বেষ (বুকের)", "Grudge", "বিশেষ্য"],
-  [855, "حِقْدٍ", "ক্ষোভ", "Spite", "বিশেষ্য"],
-  [856, "كِبْرٍ", "অহংকার", "Arrogance", "বিশেষ্য"],
-  [857, "عُجْبٍ", "আত্মমুগ্ধতা", "Self-admiration", "বিশেষ্য"],
-  [858, "غُرُورٍ", "প্রতারনা", "Delusion", "বিশেষ্য"],
-  [859, "غَفْلَةٍ", "অসাবধানতা", "Negligence", "বিশেষ্য"],
-  [860, "سَهْوٍ", "ভুল", "Forgetfulness", "বিশেষ্য"],
-  [861, "نِسْيَانٍ", "ভুলে যাওয়া", "Forgetting", "বিশেষ্য"],
-  [862, "عَمْدٍ", "ইচ্ছাকৃত", "Intentional", "বিশেষ্য"],
-  [863, "خَطَإٍ", "অনিচ্ছাকৃত ভুল", "Mistake", "বিশেষ্য"],
-  [864, "جَهْلٍ", "অজ্ঞতা", "Ignorance", "বিশেষ্য"],
-  [865, "عِلْمٍ", "জ্ঞান", "Knowledge", "বিশেষ্য"],
-  [866, "فَهْمٍ", "বোঝা", "Understanding", "বিশেষ্য"],
-  [867, "فِقْهٍ", "গভীর বোধ", "Deep understanding", "বিশেষ্য"],
-  [868, "حِكْمَةٍ", "প্রজ্ঞা", "Wisdom", "বিশেষ্য"],
-  [869, "بَصِيرَةٍ", "অন্তর্দৃষ্টি", "Insight", "বিশেষ্য"],
-  [870, "بَصَرٍ", "দৃষ্টি", "Sight", "বিশেষ্য"],
-  [871, "سَمْعٍ", "শ্রবণ", "Hearing", "বিশেষ্য"],
-  [872, "بَصَائِرَ", "প্রজ্ঞার আলো", "Insights", "বিশেষ্য"],
-  [873, "أَسْمَاعٍ", "কানসমূহ", "Ears", "বিশেষ্য"],
-  [874, "أَبْصَارٍ", "চোখসমূহ", "Eyes", "বিশেষ্য"],
-  [875, "أَفْئِدَةٍ", "হৃদয়সমূহ", "Hearts", "বিশেষ্য"],
-  [876, "قُلُوبٍ", "হৃদয়সমূহ", "Hearts", "বিশেষ্য"],
-  [877, "أَلْبَابٍ", "বুদ্ধি", "Intellects", "বিশেষ্য"],
-  [878, "نُهَىٰ", "প্রজ্ঞা", "Minds", "বিশেষ্য"],
-  [879, "حِجْرٍ", "বাধা/পাথর", "Obstacle/Stone", "বিশেষ্য"],
-  [880, "حِجَارَةٍ", "পাথর", "Stones", "বিশেষ্য"],
-  [881, "طِينٍ", "কাদা", "Clay", "বিশেষ্য"],
-  [882, "مَاءٍ", "পানি", "Water", "বিশেষ্য"],
-  [883, "نَارٍ", "আগুন", "Fire", "বিশেষ্য"],
-  [884, "نُورٍ", "আলো", "Light", "বিশেষ্য"],
-  [885, "ظُلْمَةٍ", "অন্ধকার", "Darkness", "বিশেষ্য"],
-  [886, "رِيحٍ", "বাতাস", "Wind", "বিশেষ্য"],
-  [887, "سَحَابٍ", "মেঘ", "Cloud", "বিশেষ্য"],
-  [888, "غَيْمٍ", "মেঘ", "Cloud", "বিশেষ্য"],
-  [889, "مَطَرٍ", "বৃষ্টি", "Rain", "বিশেষ্য"],
-  [890, "بَرَدٍ", "শিলাবৃষ্টি", "Hail", "বিশেষ্য"],
-  [891, "ثَلْجٍ", "তুষার", "Snow", "বিশেষ্য"],
-  [892, "زَلْزَلَةٍ", "ভূমিকম্প", "Earthquake", "বিশেষ্য"],
-  [893, "رَجْفَةٍ", "প্রবল কম্পন", "Violent shaking", "বিশেষ্য"],
-  [894, "صَاعِقَةٍ", "বজ্রপাত", "Thunderbolt", "বিশেষ্য"],
-  [895, "رَعْدٍ", "বজ্রের শব্দ", "Thunder", "বিশেষ্য"],
-  [896, "بَرْقٍ", "বিদ্যুৎ", "Lightning", "বিশেষ্য"],
-  [897, "صَوْتٍ", "শব্দ", "Sound", "বিশেষ্য"],
-  [898, "نِدَاءٍ", "ডাক", "Call", "বিশেষ্য"],
-  [899, "صَيْحَةٍ", "চিৎকার", "Shout", "বিশেষ্য"],
-  [900, "نَاقَةٍ", "উটনী", "She-camel", "বিশেষ্য"],
-  [901, "عِجْلٍ", "বাছুর", "Calf", "বিশেষ্য"],
-  [902, "حُوتٍ", "তিমি মাছ", "Whale/Fish", "বিশেষ্য"],
-  [903, "سَمَكٍ", "মাছ", "Fish", "বিশেষ্য"],
-  [904, "جَرَادٍ", "পঙ্গপাল", "Locust", "বিশেষ্য"],
-  [905, "قُمَّلٍ", "উকুন", "Lice", "বিশেষ্য"],
-  [906, "ضَفَادِعَ", "ব্যাঙ", "Frogs", "বিশেষ্য"],
-  [907, "دَابَّةٍ", "চলন্ত প্রাণী", "Creature", "বিশেষ্য"],
-  [908, "بَهِيمَةٍ", "গবাদি পশু", "Beast", "বিশেষ্য"],
-  [909, "نَعْجَةٍ", "ভেড়ি", "Ewe", "বিশেষ্য"],
-  [910, "ذِئْبٍ", "নেকড়ে", "Wolf", "বিশেষ্য"],
-  [911, "أَسَدٍ", "সিংহ", "Lion", "বিশেষ্য"],
-  [912, "كَلْبٍ", "কুকুর", "Dog", "বিশেষ্য"],
-  [913, "خِنْزِيرٍ", "শূকর", "Pig", "বিশেষ্য"],
-  [914, "قِرْدٍ", "বানর", "Monkey", "বিশেষ্য"],
-  [915, "حَيَّةٍ", "সাপ", "Snake", "বিশেষ্য"],
-  [916, "عَقْرَبٍ", "বিচ্ছু", "Scorpion", "বিশেষ্য"],
-  [917, "فَأْرٍ", "ইঁদুর", "Mouse/Rat", "বিশেষ্য"],
-  [918, "بَعُوضَةٍ", "মশা", "Mosquito", "বিশেষ্য"],
-  [919, "عَنْكَبُوتٍ", "মাকড়সা", "Spider", "বিশেষ্য"],
-  [920, "نَمْلَةٍ", "পিঁপড়া", "Ant", "বিশেষ্য"],
-  [921, "هُدْهُدٍ", "হুদহুদ পাখি", "Hoopoe", "বিশেষ্য"],
-  [922, "غُرَابٍ", "কাক", "Crow", "বিশেষ্য"],
-  [923, "بَغْلٍ", "খচ্চর", "Mule", "বিশেষ্য"],
-  [924, "حِمَارٍ", "গাধা", "Donkey", "বিশেষ্য"],
-  [925, "فَرَسٍ", "ঘোড়া", "Horse", "বিশেষ্য"],
-  [926, "بُرْذُونٍ", "খচ্চর (দেশি)", "Mule", "বিশেষ্য"],
-  [927, "رَكُوبٍ", "বাহন", "Mount", "বিশেষ্য"],
-  [928, "مَرْكَبٍ", "নৌকা/বাহন", "Vehicle/Boat", "বিশেষ্য"],
-  [929, "فُلْكٍ", "নৌকা", "Ship", "বিশেষ্য"],
-  [930, "سَفِينَةٍ", "নৌকা", "Boat", "বিশেষ্য"],
-  [931, "جُنْدٍ", "সৈন্যবাহিনী", "Army", "বিশেষ্য"],
-  [932, "جَيْشٍ", "সেনাবাহিনী", "Army", "বিশেষ্য"],
-  [933, "جُنُودٍ", "সৈন্য", "Soldiers", "বিশেষ্য"],
-  [934, "سِلَاحٍ", "অস্ত্র", "Weapon", "বিশেষ্য"],
-  [935, "حَرْبٍ", "যুদ্ধ", "War", "বিশেষ্য"],
-  [936, "قِتَالٍ", "যুদ্ধ", "Fighting", "বিশেষ্য"],
-  [937, "جِهَادٍ", "জিহাদ", "Struggle", "বিশেষ্য"],
-  [938, "سِلْمٍ", "শান্তি", "Peace", "বিশেষ্য"],
-  [939, "صُلْحٍ", "সন্ধি", "Truce", "বিশেষ্য"],
-  [940, "أَمْنٍ", "নিরাপত্তা", "Security", "বিশেষ্য"],
-  [941, "خَوْفٍ", "ভয়", "Fear", "বিশেষ্য"],
-  [942, "رَهْبَةٍ", "ভয় (মিশ্রিত শ্রদ্ধা)", "Awe", "বিশেষ্য"],
-  [943, "رَغْبَةٍ", "আগ্রহ", "Desire", "বিশেষ্য"],
-  [944, "مَحَبَّةٍ", "ভালোবাসা", "Love", "বিশেষ্য"],
-  [945, "مَوَدَّةٍ", "স্নেহ", "Affection", "বিশেষ্য"],
-  [946, "رَحْمَةٍ", "দয়া", "Mercy", "বিশেষ্য"],
-  [947, "رِقَّةٍ", "কোমলতা", "Tenderness", "বিশেষ্য"],
-  [948, "شَفَقَةٍ", "সহানুভূতি", "Compassion", "বিশেষ্য"],
-  [949, "قَسْوَةٍ", "কঠোরতা", "Harshness", "বিশেষ্য"],
-  [950, "غِلَظَةٍ", "রুক্ষতা", "Roughness", "বিশেষ্য"],
-  [951, "لِينٍ", "কোমলতা", "Softness", "বিশেষ্য"],
-  [952, "سُهُولَةٍ", "সহজতা", "Ease", "বিশেষ্য"],
-  [953, "شِدَّةٍ", "কঠিন অবস্থা", "Hardship", "বিশেষ্য"],
-  [954, "يُسْرٍ", "সহজতা", "Ease", "বিশেষ্য"],
-  [955, "عُسْرٍ", "কঠিন", "Difficulty", "বিশেষ্য"],
-  [956, "فَرَجٍ", "উদ্ধার/মুক্তি", "Relief", "বিশেষ্য"],
-  [957, "مَخْرَجٍ", "পথ বের হওয়া", "Way out", "বিশেষ্য"],
-  [958, "مَدْخَلٍ", "প্রবেশ পথ", "Entrance", "বিশেষ্য"],
-  [959, "مَقَامٍ", "স্থান", "Station", "বিশেষ্য"],
-  [960, "مَقْعَدٍ", "বসার স্থান", "Seat", "বিশেষ্য"],
-  [961, "مَنْزِلٍ", "গৃহ", "Dwelling", "বিশেষ্য"],
-  [962, "مَسْكَنٍ", "আবাস", "Residence", "বিশেষ্য"],
-  [963, "دَارٍ", "গৃহ", "Home", "বিশেষ্য"],
-  [964, "بَيْتٍ", "ঘর", "House", "বিশেষ্য"],
-  [965, "قَصْرٍ", "প্রাসাদ", "Palace", "বিশেষ্য"],
-  [966, "غُرْفَةٍ", "কক্ষ", "Chamber", "বিশেষ্য"],
-  [967, "إِصْطَبْلٍ", "আস্তাবল", "Stable", "বিশেষ্য"],
-  [968, "حَظِيرَةٍ", "বেষ্টনী", "Enclosure", "বিশেষ্য"],
-  [969, "حَدِيقَةٍ", "বাগান", "Garden", "বিশেষ্য"],
-  [970, "جَنَّةٍ", "জান্নাত", "Paradise", "বিশেষ্য"],
-  [971, "بُسْتَانٍ", "উদ্যান", "Orchard", "বিশেষ্য"],
-  [972, "نَخْلٍ", "খেজুর গাছ", "Palm tree", "বিশেষ্য"],
-  [973, "زَيْتُونٍ", "জলপাই গাছ", "Olive tree", "বিশেষ্য"],
-  [974, "رُمَّانٍ", "ডালিম", "Pomegranate", "বিশেষ্য"],
-  [975, "عِنَبٍ", "আঙ্গুর", "Grape", "বিশেষ্য"],
-  [976, "تِينٍ", "ডুমুর", "Fig", "বিশেষ্য"],
-  [977, "بَصَلٍ", "পেঁয়াজ", "Onion", "বিশেষ্য"],
-  [978, "ثُومٍ", "রসুন", "Garlic", "বিশেষ্য"],
-  [979, "عَدَسٍ", "মসুর ডাল", "Lentil", "বিশেষ্য"],
-  [980, "فُولٍ", "বরবটি/শিম", "Beans", "বিশেষ্য"],
-  [981, "قِثَّاءٍ", "শসা", "Cucumber", "বিশেষ্য"],
-  [982, "بَقْلٍ", "শাকসবজি", "Herbs", "বিশেষ্য"],
-  [983, "زَنْجَبِيلٍ", "আদা", "Ginger", "বিশেষ্য"],
-  [984, "كَافُورٍ", "কর্পূর", "Camphor", "বিশেষ্য"],
-  [985, "مِسْكٍ", "কস্তুরী", "Musk", "বিশেষ্য"],
-  [986, "عَنْبَرٍ", "অম্বর", "Ambergris", "বিশেষ্য"],
-  [987, "زَعْفَرَانٍ", "জাফরান", "Saffron", "বিশেষ্য"],
-  [988, "وَرْسٍ", "হলুদ রঙের গাছ", "Wars (plant)", "বিশেষ্য"],
-  [989, "حِنَّاءٍ", "মেহেদি", "Henna", "বিশেষ্য"],
-  [990, "كَحْلٍ", "সুরমা", "Antimony", "বিশেষ্য"],
-  [991, "إِثْمِدٍ", "সুরমা", "Kohl", "বিশেষ্য"],
-  [992, "مِلْحٍ", "লবণ", "Salt", "বিশেষ্য"],
-  [993, "زُبْدٍ", "মাখন", "Butter", "বিশেষ্য"],
-  [994, "جُبْنٍ", "পনির", "Cheese", "বিশেষ্য"],
-  [995, "سَمْنٍ", "ঘি", "Ghee", "বিশেষ্য"],
-  [996, "عَسَلٍ", "মধু", "Honey", "বিশেষ্য"],
-  [997, "لَبَنٍ", "দুধ", "Milk", "বিশেষ্য"],
-  [998, "زَيْتٍ", "তেল", "Oil", "বিশেষ্য"],
-  [999, "خَلٍّ", "ভিনেগার", "Vinegar", "বিশেষ্য"],
-  [1000, "نَبِيذٍ", "পানীয় (খেজুরের রস)", "Beverage (date drink)", "বিশেষ্য"],
-  [1001, "أَبٍّ", "ঘাস/তৃণ", "Pasture/Grass", "বিশেষ্য"],
-  [1002, "أَكَّارٍ", "কৃষক", "Farmer", "বিশেষ্য"],
-  [1003, "حَرَّاثٍ", "চাষি", "Plowman", "বিশেষ্য"],
-  [1004, "حَصَادٍ", "ফসল কাটা", "Harvest", "বিশেষ্য"],
-  [1005, "زَرْعٍ", "শস্য", "Cultivation", "বিশেষ্য"],
-  [1006, "نَبْتٍ", "উদ্ভিদ", "Plant", "বিশেষ্য"],
-  [1007, "شَطْءٍ", "চারা", "Seedling", "বিশেষ্য"],
-  [1008, "فَسِيلٍ", "খেজুরের চারা", "Palm sapling", "বিশেষ্য"],
-  [1009, "طَلْعٍ", "খেজুরের মুকুল", "Palm blossom", "বিশেষ্য"],
-  [1010, "لِيفٍ", "খেজুরের ছাল", "Palm fiber", "বিশেষ্য"],
-  [1011, "كَرْمٍ", "আঙ্গুর ক্ষেত", "Vineyard", "বিশেষ্য"],
-  [1012, "جَنَىٰ", "ফল তোলা", "To harvest", "ক্রিয়া"],
-  [1013, "قُطُوفٍ", "ফলগুচ্ছ", "Clusters of fruit", "বিশেষ্য"],
-  [1014, "دَانٍ", "ঝুলন্ত (ফল)", "Hanging low", "বিশেষণ"],
-  [1015, "حَبِّ", "শস্যদানা", "Grain", "বিশেষ্য"],
-  [1016, "بُرِّ", "গম", "Wheat", "বিশেষ্য"],
-  [1017, "شَعِيرٍ", "যব", "Barley", "বিশেষ্য"],
-  [1018, "ذُرَةٍ", "ভুট্টা", "Corn", "বিশেষ্য"],
-  [1019, "أَرُزٍّ", "ধান/চাল", "Rice", "বিশেষ্য"],
-  [1020, "عَدَسٍ", "মসুর ডাল", "Lentil", "বিশেষ্য"],
-  [1021, "فُولٍ", "বরবটি", "Broad beans", "বিশেষ্য"],
-  [1022, "بَاقِلَّاءٍ", "সীম", "Beans", "বিশেষ্য"],
-  [1023, "سَمَاسِمَ", "তিল", "Sesame", "বিশেষ্য"],
-  [1024, "زَيْتٍ", "জলপাই তেল", "Olive oil", "বিশেষ্য"],
-  [1025, "عُصْفُرٍ", "কুসুম ফুল", "Safflower", "বিশেষ্য"],
-  [1026, "زَبِيبٍ", "কিশমিশ", "Raisin", "বিশেষ্য"],
-  [1027, "تَمْرٍ", "খেজুর", "Dates", "বিশেষ্য"],
-  [1028, "بَلَحٍ", "কাঁচা খেজুর", "Unripe dates", "বিশেষ্য"],
-  [1029, "رُطَبٍ", "পাকা খেজুর", "Ripe dates", "বিশেষ্য"],
-  [1030, "سُكَّرٍ", "চিনি", "Sugar", "বিশেষ্য"],
-  [1031, "قَصَبٍ", "আখ", "Sugarcane", "বিশেষ্য"],
-  [1032, "نَحْلٍ", "মৌমাছি", "Bee", "বিশেষ্য"],
-  [1033, "يَعْسُوبٍ", "মৌমাছির রাণী", "Queen bee", "বিশেষ্য"],
-  [1034, "عَسَلٍ", "মধু", "Honey", "বিশেষ্য"],
-  [1035, "شَهْدٍ", "মধু (নির্মল)", "Pure honey", "বিশেষ্য"],
-  [1036, "شِرْبٍ", "পানীয়", "Drink", "বিশেষ্য"],
-  [1037, "رَيْحَانٍ", "সুগন্ধি উদ্ভিদ", "Sweet basil", "বিশেষ্য"],
-  [1038, "عِطْرٍ", "সুগন্ধি", "Perfume", "বিশেষ্য"],
-  [1039, "مِسْكٍ", "কস্তুরী", "Musk", "বিশেষ্য"],
-  [1040, "كَافُورٍ", "কর্পূর", "Camphor", "বিশেষ্য"],
-  [1041, "زَنْجَبِيلٍ", "আদা", "Ginger", "বিশেষ্য"],
-  [1042, "سَلْسَبِيلٍ", "সালসাবিল (জান্নাতের ঝরনা)", "Salsabil", "বিশেষ্য"],
-  [1043, "تَسْنِيمٍ", "তাসনিম (জান্নাতের ঝরনা)", "Tasneem", "বিশেষ্য"],
-  [1044, "مَعِينٍ", "প্রবহমান ঝরনা", "Flowing spring", "বিশেষ্য"],
-  [1045, "يَنْبُوعٍ", "ঝরনা", "Spring", "বিশেষ্য"],
-  [1046, "بِئْرٍ", "কূপ", "Well", "বিশেষ্য"],
-  [1047, "غَدِيرٍ", "ছোট জলাশয়", "Pool", "বিশেষ্য"],
-  [1048, "بُحَيْرَةٍ", "হ্রদ", "Lake", "বিশেষ্য"],
-  [1049, "بَحْرٍ", "সমুদ্র", "Sea", "বিশেষ্য"],
-  [1050, "يَمٍّ", "সমুদ্র (মিশরীয়)", "Sea (Egyptian)", "বিশেষ্য"],
-  [1051, "نِيلٍ", "নীল নদ", "Nile", "বিশেষ্য"],
-  [1052, "فُرَاتٍ", "মিষ্টি পানি", "Euphrates/Sweet water", "বিশেষ্য"],
-  [1053, "نَهْرٍ", "নদী", "River", "বিশেষ্য"],
-  [1054, "سُدٍّ", "বাঁধ", "Dam", "বিশেষ্য"],
-  [1055, "جِسْرٍ", "সেতু", "Bridge", "বিশেষ্য"],
-  [1056, "قَنْطَرَةٍ", "সেতু/প্রাসাদ", "Bridge/Palace", "বিশেষ্য"],
-  [1057, "صَرْحٍ", "প্রাসাদ", "Palace", "বিশেষ্য"],
-  [1058, "إِيوَانٍ", "বারান্দা", "Balcony", "বিশেষ্য"],
-  [1059, "غُرْفَةٍ", "কক্ষ", "Room", "বিশেষ্য"],
-  [1060, "عِلِّيِّينَ", "ইল্লিয়ীন (উচ্চ জান্নাত)", "Illiyin", "বিশেষ্য"],
-  [1061, "سِجِّينٍ", "সিজ্জীন (জাহান্নামের গভীর স্তর)", "Sijjin", "বিশেষ্য"],
-  [1062, "هَاوِيَةٍ", "হাবিয়া (জাহান্নামের নাম)", "Hawiyah", "বিশেষ্য"],
-  [1063, "حُطَمَةٍ", "হুতামাহ (জাহান্নামের নাম)", "Hutamah", "বিশেষ্য"],
-  [1064, "لَظَىٰ", "লাযা (জাহান্নাম)", "Ladha", "বিশেষ্য"],
-  [1065, "سَقَرَ", "সাকার (জাহান্নাম)", "Saqar", "বিশেষ্য"],
-  [1066, "جَحِيمٍ", "জাহীম (জাহান্নাম)", "Jaheem", "বিশেষ্য"],
-  [1067, "حَمِيمٍ", "ফুটন্ত পানি", "Boiling water", "বিশেষ্য"],
-  [1068, "غِسْلِينٍ", "ক্ষতের পুঁজ", "Wound discharge", "বিশেষ্য"],
-  [1069, "ضَرِيعٍ", "কাঁটাযুক্ত গাছ (জাহান্নামের খাবার)", "Thorny plant", "বিশেষ্য"],
-  [1070, "زَقُّومٍ", "যাক্কুম (জাহান্নামের গাছ)", "Zaqqum", "বিশেষ্য"],
-  [1071, "غَسَّاقٍ", "ফুটন্ত পুঁজ", "Scalding pus", "বিশেষ্য"],
-  [1072, "صُدَّاعٍ", "মাথাব্যথা", "Headache", "বিশেষ্য"],
-  [1073, "صَعْقَةٍ", "বজ্রপাত/অচেতনতা", "Thunderbolt", "বিশেষ্য"],
-  [1074, "صَرْصَرٍ", "প্রচন্ড ঝড়", "Violent wind", "বিশেষ্য"],
-  [1075, "قَاصِفٍ", "ঝড়ো বাতাস", "Storm wind", "বিশেষ্য"],
-  [1076, "عَاصِفٍ", "প্রবল বাতাস", "Strong wind", "বিশেষ্য"],
-  [1077, "زَوْبَعَةٍ", "ঘূর্ণিঝড়", "Cyclone", "বিশেষ্য"],
-  [1078, "إِعْصَارٍ", "টর্নেডো", "Tornado", "বিশেষ্য"],
-  [1079, "رَاعِدٍ", "বজ্র", "Thunder", "বিশেষ্য"],
-  [1080, "بَارِقٍ", "বিদ্যুৎ", "Lightning", "বিশেষ্য"],
-  [1081, "رَجْفٍ", "কম্পন", "Shaking", "বিশেষ্য"],
-  [1082, "زَلْزَلَةٍ", "ভূমিকম্প", "Earthquake", "বিশেষ্য"],
-  [1083, "رَجَفَانٍ", "টলমল অবস্থা", "Trembling", "বিশেষ্য"],
-  [1084, "فَزَعٍ", "আতঙ্ক", "Terror", "বিশেষ্য"],
-  [1085, "رُعْبٍ", "ভীতি", "Fear", "বিশেষ্য"],
-  [1086, "وَجَلٍ", "আশঙ্কা", "Apprehension", "বিশেষ্য"],
-  [1087, "إِشْفَاقٍ", "উদ্বেগ", "Anxiety", "বিশেষ্য"],
-  [1088, "حَذَرٍ", "সতর্কতা", "Caution", "বিশেষ্য"],
-  [1089, "حَذَرٍ", "ভয়", "Fear", "বিশেষ্য"],
-  [1090, "خَشْيَةٍ", "ভয় (সম্মানমিশ্রিত)", "Awe", "বিশেষ্য"],
-  [1091, "رَهْبَةٍ", "ভয় (দণ্ডের)", "Dread", "বিশেষ্য"],
-  [1092, "رَغْبَةٍ", "আকাঙ্ক্ষা", "Desire", "বিশেষ্য"],
-  [1093, "رَهْبَانِيَّةٍ", "সন্ন্যাসবাদ", "Monasticism", "বিশেষ্য"],
-  [1094, "رِبَاطٍ", "সীমান্ত পাহারা", "Guard duty", "বিশেষ্য"],
-  [1095, "مُرَابَطَةٍ", "সীমান্ত রক্ষা", "Frontier guarding", "বিশেষ্য"],
-  [1096, "جِوَارٍ", "প্রতিবেশী সম্পর্ক", "Neighborhood", "বিশেষ্য"],
-  [1097, "صِلَةٍ", "সম্পর্ক", "Relation", "বিশেষ্য"],
-  [1098, "قَطِيعَةٍ", "ছিন্ন সম্পর্ক", "Severance", "বিশেষ্য"],
-  [1099, "أَرْحَامٍ", "জরায়ু/আত্মীয়তা", "Wombs/Kinship", "বিশেষ্য"],
-  [1100, "أَضْعَافٍ", "গর্ভাশয়", "Wombs (plural)", "বিশেষ্য"],
-  [1101, "أَضْعَافًا", "স্তরসমূহ (গর্ভের)", "Layers (of womb)", "বিশেষ্য"],
-  [1102, "أَكْوَارٍ", "যুগ/কাল", "Ages/Eras", "বিশেষ্য"],
-  [1103, "أَحْقَابٍ", "যুগের পর যুগ", "Ages upon ages", "বিশেষ্য"],
-  [1104, "حِقْبَةٍ", "দীর্ঘ সময়", "Long period", "বিশেষ্য"],
-  [1105, "أَمَدٍ", "নির্দিষ্ট সময়", "Term/Period", "বিশেষ্য"],
-  [1106, "أَجَلٍ", "মেয়াদ", "Appointed time", "বিশেষ্য"],
-  [1107, "غَايَةٍ", "শেষ সীমা", "Ultimate limit", "বিশেষ্য"],
-  [1108, "مُدَّةٍ", "সময়কাল", "Duration", "বিশেষ্য"],
-  [1109, "آنَاءِ", "রাতের প্রহর", "Hours of night", "বিশেষ্য"],
-  [1110, "سَاعَةٍ", "ঘন্টা/কিয়ামত", "Hour/Resurrection", "বিশেষ্য"],
-  [1111, "لَحْظَةٍ", "পলক", "Moment", "বিশেষ্য"],
-  [1112, "طَرْفَةِ عَيْنٍ", "চোখের পলক", "Twinkling of an eye", "বাক্যাংশ"],
-  [1113, "أَوَانٍ", "সময়", "Time", "বিশেষ্য"],
-  [1114, "حِينٍ", "সময়কাল", "While/Time", "বিশেষ্য"],
-  [1115, "أَزْمَانٍ", "যুগসমূহ", "Eras", "বিশেষ্য"],
-  [1116, "دَهْرٍ", "যুগ/কাল", "Age/Time", "বিশেষ্য"],
-  [1117, "سَنَةٍ", "বছর", "Year", "বিশেষ্য"],
-  [1118, "عَامٍ", "বছর", "Year", "বিশেষ্য"],
-  [1119, "شَهْرٍ", "মাস", "Month", "বিশেষ্য"],
-  [1120, "أُسْبُوعٍ", "সপ্তাহ", "Week", "বিশেষ্য"],
-  [1121, "يَوْمٍ", "দিন", "Day", "বিশেষ্য"],
-  [1122, "لَيْلٍ", "রাত", "Night", "বিশেষ্য"],
-  [1123, "سَحَرٍ", "ভোর রাত", "Dawn before sunrise", "বিশেষ্য"],
-  [1124, "فَجْرٍ", "ভোর", "Dawn", "বিশেষ্য"],
-  [1125, "صُبْحٍ", "সকাল", "Morning", "বিশেষ্য"],
-  [1126, "ضُحًى", "পূর্বাহ্ণ", "Morning forenoon", "বিশেষ্য"],
-  [1127, "ظُهْرٍ", "দুপুর", "Noon", "বিশেষ্য"],
-  [1128, "عَصْرٍ", "অপরাহ্ণ", "Afternoon", "বিশেষ্য"],
-  [1129, "مَسَاءٍ", "সন্ধ্যা", "Evening", "বিশেষ্য"],
-  [1130, "غُرُوبٍ", "সূর্যাস্ত", "Sunset", "বিশেষ্য"],
-  [1131, "شُرُوقٍ", "সূর্যোদয়", "Sunrise", "বিশেষ্য"],
-  [1132, "زَوَالٍ", "দুপুর (সূর্য হেলে পড়া)", "Declining of sun", "বিশেষ্য"],
-  [1133, "غَسَقٍ", "রাতের অন্ধকার", "Darkness of night", "বিশেষ্য"],
-  [1134, "إِصْبَاحٍ", "প্রভাত", "Morning", "বিশেষ্য"],
-  [1135, "إِمْسَاءٍ", "সন্ধ্যা", "Evening", "বিশেষ্য"],
-  [1136, "بُكْرَةٍ", "প্রথম প্রহর", "Early morning", "বিশেষ্য"],
-  [1137, "عَشِيَّةٍ", "সন্ধ্যা/বিকেল", "Evening/Afternoon", "বিশেষ্য"],
-  [1138, "أَصِيلٍ", "সন্ধ্যাকাল", "Dusk", "বিশেষ্য"],
-  [1139, "زُمَرٍ", "দলসমূহ", "Groups", "বিশেষ্য"],
-  [1140, "أُمَمٍ", "জাতিসমূহ", "Nations", "বিশেষ্য"],
-  [1141, "شُعُوبٍ", "গোত্রসমূহ", "Peoples", "বিশেষ্য"],
-  [1142, "قَبَائِلَ", "গোত্রসমূহ", "Tribes", "বিশেষ্য"],
-  [1143, "عَشَائِرَ", "বংশসমূহ", "Clans", "বিশেষ্য"],
-  [1144, "أَسْبَاطٍ", "গোত্রসমূহ (বনি ইসরাইল)", "Tribes of Israel", "বিশেষ্য"],
-  [1145, "قُرُونٍ", "যুগ/প্রজন্ম", "Generations", "বিশেষ্য"],
-  [1146, "أَجْيَالٍ", "প্রজন্ম", "Generations", "বিশেষ্য"],
-  [1147, "آبَاءٍ", "পিতৃগণ", "Forefathers", "বিশেষ্য"],
-  [1148, "أَجْدَادٍ", "পূর্বপুরুষ", "Ancestors", "বিশেষ্য"],
-  [1149, "أَخْوَالٍ", "মাতুল", "Maternal uncles", "বিশেষ্য"],
-  [1150, "أَعْمَامٍ", "চাচা-জ্যাঠা", "Paternal uncles", "বিশেষ্য"],
-  [1151, "أَخْوَاتٍ", "বোনেরা", "Sisters", "বিশেষ্য"],
-  [1152, "إِخْوَانٍ", "ভাইয়েরা", "Brothers", "বিশেষ্য"],
-  [1153, "أَوْلَادٍ", "সন্তান", "Children", "বিশেষ্য"],
-  [1154, "ذُرِّيَّةٍ", "বংশধর", "Offspring", "বিশেষ্য"],
-  [1155, "نَسْلٍ", "বংশ", "Progeny", "বিশেষ্য"],
-  [1156, "عَقِبٍ", "উত্তরসূরি", "Successor", "বিশেষ্য"],
-  [1157, "وَلِيدٍ", "নবজাতক", "Newborn", "বিশেষ্য"],
-  [1158, "رَضِيعٍ", "দুধপানকারী শিশু", "Suckling infant", "বিশেষ্য"],
-  [1159, "فَطِيمٍ", "দুধ ছাড়ানো শিশু", "Weaned child", "বিশেষ্য"],
-  [1160, "غُلَامٍ", "বালক", "Boy", "বিশেষ্য"],
-  [1161, "جَارِيَةٍ", "বালিকা", "Girl", "বিশেষ্য"],
-  [1162, "شَابٍّ", "যুবক", "Young man", "বিশেষ্য"],
-  [1163, "شَابَّةٍ", "যুবতী", "Young woman", "বিশেষ্য"],
-  [1164, "كَهْلٍ", "মধ্যবয়সী", "Middle-aged", "বিশেষ্য"],
-  [1165, "شَيْخٍ", "বৃদ্ধ", "Old man", "বিশেষ্য"],
-  [1166, "عَجُوزٍ", "বৃদ্ধা", "Old woman", "বিশেষ্য"],
-  [1167, "هَرِمٍ", "অতি বৃদ্ধ", "Very old", "বিশেষ্য"],
-  [1168, "فَتًى", "যুবক/সেবক", "Youth/Servant", "বিশেষ্য"],
-  [1169, "فَتَيَاتٍ", "যুবতী দাসী", "Young maidens", "বিশেষ্য"],
-  [1170, "غِلْمَانٍ", "যুবক সেবক", "Youthful servants", "বিশেষ্য"],
-  [1171, "وِلْدَانٌ", "চিরযুবা (জান্নাতের)", "Eternal youths", "বিশেষ্য"],
-  [1172, "أَتْرَابٍ", "সমান বয়সী", "Of equal age", "বিশেষ্য"],
-  [1173, "أَبْكَارٍ", "কুমারী", "Virgins", "বিশেষ্য"],
-  [1174, "حُورٌ", "হুর (জান্নাতী নারী)", "Hoor", "বিশেষ্য"],
-  [1175, "عِينٌ", "বড় চোখবিশিষ্টা", "Wide-eyed", "বিশেষ্য"],
-  [1176, "قَاصِرَاتُ", "সংযত দৃষ্টি", "Modest gaze", "বিশেষণ"],
-  [1177, "لَآلِئَ", "মুক্তা", "Pearls", "বিশেষ্য"],
-  [1178, "يَاقُوتٍ", "মণি", "Ruby", "বিশেষ্য"],
-  [1179, "مَرْجَانٍ", "প্রবাল", "Coral", "বিশেষ্য"],
-  [1180, "زَبَرْجَدٍ", "জহরত", "Emerald", "বিশেষ্য"],
-  [1181, "لُؤْلُؤٍ", "মুক্তা", "Pearl", "বিশেষ্য"],
-  [1182, "سُنْدُسٍ", "চিকন রেশম", "Fine silk", "বিশেষ্য"],
-  [1183, "إِسْتَبْرَقٍ", "মোটা রেশম", "Thick silk", "বিশেষ্য"],
-  [1184, "حَرِيرٍ", "রেশম", "Silk", "বিশেষ্য"],
-  [1185, "قَزٍّ", "রেশম", "Silk", "বিশেষ্য"],
-  [1186, "دِيبَاجٍ", "রেশমি কাপড়", "Silk brocade", "বিশেষ্য"],
-  [1187, "إِكْسِيرٍ", "জাদুঘর/পরিবর্তক", "Elixir", "বিশেষ্য"],
-  [1188, "سِحْرٍ", "জাদু", "Magic", "বিশেষ্য"],
-  [1189, "سِحْرٌ مُبِينٌ", "স্পষ্ট জাদু", "Clear magic", "বাক্যাংশ"],
-  [1190, "شَعْوَذَةٍ", "ভ্রম সৃষ্টি", "Illusion", "বিশেষ্য"],
-  [1191, "عِفْرِيتٍ", "শক্তিশালী জ্বিন", "Powerful jinn", "বিশেষ্য"],
-  [1192, "مَارِدٍ", "বিদ্রোহী জ্বিন", "Rebellious jinn", "বিশেষ্য"],
-  [1193, "غُولٍ", "ভূত", "Ghoul", "বিশেষ্য"],
-  [1194, "طَاغُوتٍ", "তাগুত (অবাধ্য শক্তি)", "Taghut", "বিশেষ্য"],
-  [1195, "جِبْتٍ", "জিবত (মূর্তি/যাদু)", "Jibt", "বিশেষ্য"],
-  [1196, "أَزْلَامٍ", "ভাগ্য নির্ধারণের তীর", "Divining arrows", "বিশেষ্য"],
-  [1197, "نَرْدَشِيرٍ", "পাশা খেলা", "Dice", "বিশেষ্য"],
-  [1198, "مَيْسِرٍ", "জুয়া", "Gambling", "বিশেষ্য"],
-  [1199, "قِمَارٍ", "জুয়া", "Gambling", "বিশেষ্য"],
-  [1200, "خَمْرٍ", "মদ", "Wine", "বিশেষ্য"],
-  [1201, "خَمْرٍ", "মদ", "Wine", "বিশেষ্য"],
-  [1202, "خُمُورٍ", "মদের পাত্র", "Wine vessels", "বিশেষ্য"],
-  [1203, "رَاحٍ", "মদ/সুরা", "Wine", "বিশেষ্য"],
-  [1204, "صَهُبَاءَ", "লাল মদ", "Red wine", "বিশেষ্য"],
-  [1205, "بَيْضَاءَ", "সাদা মদ", "White wine", "বিশেষ্য"],
-  [1206, "غَوْلٍ", "মদের কুফল", "Harm of wine", "বিশেষ্য"],
-  [1207, "نَشْوَةٍ", "মদের নেশা", "Intoxication", "বিশেষ্য"],
-  [1208, "سُكْرٍ", "মাতাল অবস্থা", "Drunkenness", "বিশেষ্য"],
-  [1209, "سَكْرَانَ", "মাতাল", "Drunkard", "বিশেষ্য"],
-  [1210, "حَانَةٍ", "মদের দোকান", "Tavern", "বিশেষ্য"],
-  [1211, "كَأْسٍ", "পানপাত্র", "Cup", "বিশেষ্য"],
-  [1212, "قَدَحٍ", "পেয়ালা", "Goblet", "বিশেষ্য"],
-  [1213, "إِنَاءٍ", "পাত্র", "Vessel", "বিশেষ্য"],
-  [1214, "صَحْفَةٍ", "বড় থালা", "Large plate", "বিশেষ্য"],
-  [1215, "قَصْعَةٍ", "বাটি", "Bowl", "বিশেষ্য"],
-  [1216, "جَفْنَةٍ", "পানপাত্র", "Cup", "বিশেষ্য"],
-  [1217, "آنِيَةٍ", "পাত্রসমূহ", "Vessels", "বিশেষ্য"],
-  [1218, "أَبَارِيقَ", "জগ", "Ewers", "বিশেষ্য"],
-  [1219, "أَكْوَابٍ", "পেয়ালা", "Cups", "বিশেষ্য"],
-  [1220, "سُرُرٍ", "সিংহাসন", "Thrones", "বিশেষ্য"],
-  [1221, "أَرَائِكَ", "আসন", "Couches", "বিশেষ্য"],
-  [1222, "نَمَارِقُ", "কুশন", "Cushions", "বিশেষ্য"],
-  [1223, "زَرَابِيُّ", "মোড়ানো বিছানা", "Carpets", "বিশেষ্য"],
-  [1224, "مَهْدٍ", "শিশুর দোলনা", "Cradle", "বিশেষ্য"],
-  [1225, "مِهَادٍ", "বিছানা/শয্যা", "Bed", "বিশেষ্য"],
-  [1226, "فِرَاشٍ", "বিছানা", "Bedding", "বিশেষ্য"],
-  [1227, "لِحَافٍ", "কম্বল", "Blanket", "বিশেষ্য"],
-  [1228, "دِثَارٍ", "আচ্ছাদন", "Covering", "বিশেষ্য"],
-  [1229, "شِمْلَةٍ", "পোশাক", "Garment", "বিশেষ্য"],
-  [1230, "رِدَاءٍ", "চাদর", "Cloak", "বিশেষ্য"],
-  [1231, "إِزَارٍ", "লুঙ্গি/নিচের কাপড়", "Lower garment", "বিশেষ্য"],
-  [1232, "قَمِيصٍ", "জামা", "Shirt", "বিশেষ্য"],
-  [1233, "سِرْبَالٍ", "অস্থিরক্ষক বর্ম", "Coat of mail", "বিশেষ্য"],
-  [1234, "دِرْعٍ", "বর্ম", "Armor", "বিশেষ্য"],
-  [1235, "بَيْضَةٍ", "শিরস্ত্রাণ", "Helmet", "বিশেষ্য"],
-  [1236, "تُرْسٍ", "ঢাল", "Shield", "বিশেষ্য"],
-  [1237, "سَيْفٍ", "তরবারি", "Sword", "বিশেষ্য"],
-  [1238, "رُمْحٍ", "বর্শা", "Spear", "বিশেষ্য"],
-  [1239, "قَوْسٍ", "ধনুক", "Bow", "বিশেষ্য"],
-  [1240, "نَبْلٍ", "তীর", "Arrow", "বিশেষ্য"],
-  [1241, "وَتَرٍ", "ধনুকের জ্যা", "Bowstring", "বিশেষ্য"],
-  [1242, "فَوْقٍ", "তীরের ফলা", "Arrowhead", "বিশেষ্য"],
-  [1243, "نَصْلٍ", "তরবারির ফলক", "Blade", "বিশেষ্য"],
-  [1244, "سِنَانٍ", "বর্শার ফলক", "Spearhead", "বিশেষ্য"],
-  [1245, "زَرَدٍ", "বর্মের লিংক", "Chainmail link", "বিশেষ্য"],
-  [1246, "جَوْشَنٍ", "পূর্ণ বর্ম", "Full armor", "বিশেষ্য"],
-  [1247, "مِغْفَرٍ", "শিরস্ত্রাণ", "Helmet", "বিশেষ্য"],
-  [1248, "خُفٍّ", "চামড়ার মোজা", "Leather sock", "বিশেষ্য"],
-  [1249, "نَعْلٍ", "জুতা", "Sandal", "বিশেষ্য"],
-  [1250, "خُفٍّ", "মোজা", "Sock", "বিশেষ্য"],
-  [1251, "جُرْمُوقٍ", "উচ্চ জুতা", "Boot", "বিশেষ্য"],
-  [1252, "سَرَاوِيلَ", "প্যান্ট", "Trousers", "বিশেষ্য"],
-  [1253, "تِكَّةٍ", "কোমরবন্ধ", "Waistband", "বিশেষ্য"],
-  [1254, "مِنْطَقَةٍ", "বelt", "Belt", "বিশেষ্য"],
-  [1255, "خَاتَمٍ", "আংটি", "Ring", "বিশেষ্য"],
-  [1256, "سِوَارٍ", "বালা", "Bracelet", "বিশেষ্য"],
-  [1257, "قُلَادَةٍ", "নেকলেস", "Necklace", "বিশেষ্য"],
-  [1258, "طَوْقٍ", "হার", "Collar", "বিশেষ্য"],
-  [1259, "حَلْقَةٍ", "আংটি/চক্র", "Ring/Circle", "বিশেষ্য"],
-  [1260, "إِكْلِيلٍ", "মুকুট", "Crown", "বিশেষ্য"],
-  [1261, "تَاجٍ", "মুকুট", "Crown", "বিশেষ্য"],
-  [1262, "عِصَابَةٍ", "পাগড়ি", "Turban", "বিশেষ্য"],
-  [1263, "عِمَامَةٍ", "পাগড়ি", "Turban", "বিশেষ্য"],
-  [1264, "مِنْدِيلٍ", "রুমাল", "Handkerchief", "বিশেষ্য"],
-  [1265, "خِرْقَةٍ", "কাপড়ের টুকরা", "Rag", "বিশেষ্য"],
-  [1266, "رَقْعَةٍ", "প্যাঁচ", "Patch", "বিশেষ্য"],
-  [1267, "خَيْطٍ", "সুতা", "Thread", "বিশেষ্য"],
-  [1268, "إِبْرَةٍ", "সূঁচ", "Needle", "বিশেষ্য"],
-  [1269, "مِخْيَطٍ", "ছুঁচ", "Needle", "বিশেষ্য"],
-  [1270, "خَزْرَجٍ", "খাজরাজ গোত্র", "Khazraj tribe", "বিশেষ্য"],
-  [1271, "أَوْسٍ", "আউস গোত্র", "Aws tribe", "বিশেষ্য"],
-  [1272, "قُرَيْشٍ", "কুরাইশ গোত্র", "Quraish tribe", "বিশেষ্য"],
-  [1273, "ثَقِيفٍ", "সাকিফ গোত্র", "Thaqif tribe", "বিশেষ্য"],
-  [1274, "هَوَازِنَ", "হাওয়াজিন গোত্র", "Hawazin tribe", "বিশেষ্য"],
-  [1275, "غَطَفَانَ", "গাতফান গোত্র", "Ghatafan tribe", "বিশেষ্য"],
-  [1276, "أَسَدٍ", "আসাদ গোত্র", "Asad tribe", "বিশেষ্য"],
-  [1277, "تَمِيمٍ", "তামিম গোত্র", "Tamim tribe", "বিশেষ্য"],
-  [1278, "كِنَانَةَ", "কিনানা গোত্র", "Kinana tribe", "বিশেষ্য"],
-  [1279, "مُضَرَ", "মুদার গোত্র", "Mudar tribe", "বিশেষ্য"],
-  [1280, "رَبِيعَةَ", "রাবিয়া গোত্র", "Rabi'ah tribe", "বিশেষ্য"],
-  [1281, "إِيَادٍ", "ইয়াদ গোত্র", "Iyad tribe", "বিশেষ্য"],
-  [1282, "قَحْطَانَ", "কাহতান গোত্র", "Qahtan tribe", "বিশেষ্য"],
-  [1283, "عَادٍ", "আদ জাতি", "Aad people", "বিশেষ্য"],
-  [1284, "ثَمُودَ", "সামুদ জাতি", "Thamud people", "বিশেষ্য"],
-  [1285, "مَدْيَنَ", "মাদইয়ান জাতি", "Madyan people", "বিশেষ্য"],
-  [1286, "لُوطٍ", "লুতের জাতি", "People of Lot", "বিশেষ্য"],
-  [1287, "أَيْكَةَ", "আইকাহ (বনবাসী)", "People of the Wood", "বিশেষ্য"],
-  [1288, "رَسٍّ", "রাস (কূপের অধিবাসী)", "People of ar-Rass", "বিশেষ্য"],
-  [1289, "تُبَّعٍ", "তুব্বা জাতি", "People of Tubba", "বিশেষ্য"],
-  [1290, "جُرْهُمٍ", "জুরহুম গোত্র", "Jurhum tribe", "বিশেষ্য"],
-  [1291, "عَمَالِقَةَ", "আমালেকা গোত্র", "Amalekites", "বিশেষ্য"],
-  [1292, "يَأْجُوجَ", "ইয়াজুজ", "Gog", "বিশেষ্য"],
-  [1293, "مَأْجُوجَ", "মাজুজ", "Magog", "বিশেষ্য"],
-  [1294, "ذُو الْقَرْنَيْنِ", "যুলকারনাইন", "Dhul-Qarnayn", "বিশেষ্য"],
-  [1295, "ذُو النُّونِ", "যুননুন (ইউনুস)", "Dhun-Nun (Jonah)", "বিশেষ্য"],
-  [1296, "ذُو الْكِفْلِ", "যুলকিফল", "Dhul-Kifl", "বিশেষ্য"],
-  [1297, "عُزَيْرٌ", "উযাইর (ইজরা)", "Uzair (Ezra)", "বিশেষ্য"],
-  [1298, "لُقْمَانَ", "লুকমান", "Luqman", "বিশেষ্য"],
-  [1299, "مَرْيَمَ", "মরিয়ম", "Maryam (Mary)", "বিশেষ্য"],
-  [1300, "هَارُونَ", "হারুন", "Harun (Aaron)", "বিশেষ্য"],
-  [1301, "يَحْيَىٰ", "ইয়াহইয়া (জন)", "Yahya (John)", "বিশেষ্য"],
-  [1302, "زَكَرِيَّا", "যাকারিয়া", "Zakariyya (Zechariah)", "বিশেষ্য"],
-  [1303, "عِمْرَانَ", "ইমরান", "Imran (Amram)", "বিশেষ্য"],
-  [1304, "آلَ عِمْرَانَ", "আলে ইমরান", "Family of Imran", "বিশেষ্য"],
-  [1305, "آلَ فِرْعَوْنَ", "ফেরাউনের পরিবার", "Family of Pharaoh", "বিশেষ্য"],
-  [1306, "أَصْحَابُ الْأَيْكَةِ", "আইকার অধিবাসী", "Companions of the Wood", "বিশেষ্য"],
-  [1307, "أَصْحَابُ الرَّسِّ", "রাসের অধিবাসী", "Companions of ar-Rass", "বিশেষ্য"],
-  [1308, "أَصْحَابُ السَّبْتِ", "শনিবারের অধিবাসী", "Companions of the Sabbath", "বিশেষ্য"],
-  [1309, "أَصْحَابُ الْقَرْيَةِ", "গ্রামবাসী", "People of the town", "বিশেষ্য"],
-  [1310, "أَصْحَابُ الْجَنَّةِ", "জান্নাতবাসী", "People of Paradise", "বিশেষ্য"],
-  [1311, "أَصْحَابُ النَّارِ", "জাহান্নামবাসী", "People of Hellfire", "বিশেষ্য"],
-  [1312, "أَصْحَابُ الْيَمِينِ", "ডানদিকের লোক", "Companions of the Right", "বিশেষ্য"],
-  [1313, "أَصْحَابُ الشِّمَالِ", "বামদিকের লোক", "Companions of the Left", "বিশেষ্য"],
-  [1314, "أَصْحَابُ الْمَشْأَمَةِ", "বামদিকের লোক", "Companions of the Left", "বিশেষ্য"],
-  [1315, "أَصْحَابُ الْمَيْمَنَةِ", "ডানদিকের লোক", "Companions of the Right", "বিশেষ্য"],
-  [1316, "سَابِقُونَ", "অগ্রগামী", "Foremost", "বিশেষ্য"],
-  [1317, "مُقَرَّبُونَ", "নৈকট্যপ্রাপ্ত", "Those brought near", "বিশেষ্য"],
-  [1318, "أَبْرَارٌ", "সৎকর্মশীল", "Righteous", "বিশেষ্য"],
-  [1319, "أَخْيَارٌ", "উত্তম লোক", "Good people", "বিশেষ্য"],
-  [1320, "أَشْرَارٌ", "দুর্নীতিবাজ", "Wicked", "বিশেষ্য"],
-  [1321, "أَتْقِيَاءُ", "মুত্তাকী", "God-fearing", "বিশেষ্য"],
-  [1322, "أَوْلِيَاءُ", "বন্ধু/অভিভাবক", "Friends/Protectors", "বিশেষ্য"],
-  [1323, "أَعْدَاءُ", "শত্রু", "Enemies", "বিশেষ্য"],
-  [1324, "إِخْوَانٌ", "ভাই", "Brothers", "বিশেষ্য"],
-  [1325, "أَخِلَّاءُ", "ঘনিষ্ঠ বন্ধু", "Close friends", "বিশেষ্য"],
-  [1326, "أَصْدِقَاءُ", "বন্ধু", "Friends", "বিশেষ্য"],
-  [1327, "جِيرَانٌ", "প্রতিবেশী", "Neighbors", "বিশেষ্য"],
-  [1328, "أَقْرِبَاءُ", "আত্মীয়", "Relatives", "বিশেষ্য"],
-  [1329, "أَرْحَامٌ", "আত্মীয়তা", "Kinship", "বিশেষ্য"],
-  [1330, "عَصَبَةٌ", "আত্মীয়গোষ্ঠী", "Relatives", "বিশেষ্য"],
-  [1331, "أُولُو الْأَرْحَامِ", "রক্ত সম্পর্কীয়", "Blood relations", "বিশেষ্য"],
-  [1332, "أُولُو الْفَضْلِ", "মর্যাদাশীল", "People of virtue", "বিশেষ্য"],
-  [1333, "أُولُو الْعِلْمِ", "জ্ঞানীরা", "People of knowledge", "বিশেষ্য"],
-  [1334, "أُولُو الْأَلْبَابِ", "বুদ্ধিমানরা", "People of understanding", "বিশেষ্য"],
-  [1335, "أُولُو الْأَوْتَارِ", "প্রতিশোধ স্পৃহা", "People of vengeance", "বিশেষ্য"],
-  [1336, "أُولُو الْحِلْمِ", "ধৈর্যশীলরা", "Forbearing people", "বিশেষ্য"],
-  [1337, "أُولُو النُّهَىٰ", "প্রজ্ঞাবানরা", "People of wisdom", "বিশেষ্য"],
-  [1338, "أُولُو الْبَصَائِرِ", "অন্তর্দৃষ্টিসম্পন্ন", "People of insight", "বিশেষ্য"],
-  [1339, "أُولُو الْأَمْرِ", "কর্তৃত্বশীলরা", "Those in authority", "বিশেষ্য"],
-  [1340, "أُولُو الْقُوَّةِ", "শক্তিশালীরা", "People of strength", "বিশেষ্য"],
-  [1341, "أُولُو الْعَزْمِ", "দৃঢ় সংকল্প", "People of resolve", "বিশেষ্য"],
-  [1342, "أُولُو الطَّوْلِ", "সম্পদশালী", "People of wealth", "বিশেষ্য"],
-  [1343, "أُولُو الْيَدِ", "ক্ষমতাশালী", "People of power", "বিশেষ্য"],
-  [1344, "أُولُو الْأَيْدِي", "শক্তিশালী", "Strong ones", "বিশেষ্য"],
-  [1345, "أُولُو الْبَأْسِ", "যোদ্ধা", "Warriors", "বিশেষ্য"],
-  [1346, "أُولُو الشَّوْكَةِ", "প্রভাবশালী", "Influential", "বিশেষ্য"],
-  [1347, "أُولُو الْحَدِيدِ", "লৌহশক্তি", "Iron strength", "বিশেষ্য"],
-  [1348, "أُولُو الْأَسْوَارِ", "দুর্গের অধিপতি", "Masters of forts", "বিশেষ্য"],
-  [1349, "أُولُو الْحِصَارِ", "অবরোধকারী", "Besiegers", "বিশেষ্য"],
-  [1350, "أُولُو الْأَثَرِ", "প্রভাবশালী", "Influential", "বিশেষ্য"],
-  [1351, "أُولُو الْأَصْحَابِ", "সঙ্গী", "Companions", "বিশেষ্য"],
-  [1352, "أُولُو الْقُرْبَىٰ", "আত্মীয়", "Relatives", "বিশেষ্য"],
-  [1353, "ذَوُو الْأَرْحَامِ", "আত্মীয়", "Relatives", "বিশেষ্য"],
-  [1354, "ذَوُو الْفَضْلِ", "মর্যাদাবান", "Virtuous", "বিশেষ্য"],
-  [1355, "ذَوُو الْيُمْنِ", "ডানপন্থী", "Right-handers", "বিশেষ্য"],
-  [1356, "ذَوُو الشُّؤْمِ", "বামপন্থী", "Left-handers", "বিশেষ্য"],
-  [1357, "ذَوُو الْحَاجَةِ", "অভাবগ্রস্ত", "Needy", "বিশেষ্য"],
-  [1358, "ذَوُو الْحُرْمَةِ", "সম্মানিত", "Honored", "বিশেষ্য"],
-  [1359, "ذَوُو الْقَدْرِ", "মর্যাদাশীল", "Dignified", "বিশেষ্য"],
-  [1360, "ذَوُو الشَّرَفِ", "সম্মানিত বংশ", "Noble lineage", "বিশেষ্য"],
-  [1361, "ذَوُو الْجَاهِ", "প্রভাবশালী", "Influential", "বিশেষ্য"],
-  [1362, "ذَوُو السُّلْطَانِ", "ক্ষমতাধর", "Rulers", "বিশেষ্য"],
-  [1363, "ذَوُو الْأَمْرِ", "নেতা", "Leaders", "বিশেষ্য"],
-  [1364, "ذَوُو الرَّأْيِ", "মতদাতা", "Advisors", "বিশেষ্য"],
-  [1365, "ذَوُو الْعِلْمِ", "জ্ঞানী", "Scholars", "বিশেষ্য"],
-  [1366, "ذَوُو الْحِكْمَةِ", "প্রজ্ঞাবান", "Wise", "বিশেষ্য"],
-  [1367, "ذَوُو الْبَصَرِ", "দৃষ্টিসম্পন্ন", "Seeing", "বিশেষ্য"],
-  [1368, "ذَوُو السَّمْعِ", "শ্রবণশক্তি", "Hearing", "বিশেষ্য"],
-  [1369, "ذَوُو الْعَقْلِ", "বুদ্ধিমান", "Intelligent", "বিশেষ্য"],
-  [1370, "ذَوُو الْأَلْبَابِ", "বিবেকবান", "Sensible", "বিশেষ্য"],
-  [1371, "ذَوُو الْأَفْئِدَةِ", "হৃদয়বান", "Hearted", "বিশেষ্য"],
-  [1372, "ذَوُو الْإِخْلَاصِ", "আন্তরিক", "Sincere", "বিশেষ্য"],
-  [1373, "ذَوُو الْإِيمَانِ", "মুমিন", "Believers", "বিশেষ্য"],
-  [1374, "ذَوُو التَّقْوَىٰ", "মুত্তাকী", "God-fearing", "বিশেষ্য"],
-  [1375, "ذَوُو الصَّلَاحِ", "সৎকর্মশীল", "Righteous", "বিশেষ্য"],
-  [1376, "ذَوُو الصَّبْرِ", "ধৈর্যশীল", "Patient", "বিশেষ্য"],
-  [1377, "ذَوُو الشُّكْرِ", "কৃতজ্ঞ", "Grateful", "বিশেষ্য"],
-  [1378, "ذَوُو الذِّكْرِ", "স্মরণকারী", "Mindful", "বিশেষ্য"],
-  [1379, "ذَوُو الْحَذَرِ", "সতর্ক", "Cautious", "বিশেষ্য"],
-  [1380, "ذَوُو الْحَزْمِ", "দৃঢ়প্রতিজ্ঞ", "Resolute", "বিশেষ্য"],
-  [1381, "ذَوُو الْجِدِّ", "গম্ভীর", "Serious", "বিশেষ্য"],
-  [1382, "ذَوُو الْأَشَدِّ", "কঠোর", "Strict", "বিশেষ্য"],
-  [1383, "ذَوُو الْعَزْمِ", "সংকল্পবদ্ধ", "Determined", "বিশেষ্য"],
-  [1384, "ذَوُو الْبَأْسِ", "যোদ্ধা", "Fighters", "বিশেষ্য"],
-  [1385, "ذَوُو الْقُوَّةِ", "শক্তিশালী", "Strong", "বিশেষ্য"],
-  [1386, "ذَوُو الْمَكْرِ", "চক্রান্তকারী", "Plotters", "বিশেষ্য"],
-  [1387, "ذَوُو الْكَيْدِ", "ষড়যন্ত্রকারী", "Intriguers", "বিশেষ্য"],
-  [1388, "ذَوُو الْحِيلَةِ", "কৌশলী", "Cunning", "বিশেষ্য"],
-  [1389, "ذَوُو الْغَدْرِ", "বিশ্বাসঘাতক", "Treacherous", "বিশেষ্য"],
-  [1390, "ذَوُو الْخِيَانَةِ", "খেয়ানতকারী", "Betrayers", "বিশেষ্য"],
-  [1391, "ذَوُو الْإِفْكِ", "মিথ্যাবাদী", "Liars", "বিশেষ্য"],
-  [1392, "ذَوُو الْبُهْتَانِ", "মিথ্যা অপবাদকারী", "Slanderers", "বিশেষ্য"],
-  [1393, "ذَوُو الزُّورِ", "মিথ্যুক", "False", "বিশেষ্য"],
-  [1394, "ذَوُو الْكَذِبِ", "মিথ্যাবাদী", "Lying", "বিশেষ্য"],
-  [1395, "ذَوُو الصِّدْقِ", "সত্যবাদী", "Truthful", "বিশেষ্য"],
-  [1396, "ذَوُو الْأَمَانَةِ", "আমানতদার", "Trustworthy", "বিশেষ্য"],
-  [1397, "ذَوُو الْإِحْسَانِ", "সৎকর্মশীল", "Beneficent", "বিশেষ্য"],
-  [1398, "ذَوُو الْعَدْلِ", "ন্যায়পরায়ণ", "Just", "বিশেষ্য"],
-  [1399, "ذَوُو الْقِسْطِ", "ইনসাফকারী", "Equitable", "বিশেষ্য"],
-  [1400, "ذَوُو الْفَضْلِ", "মর্যাদাবান", "Virtuous", "বিশেষ্য"],
-  [1401, "خَاتَمُ النَّبِيِّينَ", "নবীগণের শেষ", "Seal of Prophets", "বিশেষ্য"],
-  [1402, "أُمُّ الْقُرَىٰ", "মক্কা (শহরগুলোর জননী)", "Mother of cities", "বিশেষ্য"],
-  [1403, "ذَاتُ النِّطَاقَيْنِ", "দুই কোমরবন্ধওয়ালা (আসমা)", "She of two belts", "বিশেষ্য"],
-  [1404, "أَبُو لَهَبٍ", "আবু লাহাব", "Abu Lahab", "বিশেষ্য"],
-  [1405, "أُمُّ جَمِيلٍ", "উম্মু জামিল", "Umm Jamil", "বিশেষ্য"],
-  [1406, "أَبُو جَهْلٍ", "আবু জেহেল", "Abu Jahl", "বিশেষ্য"],
-  [1407, "أَبُو بَكْرٍ", "আবু বকর", "Abu Bakr", "বিশেষ্য"],
-  [1408, "عُمَرُ", "উমর", "Umar", "বিশেষ্য"],
-  [1409, "عُثْمَانُ", "উসমান", "Uthman", "বিশেষ্য"],
-  [1410, "عَلِيٌّ", "আলী", "Ali", "বিশেষ্য"],
-  [1411, "حَمْزَةُ", "হামজা", "Hamza", "বিশেষ্য"],
-  [1412, "عَبَّاسٌ", "আব্বাস", "Abbas", "বিশেষ্য"],
-  [1413, "جَعْفَرٌ", "জাফর", "Ja'far", "বিশেষ্য"],
-  [1414, "عَبْدُ اللَّهِ", "আব্দুল্লাহ", "Abdullah", "বিশেষ্য"],
-  [1415, "خَدِيجَةُ", "খাদিজা", "Khadija", "বিশেষ্য"],
-  [1416, "عَائِشَةُ", "আয়েশা", "Aisha", "বিশেষ্য"],
-  [1417, "فَاطِمَةُ", "ফাতিমা", "Fatima", "বিশেষ্য"],
-  [1418, "حَفْصَةُ", "হাফসা", "Hafsa", "বিশেষ্য"],
-  [1419, "زَيْنَبُ", "জয়নব", "Zaynab", "বিশেষ্য"],
-  [1420, "سَوْدَةُ", "সাওদা", "Sawda", "বিশেষ্য"],
-  [1421, "أُمُّ سَلَمَةَ", "উম্মে সালামা", "Umm Salama", "বিশেষ্য"],
-  [1422, "مَيْمُونَةُ", "মায়মুনা", "Maymuna", "বিশেষ্য"],
-  [1423, "صَفِيَّةُ", "সাফিয়া", "Safiyya", "বিশেষ্য"],
-  [1424, "جُوَيْرِيَةُ", "জুওয়াইরিয়া", "Juwayriyya", "বিশেষ্য"],
-  [1425, "رَمْلَةُ", "রামলা", "Ramla", "বিশেষ্য"],
-  [1426, "حَبِيبَةُ", "হাবিবা", "Habiba", "বিশেষ্য"],
-  [1427, "مَارِيَةُ", "মারিয়া", "Maria", "বিশেষ্য"],
-  [1428, "رَيْحَانَةُ", "রায়হানা", "Rayhana", "বিশেষ্য"],
-  [1429, "أَسْمَاءُ", "আসমা", "Asma", "বিশেষ্য"],
-  [1430, "نُعَيْمٌ", "নুআইম", "Nuaym", "বিশেষ্য"],
-  [1431, "صُهَيْبٌ", "সুহাইব", "Suhayb", "বিশেষ্য"],
-  [1432, "بِلَالٌ", "বিলাল", "Bilal", "বিশেষ্য"],
-  [1433, "عَمَّارٌ", "আম্মার", "Ammar", "বিশেষ্য"],
-  [1434, "مِقْدَادٌ", "মিকদাদ", "Miqdad", "বিশেষ্য"],
-  [1435, "سَلْمَانُ", "সালমান", "Salman", "বিশেষ্য"],
-  [1436, "أَبُو ذَرٍّ", "আবু যর", "Abu Dharr", "বিশেষ্য"],
-  [1437, "عَبْدُ الرَّحْمَٰنِ", "আব্দুর রহমান", "Abdur Rahman", "বিশেষ্য"],
-  [1438, "سَعْدٌ", "সাদ", "Sa'd", "বিশেষ্য"],
-  [1439, "سَعِيدٌ", "সাঈদ", "Sa'id", "বিশেষ্য"],
-  [1440, "زَيْدٌ", "জায়েদ", "Zayd", "বিশেষ্য"],
-  [1441, "أُسَامَةُ", "উসামা", "Usama", "বিশেষ্য"],
-  [1442, "أَنَسٌ", "আনাস", "Anas", "বিশেষ্য"],
-  [1443, "مَالِكٌ", "মালিক", "Malik", "বিশেষ্য"],
-  [1444, "كَعْبٌ", "কাব", "Ka'b", "বিশেষ্য"],
-  [1445, "حَسَّانٌ", "হাসসান", "Hassan", "বিশেষ্য"],
-  [1446, "عَبْدُ الْعُزَّىٰ", "আব্দুল উযযা", "Abdul Uzza", "বিশেষ্য"],
-  [1447, "أَبُو سُفْيَانَ", "আবু সুফিয়ান", "Abu Sufyan", "বিশেষ্য"],
-  [1448, "أَبُو الْحَكَمِ", "আবুল হাকাম", "Abul Hakam", "বিশেষ্য"],
-  [1449, "أَبُو لَهَبٍ", "আবু লাহাব", "Abu Lahab", "বিশেষ্য"],
-  [1450, "الْوَلِيدُ", "ওয়ালিদ", "Al-Walid", "বিশেষ্য"],
-  [1451, "عُتْبَةُ", "উতবা", "Utba", "বিশেষ্য"],
-  [1452, "شَيْبَةُ", "শাইবা", "Shayba", "বিশেষ্য"],
-  [1453, "أُمَيَّةُ", "উমাইয়া", "Umayya", "বিশেষ্য"],
-  [1454, "خَلَفٌ", "খালাফ", "Khalaf", "বিশেষ্য"],
-  [1455, "أَبُو جَهْلٍ", "আবু জেহেল", "Abu Jahl", "বিশেষ্য"],
-  [1456, "النَّضْرُ", "নযর", "An-Nadr", "বিশেষ্য"],
-  [1457, "الْحَارِثُ", "হারেস", "Al-Harith", "বিশেষ্য"],
-  [1458, "الْعَاصُ", "আস", "Al-As", "বিশেষ্য"],
-  [1459, "أَبُو الْعَاصِ", "আবুল আস", "Abul As", "বিশেষ্য"],
-  [1460, "الْعَلَاءُ", "আলা", "Al-Ala", "বিশেষ্য"],
-  [1461, "حُذَيْفَةُ", "হুযাইফা", "Hudhayfa", "বিশেষ্য"],
-  [1462, "أَبُو عُبَيْدَةَ", "আবু উবাইদা", "Abu Ubayda", "বিশেষ্য"],
-  [1463, "خَالِدٌ", "খালিদ", "Khalid", "বিশেষ্য"],
-  [1464, "عِكْرِمَةُ", "ইকরিমা", "Ikrima", "বিশেষ্য"],
-  [1465, "عَمْرُو", "আমর", "Amr", "বিশেষ্য"],
-  [1466, "الزُّبَيْرُ", "যুবায়ের", "Az-Zubayr", "বিশেষ্য"],
-  [1467, "طَلْحَةُ", "তালহা", "Talha", "বিশেষ্য"],
-  [1468, "سَعْدُ بْنُ أَبِي وَقَّاصٍ", "সাদ বিন আবি ওয়াক্কাস", "Sa'd ibn Abi Waqqas", "বিশেষ্য"],
-  [1469, "عَبْدُ اللَّهِ بْنُ مَسْعُودٍ", "আব্দুল্লাহ ইবনে মাসউদ", "Abdullah ibn Mas'ud", "বিশেষ্য"],
-  [1470, "عَبْدُ اللَّهِ بْنُ عَبَّاسٍ", "আব্দুল্লাহ ইবনে আব্বাস", "Abdullah ibn Abbas", "বিশেষ্য"],
-  [1471, "عَبْدُ اللَّهِ بْنُ عُمَرَ", "আব্দুল্লাহ ইবনে উমর", "Abdullah ibn Umar", "বিশেষ্য"],
-  [1472, "عَبْدُ اللَّهِ بْنُ الزُّبَيْرِ", "আব্দুল্লাহ ইবনে যুবায়ের", "Abdullah ibn Zubayr", "বিশেষ্য"],
-  [1473, "عَبْدُ اللَّهِ بْنُ عَمْرٍو", "আব্দুল্লাহ ইবনে আমর", "Abdullah ibn Amr", "বিশেষ্য"],
-  [1474, "جَابِرٌ", "জাবির", "Jabir", "বিশেষ্য"],
-  [1475, "أَبُو هُرَيْرَةَ", "আবু হুরায়রা", "Abu Hurayra", "বিশেষ্য"],
-  [1476, "أَنَسُ بْنُ مَالِكٍ", "আনাস ইবনে মালিক", "Anas ibn Malik", "বিশেষ্য"],
-  [1477, "عَبْدُ اللَّهِ بْنُ أُنَيْسٍ", "আব্দুল্লাহ ইবনে উনাইস", "Abdullah ibn Unays", "বিশেষ্য"],
-  [1478, "رَافِعُ بْنُ خَدِيجٍ", "রাফি ইবনে খাদিজ", "Rafi ibn Khadij", "বিশেষ্য"],
-  [1479, "جَابِرُ بْنُ عَبْدِ اللَّهِ", "জাবির ইবনে আব্দুল্লাহ", "Jabir ibn Abdullah", "বিশেষ্য"],
-  [1480, "أَبُو سَعِيدٍ الْخُدْرِيُّ", "আবু সাঈদ খুদরি", "Abu Sa'id al-Khudri", "বিশেষ্য"],
-  [1481, "أَبُو قَتَادَةَ", "আবু কাতাদা", "Abu Qatada", "বিশেষ্য"],
-  [1482, "سَلَمَةُ بْنُ الْأَكْوَعِ", "সালামা ইবনুল আকওয়া", "Salama ibn al-Akwa", "বিশেষ্য"],
-  [1483, "الْبَرَاءُ بْنُ عَازِبٍ", "বারাউ ইবনে আজিব", "Al-Bara ibn Azib", "বিশেষ্য"],
-  [1484, "زَيْدُ بْنُ حَارِثَةَ", "জায়েদ ইবনে হারেসা", "Zayd ibn Haritha", "বিশেষ্য"],
-  [1485, "زَيْدُ بْنُ ثَابِتٍ", "জায়েদ ইবনে সাবিত", "Zayd ibn Thabit", "বিশেষ্য"],
-  [1486, "أُبَيُّ بْنُ كَعْبٍ", "উবাই ইবনে কাব", "Ubayy ibn Ka'b", "বিশেষ্য"],
-  [1487, "مُعَاذُ بْنُ جَبَلٍ", "মুয়াজ ইবনে জাবাল", "Mu'adh ibn Jabal", "বিশেষ্য"],
-  [1488, "أَبُو مُوسَى الْأَشْعَرِيُّ", "আবু মূসা আশআরি", "Abu Musa al-Ash'ari", "বিশেষ্য"],
-  [1489, "عَبْدُ اللَّهِ بْنُ رَوَاحَةَ", "আব্দুল্লাহ ইবনে রাওয়াহা", "Abdullah ibn Rawaha", "বিশেষ্য"],
-  [1490, "حَنْظَلَةُ", "হানজালা", "Hanzala", "বিশেষ্য"],
-  [1491, "ثَابِتُ بْنُ قَيْسٍ", "সাবিত ইবনে কায়েস", "Thabit ibn Qays", "বিশেষ্য"],
-  [1492, "صُهَيْبُ الرُّومِيُّ", "সুহাইব রুমি", "Suhayb ar-Rumi", "বিশেষ্য"],
-  [1493, "بِلَالُ بْنُ رَبَاحٍ", "বিলাল ইবনে রাবাহ", "Bilal ibn Rabah", "বিশেষ্য"],
-  [1494, "خُبَيْبُ بْنُ عَدِيٍّ", "খুবাইব ইবনে আদি", "Khubayb ibn Adiy", "বিশেষ্য"],
-  [1495, "عَاصِمُ بْنُ ثَابِتٍ", "আসিম ইবনে সাবিত", "Asim ibn Thabit", "বিশেষ্য"],
-  [1496, "أَبُو أَيُّوبَ الْأَنْصَارِيُّ", "আবু আইয়ুব আনসারি", "Abu Ayyub al-Ansari", "বিশেষ্য"],
-  [1497, "أَبُو الدَّرْدَاءِ", "আবুদ দারদা", "Abu Darda", "বিশেষ্য"],
-  [1498, "سَلْمَانُ الْفَارِسِيُّ", "সালমান ফারসি", "Salman al-Farisi", "বিশেষ্য"],
-  [1499, "عَبْدُ اللَّهِ بْنُ سَلَامٍ", "আব্দুল্লাহ ইবনে সালাম", "Abdullah ibn Salam", "বিশেষ্য"],
-  [1500, "تَمَّتْ", "সমাপ্ত", "Completed", "ক্রিয়া"],
-  [1501, "أَبَابِيلَ", "পালে পালে (পাখি)", "In flocks/flights", "বিশেষ্য"],
-  [1502, "سِجِّيلٍ", "পোড়া মাটির পাথর", "Baked clay stone", "বিশেষ্য"],
-  [1503, "ضِيزَىٰ", "অন্যায়/অসম", "Unjust/Unequal", "বিশেষণ"],
-  [1504, "قَسْوَرَةٍ", "সিংহ/শিকারী", "Lion/Hunter", "বিশেষ্য"],
-  [1505, "طَسَّىٰ", "তিনি তাড়ালেন", "He drove away", "ক্রিয়া"],
-  [1506, "سُبْحَانَ", "পবিত্রতা/মহিমা", "Glory be", "বিশেষ্য"],
-  [1507, "لَوْلَا", "কেন না?/যদি না", "Why not?/If not", "অব্যয়"],
-  [1508, "أَلَا", "সাবধান/জেনে রেখো", "Behold/Verily", "অব্যয়"],
-  [1509, "حَاشَا", "দূর হোক/পবিত্রতা", "Far be it", "অব্যয়"],
-  [1510, "مَعَاذَ", "আশ্রয় চাই", "I seek refuge", "অব্যয়"],
-  [1511, "سُبْحَانَ اللَّهِ", "আল্লাহ পবিত্র", "Glory be to Allah", "বাক্যাংশ"],
-  [1512, "لَا إِلَٰهَ إِلَّا اللَّهُ", "আল্লাহ ছাড়া কোনো উপাস্য নেই", "There is no god but Allah", "বাক্যাংশ"],
-  [1513, "الْحَمْدُ لِلَّهِ", "সব প্রশংসা আল্লাহর", "All praise is for Allah", "বাক্যাংশ"],
-  [1514, "اللَّهُ أَكْبَرُ", "আল্লাহ সর্বশ্রেষ্ঠ", "Allah is the Greatest", "বাক্যাংশ"],
-  [1515, "بِسْمِ اللَّهِ", "আল্লাহর নামে", "In the name of Allah", "বাক্যাংশ"],
-  [1516, "إِنْ شَاءَ اللَّهُ", "আল্লাহ চাইলে", "If Allah wills", "বাক্যাংশ"],
-  [1517, "مَا شَاءَ اللَّهُ", "আল্লাহ যা চান", "What Allah wills", "বাক্যাংশ"],
-  [1518, "تَبَارَكَ اللَّهُ", "আল্লাহ বরকতময়", "Blessed is Allah", "বাক্যাংশ"],
-  [1519, "جَزَاكَ اللَّهُ خَيْرًا", "আল্লাহ আপনাকে উত্তম প্রতিদান দিন", "May Allah reward you", "বাক্যাংশ"],
-  [1520, "بَارَكَ اللَّهُ فِيكَ", "আল্লাহ আপনাকে বরকত দিন", "May Allah bless you", "বাক্যাংশ"],
-  [1521, "آمِينَ", "আমিন", "Ameen", "শব্দ"],
-  [1522, "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ", "নিশ্চয় আমরা আল্লাহর জন্য এবং নিশ্চয় আমরা তাঁর দিকেই ফিরে যাব", "To Allah we belong and to Him we return", "বাক্যাংশ"],
-  [1523, "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", "আল্লাহ ছাড়া কোনো শক্তি ও ক্ষমতা নেই", "No power except with Allah", "বাক্যাংশ"],
-  [1524, "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ", "আল্লাহ আমাদের জন্য যথেষ্ট এবং তিনি উত্তম কর্মবিধায়ক", "Allah is sufficient for us", "বাক্যাংশ"],
-  [1525, "الْعَنْكَبُوتِ", "মাকড়সা (সূরার নাম)", "The Spider (Sura name)", "বিশেষ্য"],
-  [1526, "الرُّومِ", "রোম (সূরার নাম)", "The Romans (Sura name)", "বিশেষ্য"],
-  [1527, "لُقْمَانَ", "লুকমান (সূরার নাম)", "Luqman (Sura name)", "বিশেষ্য"],
-  [1528, "السَّجْدَةِ", "সিজদা (সূরার নাম)", "The Prostration (Sura name)", "বিশেষ্য"],
-  [1529, "الْأَحْزَابِ", "সম্মিলিত বাহিনী (সূরার নাম)", "The Combined Forces (Sura name)", "বিশেষ্য"],
-  [1530, "سَبَإٍ", "সাবা (সূরার নাম)", "Sheba (Sura name)", "বিশেষ্য"],
-  [1531, "فَاطِرٍ", "সৃষ্টিকর্তা (সূরার নাম)", "Originator (Sura name)", "বিশেষ্য"],
-  [1532, "يَسٓ", "ইয়াসীন (সূরার নাম)", "Ya Seen (Sura name)", "বিশেষ্য"],
-  [1533, "الصَّافَّاتِ", "সারিবদ্ধভাবে দাঁড়ানো (সূরার নাম)", "Those who stand in rows (Sura name)", "বিশেষ্য"],
-  [1534, "صٓ", "সোয়াদ (সূরার নাম)", "Sad (Sura name)", "বিশেষ্য"],
-  [1535, "الزُّمَرِ", "দলসমূহ (সূরার নাম)", "The Groups (Sura name)", "বিশেষ্য"],
-  [1536, "غَافِرٍ", "ক্ষমাশীল (সূরার নাম)", "Forgiver (Sura name)", "বিশেষ্য"],
-  [1537, "فُصِّلَتْ", "বিস্তারিতভাবে বর্ণিত (সূরার নাম)", "Explained in detail (Sura name)", "বিশেষ্য"],
-  [1538, "الشُّورَىٰ", "পরামর্শ (সূরার নাম)", "Consultation (Sura name)", "বিশেষ্য"],
-  [1539, "الدُّخَانِ", "ধোঁয়া (সূরার নাম)", "Smoke (Sura name)", "বিশেষ্য"],
-  [1540, "الْجَاثِيَةِ", "হাঁটু গেড়ে বসা (সূরার নাম)", "Kneeling (Sura name)", "বিশেষ্য"],
-  [1541, "الْأَحْقَافِ", "বালিয়াড়ি (সূরার নাম)", "Sand dunes (Sura name)", "বিশেষ্য"],
-  [1542, "قٓ", "ক্বাফ (সূরার নাম)", "Qaf (Sura name)", "বিশেষ্য"],
-  [1543, "الذَّارِيَاتِ", "বিক্ষেপণকারী বায়ু (সূরার নাম)", "The Scattering Winds (Sura name)", "বিশেষ্য"],
-  [1544, "الطُّورِ", "তুর পর্বত (সূরার নাম)", "Mount Tur (Sura name)", "বিশেষ্য"],
-  [1545, "النَّجْمِ", "তারা (সূরার নাম)", "The Star (Sura name)", "বিশেষ্য"],
-  [1546, "الْقَمَرِ", "চাঁদ (সূরার নাম)", "The Moon (Sura name)", "বিশেষ্য"],
-  [1547, "الرَّحْمَٰنِ", "রহমান (সূরার নাম)", "The Most Gracious (Sura name)", "বিশেষ্য"],
-  [1548, "الْوَاقِعَةِ", "ঘটনাবহ ঘটনা (সূরার নাম)", "The Inevitable (Sura name)", "বিশেষ্য"],
-  [1549, "الْحَدِيدِ", "লোহা (সূরার নাম)", "Iron (Sura name)", "বিশেষ্য"],
-  [1550, "الْمُجَادِلَةِ", "বিতর্ককারিণী (সূরার নাম)", "The Disputing Woman (Sura name)", "বিশেষ্য"],
-  [1551, "الْحَشْرِ", "সমাবেশ (সূরার নাম)", "The Gathering (Sura name)", "বিশেষ্য"],
-  [1552, "الْمُمْتَحِنَةِ", "পরীক্ষিত নারী (সূরার নাম)", "The Examined Woman (Sura name)", "বিশেষ্য"],
-  [1553, "الصَّفِّ", "সারিবদ্ধ (সূরার নাম)", "The Ranks (Sura name)", "বিশেষ্য"],
-  [1554, "الْجُمُعَةِ", "শুক্রবার (সূরার নাম)", "Friday (Sura name)", "বিশেষ্য"],
-  [1555, "الْمُنَافِقُونَ", "মুনাফিকরা (সূরার নাম)", "The Hypocrites (Sura name)", "বিশেষ্য"],
-  [1556, "التَّغَابُنِ", "পরস্পর প্রতারণা (সূরার নাম)", "Mutual Loss (Sura name)", "বিশেষ্য"],
-  [1557, "الطَّلَاقِ", "তালাক (সূরার নাম)", "Divorce (Sura name)", "বিশেষ্য"],
-  [1558, "التَّحْرِيمِ", "নিষিদ্ধকরণ (সূরার নাম)", "Prohibition (Sura name)", "বিশেষ্য"],
-  [1559, "الْمُلْكِ", "রাজত্ব (সূরার নাম)", "The Kingdom (Sura name)", "বিশেষ্য"],
-  [1560, "الْقَلَمِ", "কলম (সূরার নাম)", "The Pen (Sura name)", "বিশেষ্য"],
-  [1561, "الْحَاقَّةِ", "সত্য ঘটনা (সূরার নাম)", "The Reality (Sura name)", "বিশেষ্য"],
-  [1562, "الْمَعَارِجِ", "ঊর্ধ্বগামী সোপান (সূরার নাম)", "The Ascending Ways (Sura name)", "বিশেষ্য"],
-  [1563, "نُوحٍ", "নূহ (সূরার নাম)", "Noah (Sura name)", "বিশেষ্য"],
-  [1564, "الْجِنِّ", "জ্বিন (সূরার নাম)", "The Jinn (Sura name)", "বিশেষ্য"],
-  [1565, "الْمُزَّمِّلِ", "কম্বলপাত্র (সূরার নাম)", "The Enshrouded One (Sura name)", "বিশেষ্য"],
-  [1566, "الْمُدَّثِّرِ", "আবৃতপাত্র (সূরার নাম)", "The Cloaked One (Sura name)", "বিশেষ্য"],
-  [1567, "الْقِيَامَةِ", "কিয়ামত (সূরার নাম)", "The Resurrection (Sura name)", "বিশেষ্য"],
-  [1568, "الْإِنْسَانِ", "মানুষ (সূরার নাম)", "The Human (Sura name)", "বিশেষ্য"],
-  [1569, "الْمُرْسَلَاتِ", "প্রেরিত বায়ু (সূরার নাম)", "The Sent Forth (Sura name)", "বিশেষ্য"],
-  [1570, "النَّبَإِ", "মহাসংবাদ (সূরার নাম)", "The Great News (Sura name)", "বিশেষ্য"],
-  [1571, "النَّازِعَاتِ", "ছিনিয়ে নেয়া ফেরেশতা (সূরার নাম)", "Those who tear out (Sura name)", "বিশেষ্য"],
-  [1572, "عَبَسَ", "ভ্রু কুঁচকালেন (সূরার নাম)", "He frowned (Sura name)", "বিশেষ্য"],
-  [1573, "التَّكْوِيرِ", "পেঁচানো (সূরার নাম)", "The Folding Up (Sura name)", "বিশেষ্য"],
-  [1574, "الِانْفِطَارِ", "বিদীর্ণ হওয়া (সূরার নাম)", "The Splitting (Sura name)", "বিশেষ্য"],
-  [1575, "الْمُطَفِّفِينَ", "কারচুপিকারীরা (সূরার নাম)", "The Defrauders (Sura name)", "বিশেষ্য"],
-  [1576, "الِانْشِقَاقِ", "চিরে যাওয়া (সূরার নাম)", "The Rending (Sura name)", "বিশেষ্য"],
-  [1577, "الْبُرُوجِ", "তারকাপুঞ্জ (সূরার নাম)", "The Constellations (Sura name)", "বিশেষ্য"],
-  [1578, "الطَّارِقِ", "রাতের আগন্তুক (সূরার নাম)", "The Nightcomer (Sura name)", "বিশেষ্য"],
-  [1579, "الْأَعْلَىٰ", "সর্বোচ্চ (সূরার নাম)", "The Most High (Sura name)", "বিশেষ্য"],
-  [1580, "الْغَاشِيَةِ", "আচ্ছন্নকারী (সূরার নাম)", "The Overwhelming (Sura name)", "বিশেষ্য"],
-  [1581, "الْفَجْرِ", "ভোর (সূরার নাম)", "The Dawn (Sura name)", "বিশেষ্য"],
-  [1582, "الْبَلَدِ", "নগরী (সূরার নাম)", "The City (Sura name)", "বিশেষ্য"],
-  [1583, "الشَّمْسِ", "সূর্য (সূরার নাম)", "The Sun (Sura name)", "বিশেষ্য"],
-  [1584, "اللَّيْلِ", "রাত (সূরার নাম)", "The Night (Sura name)", "বিশেষ্য"],
-  [1585, "الضُّحَىٰ", "সকাল বেলা (সূরার নাম)", "The Morning Brightness (Sura name)", "বিশেষ্য"],
-  [1586, "الشَّرْحِ", "প্রসারিত করা (সূরার নাম)", "The Expansion (Sura name)", "বিশেষ্য"],
-  [1587, "التِّينِ", "ডুমুর (সূরার নাম)", "The Fig (Sura name)", "বিশেষ্য"],
-  [1588, "الْعَلَقِ", "জমাট বাঁধা রক্ত (সূরার নাম)", "The Clot (Sura name)", "বিশেষ্য"],
-  [1589, "الْقَدْرِ", "মর্যাদা/শবে কদর (সূরার নাম)", "The Power (Sura name)", "বিশেষ্য"],
-  [1590, "الْبَيِّنَةِ", "স্পষ্ট প্রমাণ (সূরার নাম)", "The Clear Proof (Sura name)", "বিশেষ্য"],
-  [1591, "الزَّلْزَلَةِ", "ভূমিকম্প (সূরার নাম)", "The Earthquake (Sura name)", "বিশেষ্য"],
-  [1592, "الْعَادِيَاتِ", "দ্রুতগামী অশ্ব (সূরার নাম)", "The Runners (Sura name)", "বিশেষ্য"],
-  [1593, "الْقَارِعَةِ", "আঘাতকারী (সূরার নাম)", "The Striking Calamity (Sura name)", "বিশেষ্য"],
-  [1594, "التَّكَاثُرِ", "প্রাচুর্যের প্রতিযোগিতা (সূরার নাম)", "The Rivalry (Sura name)", "বিশেষ্য"],
-  [1595, "الْعَصْرِ", "সময় (সূরার নাম)", "The Time (Sura name)", "বিশেষ্য"],
-  [1596, "الْهُمَزَةِ", "পরনিন্দাকারী (সূরার নাম)", "The Slanderer (Sura name)", "বিশেষ্য"],
-  [1597, "الْفِيلِ", "হাতি (সূরার নাম)", "The Elephant (Sura name)", "বিশেষ্য"],
-  [1598, "قُرَيْشٍ", "কুরাইশ (সূরার নাম)", "Quraish (Sura name)", "বিশেষ্য"],
-  [1599, "الْمَاعُونِ", "ক্ষুদ্র সাহায্য (সূরার নাম)", "Small Kindness (Sura name)", "বিশেষ্য"],
-  [1600, "الْكَوْثَرِ", "প্রাচুর্য/হাউজে কাওসার (সূরার নাম)", "Abundance (Sura name)", "বিশেষ্য"],
-  [1601, "الْكَافِرُونَ", "কাফিররা (সূরার নাম)", "The Disbelievers (Sura name)", "বিশেষ্য"],
-  [1602, "النَّصْرِ", "সাহায্য (সূরার নাম)", "The Help (Sura name)", "বিশেষ্য"],
-  [1603, "الْمَسَدِ", "পাটের দড়ি (সূরার নাম)", "The Palm Fiber (Sura name)", "বিশেষ্য"],
-  [1604, "الْإِخْلَاصِ", "আন্তরিকতা (সূরার নাম)", "Sincerity (Sura name)", "বিশেষ্য"],
-  [1605, "الْفَلَقِ", "নিশি ভোর (সূরার নাম)", "The Daybreak (Sura name)", "বিশেষ্য"],
-  [1606, "النَّاسِ", "মানুষ (সূরার নাম)", "The Mankind (Sura name)", "বিশেষ্য"],
-  [1607, "جِبْتٍ", "জিবত (মূর্তি/যাদু)", "Jibt (idol/magic)", "বিশেষ্য"],
-  [1608, "رَجِيمٍ", "বিতাড়িত", "Accursed", "বিশেষণ"],
-  [1609, "رَجْمًا", "প্রস্তর নিক্ষেপ", "Stoning", "বিশেষ্য"],
-  [1610, "غِسْلِينَ", "ক্ষতের পুঁজ", "Pus from wounds", "বিশেষ্য"],
-  [1611, "صَلَدٍ", "শক্ত পাথর", "Hard rock", "বিশেষ্য"],
-  [1612, "صَفْوَانٍ", "মসৃণ পাথর", "Smooth rock", "বিশেষ্য"],
-  [1613, "زُبُرٍ", "পুস্তকসমূহ", "Books/Scriptures", "বিশেষ্য"],
-  [1614, "سُبُلٍ", "পথসমূহ", "Paths", "বিশেষ্য"],
-  [1615, "رِكَابٍ", "বাহন", "Mounts", "বিশেষ্য"],
-  [1616, "ذُرِّيَّةٍ", "বংশধর", "Offspring", "বিশেষ্য"],
-  [1617, "قُرُوحٍ", "ক্ষত", "Wounds", "বিশেষ্য"],
-  [1618, "حَمِيمٍ", "ঘনিষ্ঠ বন্ধু/ফুটন্ত পানি", "Close friend/Boiling water", "বিশেষ্য"],
-  [1619, "غَسَّاقٍ", "ফুটন্ত পুঁজ", "Scalding pus", "বিশেষ্য"],
-  [1620, "زَقُّومٍ", "যাক্কুম গাছ", "Zaqqum tree", "বিশেষ্য"],
-  [1621, "ضَرِيعٍ", "কাঁটাযুক্ত বিষাক্ত গাছ", "Thorny poisonous plant", "বিশেষ্য"],
-  [1622, "يَغْسِلَ", "সে ধোয়", "He washes", "ক্রিয়া"],
-  [1623, "يُطْعِمَ", "সে খাওয়ায়", "He feeds", "ক্রিয়া"],
-  [1624, "يُسْقِيَ", "সে পান করায়", "He gives drink", "ক্রিয়া"],
-  [1625, "يَكْسُوَ", "সে পোশাক দেয়", "He clothes", "ক্রিয়া"],
-  [1626, "يُؤْوِي", "সে আশ্রয় দেয়", "He shelters", "ক্রিয়া"],
-  [1627, "يُرْضِعْ", "সে দুধ পান করায়", "She breastfeeds", "ক্রিয়া"],
-  [1628, "يَسْتَنْكِحَ", "সে বিবাহ করতে চায়", "He wishes to marry", "ক্রিয়া"],
-  [1629, "يَخْتَانُونَ", "তারা প্রতারণা করে", "They cheat", "ক্রিয়া"],
-  [1630, "يَسْتَفْتُونَكَ", "তারা আপনার কাছে ফতোয়া চায়", "They ask you for ruling", "ক্রিয়া"],
-  [1631, "يَسْتَخْفُونَ", "তারা লুকায়", "They hide", "ক্রিয়া"],
-  [1632, "يَسْتَكْبِرُونَ", "তারা অহংকার করে", "They are arrogant", "ক্রিয়া"],
-  [1633, "يَتَفَكَّرُونَ", "তারা চিন্তা করে", "They reflect", "ক্রিয়া"],
-  [1634, "يَتَذَكَّرُونَ", "তারা উপদেশ গ্রহণ করে", "They remember", "ক্রিয়া"],
-  [1635, "يَتَدَبَّرُونَ", "তারা গভীর চিন্তা করে", "They ponder", "ক্রিয়া"],
-  [1636, "يَتَوَكَّلُونَ", "তারা ভরসা করে", "They rely", "ক্রিয়া"],
-  [1637, "يَتَابَعُونَ", "তারা অনুসরণ করে", "They follow", "ক্রিয়া"],
-  [1638, "يَزَّكَّىٰ", "সে পবিত্র হয়", "He purifies himself", "ক্রিয়া"],
-  [1639, "يَصَّدَّقُ", "সে দান করে", "He gives charity", "ক্রিয়া"],
-  [1640, "يَسَّمَّعُ", "সে কান পাতে", "He listens secretly", "ক্রিয়া"],
-  [1641, "أَدْبَارَ", "পেছনের দিক", "Backs/Hind parts", "বিশেষ্য"],
-  [1642, "أَقْبَالَ", "সামনের দিক", "Fronts", "বিশেষ্য"],
-  [1643, "أَذْوَاقَ", "স্বাদ", "Tastes", "বিশেষ্য"],
-  [1644, "أَزْوَاجَ", "স্বামী-স্ত্রী", "Spouses", "বিশেষ্য"],
-  [1645, "أَسْبَابَ", "উপায়/দড়ি", "Means/Ropes", "বিশেষ্য"],
-  [1646, "أَشْبَاهَ", "সদৃশ", "Similar/Resembling", "বিশেষ্য"],
-  [1647, "أَضْدَادَ", "বিপক্ষ", "Rivals", "বিশেষ্য"],
-  [1648, "أَطْبَاقَ", "স্তরসমূহ", "Layers", "বিশেষ্য"],
-  [1649, "أَعْنَاقَ", "গর্দানসমূহ", "Necks", "বিশেষ্য"],
-  [1650, "أَكْفَاءَ", "সমান মর্যাদার", "Equal in status", "বিশেষ্য"],
-  [1651, "بَرَاهِينُ", "প্রমাণসমূহ", "Proofs", "বিশেষ্য"],
-  [1652, "تَبَاشِيرُ", "সুসংবাদ/আভাস", "Good news/Glimpses", "বিশেষ্য"],
-  [1653, "تَبَارِيكُ", "বরকতসমূহ", "Blessings", "বিশেষ্য"],
-  [1654, "تَحِيَّاتٌ", "অভিবাদনসমূহ", "Greetings", "বিশেষ্য"],
-  [1655, "تَسْبِيحٌ", "পবিত্রতা ঘোষণা", "Glorification", "বিশেষ্য"],
-  [1656, "تَكْبِيرٌ", "আল্লাহু আকবার বলা", "Saying Allahu Akbar", "বিশেষ্য"],
-  [1657, "تَهْلِيلٌ", "লা ইলাহা ইল্লাল্লাহ বলা", "Saying La ilaha illallah", "বিশেষ্য"],
-  [1658, "تَحْمِيدٌ", "আলহামদুলিল্লাহ বলা", "Saying Alhamdulillah", "বিশেষ্য"],
-  [1659, "تَسْبِيحٌ", "সুবহানাল্লাহ বলা", "Saying Subhanallah", "বিশেষ্য"],
-  [1660, "تَقْدِيسٌ", "পবিত্রতা বর্ণনা", "Declaring holiness", "বিশেষ্য"],
-  [1661, "تَمَاثِيلُ", "মূর্তিসমূহ", "Statues", "বিশেষ্য"],
-  [1662, "تَوْرَاةُ", "তাওরাত", "Torah", "বিশেষ্য"],
-  [1663, "إِنْجِيلُ", "ইঞ্জিল", "Gospel", "বিশেষ্য"],
-  [1664, "زَبُورُ", "যাবুর", "Psalms", "বিশেষ্য"],
-  [1665, "صُحُفُ", "পৃষ্ঠাসমূহ", "Scriptures/Pages", "বিশেষ্য"],
-  [1666, "مُصْحَفٌ", "মুসহাফ (কোরআনের কপি)", "Written copy of Quran", "বিশেষ্য"],
-  [1667, "رَقٍّ", "চামড়া", "Parchment", "বিশেষ্য"],
-  [1668, "قِرْطَاسٍ", "কাগজ", "Paper", "বিশেষ্য"],
-  [1669, "حِبْرٍ", "কালি", "Ink", "বিশেষ্য"],
-  [1670, "مِدَادٍ", "কালি/কলমের কালি", "Ink", "বিশেষ্য"],
-  [1671, "قَلَمٍ", "কলম", "Pen", "বিশেষ্য"],
-  [1672, "دَوَاةٍ", "কালির দোয়াত", "Inkpot", "বিশেষ্য"],
-  [1673, "مِحْبَرَةٍ", "কালির পাত্র", "Ink container", "বিশেষ্য"],
-  [1674, "خَطَّاطٍ", "লেখক", "Calligrapher", "বিশেষ্য"],
-  [1675, "كَاتِبٍ", "লেখক", "Writer", "বিশেষ্য"],
-  [1676, "مُسَوِّدَةٍ", "খসড়া", "Draft", "বিশেষ্য"],
-  [1677, "بَيْضَاءَ", "সাদা (হাত)", "White (hand - miracle of Moses)", "বিশেষ্য"],
-  [1678, "عَصًا", "লাঠি", "Staff", "বিশেষ্য"],
-  [1679, "يَدٌ بَيْضَاءُ", "উজ্জ্বল সাদা হাত", "Radiant white hand", "বাক্যাংশ"],
-  [1680, "ثُعْبَانٌ", "মহাসাপ", "Giant serpent", "বিশেষ্য"],
-  [1681, "حَيَّةٌ", "সাপ", "Snake", "বিশেষ্য"],
-  [1682, "جَانٌّ", "ছোট সাপ", "Small snake", "বিশেষ্য"],
-  [1683, "تِنِّينٌ", "ড্রাগন/বিশাল সাপ", "Dragon/Huge serpent", "বিশেষ্য"],
-  [1684, "أُفُقٍ", "দিগন্ত", "Horizon", "বিশেষ্য"],
-  [1685, "أُفٍّ", "ছি ছি (ঘৃণা)", "Ugh (expression of disgust)", "অব্যয়"],
-  [1686, "أُسٍّ", "ভিত্তি", "Foundation", "বিশেষ্য"],
-  [1687, "إِصْرٍ", "কঠিন বোঝা", "Heavy burden", "বিশেষ্য"],
-  [1688, "إِصْرَارٍ", "দৃঢ় সংকল্প/জেদ", "Perseverance/Obstinacy", "বিশেষ্য"],
-  [1689, "إِعْصَارٍ", "ঘূর্ণিঝড়", "Cyclone", "বিশেষ্য"],
-  [1690, "إِفْكٍ", "মিথ্যা অপবাদ", "Slander", "বিশেষ্য"],
-  [1691, "إِلٍّ", "অঙ্গীকার/আত্মীয়", "Pledge/Relative", "বিশেষ্য"],
-  [1692, "أَمْشَاجٍ", "মিশ্রিত বীর্য", "Mixed fluid (sperm)", "বিশেষ্য"],
-  [1693, "أَنَّىٰ", "কীভাবে/কোথা থেকে", "How/From where", "অব্যয়"],
-  [1694, "أَوَّاهٌ", "অনুশোচনাকারী/ধৈর্যশীল", "Sighing/Forbearing", "বিশেষণ"],
-  [1695, "أَيْمَانُ", "শপথসমূহ", "Oaths", "বিশেষ্য"],
-  [1696, "أَيْكَةُ", "ঘন বন", "Dense wood", "বিশেষ্য"],
-  [1697, "بُرْهَانٌ", "প্রমাণ", "Proof", "বিশেষ্য"],
-  [1698, "بُطُونُ", "পেটসমূহ", "Bellies", "বিশেষ্য"],
-  [1699, "بُيُوتٌ", "গৃহসমূহ", "Houses", "বিশেষ্য"],
-  [1700, "بَيْتُ الْمَقْدِسِ", "বাইতুল মুকাদ্দাস", "Jerusalem/Holy House", "বিশেষ্য"],
-  [1701, "بَيْتُ اللَّهِ", "আল্লাহর ঘর (কাবা)", "House of Allah (Kaaba)", "বিশেষ্য"],
-  [1702, "بَيْتُ الْعَتِيقِ", "প্রাচীন ঘর (কাবা)", "Ancient House (Kaaba)", "বিশেষ্য"],
-  [1703, "بَكَّةَ", "বাক্কা (মক্কার নাম)", "Bakkah (another name for Mecca)", "বিশেষ্য"],
-  [1704, "إِلْيَاءَ", "ইলিয়া (জেরুজালেম)", "Ilya (Jerusalem)", "বিশেষ্য"],
-  [1705, "أَرِيحَا", "এরিহা (জেরিকো)", "Ariha (Jericho)", "বিশেষ্য"],
-  [1706, "يَثْرِبَ", "ইয়াসরিব (মদিনার পুরনো নাম)", "Yathrib (old name of Medina)", "বিশেষ্য"],
-  [1707, "مَدْيَنَ", "মাদইয়ান (স্থানের নাম)", "Madyan (place name)", "বিশেষ্য"],
-  [1708, "أَيْكَةَ", "আইকাহ (বন)", "Aykah (wood)", "বিশেষ্য"],
-  [1709, "حِجْرٍ", "হিজর (সামুদ জাতির এলাকা)", "Hijr (Thamud region)", "বিশেষ্য"],
-  [1710, "رَسٍّ", "রাস (কূপ)", "Rass (well)", "বিশেষ্য"],
-  [1711, "بَابِلَ", "বাবিল (ব্যাবিলন)", "Babil (Babylon)", "বিশেষ্য"],
-  [1712, "مِصْرَ", "মিসর", "Misr (Egypt)", "বিশেষ্য"],
-  [1713, "طُورِ سِينِينَ", "তুর সিনীন (পাহাড়)", "Tur Sinin (Mount Sinai)", "বিশেষ্য"],
-  [1714, "طُورِ سَيْنَاءَ", "তুর সিনা", "Tur Sina (Mount Sinai)", "বিশেষ্য"],
-  [1715, "طُورِ زَيْتَا", "তুর যাইতা (জলপাই পর্বত)", "Tur Zayta (Mount of Olives)", "বিশেষ্য"],
-  [1716, "جُودِيٍّ", "জুদি পাহাড়", "Mount Judi", "বিশেষ্য"],
-  [1717, "جَبَلَ حِرَاءَ", "হিরা পাহাড়", "Mount Hira", "বিশেষ্য"],
-  [1718, "جَبَلَ أُحُدٍ", "উহুদ পাহাড়", "Mount Uhud", "বিশেষ্য"],
-  [1719, "جَبَلَ ثَوْرٍ", "সাওর পাহাড়", "Mount Thawr", "বিশেষ্য"],
-  [1720, "جَبَلَ عَرَفَاتٍ", "আরাফাত পাহাড়", "Mount Arafat", "বিশেষ্য"],
-  [1721, "جَبَلَ قَافٍ", "ক্বাফ পাহাড়", "Mount Qaf", "বিশেষ্য"],
-  [1722, "وَادِي تُوًى", "তুওয়া উপত্যকা", "Tuwa Valley", "বিশেষ্য"],
-  [1723, "وَادِي الْقُرَىٰ", "উপত্যকার শহর", "Valley of cities", "বিশেষ্য"],
-  [1724, "وَادِي بَكَّانَ", "বাক্কান উপত্যকা", "Bakkan Valley", "বিশেষ্য"],
-  [1725, "وَادِي النَّحْلِ", "মৌমাছির উপত্যকা", "Valley of Bees", "বিশেষ্য"],
-  [1726, "حُنَيْنٍ", "হুনাইন (যুদ্ধক্ষেত্র)", "Hunayn (battlefield)", "বিশেষ্য"],
-  [1727, "بَدْرٍ", "বদর (যুদ্ধক্ষেত্র)", "Badr (battlefield)", "বিশেষ্য"],
-  [1728, "أُحُدٍ", "উহুদ (যুদ্ধক্ষেত্র)", "Uhud (battlefield)", "বিশেষ্য"],
-  [1729, "الْخَنْدَقِ", "খন্দক (যুদ্ধ)", "Al-Khandaq (Trench battle)", "বিশেষ্য"],
-  [1730, "الْحُدَيْبِيَةِ", "হুদাইবিয়া (স্থানের নাম)", "Al-Hudaybiyyah (place name)", "বিশেষ্য"],
-  [1731, "مُؤْتَةَ", "মু'তা (যুদ্ধক্ষেত্র)", "Mu'tah (battlefield)", "বিশেষ্য"],
-  [1732, "تَبُوكَ", "তাবুক (স্থানের নাম)", "Tabuk (place name)", "বিশেষ্য"],
-  [1733, "يَنْبُعَ", "ইয়ানবু (স্থানের নাম)", "Yanbu (place name)", "বিশেষ্য"],
-  [1734, "جُدَّةَ", "জেদ্দা", "Jeddah (city)", "বিশেষ্য"],
-  [1735, "الطَّائِفَ", "তায়েফ (শহর)", "At-Ta'if (city)", "বিশেষ্য"],
-  [1736, "حَضْرَمَوْتَ", "হাদরামাওত (স্থানের নাম)", "Hadramawt (region)", "বিশেষ্য"],
-  [1737, "نَجْرَانَ", "নাজরান (স্থানের নাম)", "Najran (region)", "বিশেষ্য"],
-  [1738, "يَمَنَ", "ইয়েমেন", "Yemen (country)", "বিশেষ্য"],
-  [1739, "هِنْدَ", "হিন্দ (ভারত)", "Hind (India)", "বিশেষ্য"],
-  [1740, "صِينِ", "চীন", "China", "বিশেষ্য"],
-  [1741, "فَارِسَ", "ফারস (পারস্য)", "Faris (Persia)", "বিশেষ্য"],
-  [1742, "رُومَ", "রোম", "Room (Rome)", "বিশেষ্য"],
-  [1743, "حَبَشَةَ", "হাবশা (আবিসিনিয়া)", "Habashah (Abyssinia)", "বিশেষ্য"],
-  [1744, "نُوبَةَ", "নুবিয়া (আফ্রিকা)", "Nubah (Nubia)", "বিশেষ্য"],
-  [1745, "سُودَانَ", "সুদান", "Sudan", "বিশেষ্য"],
-  [1746, "مَغْرِبَ", "মাগরিব (পশ্চিম)", "Maghrib (West/North Africa)", "বিশেষ্য"],
-  [1747, "مَشْرِقَ", "মাশরিক (পূর্ব)", "Mashriq (East)", "বিশেষ্য"],
-  [1748, "جَهَنَّمَ", "জাহান্নাম", "Jahannam (Hell)", "বিশেষ্য"],
-  [1749, "لَظَىٰ", "লাযা (জাহান্নাম)", "Ladha (Hell)", "বিশেষ্য"],
-  [1750, "حُطَمَةِ", "হুতামা (জাহান্নাম)", "Hutamah (Hell)", "বিশেষ্য"],
-  [1751, "سَقَرَ", "সাকার (জাহান্নাম)", "Saqar (Hell)", "বিশেষ্য"],
-  [1752, "جَحِيمٍ", "জাহীম (জাহান্নাম)", "Jaheem (Hell)", "বিশেষ্য"],
-  [1753, "هَاوِيَةٍ", "হাবিয়া (জাহান্নাম)", "Hawiyah (Hell)", "বিশেষ্য"],
-  [1754, "سِعِيرٍ", "সিঈর (জাহান্নাম)", "Si'ir (Hell)", "বিশেষ্য"],
-  [1755, "فِرْدَوْسِ", "ফিরদাউস (জান্নাতের সর্বোচ্চ স্তর)", "Firdaws (highest Paradise)", "বিশেষ্য"],
-  [1756, "عَدْنٍ", "আদন (জান্নাত)", "Adn (Paradise)", "বিশেষ্য"],
-  [1757, "نَعِيمٍ", "নাঈম (জান্নাত)", "Na'im (Paradise)", "বিশেষ্য"],
-  [1758, "خُلْدٍ", "খুলদ (চিরস্থায়ী জান্নাত)", "Khuld (Eternal Paradise)", "বিশেষ্য"],
-  [1759, "مَأْوَىٰ", "মা'ওয়া (আশ্রয়স্থল)", "Ma'wa (Abode)", "বিশেষ্য"],
-  [1760, "مُقَامٍ", "মুকাম (স্থান)", "Maqam (Station)", "বিশেষ্য"],
-  [1761, "مُقَامِ إِبْرَاهِيمَ", "মাকামে ইব্রাহিম", "Maqam Ibrahim", "বিশেষ্য"],
-  [1762, "مَشْعَرِ الْحَرَامِ", "মাশআরুল হারাম (মুযদালিফা)", "Mash'ar al-Haram", "বিশেষ্য"],
-  [1763, "مِنًى", "মিনা (স্থানের নাম)", "Mina (place name)", "বিশেষ্য"],
-  [1764, "عَرَفَاتٍ", "আরাফাত (স্থানের নাম)", "Arafat (place name)", "বিশেষ্য"],
-  [1765, "مُزْدَلِفَةَ", "মুযদালিফা (স্থানের নাম)", "Muzdalifah (place name)", "বিশেষ্য"],
-  [1766, "صَفَا", "সাফা পাহাড়", "Safa hill", "বিশেষ্য"],
-  [1767, "مَرْوَةَ", "মারওয়া পাহাড়", "Marwah hill", "বিশেষ্য"],
-  [1768, "حَجَرِ الْأَسْوَدِ", "হাজরে আসওয়াদ (কালো পাথর)", "Black Stone", "বিশেষ্য"],
-  [1769, "حِجْرِ إِسْمَاعِيلَ", "হিজরে ইসমাইল", "Hijr Ismail", "বিশেষ্য"],
-  [1770, "زَمْزَمَ", "জামজাম কূপ", "Zamzam well", "বিশেষ্য"],
-  [1771, "إِبِلَ", "উট", "Camel", "বিশেষ্য"],
-  [1772, "نَاقَةَ", "উটনী", "She-camel", "বিশেষ্য"],
-  [1773, "جَمَلَ", "পুরুষ উট", "Male camel", "বিশেষ্য"],
-  [1774, "بَكْرَ", "যুবা উট", "Young camel", "বিশেষ্য"],
-  [1775, "قَلُوصَ", "তরুণী উটনী", "Young she-camel", "বিশেষ্য"],
-  [1776, "خِوَارَ", "উটের ডাক", "Camel's cry", "বিশেষ্য"],
-  [1777, "عِشَارٍ", "গর্ভবতী উটনী", "Pregnant she-camel", "বিশেষ্য"],
-  [1778, "حِقَّةَ", "তিন বছরের উটনী", "Three-year-old she-camel", "বিশেষ্য"],
-  [1779, "جَذَعَةَ", "চার বছরের উট", "Four-year-old camel", "বিশেষ্য"],
-  [1780, "ثَنِيَّةَ", "পাঁচ বছরের উট", "Five-year-old camel", "বিশেষ্য"],
-  [1781, "رَبَاعِيَةَ", "ছয় বছরের উট", "Six-year-old camel", "বিশেষ্য"],
-  [1782, "سَدِيسَ", "সাত বছরের উট", "Seven-year-old camel", "বিশেষ্য"],
-  [1783, "بَازِلٍ", "আট বছরের উট", "Eight-year-old camel", "বিশেষ্য"],
-  [1784, "مُخْلِفٍ", "নয় বছরের উট", "Nine-year-old camel", "বিশেষ্য"],
-  [1785, "هَمْلَجٍ", "দ্রুতগামী উট", "Fast camel", "বিশেষ্য"],
-  [1786, "ضَامِرٍ", "ক্ষীণকায় উট", "Lean camel", "বিশেষ্য"],
-  [1787, "صَافِنَاتٍ", "বাঁধা ঘোড়া", "Horses standing", "বিশেষ্য"],
-  [1788, "جِيَادٍ", "দ্রুতগামী ঘোড়া", "Swift horses", "বিশেষ্য"],
-  [1789, "مُصْطَحِبَاتٍ", "দৌড় প্রতিযোগিতার ঘোড়া", "Racing horses", "বিশেষ্য"],
-  [1790, "عَادِيَاتِ", "দ্রুতগামী", "Rapid runners", "বিশেষ্য"],
-  [1791, "مُورِيَاتِ", "আঘাতে অগ্নি সৃষ্টিকারী", "Striking sparks", "বিশেষ্য"],
-  [1792, "مُغِيرَاتِ", "আক্রমণকারী", "Charging", "বিশেষ্য"],
-  [1793, "صَبِيًّا", "শিশু", "Infant", "বিশেষ্য"],
-  [1794, "طِفْلًا", "ছোট শিশু", "Small child", "বিশেষ্য"],
-  [1795, "رَضِيعًا", "দুধপানকারী শিশু", "Suckling infant", "বিশেষ্য"],
-  [1796, "فَطِيمًا", "দুধ ছাড়ানো শিশু", "Weaned child", "বিশেষ্য"],
-  [1797, "مُرْضِعَةٍ", "দুধপান করানো মা", "Breastfeeding mother", "বিশেষ্য"],
-  [1798, "حَامِلٍ", "গর্ভবতী", "Pregnant woman", "বিশেষ্য"],
-  [1799, "حُبْلَىٰ", "গর্ভবতী", "Pregnant", "বিশেষণ"],
-  [1800, "وَالِدَةٍ", "মাতা", "Mother", "বিশেষ্য"],
-  [1801, "وَالِدٍ", "পিতা", "Father", "বিশেষ্য"],
-  [1802, "وَالِدَيْنِ", "পিতা-মাতা", "Parents", "বিশেষ্য"],
-  [1803, "أَبَوَيْنِ", "পিতা-মাতা", "Parents", "বিশেষ্য"],
-  [1804, "حَمَأَةٍ", "শাশুড়ি", "Mother-in-law", "বিশেষ্য"],
-  [1805, "حَمٍ", "শ্বশুর", "Father-in-law", "বিশেষ্য"],
-  [1806, "كَافِلًا", "অভিভাবক", "Guardian", "বিশেষ্য"],
-  [1807, "ضَيْفًا", "মেহমান", "Guest", "বিশেষ্য"],
-  [1808, "أَضْيَافٍ", "মেহমানগণ", "Guests", "বিশেষ্য"],
-  [1809, "جِيرَانٍ", "প্রতিবেশীগণ", "Neighbors", "বিশেষ্য"],
-  [1810, "صَاحِبٍ", "সাথী/বন্ধু", "Companion/Friend", "বিশেষ্য"],
-  [1811, "صَاحِبَيْنِ", "দুই সাথী", "Two companions", "বিশেষ্য"],
-  [1812, "قَرِينٍ", "সাথী (জ্বিন বা ফেরেশতা)", "Companion (jinn or angel)", "বিশেষ্য"],
-  [1813, "قَرِينَةٍ", "সাথিনী", "Female companion", "বিশেষ্য"],
-  [1814, "خَلِيلٍ", "ঘনিষ্ঠ বন্ধু", "Intimate friend", "বিশেষ্য"],
-  [1815, "خَلِيلَ اللَّهِ", "আল্লাহর বন্ধু (ইব্রাহিম)", "Friend of Allah (Abraham)", "বিশেষ্য"],
-  [1816, "وَلِيٍّ", "বন্ধু/অভিভাবক", "Friend/Guardian", "বিশেষ্য"],
-  [1817, "وَلِيِّ اللَّهِ", "আল্লাহর বন্ধু", "Friend of Allah", "বিশেষ্য"],
-  [1818, "أَوْلِيَاءُ", "বন্ধুবৃন্দ", "Friends", "বিশেষ্য"],
-  [1819, "أَعْدَاءُ", "শত্রুরা", "Enemies", "বিশেষ্য"],
-  [1820, "عَدُوٌّ", "শত্রু", "Enemy", "বিশেষ্য"],
-  [1821, "عَدُوٍّ مُبِينٍ", "স্পষ্ট শত্রু", "Clear enemy", "বাক্যাংশ"],
-  [1822, "خَصْمٍ", "বিবাদী", "Opponent", "বিশেষ্য"],
-  [1823, "خُصُومٍ", "বিবাদীগণ", "Opponents", "বিশেষ্য"],
-  [1824, "خَصِيمٍ", "ঝগড়াটে", "Quarrelsome", "বিশেষণ"],
-  [1825, "غَرِيمٍ", "ঋণী/ঋণদাতা", "Debtor/Creditor", "বিশেষ্য"],
-  [1826, "يَتِيمٍ", "এতিম", "Orphan", "বিশেষ্য"],
-  [1827, "يَتَامَىٰ", "এতিমগণ", "Orphans", "বিশেষ্য"],
-  [1828, "مِسْكِينٍ", "মিসকিন", "Needy", "বিশেষ্য"],
-  [1829, "مَسَاكِينَ", "মিসকিনগণ", "Needy people", "বিশেষ্য"],
-  [1830, "فَقِيرٍ", "দরিদ্র", "Poor", "বিশেষ্য"],
-  [1831, "فُقَرَاءُ", "দরিদ্রগণ", "Poor people", "বিশেষ্য"],
-  [1832, "غَنِيٍّ", "ধনী", "Rich", "বিশেষ্য"],
-  [1833, "أَغْنِيَاءُ", "ধনীগণ", "Rich people", "বিশেষ্য"],
-  [1834, "سَائِلٍ", "ভিক্ষুক", "Beggar", "বিশেষ্য"],
-  [1835, "سَائِلِينَ", "ভিক্ষুকগণ", "Beggers", "বিশেষ্য"],
-  [1836, "مَحْرُومٍ", "বঞ্চিত", "Deprived", "বিশেষণ"],
-  [1837, "مَحْرُومِينَ", "বঞ্চিতগণ", "Deprived people", "বিশেষ্য"],
-  [1838, "مُنْقَطِعٍ", "ছিন্ন-বিচ্ছিন্ন", "Cut off", "বিশেষণ"],
-  [1839, "ابْنِ السَّبِيلِ", "পথিক", "Wayfarer", "বিশেষ্য"],
-  [1840, "أَبْنَاءِ السَّبِيلِ", "পথিকগণ", "Wayfarers", "বিশেষ্য"],
-  [1841, "أَرَاذِلُ", "নিচু লোক", "Lowly people", "বিশেষ্য"],
-  [1842, "أَشْرَافٍ", "সম্ভ্রান্ত", "Nobles", "বিশেষ্য"],
-  [1843, "سَادَةٍ", "নেতা", "Leaders", "বিশেষ্য"],
-  [1844, "سَادَاتٍ", "প্রভুগণ", "Masters", "বিশেষ্য"],
-  [1845, "قَادَةٍ", "নেতাগণ", "Leaders", "বিশেষ্য"],
-  [1846, "قَائِدٍ", "নেতা", "Leader", "বিশেষ্য"],
-  [1847, "إِمَامٍ", "ইমাম/নেতা", "Imam/Leader", "বিশেষ্য"],
-  [1848, "أَئِمَّةٍ", "ইমামগণ", "Leaders", "বিশেষ্য"],
-  [1849, "هَادٍ", "পথপ্রদর্শক", "Guide", "বিশেষ্য"],
-  [1850, "هُدَاةٍ", "পথপ্রদর্শকগণ", "Guides", "বিশেষ্য"],
-  [1851, "ضَالٍّ", "পথভ্রষ্ট", "Astray", "বিশেষণ"],
-  [1852, "ضَالِّينَ", "পথভ্রষ্টগণ", "Astray people", "বিশেষ্য"],
-  [1853, "مُهْتَدٍ", "পথপ্রাপ্ত", "Guided", "বিশেষণ"],
-  [1854, "مُهْتَدِينَ", "পথপ্রাপ্তগণ", "Guided people", "বিশেষ্য"],
-  [1855, "رَاشِدِينَ", "সৎপথগামী", "Rightly guided", "বিশেষ্য"],
-  [1856, "غَاوِينَ", "বিপথগামী", "Erring", "বিশেষ্য"],
-  [1857, "غَوَاةٍ", "বিপথগামী দল", "Erring group", "বিশেষ্য"],
-  [1858, "غَوَاسِقَ", "রাতের অন্ধকার", "Darkness of night", "বিশেষ্য"],
-  [1859, "نَاشِطَةً", "উদীয়মান", "Emerging", "বিশেষণ"],
-  [1860, "نَاشِطَاتٍ", "সাঁতারু (তারকা)", "Swimming (stars)", "বিশেষণ"],
-  [1861, "سَابِحَاتٍ", "বেগে ধাবমান", "Swiftly moving", "বিশেষণ"],
-  [1862, "سَابِقَاتٍ", "অগ্রগামী", "Foremost", "বিশেষণ"],
-  [1863, "فَالِقُ", "বিচ্ছেদকারী", "Splitter", "বিশেষণ"],
-  [1864, "خُنَّسِ", "প্রত্যাহারকারী (গ্রহ)", "Retreating (planets)", "বিশেষণ"],
-  [1865, "كُنَّسِ", "গুপ্তকারী", "Hidden", "বিশেষণ"],
-  [1866, "دُرِّيٍّ", "উজ্জ্বল", "Bright", "বিশেষণ"],
-  [1867, "ثَاقِبٍ", "ভেদকারী", "Piercing", "বিশেষণ"],
-  [1868, "وَهَّاجَةٍ", "প্রদীপ্ত", "Blazing", "বিশেষণ"],
-  [1869, "ضِيَاءً", "আলো", "Light", "বিশেষ্য"],
-  [1870, "دِيَاءً", "ঔষধ", "Medicine", "বিশেষ্য"],
-  [1871, "شِفَاءً", "আরোগ্য", "Cure", "বিশেষ্য"],
-  [1872, "دَوَاءً", "ঔষধ", "Medicine", "বিশেষ্য"],
-  [1873, "سَقَمٍ", "রোগ", "Illness", "বিশেষ্য"],
-  [1874, "مَرَضٍ", "ব্যাধি", "Disease", "বিশেষ্য"],
-  [1875, "عِلَّةٍ", "অসুস্থতা", "Sickness", "বিশেষ্য"],
-  [1876, "عَاهَةٍ", "ক্ষতি/রোগ", "Affliction", "বিশেষ্য"],
-  [1877, "آفَةٍ", "বিপদ", "Calamity", "বিশেষ্য"],
-  [1878, "بَلِيَّةٍ", "পরীক্ষা", "Trial", "বিশেষ্য"],
-  [1879, "فِتْنَةٍ", "ফিতনা", "Temptation", "বিশেষ্য"],
-  [1880, "مِحْنَةٍ", "পরীক্ষা", "Test", "বিশেষ্য"],
-  [1881, "مِحَنٍ", "পরীক্ষাসমূহ", "Tests", "বিশেষ্য"],
-  [1882, "بَأْسٍ", "কঠোরতা/যুদ্ধ", "Harshness/War", "বিশেষ্য"],
-  [1883, "بَأْسَاءَ", "দুর্দশা", "Hardship", "বিশেষ্য"],
-  [1884, "ضَرَّاءَ", "অভাব/বিপদ", "Hardship", "বিশেষ্য"],
-  [1885, "سَرَّاءَ", "সুখ/সমৃদ্ধি", "Prosperity", "বিশেষ্য"],
-  [1886, "يُسْرٍ", "সহজতা", "Ease", "বিশেষ্য"],
-  [1887, "عُسْرٍ", "কঠিনতা", "Difficulty", "বিশেষ্য"],
-  [1888, "عَنَاءٍ", "কষ্ট", "Hardship", "বিশেষ্য"],
-  [1889, "مَشَقَّةٍ", "ক্লেশ", "Difficulty", "বিশেষ্য"],
-  [1890, "كَبْوَةٍ", "পতন/বিপদ", "Fall/Downfall", "বিশেষ্য"],
-  [1891, "نُكْبَةٍ", "বিপর্যয়", "Disaster", "বিশেষ্য"],
-  [1892, "دَاهِيَةٍ", "বড় বিপদ", "Great calamity", "বিশেষ্য"],
-  [1893, "قَارِعَةٍ", "আঘাতকারী বিপদ", "Striking calamity", "বিশেষ্য"],
-  [1894, "حَاقَّةٍ", "সত্য ঘটনা", "Reality", "বিশেষ্য"],
-  [1895, "طَامَّةٍ", "বিপর্যয়", "Great disaster", "বিশেষ্য"],
-  [1896, "غَاشِيَةٍ", "আচ্ছন্নকারী", "Overwhelming", "বিশেষণ"],
-  [1897, "رَاجِفَةٍ", "কম্পনশীল", "Shaking", "বিশেষণ"],
-  [1898, "رَادِفَةٍ", "পরবর্তী", "Following", "বিশেষণ"],
-  [1899, "صَاخَّةٍ", "স্তব্ধকারী", "Deafening", "বিশেষণ"],
-  [1900, "قَاصِمَةٍ", "চূর্ণকারী", "Crushing", "বিশেষণ"],
-  [1901, "دَامِرَةٍ", "ধ্বংসকারী", "Destroying", "বিশেষণ"],
-  [1902, "مُدَمْدِمِينَ", "ধ্বংসকারী", "Destroyers", "বিশেষ্য"],
-  [1903, "جَارِفٍ", "সমূলে উৎপাটনকারী", "Uprooting", "বিশেষণ"],
-  [1904, "لَاقِحٍ", "ফলদায়ী (বায়ু)", "Fertilizing (wind)", "বিশেষণ"],
-  [1905, "ذَرُوعٍ", "বাহু", "Arm", "বিশেষ্য"],
-  [1906, "سَاعِدٍ", "বাহু/শক্তি", "Arm/Strength", "বিশেষ্য"],
-  [1907, "مِرْفَقٍ", "কনুই", "Elbow", "বিশেষ্য"],
-  [1908, "كَفٍّ", "হাতের তালু", "Palm of hand", "বিশেষ্য"],
-  [1909, "بَنَانٍ", "আঙ্গুলের অগ্রভাগ", "Fingertips", "বিশেষ্য"],
-  [1910, "أَنَامِلِ", "আঙ্গুলের ডগা", "Fingertips", "বিশেষ্য"],
-  [1911, "بُرْجُمَةٍ", "আঙ্গুলের গিরা", "Knuckle", "বিশেষ্য"],
-  [1912, "صَدْرٍ", "বুক", "Chest", "বিশেষ্য"],
-  [1913, "صُدُورٍ", "বুকসমূহ", "Chests", "বিশেষ্য"],
-  [1914, "حَشًا", "অন্তর", "Heart/Inside", "বিশেষ্য"],
-  [1915, "حَشَاهُمْ", "তাদের অন্তর", "Their hearts", "বিশেষ্য"],
-  [1916, "حَشْوٍ", "ভরতি", "Filling", "বিশেষ্য"],
-  [1917, "حَشِيشٍ", "শুকনো ঘাস", "Dry grass", "বিশেষ্য"],
-  [1918, "حَشَفٍ", "শুকনো খেজুর", "Dry dates", "বিশেষ্য"],
-  [1919, "بُسْرٍ", "কাঁচা খেজুর", "Unripe dates", "বিশেষ্য"],
-  [1920, "رُطَبٍ", "পাকা খেজুর", "Ripe dates", "বিশেষ্য"],
-  [1921, "نَضِيجٍ", "পাকা (ফল)", "Ripe (fruit)", "বিশেষণ"],
-  [1922, "نَاضِجٍ", "পাকা", "Ripe", "বিশেষণ"],
-  [1923, "يَانِعٍ", "পাকা (ফল)", "Ripe", "বিশেষণ"],
-  [1924, "جَنِيٍّ", "তাজা ফল", "Fresh fruit", "বিশেষ্য"],
-  [1925, "جَنًى", "ফল", "Fruit", "বিশেষ্য"],
-  [1926, "جَنَا", "সে ফল সংগ্রহ করল", "He gathered fruit", "ক্রিয়া"],
-  [1927, "اجْتَنَىٰ", "সে ফল সংগ্রহ করল", "He plucked fruit", "ক্রিয়া"],
-  [1928, "اثَّاقَلَ", "সে ভারী হল", "He became heavy", "ক্রিয়া"],
-  [1929, "اثَّقَلَتْ", "সে (গর্ভ) ভারী হল", "She became heavy (pregnancy)", "ক্রিয়া"],
-  [1930, "اسْتَقَلَّ", "সে হালকা হল", "He became light", "ক্রিয়া"],
-  [1931, "اسْتَقَلَّتْ", "সে (গর্ভ) হালকা হল", "She became light", "ক্রিয়া"],
-  [1932, "أَضْمَرَ", "সে গোপন করল", "He concealed", "ক্রিয়া"],
-  [1933, "أَضْمَرَتْ", "সে গোপন করল (গর্ভ)", "She concealed (pregnancy)", "ক্রিয়া"],
-  [1934, "أَسَرَّ", "সে গোপন রাখল", "He kept secret", "ক্রিয়া"],
-  [1935, "أَعْلَنَ", "সে প্রকাশ করল", "He made public", "ক্রিয়া"],
-  [1936, "أَبْدَىٰ", "সে প্রকাশ করল", "He revealed", "ক্রিয়া"],
-  [1937, "أَظْهَرَ", "সে প্রকাশ্য করল", "He made apparent", "ক্রিয়া"],
-  [1938, "أَخْفَىٰ", "সে লুকাল", "He hid", "ক্রিয়া"],
-  [1939, "أَخْفَاهَا", "সে তা লুকাল", "He hid it", "ক্রিয়া"],
-  [1940, "اخْتَفَىٰ", "সে লুকিয়ে গেল", "He hid himself", "ক্রিয়া"],
-  [1941, "احْتَجَبَ", "সে আড়াল হল", "He veiled himself", "ক্রিয়া"],
-  [1942, "احْتَجَبَتْ", "সে আড়াল হল", "She veiled herself", "ক্রিয়া"],
-  [1943, "حَجَبَ", "সে আড়াল করল", "He veiled", "ক্রিয়া"],
-  [1944, "حَجَبَهَا", "সে তাকে আড়াল করল", "He veiled her", "ক্রিয়া"],
-  [1945, "أَجْنَبَ", "সে দূরে সরে গেল", "He went far away", "ক্রিয়া"],
-  [1946, "أَجْنَبَتْ", "সে অপবিত্র হল", "She became impure", "ক্রিয়া"],
-  [1947, "اغْتَسَلَ", "সে গোসল করল", "He bathed", "ক্রিয়া"],
-  [1948, "اغْتَسَلَتْ", "সে গোসল করল", "She bathed", "ক্রিয়া"],
-  [1949, "تَطَهَّرَ", "সে পবিত্র হল", "He purified himself", "ক্রিয়া"],
-  [1950, "تَطَهَّرَتْ", "সে পবিত্র হল", "She purified herself", "ক্রিয়া"],
-  [1951, "تَوَضَّأَ", "সে ওজু করল", "He performed ablution", "ক্রিয়া"],
-  [1952, "تَوَضَّأَتْ", "সে ওজু করল", "She performed ablution", "ক্রিয়া"],
-  [1953, "تَيَمَّمَ", "সে তায়াম্মুম করল", "He performed dry ablution", "ক্রিয়া"],
-  [1954, "تَيَمَّمَتْ", "সে তায়াম্মুম করল", "She performed dry ablution", "ক্রিয়া"],
-  [1955, "صَلَّىٰ", "সে সালাত আদায় করল", "He prayed", "ক্রিয়া"],
-  [1956, "صَلَّتْ", "সে সালাত আদায় করল", "She prayed", "ক্রিয়া"],
-  [1957, "صَلَّوْا", "তারা সালাত আদায় করল", "They prayed", "ক্রিয়া"],
-  [1958, "أَقَامَ الصَّلَاةَ", "সে সালাত প্রতিষ্ঠা করল", "He established prayer", "ক্রিয়া"],
-  [1959, "أَقَامَتِ الصَّلَاةَ", "সে সালাত প্রতিষ্ঠা করল", "She established prayer", "ক্রিয়া"],
-  [1960, "زَكَّىٰ", "সে পবিত্র করল", "He purified", "ক্রিয়া"],
-  [1961, "زَكَّتْ", "সে পবিত্র করল", "She purified", "ক্রিয়া"],
-  [1962, "تَزَكَّىٰ", "সে পবিত্র হল", "He purified himself", "ক্রিয়া"],
-  [1963, "تَزَكَّتْ", "সে পবিত্র হল", "She purified herself", "ক্রিয়া"],
-  [1964, "حَجَّ", "সে হজ্জ করল", "He performed Hajj", "ক্রিয়া"],
-  [1965, "حَجَّتْ", "সে হজ্জ করল", "She performed Hajj", "ক্রিয়া"],
-  [1966, "اعْتَمَرَ", "সে ওমরা করল", "He performed Umrah", "ক্রিয়া"],
-  [1967, "اعْتَمَرَتْ", "সে ওমরা করল", "She performed Umrah", "ক্রিয়া"],
-  [1968, "طَافَ", "সে তাওয়াফ করল", "He performed Tawaf", "ক্রিয়া"],
-  [1969, "طَافَتْ", "সে তাওয়াফ করল", "She performed Tawaf", "ক্রিয়া"],
-  [1970, "سَعَىٰ", "সে সাঈ করল", "He performed Sa'ee", "ক্রিয়া"],
-  [1971, "سَعَتْ", "সে সাঈ করল", "She performed Sa'ee", "ক্রিয়া"],
-  [1972, "رَمَىٰ", "সে নিক্ষেপ করল", "He threw", "ক্রিয়া"],
-  [1973, "رَمَتْ", "সে নিক্ষেপ করল", "She threw", "ক্রিয়া"],
-  [1974, "نَحَرَ", "সে কুরবানি করল", "He sacrificed", "ক্রিয়া"],
-  [1975, "نَحَرَتْ", "সে কুরবানি করল", "She sacrificed", "ক্রিয়া"],
-  [1976, "ذَبَحَ", "সে জবাই করল", "He slaughtered", "ক্রিয়া"],
-  [1977, "ذَبَحَتْ", "সে জবাই করল", "She slaughtered", "ক্রিয়া"],
-  [1978, "صَامَ", "সে রোজা রাখল", "He fasted", "ক্রিয়া"],
-  [1979, "صَامَتْ", "সে রোজা রাখল", "She fasted", "ক্রিয়া"],
-  [1980, "أَفْطَرَ", "সে ইফতার করল", "He broke his fast", "ক্রিয়া"],
-  [1981, "أَفْطَرَتْ", "সে ইফতার করল", "She broke her fast", "ক্রিয়া"],
-  [1982, "سَحَرَ", "সে সাহরি করল", "He had pre-dawn meal", "ক্রিয়া"],
-  [1983, "سَحَرَتْ", "সে সাহরি করল", "She had pre-dawn meal", "ক্রিয়া"],
-  [1984, "هَاجَرَ", "সে হিজরত করল", "He emigrated", "ক্রিয়া"],
-  [1985, "هَاجَرَتْ", "সে হিজরত করল", "She emigrated", "ক্রিয়া"],
-  [1986, "جَاهَدَ", "সে জিহাদ করল", "He struggled", "ক্রিয়া"],
-  [1987, "جَاهَدَتْ", "সে জিহাদ করল", "She struggled", "ক্রিয়া"],
-  [1988, "قَاتَلَ", "সে যুদ্ধ করল", "He fought", "ক্রিয়া"],
-  [1989, "قَاتَلَتْ", "সে যুদ্ধ করল", "She fought", "ক্রিয়া"],
-  [1990, "اسْتَشْهَدَ", "সে শহীদ হল", "He became martyr", "ক্রিয়া"],
-  [1991, "اسْتَشْهَدَتْ", "সে শহীদ হল", "She became martyr", "ক্রিয়া"],
-  [1992, "أَسْرَىٰ", "সে রাতে ভ্রমণ করল", "He traveled by night", "ক্রিয়া"],
-  [1993, "أُسْرِيَ", "রাতে ভ্রমণ করানো হলো", "Was taken by night", "ক্রিয়া"],
-  [1994, "عُرِجَ", "উঠিয়ে নেওয়া হলো", "Was ascended", "ক্রিয়া"],
-  [1995, "صَعِدَ", "সে উঠল", "He ascended", "ক্রিয়া"],
-  [1996, "نَزَلَ", "সে নেমে এল", "He descended", "ক্রিয়া"],
-  [1997, "نَزَّلَ", "সে নাযিল করল", "He sent down", "ক্রিয়া"],
-  [1998, "أَنْزَلَ", "সে নাযিল করলেন", "He sent down", "ক্রিয়া"],
-  [1999, "تَنَزَّلَ", "সে অবতরণ করল", "He descended", "ক্রিয়া"],
-  [2000, "تَمَّ", "সে সম্পূর্ণ হল", "It was completed", "ক্রিয়া"]
-];
-
-
-/* --- App Logic --- */
-const STORAGE_KEY = 'quranicWordApp_PremiumV6';
-let learnedStatus = {};
-let currentFilter = 'all';
-let currentSearch = '';
-let fcList = [];
-
-// Load Data
-try { const stored = localStorage.getItem(STORAGE_KEY); if (stored) learnedStatus = JSON.parse(stored); } catch(e) {}
-
-// Celebration Check
-let lastCelebrated = Math.floor(Object.values(learnedStatus).filter(Boolean).length / 50) * 50;
-
-function saveStatus() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(learnedStatus)); } catch(e) {}
-    updateDashboard();
-    
-    // Confetti Celebration for every 50 words learned
-    let learnedCount = Object.values(learnedStatus).filter(Boolean).length;
-    if(learnedCount >= lastCelebrated + 50) {
-        lastCelebrated = Math.floor(learnedCount / 50) * 50;
-        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-    }
-}
-
-function updateDashboard() {
-    const total = wordsData.length; 
-    const learned = Object.values(learnedStatus).filter(Boolean).length;
-    const remaining = total - learned;
-    const pct = total === 0 ? 0 : Math.round((learned / total) * 100);
-
-    document.getElementById('ui-count-all').textContent = total + ' টি শব্দ';
-    document.getElementById('ui-count-learned').textContent = learned + ' টি';
-    document.getElementById('ui-count-remaining').textContent = remaining + ' টি';
-    
-    document.getElementById('ui-percent').textContent = pct + '%';
-    document.getElementById('circle-progress').style.background = `conic-gradient(var(--gold) ${pct}%, ${document.body.classList.contains('dark-mode') ? '#334155' : '#e2e8f0'} ${pct}%)`;
-    document.getElementById('ui-progress-text').textContent = `${learned} / ${total} শব্দ শেখা হয়েছে`;
-}
-
-// Dark Mode Toggle
-function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    document.getElementById('theme-btn-icon').innerHTML = isDark 
-        ? '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>'
-        : '<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
-    updateDashboard(); // Refresh circular progress color
-}
-
-// Navigation (With History API for Back Button)
-function openScreen(filterType, titleText) {
-    currentFilter = filterType;
-    document.getElementById('list-title-text').textContent = titleText;
-    document.getElementById('search-input').value = '';
-    currentSearch = '';
-    renderList(); 
-    
-    document.getElementById('home-screen').style.transform = 'translateX(-30%)';
-    document.getElementById('list-screen').style.transform = 'translateX(0)';
-    history.pushState({ screen: 'list' }, '', '#list');
-}
-
-function openFlashcard() {
-    fcList = wordsData.filter(w => !learnedStatus[w[0]]);
-    // Shuffle
-    fcList.sort(() => Math.random() - 0.5);
-    renderFlashcard();
-    
-    document.getElementById('home-screen').style.transform = 'translateX(-30%)';
-    document.getElementById('flashcard-screen').style.transform = 'translateX(0)';
-    history.pushState({ screen: 'flashcard' }, '', '#flashcard');
-}
-
-window.addEventListener('popstate', () => {
-    document.getElementById('home-screen').style.transform = 'translateX(0)';
-    document.getElementById('list-screen').style.transform = 'translateX(100%)';
-    document.getElementById('flashcard-screen').style.transform = 'translateX(100%)';
-    updateDashboard();
-});
-
-// Render List (No Lag)
-function renderList() {
-    const container = document.getElementById('words-list-container');
-    container.innerHTML = ''; 
-    
-    let list = wordsData;
-    if (currentFilter === 'learned') list = list.filter(w => learnedStatus[w[0]]);
-    if (currentFilter === 'unlearned') list = list.filter(w => !learnedStatus[w[0]]);
-    if (currentSearch.trim()) {
-        const t = currentSearch.trim().toLowerCase();
-        list = list.filter(w => w[1].toLowerCase().includes(t) || w[2].toLowerCase().includes(t) || w[3].toLowerCase().includes(t));
-    }
-    
-    if (list.length === 0) { container.innerHTML = `<div class="empty-state">কোনো শব্দ পাওয়া যায়নি</div>`; return; }
-    
-    const frag = document.createDocumentFragment();
-    list.forEach(([serial, arabic, bangla, english, category]) => {
-        const card = document.createElement('div');
-        card.className = `word-card ${learnedStatus[serial] ? 'learned' : ''}`;
-        card.innerHTML = `
-            <div class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-            <div class="word-content">
-                <div class="text-bn">
-                    <span class="word-cat">${category}</span>
-                    <span class="meaning">${bangla}</span>
-                    <span class="meaning-en">${english}</span>
-                </div>
-                <div class="text-ar"><span class="arabic-word">${arabic}</span></div>
-            </div>
-        `;
-        card.onclick = () => {
-            learnedStatus[serial] = !learnedStatus[serial]; 
-            saveStatus(); 
-            learnedStatus[serial] ? card.classList.add('learned') : card.classList.remove('learned');
-        };
-        frag.appendChild(card);
-    });
-    container.appendChild(frag);
-}
-
-document.getElementById('search-input').addEventListener('input', e => { currentSearch = e.target.value; renderList(); });
-
-// Flashcard Logic
-function renderFlashcard() {
-    const area = document.getElementById('fc-area');
-    area.innerHTML = '';
-    if(fcList.length === 0) { area.innerHTML = '<div style="text-align:center; color:var(--text-muted);">সব শব্দ শেখা শেষ! 🎉</div>'; return; }
-    
-    const w = fcList[0];
-    const card = document.createElement('div');
-    card.className = 'fc-card';
-    card.id = 'active-fc';
-    card.innerHTML = `
-        <div class="fc-cat-tag">${w[4]}</div>
-        <div class="fc-ar">${w[1]}</div>
-        <div class="fc-bn">${w[2]}</div>
-        <div class="fc-en">${w[3]}</div>
-    `;
-    area.appendChild(card);
-}
-
-function triggerSwipe(dir) {
-    const card = document.getElementById('active-fc');
-    if(!card) return;
-    
-    card.style.transform = `translate(-50%, -50%) translate(${dir === 'left' ? '-150%' : '150%'}, 0) rotate(${dir === 'left' ? '-20deg' : '20deg'})`;
-    card.style.opacity = '0';
-    
-    if(dir === 'right') {
-        learnedStatus[fcList[0][0]] = true; // Mark as learned
-        saveStatus();
-    }
-    
-    setTimeout(() => {
-        fcList.shift();
-        renderFlashcard();
-    }, 300);
-}
-
-// Init
-history.replaceState({ screen: 'home' }, '', window.location.pathname);
-updateDashboard();
-</script>
+<!-- Scripts -->
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

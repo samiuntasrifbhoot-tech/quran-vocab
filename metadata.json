@@ -1,0 +1,6 @@
+{
+  "name": "কুরআনিক শব্দকোষ",
+  "description": "কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ ও রূপতত্ত্বভিত্তিক ফ্ল্যাশকার্ড",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

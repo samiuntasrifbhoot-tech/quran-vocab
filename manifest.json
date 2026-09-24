@@ -1,7 +1,7 @@
 {
   "name": "কুরআনিক শব্দকোষ",
   "short_name": "القرآن",
-  "start_url": "/quran-vocab/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#0a1f14",
   "theme_color": "#1a3d28",

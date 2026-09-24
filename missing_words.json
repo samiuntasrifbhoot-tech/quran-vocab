@@ -1,0 +1,6002 @@
+[
+  {
+    "id": "QCV-0022",
+    "lemma_ar": "عَن",
+    "root": "",
+    "pos": "P",
+    "word_type": "particle",
+    "frequency_tokens": 465,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 36
+      },
+      {
+        "surah": 2,
+        "ayah": 48
+      }
+    ]
+  },
+  {
+    "id": "QCV-0024",
+    "lemma_ar": "ءَامَنَ",
+    "root": "ا م ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 537,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      }
+    ]
+  },
+  {
+    "id": "QCV-0033",
+    "lemma_ar": "رَءَا",
+    "root": "ر ا ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 271,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 55
+      },
+      {
+        "surah": 2,
+        "ayah": 144
+      }
+    ]
+  },
+  {
+    "id": "QCV-0040",
+    "lemma_ar": "قَوْم",
+    "root": "ق و م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 383,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 54
+      },
+      {
+        "surah": 2,
+        "ayah": 60
+      }
+    ]
+  },
+  {
+    "id": "QCV-0045",
+    "lemma_ar": "عَذَاب",
+    "root": "ع ذ ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 322,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 10
+      }
+    ]
+  },
+  {
+    "id": "QCV-0048",
+    "lemma_ar": "ءَايَة",
+    "root": "ا ي ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 382,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 39
+      },
+      {
+        "surah": 2,
+        "ayah": 41
+      }
+    ]
+  },
+  {
+    "id": "QCV-0049",
+    "lemma_ar": "شَآءَ",
+    "root": "ش ي ا",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 236,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 35
+      }
+    ]
+  },
+  {
+    "id": "QCV-0050",
+    "lemma_ar": "شَىْء",
+    "root": "ش ي ا",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 283,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 29
+      }
+    ]
+  },
+  {
+    "id": "QCV-0056",
+    "lemma_ar": "كِتَٰب",
+    "root": "ك ت ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 260,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 44
+      }
+    ]
+  },
+  {
+    "id": "QCV-0061",
+    "lemma_ar": "اتَّقَىٰ",
+    "root": "و ق ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 166,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 21
+      },
+      {
+        "surah": 2,
+        "ayah": 24
+      }
+    ]
+  },
+  {
+    "id": "QCV-0063",
+    "lemma_ar": "أَىّ",
+    "root": "",
+    "pos": "INTG",
+    "word_type": "particle",
+    "frequency_tokens": 60,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 44
+      },
+      {
+        "surah": 4,
+        "ayah": 11
+      }
+    ]
+  },
+  {
+    "id": "QCV-0107",
+    "lemma_ar": "أَرَادَ",
+    "root": "ر و د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 139,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 108
+      }
+    ]
+  },
+  {
+    "id": "QCV-0112",
+    "lemma_ar": "سَبِيل",
+    "root": "س ب ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 176,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 108
+      },
+      {
+        "surah": 2,
+        "ayah": 154
+      }
+    ]
+  },
+  {
+    "id": "QCV-0113",
+    "lemma_ar": "كَٰفِرُون",
+    "root": "ك ف ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 129,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 19
+      },
+      {
+        "surah": 2,
+        "ayah": 24
+      }
+    ]
+  },
+  {
+    "id": "QCV-0114",
+    "lemma_ar": "اتَّخَذَ",
+    "root": "ا خ ذ",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 124,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 51
+      },
+      {
+        "surah": 2,
+        "ayah": 67
+      }
+    ]
+  },
+  {
+    "id": "QCV-0125",
+    "lemma_ar": "لَمَّا",
+    "root": "",
+    "pos": "T",
+    "word_type": "noun",
+    "frequency_tokens": 156,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 17
+      },
+      {
+        "surah": 2,
+        "ayah": 33
+      }
+    ]
+  },
+  {
+    "id": "QCV-0141",
+    "lemma_ar": "أَهْل",
+    "root": "ا ه ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 127,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 105
+      },
+      {
+        "surah": 2,
+        "ayah": 109
+      }
+    ]
+  },
+  {
+    "id": "QCV-0145",
+    "lemma_ar": "مُوسَىٰ",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 136,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 51
+      },
+      {
+        "surah": 2,
+        "ayah": 53
+      }
+    ]
+  },
+  {
+    "id": "QCV-0147",
+    "lemma_ar": "تَوَلَّىٰ",
+    "root": "و ل ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 78,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 64
+      },
+      {
+        "surah": 2,
+        "ayah": 83
+      }
+    ]
+  },
+  {
+    "id": "QCV-0149",
+    "lemma_ar": "لَيْسَ",
+    "root": "ل ي س",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 89,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 113
+      },
+      {
+        "surah": 2,
+        "ayah": 177
+      }
+    ]
+  },
+  {
+    "id": "QCV-0152",
+    "lemma_ar": "جَزَىٰ",
+    "root": "ج ز ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 73,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 48
+      },
+      {
+        "surah": 2,
+        "ayah": 123
+      }
+    ]
+  },
+  {
+    "id": "QCV-0155",
+    "lemma_ar": "أَجْر",
+    "root": "ا ج ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 105,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 62
+      },
+      {
+        "surah": 2,
+        "ayah": 112
+      }
+    ]
+  },
+  {
+    "id": "QCV-0159",
+    "lemma_ar": "أَلْقَىٰٓ",
+    "root": "ل ق ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 71,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 195
+      },
+      {
+        "surah": 3,
+        "ayah": 44
+      }
+    ]
+  },
+  {
+    "id": "QCV-0160",
+    "lemma_ar": "جَرَيْ",
+    "root": "ج ر ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 57,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 164
+      }
+    ]
+  },
+  {
+    "id": "QCV-0161",
+    "lemma_ar": "أَقَامَ",
+    "root": "ق و م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 54,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 43
+      }
+    ]
+  },
+  {
+    "id": "QCV-0162",
+    "lemma_ar": "قَوْل",
+    "root": "ق و ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 92,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 59
+      },
+      {
+        "surah": 2,
+        "ayah": 113
+      }
+    ]
+  },
+  {
+    "id": "QCV-0164",
+    "lemma_ar": "ذُو",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 93,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 83
+      },
+      {
+        "surah": 2,
+        "ayah": 105
+      }
+    ]
+  },
+  {
+    "id": "QCV-0184",
+    "lemma_ar": "مَاذَا",
+    "root": "",
+    "pos": "INTG",
+    "word_type": "particle",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 215
+      }
+    ]
+  },
+  {
+    "id": "QCV-0187",
+    "lemma_ar": "كَم",
+    "root": "",
+    "pos": "INTG",
+    "word_type": "particle",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 211
+      },
+      {
+        "surah": 2,
+        "ayah": 249
+      }
+    ]
+  },
+  {
+    "id": "QCV-0202",
+    "lemma_ar": "دِين",
+    "root": "د ي ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 92,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 132
+      }
+    ]
+  },
+  {
+    "id": "QCV-0205",
+    "lemma_ar": "إِنسَٰن",
+    "root": "ا ن س",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 71,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 60
+      },
+      {
+        "surah": 4,
+        "ayah": 28
+      }
+    ]
+  },
+  {
+    "id": "QCV-0206",
+    "lemma_ar": "أَحْبَبْ",
+    "root": "ح ب ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 64,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 165
+      },
+      {
+        "surah": 2,
+        "ayah": 190
+      }
+    ]
+  },
+  {
+    "id": "QCV-0207",
+    "lemma_ar": "تَلَىٰ",
+    "root": "ت ل و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 61,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 44
+      },
+      {
+        "surah": 2,
+        "ayah": 102
+      }
+    ]
+  },
+  {
+    "id": "QCV-0209",
+    "lemma_ar": "حَيَوٰة",
+    "root": "ح ي ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 76,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 85
+      },
+      {
+        "surah": 2,
+        "ayah": 86
+      }
+    ]
+  },
+  {
+    "id": "QCV-0210",
+    "lemma_ar": "قِيَٰمَة",
+    "root": "ق و م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 70,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 85
+      },
+      {
+        "surah": 2,
+        "ayah": 113
+      }
+    ]
+  },
+  {
+    "id": "QCV-0212",
+    "lemma_ar": "مَال",
+    "root": "م و ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 86,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 155
+      },
+      {
+        "surah": 2,
+        "ayah": 177
+      }
+    ]
+  },
+  {
+    "id": "QCV-0213",
+    "lemma_ar": "أَنفَقَ",
+    "root": "ن ف ق",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 68,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 195
+      }
+    ]
+  },
+  {
+    "id": "QCV-0214",
+    "lemma_ar": "شَيْطَٰن",
+    "root": "ش ط ن",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 88,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 14
+      },
+      {
+        "surah": 2,
+        "ayah": 36
+      }
+    ]
+  },
+  {
+    "id": "QCV-0220",
+    "lemma_ar": "أَلِيم",
+    "root": "ا ل م",
+    "pos": "ADJ",
+    "word_type": "adjective",
+    "frequency_tokens": 72,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 10
+      },
+      {
+        "surah": 2,
+        "ayah": 104
+      }
+    ]
+  },
+  {
+    "id": "QCV-0223",
+    "lemma_ar": "أَصْحَٰب",
+    "root": "ص ح ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 78,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 39
+      },
+      {
+        "surah": 2,
+        "ayah": 81
+      }
+    ]
+  },
+  {
+    "id": "QCV-0224",
+    "lemma_ar": "أَصَابَ",
+    "root": "ص و ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 64,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 156
+      },
+      {
+        "surah": 2,
+        "ayah": 264
+      }
+    ]
+  },
+  {
+    "id": "QCV-0225",
+    "lemma_ar": "قَضَىٰٓ",
+    "root": "ق ض ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 59,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 117
+      },
+      {
+        "surah": 2,
+        "ayah": 200
+      }
+    ]
+  },
+  {
+    "id": "QCV-0230",
+    "lemma_ar": "قُرْءَان",
+    "root": "ق ر ا",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 70,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 185
+      },
+      {
+        "surah": 4,
+        "ayah": 82
+      }
+    ]
+  },
+  {
+    "id": "QCV-0231",
+    "lemma_ar": "صَلَوٰة",
+    "root": "ص ل و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 83,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 43
+      }
+    ]
+  },
+  {
+    "id": "QCV-0234",
+    "lemma_ar": "عَٰلَمِين",
+    "root": "ع ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 73,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 47
+      }
+    ]
+  },
+  {
+    "id": "QCV-0238",
+    "lemma_ar": "اسْتَكْبَرَ",
+    "root": "ك ب ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 34
+      },
+      {
+        "surah": 2,
+        "ayah": 87
+      }
+    ]
+  },
+  {
+    "id": "QCV-0240",
+    "lemma_ar": "يَوْمَئِذ",
+    "root": "",
+    "pos": "T",
+    "word_type": "noun",
+    "frequency_tokens": 70,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 167
+      },
+      {
+        "surah": 4,
+        "ayah": 42
+      }
+    ]
+  },
+  {
+    "id": "QCV-0241",
+    "lemma_ar": "مَسَّ",
+    "root": "م س س",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 56,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 80
+      },
+      {
+        "surah": 2,
+        "ayah": 214
+      }
+    ]
+  },
+  {
+    "id": "QCV-0244",
+    "lemma_ar": "قَلِيل",
+    "root": "ق ل ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 70,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 41
+      },
+      {
+        "surah": 2,
+        "ayah": 79
+      }
+    ]
+  },
+  {
+    "id": "QCV-0247",
+    "lemma_ar": "فَضْل",
+    "root": "ف ض ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 84,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 64
+      },
+      {
+        "surah": 2,
+        "ayah": 90
+      }
+    ]
+  },
+  {
+    "id": "QCV-0249",
+    "lemma_ar": "لَٰكِن",
+    "root": "",
+    "pos": "AMD",
+    "word_type": "noun",
+    "frequency_tokens": 73,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 12
+      },
+      {
+        "surah": 2,
+        "ayah": 13
+      }
+    ]
+  },
+  {
+    "id": "QCV-0251",
+    "lemma_ar": "صَٰلِحَٰت",
+    "root": "ص ل ح",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 62,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 82
+      }
+    ]
+  },
+  {
+    "id": "QCV-0252",
+    "lemma_ar": "بَعَثَ",
+    "root": "ب ع ث",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 52,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 56
+      },
+      {
+        "surah": 2,
+        "ayah": 129
+      }
+    ]
+  },
+  {
+    "id": "QCV-0257",
+    "lemma_ar": "اسْتَغْفَرَ",
+    "root": "غ ف ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 199
+      },
+      {
+        "surah": 3,
+        "ayah": 135
+      }
+    ]
+  },
+  {
+    "id": "QCV-0259",
+    "lemma_ar": "يَذَرَ",
+    "root": "و ذ ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 45,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 234
+      },
+      {
+        "surah": 2,
+        "ayah": 240
+      }
+    ]
+  },
+  {
+    "id": "QCV-0260",
+    "lemma_ar": "كَثِير",
+    "root": "ك ث ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 63,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 109
+      }
+    ]
+  },
+  {
+    "id": "QCV-0265",
+    "lemma_ar": "أَنذَرَ",
+    "root": "ن ذ ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 44,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 6
+      },
+      {
+        "surah": 6,
+        "ayah": 19
+      }
+    ]
+  },
+  {
+    "id": "QCV-0266",
+    "lemma_ar": "مَلَكَتْ",
+    "root": "م ل ك",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 44,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 3
+      },
+      {
+        "surah": 4,
+        "ayah": 24
+      }
+    ]
+  },
+  {
+    "id": "QCV-0269",
+    "lemma_ar": "افْتَرَىٰ",
+    "root": "ف ر ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 50,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 24
+      },
+      {
+        "surah": 3,
+        "ayah": 94
+      }
+    ]
+  },
+  {
+    "id": "QCV-0273",
+    "lemma_ar": "شَدِيد",
+    "root": "ش د د",
+    "pos": "ADJ",
+    "word_type": "adjective",
+    "frequency_tokens": 56,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 165
+      },
+      {
+        "surah": 2,
+        "ayah": 196
+      }
+    ]
+  },
+  {
+    "id": "QCV-0275",
+    "lemma_ar": "أَرَيْ",
+    "root": "ر ا ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 73
+      },
+      {
+        "surah": 2,
+        "ayah": 128
+      }
+    ]
+  },
+  {
+    "id": "QCV-0276",
+    "lemma_ar": "بِئْسَ",
+    "root": "ب ا س",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 90
+      },
+      {
+        "surah": 2,
+        "ayah": 93
+      }
+    ]
+  },
+  {
+    "id": "QCV-0281",
+    "lemma_ar": "مَاتَ",
+    "root": "م و ت",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 39,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 132
+      },
+      {
+        "surah": 2,
+        "ayah": 161
+      }
+    ]
+  },
+  {
+    "id": "QCV-0284",
+    "lemma_ar": "نَهَار",
+    "root": "ن ه ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 57,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 164
+      },
+      {
+        "surah": 2,
+        "ayah": 274
+      }
+    ]
+  },
+  {
+    "id": "QCV-0285",
+    "lemma_ar": "اسْتَطَاعَ",
+    "root": "ط و ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 42,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 217
+      },
+      {
+        "surah": 2,
+        "ayah": 273
+      }
+    ]
+  },
+  {
+    "id": "QCV-0287",
+    "lemma_ar": "نَذِير",
+    "root": "ن ذ ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 58,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 119
+      },
+      {
+        "surah": 5,
+        "ayah": 19
+      }
+    ]
+  },
+  {
+    "id": "QCV-0288",
+    "lemma_ar": "مُتَّقِين",
+    "root": "و ق ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 49,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 66
+      }
+    ]
+  },
+  {
+    "id": "QCV-0289",
+    "lemma_ar": "يَحْزُن",
+    "root": "ح ز ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 38
+      },
+      {
+        "surah": 2,
+        "ayah": 62
+      }
+    ]
+  },
+  {
+    "id": "QCV-0290",
+    "lemma_ar": "أُمَّة",
+    "root": "ا م م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 64,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 128
+      },
+      {
+        "surah": 2,
+        "ayah": 134
+      }
+    ]
+  },
+  {
+    "id": "QCV-0291",
+    "lemma_ar": "مُجْرِم",
+    "root": "ج ر م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 52,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 55
+      },
+      {
+        "surah": 6,
+        "ayah": 123
+      }
+    ]
+  },
+  {
+    "id": "QCV-0292",
+    "lemma_ar": "بُشِّرَ",
+    "root": "ب ش ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 38,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 155
+      }
+    ]
+  },
+  {
+    "id": "QCV-0293",
+    "lemma_ar": "حَمَلَ",
+    "root": "ح م ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 41,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 248
+      },
+      {
+        "surah": 2,
+        "ayah": 286
+      }
+    ]
+  },
+  {
+    "id": "QCV-0294",
+    "lemma_ar": "اسْتَوَىٰٓ",
+    "root": "س و ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 4,
+        "ayah": 95
+      }
+    ]
+  },
+  {
+    "id": "QCV-0295",
+    "lemma_ar": "ذَاقُ",
+    "root": "ذ و ق",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 36,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 106
+      },
+      {
+        "surah": 3,
+        "ayah": 181
+      }
+    ]
+  },
+  {
+    "id": "QCV-0297",
+    "lemma_ar": "جَمِيع",
+    "root": "ج م ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 53,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 2,
+        "ayah": 38
+      }
+    ]
+  },
+  {
+    "id": "QCV-0299",
+    "lemma_ar": "عَذَّبَ",
+    "root": "ع ذ ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 41,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 284
+      },
+      {
+        "surah": 3,
+        "ayah": 56
+      }
+    ]
+  },
+  {
+    "id": "QCV-0300",
+    "lemma_ar": "خَشِىَ",
+    "root": "خ ش ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 150
+      },
+      {
+        "surah": 3,
+        "ayah": 173
+      }
+    ]
+  },
+  {
+    "id": "QCV-0302",
+    "lemma_ar": "غَيْب",
+    "root": "غ ي ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 49,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 33
+      }
+    ]
+  },
+  {
+    "id": "QCV-0304",
+    "lemma_ar": "بَلَغَ",
+    "root": "ب ل غ",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 196
+      },
+      {
+        "surah": 2,
+        "ayah": 231
+      }
+    ]
+  },
+  {
+    "id": "QCV-0306",
+    "lemma_ar": "ابْتَغَىٰ",
+    "root": "ب غ ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 34,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 187
+      },
+      {
+        "surah": 2,
+        "ayah": 198
+      }
+    ]
+  },
+  {
+    "id": "QCV-0308",
+    "lemma_ar": "نَجَّىٰ",
+    "root": "ن ج و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 49
+      },
+      {
+        "surah": 6,
+        "ayah": 63
+      }
+    ]
+  },
+  {
+    "id": "QCV-0313",
+    "lemma_ar": "صَدَّ",
+    "root": "ص د د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 99
+      },
+      {
+        "surah": 4,
+        "ayah": 55
+      }
+    ]
+  },
+  {
+    "id": "QCV-0314",
+    "lemma_ar": "أَعْلَم",
+    "root": "ع ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 49,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 140
+      },
+      {
+        "surah": 3,
+        "ayah": 36
+      }
+    ]
+  },
+  {
+    "id": "QCV-0316",
+    "lemma_ar": "اخْتَلَفَ",
+    "root": "خ ل ف",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 113
+      },
+      {
+        "surah": 2,
+        "ayah": 176
+      }
+    ]
+  },
+  {
+    "id": "QCV-0317",
+    "lemma_ar": "سَآءَ",
+    "root": "س و ا",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 30,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 120
+      },
+      {
+        "surah": 4,
+        "ayah": 22
+      }
+    ]
+  },
+  {
+    "id": "QCV-0318",
+    "lemma_ar": "حَرَّمَ",
+    "root": "ح ر م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 39,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 173
+      },
+      {
+        "surah": 2,
+        "ayah": 275
+      }
+    ]
+  },
+  {
+    "id": "QCV-0320",
+    "lemma_ar": "مُسْتَقِيم",
+    "root": "ق و م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 142
+      }
+    ]
+  },
+  {
+    "id": "QCV-0322",
+    "lemma_ar": "سُوٓء",
+    "root": "س و ا",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 50,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 49
+      },
+      {
+        "surah": 2,
+        "ayah": 169
+      }
+    ]
+  },
+  {
+    "id": "QCV-0324",
+    "lemma_ar": "سَجَدَ",
+    "root": "س ج د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 34
+      },
+      {
+        "surah": 3,
+        "ayah": 43
+      }
+    ]
+  },
+  {
+    "id": "QCV-0325",
+    "lemma_ar": "إِيمَٰن",
+    "root": "ا م ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 45,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 93
+      },
+      {
+        "surah": 2,
+        "ayah": 108
+      }
+    ]
+  },
+  {
+    "id": "QCV-0327",
+    "lemma_ar": "أُولِى",
+    "root": "ا و ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 45,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 179
+      },
+      {
+        "surah": 2,
+        "ayah": 197
+      }
+    ]
+  },
+  {
+    "id": "QCV-0328",
+    "lemma_ar": "حَمْد",
+    "root": "ح م د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 43,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 30
+      }
+    ]
+  },
+  {
+    "id": "QCV-0330",
+    "lemma_ar": "أَمَّا",
+    "root": "",
+    "pos": "EXL",
+    "word_type": "noun",
+    "frequency_tokens": 55,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 3,
+        "ayah": 7
+      }
+    ]
+  },
+  {
+    "id": "QCV-0333",
+    "lemma_ar": "أَعْرَضَ",
+    "root": "ع ر ض",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 32,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 16
+      },
+      {
+        "surah": 4,
+        "ayah": 63
+      }
+    ]
+  },
+  {
+    "id": "QCV-0335",
+    "lemma_ar": "أَبْصَرَ",
+    "root": "ب ص ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 29,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 17
+      },
+      {
+        "surah": 6,
+        "ayah": 104
+      }
+    ]
+  },
+  {
+    "id": "QCV-0336",
+    "lemma_ar": "أَغْنَتْ",
+    "root": "غ ن ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 10
+      },
+      {
+        "surah": 3,
+        "ayah": 116
+      }
+    ]
+  },
+  {
+    "id": "QCV-0337",
+    "lemma_ar": "سُبْحَٰن",
+    "root": "س ب ح",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 41,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 32
+      },
+      {
+        "surah": 2,
+        "ayah": 116
+      }
+    ]
+  },
+  {
+    "id": "QCV-0340",
+    "lemma_ar": "ضَلَٰل",
+    "root": "ض ل ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 38,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 164
+      },
+      {
+        "surah": 4,
+        "ayah": 60
+      }
+    ]
+  },
+  {
+    "id": "QCV-0344",
+    "lemma_ar": "قَدَّمَ",
+    "root": "ق د م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 95
+      },
+      {
+        "surah": 2,
+        "ayah": 110
+      }
+    ]
+  },
+  {
+    "id": "QCV-0345",
+    "lemma_ar": "نَسِىَ",
+    "root": "ن س ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 44
+      },
+      {
+        "surah": 2,
+        "ayah": 237
+      }
+    ]
+  },
+  {
+    "id": "QCV-0347",
+    "lemma_ar": "نِسَآء",
+    "root": "ن س و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 59,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 49
+      },
+      {
+        "surah": 2,
+        "ayah": 187
+      }
+    ]
+  },
+  {
+    "id": "QCV-0349",
+    "lemma_ar": "صِرَٰط",
+    "root": "ص ر ط",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 45,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 6
+      },
+      {
+        "surah": 1,
+        "ayah": 7
+      }
+    ]
+  },
+  {
+    "id": "QCV-0350",
+    "lemma_ar": "جَبَل",
+    "root": "ج ب ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 39,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 260
+      },
+      {
+        "surah": 7,
+        "ayah": 74
+      }
+    ]
+  },
+  {
+    "id": "QCV-0352",
+    "lemma_ar": "أَصْلَحَ",
+    "root": "ص ل ح",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 160
+      },
+      {
+        "surah": 2,
+        "ayah": 182
+      }
+    ]
+  },
+  {
+    "id": "QCV-0353",
+    "lemma_ar": "أَصْبَحَ",
+    "root": "ص ب ح",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 103
+      },
+      {
+        "surah": 5,
+        "ayah": 30
+      }
+    ]
+  },
+  {
+    "id": "QCV-0360",
+    "lemma_ar": "اسْم",
+    "root": "س م و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 39,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 31
+      }
+    ]
+  },
+  {
+    "id": "QCV-0361",
+    "lemma_ar": "أَحْسَن",
+    "root": "ح س ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 36,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 138
+      },
+      {
+        "surah": 4,
+        "ayah": 59
+      }
+    ]
+  },
+  {
+    "id": "QCV-0362",
+    "lemma_ar": "زَيَّنَ",
+    "root": "ز ي ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 212
+      },
+      {
+        "surah": 3,
+        "ayah": 14
+      }
+    ]
+  },
+  {
+    "id": "QCV-0363",
+    "lemma_ar": "كَفَىٰ",
+    "root": "ك ف ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 32,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 137
+      },
+      {
+        "surah": 3,
+        "ayah": 124
+      }
+    ]
+  },
+  {
+    "id": "QCV-0364",
+    "lemma_ar": "اسْتَجَابَ",
+    "root": "ج و ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 186
+      },
+      {
+        "surah": 3,
+        "ayah": 172
+      }
+    ]
+  },
+  {
+    "id": "QCV-0367",
+    "lemma_ar": "سَيِّـَٔات",
+    "root": "س و ا",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 36,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 271
+      },
+      {
+        "surah": 3,
+        "ayah": 193
+      }
+    ]
+  },
+  {
+    "id": "QCV-0369",
+    "lemma_ar": "عَسَى",
+    "root": "ع س ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 30,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 216
+      },
+      {
+        "surah": 2,
+        "ayah": 246
+      }
+    ]
+  },
+  {
+    "id": "QCV-0370",
+    "lemma_ar": "وَيْل",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 79
+      },
+      {
+        "surah": 5,
+        "ayah": 31
+      }
+    ]
+  },
+  {
+    "id": "QCV-0371",
+    "lemma_ar": "مَيِّت",
+    "root": "م و ت",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 38,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 28
+      },
+      {
+        "surah": 2,
+        "ayah": 73
+      }
+    ]
+  },
+  {
+    "id": "QCV-0372",
+    "lemma_ar": "لَبِثَ",
+    "root": "ل ب ث",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 30,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 259
+      },
+      {
+        "surah": 10,
+        "ayah": 16
+      }
+    ]
+  },
+  {
+    "id": "QCV-0375",
+    "lemma_ar": "سُلْطَٰن",
+    "root": "س ل ط",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 151
+      },
+      {
+        "surah": 4,
+        "ayah": 91
+      }
+    ]
+  },
+  {
+    "id": "QCV-0376",
+    "lemma_ar": "تَوَفَّىٰ",
+    "root": "و ف ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 234
+      },
+      {
+        "surah": 2,
+        "ayah": 240
+      }
+    ]
+  },
+  {
+    "id": "QCV-0381",
+    "lemma_ar": "جَٰهَدَ",
+    "root": "ج ه د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 218
+      },
+      {
+        "surah": 3,
+        "ayah": 142
+      }
+    ]
+  },
+  {
+    "id": "QCV-0382",
+    "lemma_ar": "نَعَم",
+    "root": "ن ع م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 33,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 14
+      },
+      {
+        "surah": 4,
+        "ayah": 119
+      }
+    ]
+  },
+  {
+    "id": "QCV-0383",
+    "lemma_ar": "خَلَا",
+    "root": "خ ل و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 14
+      },
+      {
+        "surah": 2,
+        "ayah": 76
+      }
+    ]
+  },
+  {
+    "id": "QCV-0384",
+    "lemma_ar": "كَادَ",
+    "root": "ك و د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 71
+      }
+    ]
+  },
+  {
+    "id": "QCV-0385",
+    "lemma_ar": "يَشْعُرُ",
+    "root": "ش ع ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 9
+      },
+      {
+        "surah": 2,
+        "ayah": 12
+      }
+    ]
+  },
+  {
+    "id": "QCV-0386",
+    "lemma_ar": "إِسْرَائِيل",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 43,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 40
+      },
+      {
+        "surah": 2,
+        "ayah": 47
+      }
+    ]
+  },
+  {
+    "id": "QCV-0387",
+    "lemma_ar": "شَرِيك",
+    "root": "ش ر ك",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 40,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 12
+      },
+      {
+        "surah": 6,
+        "ayah": 22
+      }
+    ]
+  },
+  {
+    "id": "QCV-0391",
+    "lemma_ar": "فَتَنُ",
+    "root": "ف ت ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 101
+      },
+      {
+        "surah": 5,
+        "ayah": 49
+      }
+    ]
+  },
+  {
+    "id": "QCV-0392",
+    "lemma_ar": "فَاسِق",
+    "root": "ف س ق",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 37,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 99
+      }
+    ]
+  },
+  {
+    "id": "QCV-0393",
+    "lemma_ar": "مَتَٰع",
+    "root": "م ت ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 36
+      },
+      {
+        "surah": 2,
+        "ayah": 236
+      }
+    ]
+  },
+  {
+    "id": "QCV-0397",
+    "lemma_ar": "عَٰقِبَة",
+    "root": "ع ق ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 32,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 137
+      },
+      {
+        "surah": 6,
+        "ayah": 11
+      }
+    ]
+  },
+  {
+    "id": "QCV-0398",
+    "lemma_ar": "جَٰدَلُ",
+    "root": "ج د ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 107
+      },
+      {
+        "surah": 4,
+        "ayah": 109
+      }
+    ]
+  },
+  {
+    "id": "QCV-0399",
+    "lemma_ar": "رَفَعَ",
+    "root": "ر ف ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 63
+      },
+      {
+        "surah": 2,
+        "ayah": 93
+      }
+    ]
+  },
+  {
+    "id": "QCV-0402",
+    "lemma_ar": "أَسْلَمَ",
+    "root": "س ل م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 112
+      },
+      {
+        "surah": 2,
+        "ayah": 131
+      }
+    ]
+  },
+  {
+    "id": "QCV-0403",
+    "lemma_ar": "زَكَوٰة",
+    "root": "ز ك و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 32,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 43
+      },
+      {
+        "surah": 2,
+        "ayah": 83
+      }
+    ]
+  },
+  {
+    "id": "QCV-0404",
+    "lemma_ar": "وَٰحِدَة",
+    "root": "و ح د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 31,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 213
+      },
+      {
+        "surah": 4,
+        "ayah": 1
+      }
+    ]
+  },
+  {
+    "id": "QCV-0405",
+    "lemma_ar": "نَصِير",
+    "root": "ن ص ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 107
+      },
+      {
+        "surah": 2,
+        "ayah": 120
+      }
+    ]
+  },
+  {
+    "id": "QCV-0407",
+    "lemma_ar": "يَرْجُوا@",
+    "root": "ر ج و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 218
+      },
+      {
+        "surah": 4,
+        "ayah": 104
+      }
+    ]
+  },
+  {
+    "id": "QCV-0408",
+    "lemma_ar": "مُرْسَل",
+    "root": "ر س ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 35,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 252
+      },
+      {
+        "surah": 6,
+        "ayah": 34
+      }
+    ]
+  },
+  {
+    "id": "QCV-0409",
+    "lemma_ar": "فَرِيق",
+    "root": "ف ر ق",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 33,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 75
+      },
+      {
+        "surah": 2,
+        "ayah": 85
+      }
+    ]
+  },
+  {
+    "id": "QCV-0410",
+    "lemma_ar": "أَذَاقَ",
+    "root": "ذ و ق",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 65
+      },
+      {
+        "surah": 10,
+        "ayah": 21
+      }
+    ]
+  },
+  {
+    "id": "QCV-0411",
+    "lemma_ar": "خَٰسِرِين",
+    "root": "خ س ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 32,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 2,
+        "ayah": 64
+      }
+    ]
+  },
+  {
+    "id": "QCV-0412",
+    "lemma_ar": "وَٰحِد",
+    "root": "و ح د",
+    "pos": "ADJ",
+    "word_type": "adjective",
+    "frequency_tokens": 30,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 133
+      }
+    ]
+  },
+  {
+    "id": "QCV-0413",
+    "lemma_ar": "سَوَآء",
+    "root": "س و ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 108
+      }
+    ]
+  },
+  {
+    "id": "QCV-0414",
+    "lemma_ar": "وَهَبَ",
+    "root": "و ه ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 8
+      },
+      {
+        "surah": 3,
+        "ayah": 38
+      }
+    ]
+  },
+  {
+    "id": "QCV-0415",
+    "lemma_ar": "اسْتُهْزِئَ",
+    "root": "ه ز ا",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 15
+      },
+      {
+        "surah": 4,
+        "ayah": 140
+      }
+    ]
+  },
+  {
+    "id": "QCV-0416",
+    "lemma_ar": "مَعْرُوف",
+    "root": "ع ر ف",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 38,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 178
+      },
+      {
+        "surah": 2,
+        "ayah": 180
+      }
+    ]
+  },
+  {
+    "id": "QCV-0417",
+    "lemma_ar": "لَعَنَ",
+    "root": "ل ع ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 88
+      },
+      {
+        "surah": 2,
+        "ayah": 159
+      }
+    ]
+  },
+  {
+    "id": "QCV-0420",
+    "lemma_ar": "أَكْبَر",
+    "root": "ك ب ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 217
+      },
+      {
+        "surah": 2,
+        "ayah": 219
+      }
+    ]
+  },
+  {
+    "id": "QCV-0422",
+    "lemma_ar": "سَخَّرَ",
+    "root": "س خ ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 13,
+        "ayah": 2
+      },
+      {
+        "surah": 14,
+        "ayah": 32
+      }
+    ]
+  },
+  {
+    "id": "QCV-0423",
+    "lemma_ar": "وَضَعَ",
+    "root": "و ض ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 36
+      },
+      {
+        "surah": 3,
+        "ayah": 96
+      }
+    ]
+  },
+  {
+    "id": "QCV-0424",
+    "lemma_ar": "أَشَدّ",
+    "root": "ش د د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 31,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 74
+      },
+      {
+        "surah": 2,
+        "ayah": 85
+      }
+    ]
+  },
+  {
+    "id": "QCV-0427",
+    "lemma_ar": "مَشَ",
+    "root": "م ش ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 6,
+        "ayah": 122
+      }
+    ]
+  },
+  {
+    "id": "QCV-0429",
+    "lemma_ar": "كَلِمَة",
+    "root": "ك ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 39
+      },
+      {
+        "surah": 3,
+        "ayah": 45
+      }
+    ]
+  },
+  {
+    "id": "QCV-0432",
+    "lemma_ar": "مَصِير",
+    "root": "ص ي ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 126
+      },
+      {
+        "surah": 2,
+        "ayah": 285
+      }
+    ]
+  },
+  {
+    "id": "QCV-0433",
+    "lemma_ar": "حَدِيث",
+    "root": "ح د ث",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 42
+      },
+      {
+        "surah": 4,
+        "ayah": 78
+      }
+    ]
+  },
+  {
+    "id": "QCV-0434",
+    "lemma_ar": "يَضُرَّ",
+    "root": "ض ر ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 102
+      },
+      {
+        "surah": 3,
+        "ayah": 111
+      }
+    ]
+  },
+  {
+    "id": "QCV-0438",
+    "lemma_ar": "كَلَّمَ",
+    "root": "ك ل م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 118
+      },
+      {
+        "surah": 2,
+        "ayah": 174
+      }
+    ]
+  },
+  {
+    "id": "QCV-0439",
+    "lemma_ar": "تَعَٰلَىٰ",
+    "root": "ع ل و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 100
+      },
+      {
+        "surah": 7,
+        "ayah": 190
+      }
+    ]
+  },
+  {
+    "id": "QCV-0441",
+    "lemma_ar": "أَجْمَعِين",
+    "root": "ج م ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 161
+      },
+      {
+        "surah": 3,
+        "ayah": 87
+      }
+    ]
+  },
+  {
+    "id": "QCV-0446",
+    "lemma_ar": "بَلَوْ",
+    "root": "ب ل و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 155
+      },
+      {
+        "surah": 5,
+        "ayah": 48
+      }
+    ]
+  },
+  {
+    "id": "QCV-0450",
+    "lemma_ar": "اشْتَرَىٰ",
+    "root": "ش ر ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 16
+      },
+      {
+        "surah": 2,
+        "ayah": 41
+      }
+    ]
+  },
+  {
+    "id": "QCV-0451",
+    "lemma_ar": "أَقْسَمُ",
+    "root": "ق س م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 5,
+        "ayah": 53
+      },
+      {
+        "surah": 5,
+        "ayah": 106
+      }
+    ]
+  },
+  {
+    "id": "QCV-0453",
+    "lemma_ar": "بَٰطِل",
+    "root": "ب ط ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 42
+      },
+      {
+        "surah": 2,
+        "ayah": 188
+      }
+    ]
+  },
+  {
+    "id": "QCV-0455",
+    "lemma_ar": "سَبَقَ",
+    "root": "س ب ق",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 7,
+        "ayah": 80
+      },
+      {
+        "surah": 8,
+        "ayah": 59
+      }
+    ]
+  },
+  {
+    "id": "QCV-0456",
+    "lemma_ar": "نَفَخَ",
+    "root": "ن ف خ",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 49
+      },
+      {
+        "surah": 5,
+        "ayah": 110
+      }
+    ]
+  },
+  {
+    "id": "QCV-0457",
+    "lemma_ar": "رِجَال",
+    "root": "ر ج ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 228
+      },
+      {
+        "surah": 2,
+        "ayah": 239
+      }
+    ]
+  },
+  {
+    "id": "QCV-0458",
+    "lemma_ar": "ءَال",
+    "root": "ا و ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 49
+      },
+      {
+        "surah": 2,
+        "ayah": 50
+      }
+    ]
+  },
+  {
+    "id": "QCV-0460",
+    "lemma_ar": "كَتَمَ",
+    "root": "ك ت م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 33
+      },
+      {
+        "surah": 2,
+        "ayah": 42
+      }
+    ]
+  },
+  {
+    "id": "QCV-0461",
+    "lemma_ar": "اسْتَعْجَلَ",
+    "root": "ع ج ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 57
+      },
+      {
+        "surah": 6,
+        "ayah": 58
+      }
+    ]
+  },
+  {
+    "id": "QCV-0462",
+    "lemma_ar": "اسْتَمَعَ",
+    "root": "س م ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 25
+      },
+      {
+        "surah": 7,
+        "ayah": 204
+      }
+    ]
+  },
+  {
+    "id": "QCV-0465",
+    "lemma_ar": "عَاد2",
+    "root": "ع و د",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 7,
+        "ayah": 65
+      },
+      {
+        "surah": 7,
+        "ayah": 74
+      }
+    ]
+  },
+  {
+    "id": "QCV-0466",
+    "lemma_ar": "عَرَفَ",
+    "root": "ع ر ف",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 89
+      },
+      {
+        "surah": 2,
+        "ayah": 146
+      }
+    ]
+  },
+  {
+    "id": "QCV-0468",
+    "lemma_ar": "أُعِيدُ",
+    "root": "ع و د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 10,
+        "ayah": 4
+      },
+      {
+        "surah": 10,
+        "ayah": 34
+      }
+    ]
+  },
+  {
+    "id": "QCV-0469",
+    "lemma_ar": "أَنْعَمَ",
+    "root": "ن ع م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 40
+      }
+    ]
+  },
+  {
+    "id": "QCV-0471",
+    "lemma_ar": "مَلَأ",
+    "root": "م ل ا",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 30,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 246
+      },
+      {
+        "surah": 7,
+        "ayah": 60
+      }
+    ]
+  },
+  {
+    "id": "QCV-0472",
+    "lemma_ar": "حَيْث",
+    "root": "ح ي ث",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 29,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 35
+      },
+      {
+        "surah": 2,
+        "ayah": 58
+      }
+    ]
+  },
+  {
+    "id": "QCV-0473",
+    "lemma_ar": "أَبَدًا",
+    "root": "ا ب د",
+    "pos": "T",
+    "word_type": "noun",
+    "frequency_tokens": 28,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 95
+      },
+      {
+        "surah": 4,
+        "ayah": 57
+      }
+    ]
+  },
+  {
+    "id": "QCV-0474",
+    "lemma_ar": "غَٰفِل",
+    "root": "غ ف ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 74
+      },
+      {
+        "surah": 2,
+        "ayah": 85
+      }
+    ]
+  },
+  {
+    "id": "QCV-0477",
+    "lemma_ar": "ذِكْرَىٰ",
+    "root": "ذ ك ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 68
+      },
+      {
+        "surah": 6,
+        "ayah": 69
+      }
+    ]
+  },
+  {
+    "id": "QCV-0479",
+    "lemma_ar": "أَحَلَّ",
+    "root": "ح ل ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 187
+      },
+      {
+        "surah": 2,
+        "ayah": 275
+      }
+    ]
+  },
+  {
+    "id": "QCV-0480",
+    "lemma_ar": "وَفَّىٰٓ",
+    "root": "و ف ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 272
+      },
+      {
+        "surah": 2,
+        "ayah": 281
+      }
+    ]
+  },
+  {
+    "id": "QCV-0483",
+    "lemma_ar": "شَهَٰدَة",
+    "root": "ش ه د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 140
+      },
+      {
+        "surah": 2,
+        "ayah": 282
+      }
+    ]
+  },
+  {
+    "id": "QCV-0484",
+    "lemma_ar": "شَاهِد",
+    "root": "ش ه د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 53
+      },
+      {
+        "surah": 3,
+        "ayah": 81
+      }
+    ]
+  },
+  {
+    "id": "QCV-0485",
+    "lemma_ar": "أَعَدَّ",
+    "root": "ع د د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 24
+      },
+      {
+        "surah": 3,
+        "ayah": 131
+      }
+    ]
+  },
+  {
+    "id": "QCV-0486",
+    "lemma_ar": "أَنشَأَ",
+    "root": "ن ش ا",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 6
+      },
+      {
+        "surah": 6,
+        "ayah": 98
+      }
+    ]
+  },
+  {
+    "id": "QCV-0487",
+    "lemma_ar": "عَهْد",
+    "root": "ع ه د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 29,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 2,
+        "ayah": 40
+      }
+    ]
+  },
+  {
+    "id": "QCV-0488",
+    "lemma_ar": "مَكَان",
+    "root": "ك و ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 20
+      },
+      {
+        "surah": 5,
+        "ayah": 60
+      }
+    ]
+  },
+  {
+    "id": "QCV-0493",
+    "lemma_ar": "مُؤْمِنَٰت",
+    "root": "ا م ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 25
+      },
+      {
+        "surah": 5,
+        "ayah": 5
+      }
+    ]
+  },
+  {
+    "id": "QCV-0494",
+    "lemma_ar": "يَفْقَهُ",
+    "root": "ف ق ه",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 78
+      },
+      {
+        "surah": 6,
+        "ayah": 25
+      }
+    ]
+  },
+  {
+    "id": "QCV-0495",
+    "lemma_ar": "تَبَيَّنَ",
+    "root": "ب ي ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 109
+      },
+      {
+        "surah": 2,
+        "ayah": 187
+      }
+    ]
+  },
+  {
+    "id": "QCV-0496",
+    "lemma_ar": "قَصَّ",
+    "root": "ق ص ص",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 164
+      },
+      {
+        "surah": 6,
+        "ayah": 57
+      }
+    ]
+  },
+  {
+    "id": "QCV-0499",
+    "lemma_ar": "أَمْسَكَ",
+    "root": "م س ك",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 231
+      },
+      {
+        "surah": 4,
+        "ayah": 15
+      }
+    ]
+  },
+  {
+    "id": "QCV-0501",
+    "lemma_ar": "ءَالَآء",
+    "root": "ا ل و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 34,
+    "refs": [
+      {
+        "surah": 7,
+        "ayah": 69
+      },
+      {
+        "surah": 7,
+        "ayah": 74
+      }
+    ]
+  },
+  {
+    "id": "QCV-0503",
+    "lemma_ar": "امْرَأَت",
+    "root": "م ر ا",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 26,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 282
+      },
+      {
+        "surah": 3,
+        "ayah": 35
+      }
+    ]
+  },
+  {
+    "id": "QCV-0504",
+    "lemma_ar": "طَعَام",
+    "root": "ط ع م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 184
+      }
+    ]
+  },
+  {
+    "id": "QCV-0505",
+    "lemma_ar": "لِقَآء",
+    "root": "ل ق ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 31
+      },
+      {
+        "surah": 6,
+        "ayah": 130
+      }
+    ]
+  },
+  {
+    "id": "QCV-0506",
+    "lemma_ar": "وَدَّ",
+    "root": "و د د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 96
+      },
+      {
+        "surah": 2,
+        "ayah": 105
+      }
+    ]
+  },
+  {
+    "id": "QCV-0507",
+    "lemma_ar": "يَتَفَكَّرُ",
+    "root": "ف ك ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 219
+      },
+      {
+        "surah": 2,
+        "ayah": 266
+      }
+    ]
+  },
+  {
+    "id": "QCV-0509",
+    "lemma_ar": "ظُلُمَٰت",
+    "root": "ظ ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 17
+      },
+      {
+        "surah": 2,
+        "ayah": 19
+      }
+    ]
+  },
+  {
+    "id": "QCV-0512",
+    "lemma_ar": "أُغْرِقُ",
+    "root": "غ ر ق",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 50
+      },
+      {
+        "surah": 7,
+        "ayah": 64
+      }
+    ]
+  },
+  {
+    "id": "QCV-0513",
+    "lemma_ar": "أَدْرَىٰ",
+    "root": "د ر ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 10,
+        "ayah": 16
+      },
+      {
+        "surah": 33,
+        "ayah": 63
+      }
+    ]
+  },
+  {
+    "id": "QCV-0515",
+    "lemma_ar": "مُسَمًّى",
+    "root": "س م و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 282
+      },
+      {
+        "surah": 6,
+        "ayah": 2
+      }
+    ]
+  },
+  {
+    "id": "QCV-0516",
+    "lemma_ar": "مُنَٰفِقُون",
+    "root": "ن ف ق",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 27,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 61
+      },
+      {
+        "surah": 4,
+        "ayah": 88
+      }
+    ]
+  },
+  {
+    "id": "QCV-0517",
+    "lemma_ar": "دُعَآء",
+    "root": "د ع و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 22,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 171
+      },
+      {
+        "surah": 3,
+        "ayah": 38
+      }
+    ]
+  },
+  {
+    "id": "QCV-0519",
+    "lemma_ar": "انقَلَبَ",
+    "root": "ق ل ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 143
+      },
+      {
+        "surah": 3,
+        "ayah": 127
+      }
+    ]
+  },
+  {
+    "id": "QCV-0520",
+    "lemma_ar": "وَقَىٰ",
+    "root": "و ق ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 201
+      },
+      {
+        "surah": 3,
+        "ayah": 16
+      }
+    ]
+  },
+  {
+    "id": "QCV-0523",
+    "lemma_ar": "أُنثَىٰ",
+    "root": "ا ن ث",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 178
+      },
+      {
+        "surah": 3,
+        "ayah": 36
+      }
+    ]
+  },
+  {
+    "id": "QCV-0524",
+    "lemma_ar": "قَرْن",
+    "root": "ق ر ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 6
+      },
+      {
+        "surah": 10,
+        "ayah": 13
+      }
+    ]
+  },
+  {
+    "id": "QCV-0525",
+    "lemma_ar": "أَن[بَتَ",
+    "root": "ن ب ت",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 261
+      }
+    ]
+  },
+  {
+    "id": "QCV-0526",
+    "lemma_ar": "سَارَ",
+    "root": "س ي ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 137
+      },
+      {
+        "surah": 6,
+        "ayah": 11
+      }
+    ]
+  },
+  {
+    "id": "QCV-0527",
+    "lemma_ar": "إِيَّا",
+    "root": "",
+    "pos": "PRON",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 1,
+        "ayah": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 40
+      }
+    ]
+  },
+  {
+    "id": "QCV-0530",
+    "lemma_ar": "انتَهَىٰ",
+    "root": "ن ه ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 192
+      },
+      {
+        "surah": 2,
+        "ayah": 193
+      }
+    ]
+  },
+  {
+    "id": "QCV-0531",
+    "lemma_ar": "سَكَنَ",
+    "root": "س ك ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 35
+      },
+      {
+        "surah": 6,
+        "ayah": 13
+      }
+    ]
+  },
+  {
+    "id": "QCV-0532",
+    "lemma_ar": "طَآئِفَة",
+    "root": "ط و ف",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 24,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 69
+      },
+      {
+        "surah": 3,
+        "ayah": 72
+      }
+    ]
+  },
+  {
+    "id": "QCV-0533",
+    "lemma_ar": "ذَا",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 245
+      },
+      {
+        "surah": 2,
+        "ayah": 255
+      }
+    ]
+  },
+  {
+    "id": "QCV-0535",
+    "lemma_ar": "عِيسَى",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 87
+      },
+      {
+        "surah": 2,
+        "ayah": 136
+      }
+    ]
+  },
+  {
+    "id": "QCV-0541",
+    "lemma_ar": "أَحَاطَ",
+    "root": "ح و ط",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 81
+      },
+      {
+        "surah": 2,
+        "ayah": 255
+      }
+    ]
+  },
+  {
+    "id": "QCV-0542",
+    "lemma_ar": "فَصَّلَ",
+    "root": "ف ص ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 55
+      },
+      {
+        "surah": 6,
+        "ayah": 97
+      }
+    ]
+  },
+  {
+    "id": "QCV-0544",
+    "lemma_ar": "بَسَطَ",
+    "root": "ب س ط",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 245
+      },
+      {
+        "surah": 5,
+        "ayah": 11
+      }
+    ]
+  },
+  {
+    "id": "QCV-0545",
+    "lemma_ar": "قَرَأَ",
+    "root": "ق ر ا",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 7,
+        "ayah": 204
+      },
+      {
+        "surah": 10,
+        "ayah": 94
+      }
+    ]
+  },
+  {
+    "id": "QCV-0546",
+    "lemma_ar": "أَفْسَدُ",
+    "root": "ف س د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 11
+      },
+      {
+        "surah": 2,
+        "ayah": 27
+      }
+    ]
+  },
+  {
+    "id": "QCV-0547",
+    "lemma_ar": "آدَم",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 31
+      },
+      {
+        "surah": 2,
+        "ayah": 33
+      }
+    ]
+  },
+  {
+    "id": "QCV-0548",
+    "lemma_ar": "أَتَمَّ",
+    "root": "ت م م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 124
+      },
+      {
+        "surah": 2,
+        "ayah": 150
+      }
+    ]
+  },
+  {
+    "id": "QCV-0549",
+    "lemma_ar": "وَعَظْ",
+    "root": "و ع ظ",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 231
+      },
+      {
+        "surah": 2,
+        "ayah": 232
+      }
+    ]
+  },
+  {
+    "id": "QCV-0550",
+    "lemma_ar": "طَيِّبَٰت",
+    "root": "ط ي ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 57
+      },
+      {
+        "surah": 2,
+        "ayah": 172
+      }
+    ]
+  },
+  {
+    "id": "QCV-0551",
+    "lemma_ar": "قَآئِم",
+    "root": "ق و م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 18
+      },
+      {
+        "surah": 3,
+        "ayah": 39
+      }
+    ]
+  },
+  {
+    "id": "QCV-0552",
+    "lemma_ar": "لَقُ",
+    "root": "ل ق ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 14
+      },
+      {
+        "surah": 2,
+        "ayah": 76
+      }
+    ]
+  },
+  {
+    "id": "QCV-0553",
+    "lemma_ar": "مِيثَٰق",
+    "root": "و ث ق",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 2,
+        "ayah": 63
+      }
+    ]
+  },
+  {
+    "id": "QCV-0555",
+    "lemma_ar": "أَعْمَىٰ",
+    "root": "ع م ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 18
+      },
+      {
+        "surah": 2,
+        "ayah": 171
+      }
+    ]
+  },
+  {
+    "id": "QCV-0558",
+    "lemma_ar": "سَبْع",
+    "root": "س ب ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 23,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 2,
+        "ayah": 261
+      }
+    ]
+  },
+  {
+    "id": "QCV-0559",
+    "lemma_ar": "مُكَذِّبِين",
+    "root": "ك ذ ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 137
+      },
+      {
+        "surah": 6,
+        "ayah": 11
+      }
+    ]
+  },
+  {
+    "id": "QCV-0561",
+    "lemma_ar": "غَلَبُ",
+    "root": "غ ل ب",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 249
+      },
+      {
+        "surah": 3,
+        "ayah": 12
+      }
+    ]
+  },
+  {
+    "id": "QCV-0562",
+    "lemma_ar": "مَدَّ",
+    "root": "م د د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 15
+      },
+      {
+        "surah": 7,
+        "ayah": 202
+      }
+    ]
+  },
+  {
+    "id": "QCV-0563",
+    "lemma_ar": "سَوَّىٰ",
+    "root": "س و ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 15,
+        "ayah": 29
+      }
+    ]
+  },
+  {
+    "id": "QCV-0565",
+    "lemma_ar": "جُنَاح",
+    "root": "ج ن ح",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 25,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 158
+      },
+      {
+        "surah": 2,
+        "ayah": 198
+      }
+    ]
+  },
+  {
+    "id": "QCV-0568",
+    "lemma_ar": "يُبْدِىَ",
+    "root": "ب د و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 33
+      },
+      {
+        "surah": 2,
+        "ayah": 271
+      }
+    ]
+  },
+  {
+    "id": "QCV-0569",
+    "lemma_ar": "غَرَّ",
+    "root": "غ ر ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 24
+      },
+      {
+        "surah": 3,
+        "ayah": 196
+      }
+    ]
+  },
+  {
+    "id": "QCV-0571",
+    "lemma_ar": "صَرَفَ",
+    "root": "ص ر ف",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 152
+      },
+      {
+        "surah": 6,
+        "ayah": 16
+      }
+    ]
+  },
+  {
+    "id": "QCV-0572",
+    "lemma_ar": "كَشَفَ",
+    "root": "ك ش ف",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 41
+      },
+      {
+        "surah": 7,
+        "ayah": 134
+      }
+    ]
+  },
+  {
+    "id": "QCV-0573",
+    "lemma_ar": "أَسْمَعَ",
+    "root": "س م ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 8,
+        "ayah": 23
+      },
+      {
+        "surah": 10,
+        "ayah": 42
+      }
+    ]
+  },
+  {
+    "id": "QCV-0574",
+    "lemma_ar": "أَقْرَب",
+    "root": "ق ر ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 180
+      },
+      {
+        "surah": 2,
+        "ayah": 215
+      }
+    ]
+  },
+  {
+    "id": "QCV-0575",
+    "lemma_ar": "حُسْنَىٰ",
+    "root": "ح س ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 95
+      },
+      {
+        "surah": 7,
+        "ayah": 137
+      }
+    ]
+  },
+  {
+    "id": "QCV-0576",
+    "lemma_ar": "حَلَلْ",
+    "root": "ح ل ل",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 228
+      },
+      {
+        "surah": 2,
+        "ayah": 229
+      }
+    ]
+  },
+  {
+    "id": "QCV-0577",
+    "lemma_ar": "يَصْلَى",
+    "root": "ص ل ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 10
+      },
+      {
+        "surah": 14,
+        "ayah": 29
+      }
+    ]
+  },
+  {
+    "id": "QCV-0578",
+    "lemma_ar": "أُوذِىَ",
+    "root": "ا ذ ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 195
+      },
+      {
+        "surah": 4,
+        "ayah": 16
+      }
+    ]
+  },
+  {
+    "id": "QCV-0579",
+    "lemma_ar": "أَعْتَدَتْ",
+    "root": "ع ت د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 18
+      },
+      {
+        "surah": 4,
+        "ayah": 37
+      }
+    ]
+  },
+  {
+    "id": "QCV-0581",
+    "lemma_ar": "اعْتَدَىٰ",
+    "root": "ع د و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 65
+      }
+    ]
+  },
+  {
+    "id": "QCV-0582",
+    "lemma_ar": "مُعْرِضُون",
+    "root": "ع ر ض",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 83
+      },
+      {
+        "surah": 3,
+        "ayah": 23
+      }
+    ]
+  },
+  {
+    "id": "QCV-0583",
+    "lemma_ar": "فَوْز",
+    "root": "ف و ز",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 13
+      },
+      {
+        "surah": 4,
+        "ayah": 73
+      }
+    ]
+  },
+  {
+    "id": "QCV-0586",
+    "lemma_ar": "يُنظَرُ",
+    "root": "ن ظ ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 162
+      },
+      {
+        "surah": 3,
+        "ayah": 88
+      }
+    ]
+  },
+  {
+    "id": "QCV-0587",
+    "lemma_ar": "نَصِيب",
+    "root": "ن ص ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 21,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 202
+      },
+      {
+        "surah": 3,
+        "ayah": 23
+      }
+    ]
+  },
+  {
+    "id": "QCV-0590",
+    "lemma_ar": "تَقْوَى",
+    "root": "و ق ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 197
+      },
+      {
+        "surah": 2,
+        "ayah": 237
+      }
+    ]
+  },
+  {
+    "id": "QCV-0592",
+    "lemma_ar": "نَكَحَ",
+    "root": "ن ك ح",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 221
+      },
+      {
+        "surah": 2,
+        "ayah": 230
+      }
+    ]
+  },
+  {
+    "id": "QCV-0593",
+    "lemma_ar": "قُطِعَ",
+    "root": "ق ط ع",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 3,
+        "ayah": 127
+      }
+    ]
+  },
+  {
+    "id": "QCV-0595",
+    "lemma_ar": "غَشِيَ",
+    "root": "غ ش و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 154
+      },
+      {
+        "surah": 14,
+        "ayah": 50
+      }
+    ]
+  },
+  {
+    "id": "QCV-0596",
+    "lemma_ar": "أَطْعَمَ",
+    "root": "ط ع م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 5,
+        "ayah": 89
+      },
+      {
+        "surah": 6,
+        "ayah": 14
+      }
+    ]
+  },
+  {
+    "id": "QCV-0598",
+    "lemma_ar": "يُوقِنُ",
+    "root": "ي ق ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 118
+      }
+    ]
+  },
+  {
+    "id": "QCV-0600",
+    "lemma_ar": "هَٰرُون",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 248
+      },
+      {
+        "surah": 4,
+        "ayah": 163
+      }
+    ]
+  },
+  {
+    "id": "QCV-0601",
+    "lemma_ar": "شَجَرَة",
+    "root": "ش ج ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 35
+      },
+      {
+        "surah": 7,
+        "ayah": 19
+      }
+    ]
+  },
+  {
+    "id": "QCV-0602",
+    "lemma_ar": "ضُرّ",
+    "root": "ض ر ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 17
+      },
+      {
+        "surah": 10,
+        "ayah": 12
+      }
+    ]
+  },
+  {
+    "id": "QCV-0603",
+    "lemma_ar": "قُرْبَىٰ",
+    "root": "ق ر ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 83
+      },
+      {
+        "surah": 2,
+        "ayah": 177
+      }
+    ]
+  },
+  {
+    "id": "QCV-0605",
+    "lemma_ar": "رَيْب",
+    "root": "ر ي ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 23
+      }
+    ]
+  },
+  {
+    "id": "QCV-0607",
+    "lemma_ar": "أَبَى",
+    "root": "ا ب ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 34
+      },
+      {
+        "surah": 2,
+        "ayah": 282
+      }
+    ]
+  },
+  {
+    "id": "QCV-0608",
+    "lemma_ar": "زَعَمَ",
+    "root": "ز ع م",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 60
+      },
+      {
+        "surah": 6,
+        "ayah": 22
+      }
+    ]
+  },
+  {
+    "id": "QCV-0609",
+    "lemma_ar": "يَصِفُ",
+    "root": "و ص ف",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 100
+      },
+      {
+        "surah": 12,
+        "ayah": 18
+      }
+    ]
+  },
+  {
+    "id": "QCV-0611",
+    "lemma_ar": "حَبِطَ",
+    "root": "ح ب ط",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 217
+      },
+      {
+        "surah": 3,
+        "ayah": 22
+      }
+    ]
+  },
+  {
+    "id": "QCV-0612",
+    "lemma_ar": "مُصَدِّق",
+    "root": "ص د ق",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 41
+      },
+      {
+        "surah": 2,
+        "ayah": 89
+      }
+    ]
+  },
+  {
+    "id": "QCV-0613",
+    "lemma_ar": "مُهْتَدُون",
+    "root": "ه د ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 16
+      },
+      {
+        "surah": 2,
+        "ayah": 70
+      }
+    ]
+  },
+  {
+    "id": "QCV-0615",
+    "lemma_ar": "اصْطَفَىٰ",
+    "root": "ص ف و",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 130
+      },
+      {
+        "surah": 2,
+        "ayah": 132
+      }
+    ]
+  },
+  {
+    "id": "QCV-0616",
+    "lemma_ar": "يَحْذَرُ",
+    "root": "ح ذ ر",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 235
+      },
+      {
+        "surah": 5,
+        "ayah": 41
+      }
+    ]
+  },
+  {
+    "id": "QCV-0617",
+    "lemma_ar": "قَعَدَ",
+    "root": "ق ع د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 168
+      },
+      {
+        "surah": 4,
+        "ayah": 140
+      }
+    ]
+  },
+  {
+    "id": "QCV-0618",
+    "lemma_ar": "أَخْزَيْ",
+    "root": "خ ز ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 192
+      },
+      {
+        "surah": 3,
+        "ayah": 194
+      }
+    ]
+  },
+  {
+    "id": "QCV-0619",
+    "lemma_ar": "لَدَي",
+    "root": "",
+    "pos": "LOC",
+    "word_type": "noun",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 44
+      },
+      {
+        "surah": 12,
+        "ayah": 54
+      }
+    ]
+  },
+  {
+    "id": "QCV-0620",
+    "lemma_ar": "حِزْب",
+    "root": "ح ز ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 20,
+    "refs": [
+      {
+        "surah": 5,
+        "ayah": 56
+      },
+      {
+        "surah": 11,
+        "ayah": 17
+      }
+    ]
+  },
+  {
+    "id": "QCV-0621",
+    "lemma_ar": "تُرَاب",
+    "root": "ت ر ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 264
+      },
+      {
+        "surah": 3,
+        "ayah": 59
+      }
+    ]
+  },
+  {
+    "id": "QCV-0623",
+    "lemma_ar": "مَكَّ",
+    "root": "م ك ن",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 6
+      },
+      {
+        "surah": 7,
+        "ayah": 10
+      }
+    ]
+  },
+  {
+    "id": "QCV-0626",
+    "lemma_ar": "زِينَة",
+    "root": "ز ي ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 7,
+        "ayah": 31
+      },
+      {
+        "surah": 7,
+        "ayah": 32
+      }
+    ]
+  },
+  {
+    "id": "QCV-0628",
+    "lemma_ar": "دَرَجَة",
+    "root": "د ر ج",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 228
+      },
+      {
+        "surah": 2,
+        "ayah": 253
+      }
+    ]
+  },
+  {
+    "id": "QCV-0631",
+    "lemma_ar": "تَنزِيل",
+    "root": "ن ز ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 17,
+        "ayah": 106
+      },
+      {
+        "surah": 20,
+        "ayah": 4
+      }
+    ]
+  },
+  {
+    "id": "QCV-0632",
+    "lemma_ar": "تَرَبَّصْ",
+    "root": "ر ب ص",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 228
+      },
+      {
+        "surah": 2,
+        "ayah": 234
+      }
+    ]
+  },
+  {
+    "id": "QCV-0633",
+    "lemma_ar": "وَرِثَ",
+    "root": "و ر ث",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 11
+      },
+      {
+        "surah": 4,
+        "ayah": 12
+      }
+    ]
+  },
+  {
+    "id": "QCV-0635",
+    "lemma_ar": "سَقَىٰ",
+    "root": "س ق ي",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 71
+      },
+      {
+        "surah": 12,
+        "ayah": 41
+      }
+    ]
+  },
+  {
+    "id": "QCV-0636",
+    "lemma_ar": "دُبُر",
+    "root": "د ب ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 111
+      },
+      {
+        "surah": 4,
+        "ayah": 47
+      }
+    ]
+  },
+  {
+    "id": "QCV-0639",
+    "lemma_ar": "مَرَّة",
+    "root": "م ر ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 19,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 229
+      },
+      {
+        "surah": 6,
+        "ayah": 94
+      }
+    ]
+  },
+  {
+    "id": "QCV-0640",
+    "lemma_ar": "مَوْلَىٰ",
+    "root": "و ل ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 286
+      },
+      {
+        "surah": 3,
+        "ayah": 150
+      }
+    ]
+  },
+  {
+    "id": "QCV-0641",
+    "lemma_ar": "حَآجَّ",
+    "root": "ح ج ج",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 76
+      },
+      {
+        "surah": 2,
+        "ayah": 139
+      }
+    ]
+  },
+  {
+    "id": "QCV-0642",
+    "lemma_ar": "مُنكَر",
+    "root": "ن ك ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 104
+      },
+      {
+        "surah": 3,
+        "ayah": 110
+      }
+    ]
+  },
+  {
+    "id": "QCV-0643",
+    "lemma_ar": "أَهْوَآء",
+    "root": "ه و ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 120
+      },
+      {
+        "surah": 2,
+        "ayah": 145
+      }
+    ]
+  },
+  {
+    "id": "QCV-0646",
+    "lemma_ar": "تَأْوِيل",
+    "root": "ا و ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 7
+      },
+      {
+        "surah": 4,
+        "ayah": 59
+      }
+    ]
+  },
+  {
+    "id": "QCV-0647",
+    "lemma_ar": "مُنذِر",
+    "root": "ن ذ ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 213
+      },
+      {
+        "surah": 4,
+        "ayah": 165
+      }
+    ]
+  },
+  {
+    "id": "QCV-0651",
+    "lemma_ar": "فَٰحِشَة",
+    "root": "ف ح ش",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 135
+      },
+      {
+        "surah": 4,
+        "ayah": 15
+      }
+    ]
+  },
+  {
+    "id": "QCV-0652",
+    "lemma_ar": "يَسِير",
+    "root": "ي س ر",
+    "pos": "ADJ",
+    "word_type": "adjective",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 30
+      },
+      {
+        "surah": 4,
+        "ayah": 169
+      }
+    ]
+  },
+  {
+    "id": "QCV-0653",
+    "lemma_ar": "لَدُن",
+    "root": "ل د ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 8
+      },
+      {
+        "surah": 3,
+        "ayah": 38
+      }
+    ]
+  },
+  {
+    "id": "QCV-0655",
+    "lemma_ar": "بُشْرَىٰ",
+    "root": "ب ش ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 97
+      },
+      {
+        "surah": 3,
+        "ayah": 126
+      }
+    ]
+  },
+  {
+    "id": "QCV-0656",
+    "lemma_ar": "فُؤَاد",
+    "root": "ف ا د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 110
+      },
+      {
+        "surah": 6,
+        "ayah": 113
+      }
+    ]
+  },
+  {
+    "id": "QCV-0657",
+    "lemma_ar": "ثَمَرَٰت",
+    "root": "ث م ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 126
+      }
+    ]
+  },
+  {
+    "id": "QCV-0658",
+    "lemma_ar": "مَرْجِع",
+    "root": "ر ج ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 55
+      },
+      {
+        "surah": 5,
+        "ayah": 48
+      }
+    ]
+  },
+  {
+    "id": "QCV-0659",
+    "lemma_ar": "بَنَات",
+    "root": "ب ن ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 23
+      },
+      {
+        "surah": 6,
+        "ayah": 100
+      }
+    ]
+  },
+  {
+    "id": "QCV-0661",
+    "lemma_ar": "كُلَّمَا",
+    "root": "ك ل ل",
+    "pos": "T",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 25
+      }
+    ]
+  },
+  {
+    "id": "QCV-0665",
+    "lemma_ar": "تَوْرَىٰة",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 18,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 3
+      },
+      {
+        "surah": 3,
+        "ayah": 48
+      }
+    ]
+  },
+  {
+    "id": "QCV-0667",
+    "lemma_ar": "أَلْبَٰب",
+    "root": "ل ب ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 179
+      },
+      {
+        "surah": 2,
+        "ayah": 197
+      }
+    ]
+  },
+  {
+    "id": "QCV-0670",
+    "lemma_ar": "دَاوُد",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 16,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 251
+      },
+      {
+        "surah": 4,
+        "ayah": 163
+      }
+    ]
+  },
+  {
+    "id": "QCV-0674",
+    "lemma_ar": "سُلَيْمَٰن",
+    "root": "",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 17,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 102
+      },
+      {
+        "surah": 4,
+        "ayah": 163
+      }
+    ]
+  },
+  {
+    "id": "QCV-0676",
+    "lemma_ar": "مِلَّة",
+    "root": "م ل ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 120
+      },
+      {
+        "surah": 2,
+        "ayah": 130
+      }
+    ]
+  },
+  {
+    "id": "QCV-0678",
+    "lemma_ar": "كَلِمَٰت",
+    "root": "ك ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 37
+      },
+      {
+        "surah": 2,
+        "ayah": 124
+      }
+    ]
+  },
+  {
+    "id": "QCV-0679",
+    "lemma_ar": "ابْتِغَآء",
+    "root": "ب غ ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 207
+      },
+      {
+        "surah": 2,
+        "ayah": 265
+      }
+    ]
+  },
+  {
+    "id": "QCV-0681",
+    "lemma_ar": "لَعْنَة",
+    "root": "ل ع ن",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 89
+      },
+      {
+        "surah": 2,
+        "ayah": 161
+      }
+    ]
+  },
+  {
+    "id": "QCV-0682",
+    "lemma_ar": "مُهِين",
+    "root": "ه و ن",
+    "pos": "ADJ",
+    "word_type": "adjective",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 90
+      },
+      {
+        "surah": 3,
+        "ayah": 178
+      }
+    ]
+  },
+  {
+    "id": "QCV-0684",
+    "lemma_ar": "نَصْرَانِيّ",
+    "root": "ن ص ر",
+    "pos": "PN",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 62
+      },
+      {
+        "surah": 2,
+        "ayah": 111
+      }
+    ]
+  },
+  {
+    "id": "QCV-0685",
+    "lemma_ar": "مُفْلِحُون",
+    "root": "ف ل ح",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 5
+      },
+      {
+        "surah": 3,
+        "ayah": 104
+      }
+    ]
+  },
+  {
+    "id": "QCV-0689",
+    "lemma_ar": "ظِلّ",
+    "root": "ظ ل ل",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 57
+      },
+      {
+        "surah": 13,
+        "ayah": 15
+      }
+    ]
+  },
+  {
+    "id": "QCV-0690",
+    "lemma_ar": "أَثَر",
+    "root": "ا ث ر",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 5,
+        "ayah": 46
+      },
+      {
+        "surah": 18,
+        "ayah": 6
+      }
+    ]
+  },
+  {
+    "id": "QCV-0697",
+    "lemma_ar": "إِذَا2",
+    "root": "",
+    "pos": "SUR",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 77
+      },
+      {
+        "surah": 7,
+        "ayah": 107
+      }
+    ]
+  },
+  {
+    "id": "QCV-0699",
+    "lemma_ar": "أَدْنَىٰ",
+    "root": "د ن و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 282
+      }
+    ]
+  },
+  {
+    "id": "QCV-0701",
+    "lemma_ar": "غَالِب",
+    "root": "غ ل ب",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 160
+      },
+      {
+        "surah": 5,
+        "ayah": 23
+      }
+    ]
+  },
+  {
+    "id": "QCV-0702",
+    "lemma_ar": "أَلْف",
+    "root": "ا ل ف",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 96
+      },
+      {
+        "surah": 2,
+        "ayah": 243
+      }
+    ]
+  },
+  {
+    "id": "QCV-0705",
+    "lemma_ar": "حَرَج",
+    "root": "ح ر ج",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 15,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 65
+      },
+      {
+        "surah": 5,
+        "ayah": 6
+      }
+    ]
+  },
+  {
+    "id": "QCV-0706",
+    "lemma_ar": "ثَلَٰثَة",
+    "root": "ث ل ث",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 196
+      },
+      {
+        "surah": 2,
+        "ayah": 228
+      }
+    ]
+  },
+  {
+    "id": "QCV-0707",
+    "lemma_ar": "رِضْوَٰن",
+    "root": "ر ض و",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 15
+      },
+      {
+        "surah": 3,
+        "ayah": 162
+      }
+    ]
+  },
+  {
+    "id": "QCV-0708",
+    "lemma_ar": "بَغْتَة",
+    "root": "ب غ ت",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 6,
+        "ayah": 31
+      },
+      {
+        "surah": 6,
+        "ayah": 44
+      }
+    ]
+  },
+  {
+    "id": "QCV-0713",
+    "lemma_ar": "مَثْوًى",
+    "root": "ث و ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 151
+      },
+      {
+        "surah": 6,
+        "ayah": 128
+      }
+    ]
+  },
+  {
+    "id": "QCV-0717",
+    "lemma_ar": "شَفَٰعَة",
+    "root": "ش ف ع",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 48
+      },
+      {
+        "surah": 2,
+        "ayah": 123
+      }
+    ]
+  },
+  {
+    "id": "QCV-0718",
+    "lemma_ar": "غُلَٰم",
+    "root": "غ ل م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 40
+      },
+      {
+        "surah": 12,
+        "ayah": 19
+      }
+    ]
+  },
+  {
+    "id": "QCV-0722",
+    "lemma_ar": "أَصَمّ",
+    "root": "ص م م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 18
+      },
+      {
+        "surah": 2,
+        "ayah": 171
+      }
+    ]
+  },
+  {
+    "id": "QCV-0727",
+    "lemma_ar": "حَنِيف",
+    "root": "ح ن ف",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 135
+      },
+      {
+        "surah": 3,
+        "ayah": 67
+      }
+    ]
+  },
+  {
+    "id": "QCV-0728",
+    "lemma_ar": "أَفْوَٰه",
+    "root": "ف و ه",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 12,
+    "refs": [
+      {
+        "surah": 3,
+        "ayah": 118
+      },
+      {
+        "surah": 3,
+        "ayah": 167
+      }
+    ]
+  },
+  {
+    "id": "QCV-0731",
+    "lemma_ar": "اثْنَيْن",
+    "root": "ث ن ي",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 5,
+        "ayah": 12
+      },
+      {
+        "surah": 5,
+        "ayah": 106
+      }
+    ]
+  },
+  {
+    "id": "QCV-0736",
+    "lemma_ar": "حُدُود",
+    "root": "ح د د",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 14,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 187
+      },
+      {
+        "surah": 2,
+        "ayah": 229
+      }
+    ]
+  },
+  {
+    "id": "QCV-0743",
+    "lemma_ar": "حَرْث",
+    "root": "ح ر ث",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 13,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 71
+      },
+      {
+        "surah": 2,
+        "ayah": 205
+      }
+    ]
+  },
+  {
+    "id": "QCV-1475",
+    "lemma_ar": "جَعْفَرٌ",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 5,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ]
+  },
+  {
+    "id": "QCV-1492",
+    "lemma_ar": "صُهَيْبٌ",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 5,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ]
+  },
+  {
+    "id": "QCV-1499",
+    "lemma_ar": "كَعْبٌ",
+    "root": "",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 5,
+    "refs": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ]
+  },
+  {
+    "id": "QCV-1741",
+    "lemma_ar": "حُطَمَةٍ",
+    "root": "ح ط م",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 2,
+    "refs": [
+      {
+        "surah": 104,
+        "ayah": 4
+      },
+      {
+        "surah": 104,
+        "ayah": 5
+      }
+    ]
+  },
+  {
+    "id": "QCV-1791",
+    "lemma_ar": "سَعْدٌ",
+    "root": "س ع د",
+    "pos": "V",
+    "word_type": "verb",
+    "frequency_tokens": 1,
+    "refs": [
+      {
+        "surah": 11,
+        "ayah": 108
+      }
+    ]
+  },
+  {
+    "id": "QCV-1963",
+    "lemma_ar": "جِبْتٍ",
+    "root": "ج ب ت",
+    "pos": "N",
+    "word_type": "noun",
+    "frequency_tokens": 1,
+    "refs": [
+      {
+        "surah": 4,
+        "ayah": 51
+      }
+    ]
+  },
+  {
+    "id": "QCV-1970",
+    "lemma_ar": "زَيْدٌ",
+    "root": "",
+    "pos": "PN",
+    "word_type": "proper_noun",
+    "frequency_tokens": 1,
+    "refs": [
+      {
+        "surah": 33,
+        "ayah": 37
+      }
+    ]
+  }
+]

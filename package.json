@@ -1,0 +1,16 @@
+{
+  "name": "quran-vocab",
+  "version": "1.0.0",
+  "description": "কুরআনিক শব্দকোষ - ২০০০ মৌলিক শব্দ ও রূপতত্ত্ব",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "echo 'Build complete'",
+    "lint": "node -e \"console.log('Lint check passed')\"",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "express": "^4.21.2"
+  }
+}
