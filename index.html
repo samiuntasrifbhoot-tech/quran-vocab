@@ -3,24 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>কুরআনিক শব্দকোষ</title>
-  <meta name="description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ ও রূপতত্ত্বভিত্তিক ফ্ল্যাশকার্ড">
+  <title>কুরআনিক শব্দকোষ - ৯০ দিনের শিখন যাত্রা</title>
+  <meta name="description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ, রূপতত্ত্ব ও প্রেক্ষাপটভিত্তিক বৈজ্ঞানিক শিখন সিস্টেম">
   <meta property="og:title" content="কুরআনিক শব্দকোষ">
-  <meta property="og:description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ ও রূপতত্ত্বভিত্তিক ফ্ল্যাশকার্ড">
+  <meta property="og:description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ, রূপতত্ত্ব ও প্রেক্ষাপটভিত্তিক বৈজ্ঞানিক শিখন সিস্টেম">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
 
   <!-- Google Fonts & Confetti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <!-- Application Styles -->
   <link rel="stylesheet" href="css/app.css">
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+          reg.update().catch(() => {});
+        }).catch(err => {
+          console.warn('[SW] Registration failed:', err);
+        });
+      });
     }
   </script>
 </head>
@@ -31,15 +37,12 @@
   <!-- Screens Container -->
   <div class="screen-container">
 
-    <!-- ================= 1. HOME SCREEN (DAILY MISSION) ================= -->
+    <!-- ================= 1. HOME SCREEN (DAILY MISSION & JOURNEY) ================= -->
     <div id="home-screen" class="screen active">
-      <div class="scroll-content" style="padding: 0 0 75px 0;">
-        <!-- Top Curved Green Banner -->
+      <div class="scroll-content" style="padding: 0 0 85px 0;">
+        <!-- Top Curved Green Banner Matching User Screenshot -->
         <div class="quran-hero-curved">
           <div class="hero-top-actions">
-            <button class="hero-circle-btn" onclick="app.switchScreen('progress')" title="কারিকুলাম ও রূপতত্ত্ব">
-              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-            </button>
             <button class="hero-circle-btn" id="theme-toggle-btn" onclick="app.toggleTheme()" title="ডার্ক / লাইট মোড">
               <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </button>
@@ -47,33 +50,85 @@
 
           <div class="hero-center-content">
             <div class="hero-bismillah-gold">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-            <h1 class="hero-main-title">কুরআনিক শব্দকোষ</h1>
-            <p class="hero-subtitle">কুরআনিক আরবির ২০০০ মৌলিক শব্দ ও রূপতত্ত্ব</p>
+            <h1 class="hero-main-title">কুরআনিক ফ্রিকোয়েন্সি</h1>
+            <p class="hero-subtitle">৮০% কুরআন বোঝার জন্য সর্বাধিক ব্যবহৃত শব্দাবলি</p>
           </div>
         </div>
 
         <div class="home-cards-container">
-          <!-- Card 1: Progress Summary -->
-          <div class="screenshot-card progress-summary-card" onclick="app.showStatusWords('mastered')">
-            <div class="summary-percent" id="home-mastered-pct">0%</div>
-            <div class="summary-sub">শেখা হয়েছে</div>
-            <div class="summary-footer-count" id="home-mastered-count-text">0 / 2000 শব্দ শেখা শেষ</div>
-          </div>
-
-          <!-- Card 2: Flashcard Practice -->
-          <div class="screenshot-card flashcard-row-card" onclick="app.startDailySession()">
-            <div class="icon-square-box flashcard-icon-box">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                <rect x="4" y="4" width="16" height="16" rx="3"></rect>
+          <!-- Card 1: Progress Summary (Matching the user screenshot) -->
+          <div class="screenshot-card progress-summary-card" onclick="app.switchScreen('progress')">
+            <div class="progress-donut-container">
+              <svg class="progress-donut-svg" width="144" height="144" viewBox="0 0 144 144">
+                <circle
+                  class="donut-track"
+                  cx="72" cy="72" r="56"
+                  stroke-width="12"
+                  fill="transparent"
+                />
+                <circle
+                  id="home-progress-circle-fill"
+                  class="donut-fill"
+                  cx="72" cy="72" r="56"
+                  stroke-width="12"
+                  stroke-linecap="round"
+                  stroke-dasharray="351.86"
+                  stroke-dashoffset="351.86"
+                  fill="transparent"
+                  transform="rotate(-90 72 72)"
+                />
               </svg>
+              <div class="donut-center-info">
+                <div class="summary-percent" id="home-mastered-pct">0%</div>
+                <div class="summary-sub">অগ্রগতি</div>
+              </div>
             </div>
-            <div class="card-text-box">
-              <div class="card-primary-title">ফ্ল্যাশকার্ড প্র্যাকটিস</div>
-              <div class="card-secondary-subtitle" id="home-flashcard-due-sub">2000 টি শব্দ বাকি</div>
-            </div>
+            <div class="summary-footer-count" id="home-mastered-count-text">0 / 2000 শব্দ শেখা হয়েছে</div>
           </div>
 
-          <!-- Card Row 3: 3 options in this line -->
+          <!-- Card 2: TODAY'S MISSION (Primary Learning CTA - Sections 23, 27) -->
+          <div class="screenshot-card mission-feature-card">
+            <div class="mission-top-header">
+              <div class="day-tracker-pill">
+                <span class="day-num" id="home-day-badge">দিন ১ / ৯০</span>
+                <span class="day-phase-tag" id="home-phase-badge">পর্ব ১: ভিত্তি</span>
+              </div>
+              <span class="mission-est-time" id="home-est-time">⏱️ ১৫ মিনিট</span>
+            </div>
+
+            <div class="mission-hero-title">আজকের শিখন মিশন</div>
+            <p class="mission-hero-why" id="home-lesson-why">
+              কুরআনের সর্বাধিক ব্যবহৃত মৌলিক অব্যয়, ক্রিয়া ও সর্বনাম যা প্রতিটি পাতায় একাধিকবার আসে।
+            </p>
+
+            <div class="mission-targets-grid">
+              <div class="target-item">
+                <div class="target-val" id="mission-new-val">১২</div>
+                <div class="target-lbl">নতুন শব্দ</div>
+              </div>
+              <div class="target-item">
+                <div class="target-val" id="mission-due-val">০</div>
+                <div class="target-lbl">রিভিউ বাকি</div>
+              </div>
+              <div class="target-item">
+                <div class="target-val" id="mission-ayah-val">৫</div>
+                <div class="target-lbl">কুরআন আয়াত</div>
+              </div>
+              <div class="target-item">
+                <div class="target-val">১</div>
+                <div class="target-lbl">ব্যাকরণ ধারণা</div>
+              </div>
+            </div>
+
+            <button class="btn-primary session-start-btn" onclick="app.startGuidedDailySession()">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              আজকের সেশন শুরু করুন
+            </button>
+          </div>
+
+          <!-- Quick Access Cards Row -->
           <div class="three-cards-row">
             <!-- Left: শব্দকোষ -->
             <div class="screenshot-card mini-action-card" onclick="app.switchScreen('vocab')">
@@ -83,10 +138,10 @@
                 </svg>
               </div>
               <div class="card-primary-title">শব্দকোষ</div>
-              <div class="card-secondary-subtitle" id="home-vocab-count-sub">2000 টি শব্দ</div>
+              <div class="card-secondary-subtitle" id="home-vocab-count-sub">২০০০ শব্দ</div>
             </div>
 
-            <!-- Middle: যেসব শব্দ শিখেছি (টিক দেওয়া হয়েছে) -->
+            <!-- Middle: শেখা শব্দ -->
             <div class="screenshot-card mini-action-card middle-learned-card" onclick="app.showStatusWords('mastered')">
               <div class="icon-square-box green-tick-box">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">
@@ -94,11 +149,11 @@
                 </svg>
               </div>
               <div class="card-primary-title">শেখা শব্দ</div>
-              <div class="card-secondary-subtitle" id="home-learned-count-sub">0 টি শেখা</div>
+              <div class="card-secondary-subtitle" id="home-learned-count-sub">০ টি শেখা</div>
             </div>
 
             <!-- Right: রিভিউ বাকি -->
-            <div class="screenshot-card mini-action-card" onclick="app.showStatusWords('due')">
+            <div class="screenshot-card mini-action-card" onclick="app.switchScreen('review')">
               <div class="icon-square-box lavender-box">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
                   <circle cx="12" cy="12" r="10"></circle>
@@ -106,24 +161,23 @@
                 </svg>
               </div>
               <div class="card-primary-title">রিভিউ বাকি</div>
-              <div class="card-secondary-subtitle" id="home-due-count-sub">0 টি বাকি</div>
+              <div class="card-secondary-subtitle" id="home-due-count-sub">০ টি বাকি</div>
             </div>
           </div>
 
-          <!-- Section 4: ২০টি শিখন লেভেল (প্রতিটিতে ১০০ শব্দ) - 4x5 Grid from Screenshot -->
+          <!-- 20 Levels Grid Foldable View -->
           <div class="screenshot-card levels-foldable-card">
             <div class="levels-header-bar" onclick="app.toggleLevelsFold()">
               <div>
                 <div class="levels-main-title">২০টি শিখন লেভেল (প্রতিটিতে ১০০ শব্দ)</div>
-                <div class="levels-sub-title">মৌলিক অব্যয় থেকে শুরু করে ধাপে ধাপে গভীর ভাবার্থ</div>
+                <div class="levels-sub-title">মৌলিক অব্যয় থেকে শুরু করে ধাপে ধাপে গভীর ভাবার্থ</div>
               </div>
-              <span class="mission-badge" id="levels-fold-indicator" style="font-size:11px; white-space:nowrap;">ফোল্ড করা ▸</span>
+              <span class="mission-badge" id="levels-fold-indicator" style="font-size:11px; white-space:nowrap;">দেখুন ▸</span>
             </div>
 
-            <!-- 4x5 Grid from Screenshot -->
             <div id="home-levels-grid-container" style="display: none; margin-top: 14px; border-top: 1px solid var(--border-light); padding-top: 12px;">
               <div class="levels-chips-grid" id="home-levels-grid-chips">
-                <!-- 20 Chips Rendered by JS: L1 to L20 with 0% -->
+                <!-- 20 Chips Rendered by JS -->
               </div>
             </div>
           </div>
@@ -131,161 +185,158 @@
       </div>
     </div>
 
-    <!-- ================= 2. VOCABULARY SCREEN ================= -->
-    <div id="vocab-screen" class="screen">
+    <!-- ================= 2. LEARN SCREEN (90-DAY CURRICULUM ROADMAP) ================= -->
+    <div id="learn-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">কুরআনিক শব্দকোষ</div>
-        <span class="mission-badge" id="vocab-count-badge">২০০০ শব্দ</span>
-      </div>
-
-      <!-- Category Filter Strip -->
-      <div class="filter-strip">
-        <button class="pill-btn cat-pill active" data-cat="all">সকল</button>
-        <button class="pill-btn cat-pill" data-cat="Grammar / function words">অব্যয় ও সর্বনাম</button>
-        <button class="pill-btn cat-pill" data-cat="Actions">ক্রিয়া (Verbs)</button>
-        <button class="pill-btn cat-pill" data-cat="Allah / Divine Attributes">আল্লাহ ও সিফাত</button>
-        <button class="pill-btn cat-pill" data-cat="Worship">ইবাদত</button>
-        <button class="pill-btn cat-pill" data-cat="Faith">ঈমান ও বিশ্বাস</button>
-        <button class="pill-btn cat-pill" data-cat="Judgment">আখিরাত</button>
-        <button class="pill-btn cat-pill" data-cat="People">মানুষ ও সৃষ্টি</button>
-      </div>
-
-      <div class="search-container">
-        <input type="text" class="search-input" id="vocab-search-input" placeholder="🔍 আরবি, বাংলা, ইংরেজি বা রুট দিয়ে খুঁজুন...">
-      </div>
-
-      <div class="scroll-content" id="vocab-items-list">
-        <!-- Rendered by JS -->
-      </div>
-    </div>
-
-    <!-- ================= 3. QUIZ / ACTIVE RECALL SCREEN ================= -->
-    <div id="quiz-screen" class="screen">
-      <div class="top-bar">
-        <button class="icon-btn" onclick="app.switchScreen('home')">
-          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
-        </button>
-        <div class="top-bar-title">সক্রিয় স্মরণ ও মূল্যায়ন</div>
-        <span class="mission-badge" id="quiz-progress-badge">১ / ১৫</span>
-      </div>
-
-      <div class="scroll-content" id="quiz-body-container">
-        <!-- Active Flashcard / Quiz Item Rendered by JS -->
-      </div>
-    </div>
-
-    <!-- ================= 4. QURAN AYAH READER SCREEN ================= -->
-    <div id="quran-screen" class="screen">
-      <div class="top-bar">
-        <div class="top-bar-title">কুরআনের প্রেক্ষাপট পাঠ</div>
-        <span class="mission-badge">আয়াত বিশ্লেষণ</span>
-      </div>
-
-      <div style="padding: 10px 16px; background: var(--surface-alt); font-size: 12px; color: var(--text-secondary); border-bottom:1px solid var(--border);">
-        💡 <em>যেকোনো শব্দে স্পর্শ করুন — শব্দটির ব্যাকরণিক পরিচিতি, অর্থ ও মূলধাতু দেখতে পাবেন।</em>
-      </div>
-
-      <div class="scroll-content" id="quran-verses-container">
-        <!-- Verses Rendered by JS -->
-      </div>
-    </div>
-
-    <!-- ================= 5. PROGRESS & ROOTS SCREEN ================= -->
-    <div id="progress-screen" class="screen">
-      <div class="top-bar">
-        <div class="top-bar-title">শিখন অগ্রগতি ও বিশ্লেষণ</div>
-        <button class="icon-btn" onclick="app.openModal('settings-modal')">
+        <div class="top-bar-title">৯০ দিনের কারিকুলাম রোডম্যাপ</div>
+        <button class="icon-btn" onclick="app.openModal('settings-modal')" title="সেটিংস">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
       </div>
 
-      <div class="scroll-content">
-        <!-- Overview Stats -->
-        <div class="card-section">
-          <div class="section-title">সামগ্রিক পরিসংখ্যান</div>
-          <div class="mission-metrics">
-            <div class="metric-box">
-              <div class="metric-num" id="stat-total-words">০ / ২০০০</div>
-              <div class="metric-label">মোট পড়া শব্দ</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-num" id="stat-accuracy">১০০%</div>
-              <div class="metric-label">স্মরণ যথার্থতা</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-num" id="stat-streak">১ দিন</div>
-              <div class="metric-label">ধারাবাহিকতা</div>
-            </div>
+      <div class="scroll-content" style="padding: 14px 16px 85px 16px;">
+        <!-- 3 Major Phases Banner -->
+        <div class="curriculum-phases-summary">
+          <div class="phase-card active">
+            <div class="phase-title">পর্ব ১: ভিত্তি</div>
+            <div class="phase-days">দিন ১ – ৩০</div>
+            <div class="phase-desc">অব্যয়, সর্বনাম ও সর্বাধিক ক্রিয়া</div>
           </div>
-
-          <!-- Mastery Breakdown -->
-          <div class="section-title" style="margin-top:14px; font-size:13px;">দক্ষতার স্তর (SM-2 Spaced Repetition)</div>
-          <div class="mastery-chips">
-            <div class="mastery-chip">
-              <div class="mastery-chip-num" id="tier-count-new">২০০০</div>
-              <div class="mastery-chip-lbl">নতুন</div>
-            </div>
-            <div class="mastery-chip">
-              <div class="mastery-chip-num" id="tier-count-learning">০</div>
-              <div class="mastery-chip-lbl">শিখছি</div>
-            </div>
-            <div class="mastery-chip">
-              <div class="mastery-chip-num" id="tier-count-familiar">০</div>
-              <div class="mastery-chip-lbl">পরিচিত</div>
-            </div>
-            <div class="mastery-chip">
-              <div class="mastery-chip-num" id="tier-count-strong">০</div>
-              <div class="mastery-chip-lbl">দক্ষ</div>
-            </div>
-            <div class="mastery-chip">
-              <div class="mastery-chip-num" id="tier-count-mastered">০</div>
-              <div class="mastery-chip-lbl">আয়ত্তে</div>
-            </div>
+          <div class="phase-card">
+            <div class="phase-title">পর্ব ২: রূপতত্ত্ব</div>
+            <div class="phase-days">দিন ৩১ – ৬০</div>
+            <div class="phase-desc">মূলধাতু, ক্রিয়ার রূপ ও বাক্যগঠন</div>
+          </div>
+          <div class="phase-card">
+            <div class="phase-title">পর্ব ৩: বোধগম্যতা</div>
+            <div class="phase-days">দিন ৬১ – ৯০</div>
+            <div class="phase-desc">কুরআন আয়াত ও সামগ্রিক প্রয়োগ</div>
           </div>
         </div>
 
-        <!-- Weak Words Drill Alert -->
-        <div class="card-section" id="weak-words-section" style="display:none; border:1px solid #fca5a5; background:#fef2f2;">
-          <div style="font-size:14px; font-weight:700; color:var(--danger); margin-bottom:4px;">⚠️ দুর্বল শব্দসমূহ জোরদার করুন</div>
-          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;" id="weak-words-count">কিছু শব্দে ভুল হয়েছে। এগুলো এখনই রিভিশন দিন।</p>
-          <button class="pill-btn" style="background:var(--danger); color:white; border:none;" onclick="app.startSpecificPractice('weak')">দুর্বল শব্দ ড্রিল শুরু করুন</button>
+        <div style="margin: 18px 0 10px 0; display:flex; justify-content:space-between; align-items:center;">
+          <div style="font-weight:700; font-size:15px; color:var(--text-primary);">২০টি শিখন লেভেল তালিকা</div>
+          <span style="font-size:12px; color:var(--text-muted);">মোট ২০০০ শব্দ</span>
         </div>
 
-        <!-- Triliteral Roots Explorer -->
-        <div class="section-title" style="margin: 18px 0 10px 4px;">মূলধাতু অন্বেষণ (Triliteral Roots)</div>
-        <div id="roots-grid-container">
-          <!-- Rendered by JS -->
-        </div>
+        <!-- Rendered by JS: 20 Level Detailed Cards -->
+        <div id="curriculum-levels-list"></div>
+      </div>
+    </div>
 
-        <!-- Grammar Foundations -->
-        <div class="section-title" style="margin: 18px 0 10px 4px;">ব্যাকরণ ও রূপতত্ত্ব গাইড</div>
-        <div id="grammar-guide-container">
-          <!-- Rendered by JS -->
-        </div>
+    <!-- ================= 3. REVIEW SCREEN (SPACED REPETITION SRS) ================= -->
+    <div id="review-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">স্মৃতি পুনরাবৃত্তি (SRS Review)</div>
+        <span class="mission-badge" id="review-badge-count">০ বাকি</span>
+      </div>
+
+      <div class="filter-strip" style="justify-content:center;">
+        <button class="pill-btn review-filter-pill active" data-filter="due" onclick="app.setReviewFilter('due')">আজকের রিভিউ</button>
+        <button class="pill-btn review-filter-pill" data-filter="weak" onclick="app.setReviewFilter('weak')">দুর্বল শব্দ</button>
+        <button class="pill-btn review-filter-pill" data-filter="all_active" onclick="app.setReviewFilter('all_active')">সকল সক্রিয় শব্দ</button>
+      </div>
+
+      <div class="scroll-content" id="review-screen-body" style="padding: 16px; text-align:center;">
+        <!-- Review Deck Landing or Active Flashcard Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ================= 4. QURAN AYAH READER & CONTEXT PRACTICE ================= -->
+    <div id="quran-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">কুরআনের প্রেক্ষাপট পাঠ</div>
+        <span class="mission-badge" title="Tanzil / Quranic Arabic Corpus">যাচাইকৃত ১,৪৫৯ আয়াত</span>
+      </div>
+
+      <!-- Surah Selector & Search Bar -->
+      <div style="padding: 10px 16px; background:var(--surface-alt); border-bottom:1px solid var(--border); display:flex; gap:8px;">
+        <select id="quran-surah-select" class="search-input" style="flex:1; padding:8px 12px; cursor:pointer;" onchange="app.filterQuranVerses()">
+          <option value="all">সকল সূরা (১,৪৫৯ আয়াত)</option>
+        </select>
+        <input type="text" id="quran-ayah-search" class="search-input" style="flex:1.2; padding:8px 12px;" placeholder="আয়াত বা অনুবাদ খুঁজুন..." oninput="app.filterQuranVerses()">
+      </div>
+
+      <div style="padding: 8px 16px; background: var(--surface); font-size: 12px; color: var(--text-secondary); border-bottom:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center;">
+        <span>💡 <em>যেকোনো শব্দে স্পর্শ করে অর্থ ও মূলধাতু জানুন</em></span>
+        <span style="font-size:11px; color:var(--primary); font-weight:600;" id="quran-verses-count-text">দেখাচ্ছে</span>
+      </div>
+
+      <div class="scroll-content" id="quran-verses-container" style="padding: 12px 14px 85px 14px;">
+        <!-- Verses Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ================= 5. PROGRESS & VOCABULARY LIBRARY SCREEN ================= -->
+    <div id="progress-screen" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-title">শিখন অগ্রগতি ও শব্দভাণ্ডার</div>
+        <button class="icon-btn" onclick="app.openModal('settings-modal')" title="সেটিংস ও ব্যাকআপ">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        </button>
+      </div>
+
+      <!-- Segment Tabs inside Progress Screen -->
+      <div class="filter-strip" style="justify-content:center;">
+        <button class="pill-btn progress-subtab-btn active" data-sub="stats" onclick="app.switchProgressSubTab('stats')">📊 পরিসংখ্যান ও ট্র্যাকার</button>
+        <button class="pill-btn progress-subtab-btn" data-sub="library" onclick="app.switchProgressSubTab('library')">📚 ২০০০ শব্দকোষ লাইব্রেরি</button>
+        <button class="pill-btn progress-subtab-btn" data-sub="roots" onclick="app.switchProgressSubTab('roots')">🌱 মূলধাতু (Roots)</button>
+        <button class="pill-btn progress-subtab-btn" data-sub="grammar" onclick="app.switchProgressSubTab('grammar')">📖 ব্যাকরণ গাইড</button>
+      </div>
+
+      <div class="scroll-content" id="progress-subtab-content" style="padding: 14px 16px 85px 16px;">
+        <!-- Subtabs Rendered by JS -->
+      </div>
+    </div>
+
+    <!-- ================= 6. GUIDED DAILY SESSION OVERLAY SCREEN ================= -->
+    <div id="session-screen" class="screen">
+      <div class="top-bar">
+        <button class="icon-btn" onclick="app.confirmExitSession()" title="সেশন থেকে প্রস্থান">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title" id="session-step-title">আজকের সেশন</div>
+        <span class="mission-badge" id="session-step-counter">১ / ৫</span>
+      </div>
+
+      <!-- Session Progress Bar -->
+      <div class="progress-bar-wrap" style="height:6px; border-radius:0; margin-bottom:0;">
+        <div class="progress-bar-fill" id="session-progress-bar-fill" style="width: 20%;"></div>
+      </div>
+
+      <div class="scroll-content" id="session-body-container" style="padding: 16px 16px 30px 16px;">
+        <!-- Step-by-step content rendered by JS:
+             1. Review Card
+             2. New Word (See & Understand)
+             3. Active Recall Quiz
+             4. Quran Ayah Recognition
+             5. Mini Grammar Concept
+             6. Session Summary
+        -->
       </div>
     </div>
 
   </div>
 
-  <!-- Bottom Navigation Bar -->
+  <!-- Bottom Navigation Bar (5 Primary Tabs) -->
   <nav class="bottom-nav">
-    <button class="nav-tab active" data-screen="home">
+    <button class="nav-tab active" data-screen="home" onclick="app.switchScreen('home')">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-      <span>মিশন</span>
+      <span>হোম</span>
     </button>
-    <button class="nav-tab" data-screen="vocab">
+    <button class="nav-tab" data-screen="learn" onclick="app.switchScreen('learn')">
       <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-      <span>শব্দকোষ</span>
+      <span>শেখা</span>
     </button>
-    <button class="nav-tab" data-screen="quiz">
-      <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-      <span>অনুশীলন</span>
+    <button class="nav-tab" data-screen="review" onclick="app.switchScreen('review')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      <span>রিভিউ</span>
     </button>
-    <button class="nav-tab" data-screen="quran">
+    <button class="nav-tab" data-screen="quran" onclick="app.switchScreen('quran')">
       <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-      <span>কুরআন পাঠ</span>
+      <span>কুরআন</span>
     </button>
-    <button class="nav-tab" data-screen="progress">
+    <button class="nav-tab" data-screen="progress" onclick="app.switchScreen('progress')">
       <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
       <span>অগ্রগতি</span>
     </button>
@@ -301,13 +352,13 @@
 
       <div style="text-align:center; padding-bottom:16px; border-bottom:1px solid var(--border); margin-bottom:14px;">
         <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
-          <div class="arabic-lemma" id="m-ar-lemma" style="font-size:46px;">مِنْ</div>
+          <div class="arabic-lemma" id="m-ar-lemma" style="font-size:48px;">مِنْ</div>
           <button class="icon-btn" onclick="app.playPronunciation(document.getElementById('m-ar-lemma').textContent)" title="উচ্চারণ শুনুন">
             <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
           </button>
         </div>
         <div class="ar-translit" id="m-translit" style="font-size:15px; margin-bottom:6px;">min</div>
-        <div class="word-bn-title" id="m-bn-meaning" style="font-size:22px;">থেকে, হইতে</div>
+        <div class="word-bn-title" id="m-bn-meaning" style="font-size:22px; margin-bottom:2px;">থেকে, হইতে</div>
         <div class="word-en-sub" id="m-en-meaning" style="font-size:14px;">from, of</div>
       </div>
 
@@ -317,7 +368,7 @@
           <div class="metric-num" id="m-pos-val" style="font-size:13px;">Preposition</div>
         </div>
         <div class="metric-box">
-          <div class="metric-label">মূলধাতু (Root)</div>
+          <div class="metric-label">মূলধাতু (Triliteral Root)</div>
           <div class="metric-num" id="m-root-val" style="font-size:13px;">-</div>
         </div>
         <div class="metric-box">
@@ -325,8 +376,8 @@
           <div class="metric-num" id="m-freq-val" style="font-size:13px;">৩২২৬ বার</div>
         </div>
         <div class="metric-box">
-          <div class="metric-label">অগ্রাধিকার স্কোর</div>
-          <div class="metric-num" id="m-score-val" style="font-size:13px;">৯৮.৫ / ১০০</div>
+          <div class="metric-label">শিখন স্থিতি</div>
+          <div class="metric-num" id="m-mastery-state" style="font-size:13px;">নতুন</div>
         </div>
       </div>
 
@@ -356,7 +407,7 @@
       <!-- AI Tutor Prompt Button -->
       <button class="btn-primary" onclick="app.openAITutor()" style="margin-top:10px;">
         <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        কুরআনিক শিক্ষকের সাহায্য নিন (AI Tutor)
+        কুরআনিক গৃহশিক্ষকের সাহায্য নিন (AI Tutor)
       </button>
     </div>
   </div>
@@ -370,9 +421,10 @@
       </div>
 
       <div style="display:flex; gap:6px; overflow-x:auto; margin-bottom:12px; scrollbar-width:none;">
-        <button class="pill-btn" onclick="app.openAITutor('আয়াতে এর প্রয়োগ ও ভূমিকা বুঝিয়ে বলুন')">আয়াতে প্রয়োগ</button>
-        <button class="pill-btn" onclick="app.openAITutor('মনে রাখার সহজ কৌশল কী?')">মনে রাখার কৌশল</button>
-        <button class="pill-btn" onclick="app.openAITutor('মূলধাতু ও রূপতত্ত্ব ব্যাখ্যা করুন')">মূলধাতু ব্যাখ্যা</button>
+        <button class="pill-btn" onclick="app.askAITutor('সহজ ভাষায় বুঝিয়ে বলুন')">সহজ ভাষায় ব্যাখ্যা</button>
+        <button class="pill-btn" onclick="app.askAITutor('কুরআনের অন্য কোনো উদাহরণ দিন')">অন্য উদাহরণ</button>
+        <button class="pill-btn" onclick="app.askAITutor('এর ব্যাকরণিক পরিচয় ও গঠন কী?')">ব্যাকরণ পরিচয়</button>
+        <button class="pill-btn" onclick="app.askAITutor('প্রসঙ্গে এই অর্থ কেন প্রযোজ্য?')">প্রাসঙ্গিক অর্থ</button>
       </div>
 
       <div id="ai-tutor-content" style="background:var(--surface-alt); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; font-size:14px; line-height:1.6; margin-bottom:14px; max-height:360px; overflow-y:auto;">
@@ -381,26 +433,57 @@
 
       <div style="display:flex; gap:8px;">
         <input type="text" class="search-input" id="ai-tutor-custom-q" placeholder="নির্দিষ্ট কোনো প্রশ্ন থাকলে লিখুন...">
-        <button class="pill-btn" style="background:var(--primary); color:white; border:none;" onclick="app.openAITutor(document.getElementById('ai-tutor-custom-q').value)">জিজ্ঞেস করুন</button>
+        <button class="pill-btn" style="background:var(--primary); color:white; border:none;" onclick="app.askAITutor(document.getElementById('ai-tutor-custom-q').value)">জিজ্ঞেস করুন</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= MODAL: SETTINGS & BACKUP ================= -->
+  <!-- ================= MODAL: SETTINGS & ABOUT ================= -->
   <div class="modal-overlay" id="settings-modal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
-        <div style="font-size:17px; font-weight:700; color:var(--text-primary);">সেটিংস ও ব্যাকআপ</div>
+        <div style="font-size:17px; font-weight:700; color:var(--text-primary);">সেটিংস ও স্বচ্ছতা</div>
         <button class="icon-btn" onclick="app.closeModal('settings-modal')">✕</button>
       </div>
 
       <div class="card-section">
         <div class="section-title">দৈনিক পড়ার সময় লক্ষ্য</div>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
-          <button class="pill-btn" onclick="app.finishOnboarding(10)">১০ মিনিট</button>
-          <button class="pill-btn" onclick="app.finishOnboarding(15)">১৫ মিনিট</button>
-          <button class="pill-btn" onclick="app.finishOnboarding(20)">২০ মিনিট</button>
+          <button class="pill-btn time-opt-btn" data-time="10" onclick="app.setDailyTime(10)">১০ মিনিট</button>
+          <button class="pill-btn time-opt-btn" data-time="15" onclick="app.setDailyTime(15)">১৫ মিনিট</button>
+          <button class="pill-btn time-opt-btn" data-time="20" onclick="app.setDailyTime(20)">২০ মিনিট</button>
         </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">আরবি ফন্ট সাইজ</div>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+          <button class="pill-btn font-opt-btn" data-size="medium" onclick="app.setArabicFontSize('medium')">মাঝারি</button>
+          <button class="pill-btn font-opt-btn" data-size="large" onclick="app.setArabicFontSize('large')">বড় (ডিফল্ট)</button>
+          <button class="pill-btn font-opt-btn" data-size="xlarge" onclick="app.setArabicFontSize('xlarge')">অতিরিক্ত বড়</button>
+        </div>
+      </div>
+
+      <div class="card-section">
+        <div class="section-title">উচ্চারণ ও লিপ্যন্তর (Transliteration)</div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:13px; color:var(--text-primary);">ইংরেজি লিপ্যন্তর প্রদর্শন করুন</span>
+          <button class="pill-btn" id="translit-toggle-btn" onclick="app.toggleTransliteration()">সক্রিয়</button>
+        </div>
+      </div>
+
+      <!-- Data Transparency Section (Section 40) -->
+      <div class="card-section" style="background:var(--surface-alt); border-left:3px solid var(--gold);">
+        <div class="section-title" style="color:var(--gold);">উৎস ও ডেটা স্বচ্ছতা (Data Transparency)</div>
+        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5; margin-bottom:6px;">
+          • <strong>কুরআনিক শব্দভাণ্ডার:</strong> Quranic Arabic Corpus (University of Leeds) ও Tanzil প্রজেক্ট দ্বারা যাচাইকৃত ২০০০টি মৌলিক লেম্মা।
+        </p>
+        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5; margin-bottom:6px;">
+          • <strong>কুরআন প্রেক্ষাপট ডেটা:</strong> ১,৪৫৯টি যাচাইকৃত কুরআনিক আয়াত প্রেক্ষাপট সংকলন। এটি সম্পূর্ণ কুরআন নয়, বরং মৌলিক শব্দাবলীর সরাসরি উদাহরণ হিসেবে সংকলিত।
+        </p>
+        <p style="font-size:12px; color:var(--text-secondary); line-height:1.5;">
+          • <strong>অগ্রাধিকার ও স্তরক্রম:</strong> পুনরাবৃত্তির হার ও শিক্ষণীয় উপযোগিতার ভিত্তিতে সাজানো একটি বৈজ্ঞানিক পেডাগজিক্যাল কাঠামো।
+        </p>
       </div>
 
       <div class="card-section">
@@ -412,6 +495,12 @@
           <input type="file" id="import-file-input" style="display:none;" accept=".json" onchange="app.handleFileImport(event)">
         </div>
       </div>
+
+      <div class="card-section" style="border:1px solid #fecaca; background:#fef2f2;">
+        <div style="font-size:13px; font-weight:700; color:#dc2626; margin-bottom:4px;">অগ্রগতি রিসেট করুন</div>
+        <p style="font-size:11px; color:#4b5563; margin-bottom:10px;">সকল শিখন রেকর্ড ও SRS অগ্রগতি মুছে প্রথম দিনে ফিরে যাবেন। সংরক্ষিত শব্দভাণ্ডার অপরিবর্তিত থাকবে।</p>
+        <button class="pill-btn" style="background:#dc2626; color:white; border:none; width:100%;" onclick="app.confirmResetProgress()">সম্পূর্ণ অগ্রগতি রিসেট করুন</button>
+      </div>
     </div>
   </div>
 
@@ -419,22 +508,52 @@
   <div class="modal-overlay" id="onboarding-modal">
     <div class="modal-sheet" style="text-align:center;">
       <div style="font-size:44px; margin-bottom:8px;">📖✨</div>
-      <div style="font-family:'Amiri',serif; font-size:24px; color:var(--gold); margin-bottom:4px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
-      <h2 style="font-size:20px; font-weight:700; color:var(--primary); margin-bottom:8px;">কুরআনিক শব্দকোষে স্বাগতম</h2>
-      <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:18px;">
-        কুরআন বোঝার জন্য ২০০০টি সর্বাধিক ব্যবহৃত মৌলিক শব্দ, রূপতত্ত্ব ও ব্যাকরণ শেখার ৯০ দিনের একটি সুবিন্যস্ত বৈজ্ঞানিক সিস্টেম।
+      <div style="font-family:'Amiri',serif; font-size:26px; color:var(--gold); margin-bottom:4px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h2 style="font-size:22px; font-weight:700; color:var(--primary); margin-bottom:8px;">কুরআনিক শব্দকোষে স্বাগতম</h2>
+      <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:18px;">
+        কুরআন সরাসরি বোঝার জন্য ২০০০টি সর্বাধিক ব্যবহৃত শব্দ, রূপতত্ত্ব ও ব্যাকরণ আত্মস্থ করার ৯০ দিনের একটি সুবিন্যস্ত বৈজ্ঞানিক শিখন যাত্রা।
       </p>
 
       <div class="card-section" style="text-align:left; margin-bottom:18px;">
-        <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:4px;">দৈনিক কতটুকু সময় দিতে চান?</div>
+        <div style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:8px;">আপনি প্রতিদিন কত সময় দিতে চান?</div>
         <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
-          <button class="pill-btn" onclick="app.finishOnboarding(10)">১০ মিনিট</button>
-          <button class="pill-btn active" onclick="app.finishOnboarding(15)">১৫ মিনিট</button>
-          <button class="pill-btn" onclick="app.finishOnboarding(20)">২০ মিনিট</button>
+          <button class="pill-btn onboarding-time-btn" data-time="10" onclick="app.selectOnboardingTime(10)">১০ মিনিট</button>
+          <button class="pill-btn onboarding-time-btn active" data-time="15" onclick="app.selectOnboardingTime(15)">১৫ মিনিট</button>
+          <button class="pill-btn onboarding-time-btn" data-time="20" onclick="app.selectOnboardingTime(20)">২০ মিনিট</button>
         </div>
       </div>
 
-      <button class="btn-primary" onclick="app.finishOnboarding(15)">আমার শিখন যাত্রা শুরু করুন</button>
+      <button class="btn-primary" onclick="app.finishOnboarding()">৯০ দিনের শিখন যাত্রা শুরু করুন</button>
+    </div>
+  </div>
+
+  <!-- ================= MODAL: WORD INSPECTOR (TAPPING IN QURAN READER) ================= -->
+  <div class="modal-overlay" id="word-inspector-modal">
+    <div class="modal-sheet">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <span class="mission-badge" id="insp-badge">শব্দ বিশ্লেষণ</span>
+        <button class="icon-btn" onclick="app.closeModal('word-inspector-modal')">✕</button>
+      </div>
+
+      <div style="text-align:center; padding:12px 0 16px 0; border-bottom:1px solid var(--border);">
+        <div class="arabic-lemma" id="insp-ar-token" style="font-size:42px;">اللَّهِ</div>
+        <div class="ar-translit" id="insp-translit" style="font-size:14px; margin-bottom:6px;">Allah</div>
+        <div class="word-bn-title" id="insp-meaning-bn" style="font-size:20px;">আল্লাহ</div>
+        <div class="word-en-sub" id="insp-meaning-en" style="font-size:13px;">God / The One Deity</div>
+      </div>
+
+      <div class="mission-metrics" style="grid-template-columns: 1fr 1fr; margin:14px 0;">
+        <div class="metric-box">
+          <div class="metric-label">মূলধাতু (Root)</div>
+          <div class="metric-num" id="insp-root">-</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-label">শব্দশ্রেণি (POS)</div>
+          <div class="metric-num" id="insp-pos">-</div>
+        </div>
+      </div>
+
+      <div id="insp-vocab-link-box" style="margin-top:12px;"></div>
     </div>
   </div>
 
@@ -452,7 +571,7 @@
       <div style="margin-bottom: 12px; display: flex; gap: 8px;">
         <button class="btn-primary" id="status-modal-practice-btn" style="padding: 10px; font-size: 13px;" onclick="app.startFilteredPractice()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px; height:16px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          এই শব্দগুলো চর্চা করুন
+          এই শব্দগুলো প্র্যাকটিস করুন
         </button>
       </div>
 
@@ -464,7 +583,7 @@
 
 </div>
 
-<!-- Scripts -->
+<!-- Application Main Module -->
 <script type="module" src="js/app.js"></script>
 </body>
 </html>

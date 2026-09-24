@@ -1,19 +1,21 @@
-const CACHE = 'quran-v3';
-const FILES = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/icon.svg',
-  '/data/vocabulary.json',
-  '/data/quran.json',
-  '/data/quran-context-verses.json',
-  '/data/grammar.json',
-  '/data/curriculum.json'
+const CACHE = 'quran-v6';
+const CORE_ASSETS = [
+  './',
+  './index.html',
+  './manifest.json',
+  './icon.svg',
+  './css/app.css',
+  './js/app.js',
+  './js/srs.js'
 ];
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).catch(err => console.warn(err)));
+  e.waitUntil(
+    caches.open(CACHE).then(c => c.addAll(CORE_ASSETS)).catch(err => console.warn('[SW] Pre-cache warning:', err))
+  );
   self.skipWaiting();
 });
+
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys => Promise.all(
@@ -22,9 +24,45 @@ self.addEventListener('activate', e => {
   );
   self.clients.claim();
 });
+
 self.addEventListener('fetch', e => {
-  if (e.request.url.includes('/api/')) {
-    return; // Don't cache dynamic API requests
+  const url = new URL(e.request.url);
+
+  // Skip dynamic API requests
+  if (url.pathname.startsWith('/api/')) {
+    return;
   }
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+
+  // Network-First for data files so JSON is always fresh and never returns stale HTML
+  if (url.pathname.includes('/data/') || url.pathname.endsWith('.json')) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          if (res && res.ok) {
+            const ct = res.headers.get('content-type') || '';
+            if (ct.includes('application/json')) {
+              const clone = res.clone();
+              caches.open(CACHE).then(cache => cache.put(e.request, clone));
+            }
+          }
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // Cache-First with Network fallback for static shell assets
+  e.respondWith(
+    caches.match(e.request).then(cached => {
+      if (cached) return cached;
+      return fetch(e.request).then(res => {
+        if (res && res.ok && e.request.method === 'GET') {
+          const clone = res.clone();
+          caches.open(CACHE).then(cache => cache.put(e.request, clone));
+        }
+        return res;
+      });
+    })
+  );
 });

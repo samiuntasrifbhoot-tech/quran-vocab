@@ -3,9 +3,6 @@
  * 90-Day Curriculum, SM-2 Spaced Repetition, and Mastery Tracking
  */
 
-const SRS_STORAGE_KEY = 'quran_srs_state_v3';
-const SETTINGS_STORAGE_KEY = 'quran_settings_v3';
-
 export const MasteryState = {
   NEW: 'NEW',             // নতুন
   LEARNING: 'LEARNING',   // শিখছি
@@ -13,6 +10,9 @@ export const MasteryState = {
   STRONG: 'STRONG',       // দক্ষ
   MASTERED: 'MASTERED'    // সম্পূর্ণ আয়ত্তে
 };
+
+const SRS_STORAGE_KEY = 'quran_srs_state_v4';
+const SETTINGS_STORAGE_KEY = 'quran_settings_v4';
 
 export class SRSEngine {
   constructor() {
@@ -24,8 +24,10 @@ export class SRSEngine {
     this.settings = {
       dailyTimeMinutes: 15,
       wordsPerDay: 22,
+      arabicFontSize: 'large', // 'medium', 'large', 'xlarge'
       audioEnabled: true,
       darkMode: false,
+      transliteration: true,
       onboardingComplete: false
     };
     this.loadState();
@@ -33,16 +35,24 @@ export class SRSEngine {
 
   loadState() {
     try {
-      const saved = localStorage.getItem(SRS_STORAGE_KEY);
+      // Check v4 first, fallback to v3 if migrating
+      let saved = localStorage.getItem(SRS_STORAGE_KEY);
+      if (!saved) {
+        saved = localStorage.getItem('quran_srs_state_v3');
+      }
       if (saved) {
         const parsed = JSON.parse(saved);
         this.records = parsed.records || {};
         this.history = parsed.history || [];
         this.streak = parsed.streak || 0;
         this.lastActiveDate = parsed.lastActiveDate || null;
-        this.currentDay = parsed.currentDay || 1;
+        this.currentDay = Math.min(90, Math.max(1, parsed.currentDay || 1));
       }
-      const savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+
+      let savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
+      if (!savedSettings) {
+        savedSettings = localStorage.getItem('quran_settings_v3');
+      }
       if (savedSettings) {
         this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
       }
@@ -56,7 +66,7 @@ export class SRSEngine {
     try {
       localStorage.setItem(SRS_STORAGE_KEY, JSON.stringify({
         records: this.records,
-        history: this.history.slice(-100), // keep last 100
+        history: this.history.slice(-100),
         streak: this.streak,
         lastActiveDate: this.lastActiveDate,
         currentDay: this.currentDay
@@ -123,7 +133,7 @@ export class SRSEngine {
     r.ratings_history.push(rating);
 
     if (rating === 0) {
-      // Again
+      // Again: failure
       r.wrong_count += 1;
       r.consecutive_correct = 0;
       r.interval = 1;
@@ -131,7 +141,7 @@ export class SRSEngine {
       r.state = MasteryState.LEARNING;
       r.due_at = now + 12 * 60 * 60 * 1000; // review in 12 hours
     } else if (rating === 1) {
-      // Hard
+      // Hard: barely remembered
       r.wrong_count += 1;
       r.consecutive_correct = Math.max(1, r.consecutive_correct);
       r.interval = Math.max(1, Math.round((r.interval || 1) * 1.2));
@@ -139,7 +149,7 @@ export class SRSEngine {
       r.state = r.interval >= 7 ? MasteryState.FAMILIAR : MasteryState.LEARNING;
       r.due_at = now + r.interval * 24 * 60 * 60 * 1000;
     } else if (rating === 2) {
-      // Good
+      // Good: normal recall
       r.correct_count += 1;
       r.consecutive_correct += 1;
       if (r.reps === 1) {
@@ -147,11 +157,11 @@ export class SRSEngine {
       } else if (r.reps === 2) {
         r.interval = 3;
       } else {
-        r.interval = Math.max(4, Math.round(r.interval * r.ease));
+        r.interval = Math.max(4, Math.round((r.interval || 1) * r.ease));
       }
       r.due_at = now + r.interval * 24 * 60 * 60 * 1000;
     } else if (rating === 3) {
-      // Easy
+      // Easy: instant recall
       r.correct_count += 1;
       r.consecutive_correct += 1;
       r.ease = Math.min(3.2, r.ease + 0.15);
@@ -195,8 +205,22 @@ export class SRSEngine {
   getWeakWords(vocabList) {
     return vocabList.filter(w => {
       const r = this.records[w.id];
-      if (!r) return false;
+      if (!r || r.state === MasteryState.NEW) return false;
       return r.wrong_count >= 2 || (r.ratings_history.slice(-3).filter(rate => rate <= 1).length >= 2);
+    });
+  }
+
+  getActiveLearnedWords(vocabList) {
+    return vocabList.filter(w => {
+      const r = this.records[w.id];
+      return r && r.state !== MasteryState.NEW;
+    });
+  }
+
+  getMasteredWords(vocabList) {
+    return vocabList.filter(w => {
+      const r = this.records[w.id];
+      return r && r.state === MasteryState.MASTERED;
     });
   }
 
@@ -231,6 +255,16 @@ export class SRSEngine {
       ? Math.round((totalCorrect / (totalCorrect + totalWrong)) * 100)
       : 100;
 
+    let phaseName = 'পর্ব ১: মৌলিক ভিত্তি (Foundation)';
+    let phaseFocus = 'উচ্চ-মূল্যের অব্যয়, সর্বনাম ও প্রাথমিক ক্রিয়া';
+    if (this.currentDay > 60) {
+      phaseName = 'পর্ব ৩: কুরআন ভাবার্থ ও পূর্ণাঙ্গ বোধগম্যতা (Comprehension)';
+      phaseFocus = 'জটিল আয়াত, পূর্ণাঙ্গ প্রসঙ্গ ও দুর্বল শব্দ পুনরুদ্ধার';
+    } else if (this.currentDay > 30) {
+      phaseName = 'পর্ব ২: প্রাসঙ্গিক প্রয়োগ ও রূপতত্ত্ব (Context)';
+      phaseFocus = 'মূলধাতুর রূপান্তর, ক্রিয়ার বাব ও বাক্যশৈলী';
+    }
+
     return {
       total,
       counts,
@@ -238,30 +272,67 @@ export class SRSEngine {
       accuracy,
       streak: this.streak,
       currentDay: this.currentDay,
-      phase: this.currentDay <= 30 ? 'Foundation (ভিত্তি)' : this.currentDay <= 60 ? 'Context (প্রেক্ষাপট)' : 'Comprehension (পূর্ণ বোধগম্যতা)'
+      phaseName,
+      phaseFocus,
+      progressPct: Math.min(100, Math.round((counts[MasteryState.MASTERED] / total) * 100))
     };
   }
 
   /**
-   * Generates Today's Mission
+   * Generates Today's Mission tailored to 90-day trajectory & user's daily study time
    */
   getDailyMission(vocabList) {
     const due = this.getDueWords(vocabList);
     const weak = this.getWeakWords(vocabList);
 
-    // Calculate words for current day
-    const wordsPerDay = this.settings.wordsPerDay || 22;
+    const timeMin = this.settings.dailyTimeMinutes || 15;
+    let newWordsQuota = 12;
+    let dueLimit = 18;
+    let quranPracticeCount = 5;
+
+    if (timeMin <= 10) {
+      newWordsQuota = 8;
+      dueLimit = 12;
+      quranPracticeCount = 3;
+    } else if (timeMin >= 20) {
+      newWordsQuota = 16;
+      dueLimit = 22;
+      quranPracticeCount = 7;
+    }
+
+    // Determine which words belong to today's slice based on day 1 to 90
+    // 2,000 words / 90 days = ~22.2 words per day total pool
+    const wordsPerDay = 22;
     const startIndex = (this.currentDay - 1) * wordsPerDay;
-    const targetSlice = vocabList.slice(startIndex, startIndex + wordsPerDay);
-    const newWords = targetSlice.filter(w => !this.records[w.id] || this.records[w.id].state === MasteryState.NEW);
+    const dayPool = vocabList.slice(startIndex, startIndex + wordsPerDay);
+    
+    // Pick unlearned new words from the pool first; fallback to any NEW words
+    let newWords = dayPool.filter(w => !this.records[w.id] || this.records[w.id].state === MasteryState.NEW);
+    if (newWords.length < newWordsQuota) {
+      const remainingNew = vocabList.filter(w => (!this.records[w.id] || this.records[w.id].state === MasteryState.NEW) && !newWords.some(x => x.id === w.id));
+      newWords = newWords.concat(remainingNew.slice(0, newWordsQuota - newWords.length));
+    }
+    newWords = newWords.slice(0, newWordsQuota);
+
+    let phase = 'পর্ব ১: মৌলিক ভিত্তি (Foundation)';
+    let lessonWhy = 'কুরআনের সর্বাধিক ব্যবহৃত মৌলিক অব্যয়, ক্রিয়া ও সর্বনাম যা প্রতিটি পাতায় একাধিকবার আসে।';
+    if (this.currentDay > 60) {
+      phase = 'পর্ব ৩: কুরআন ভাবার্থ (Comprehension)';
+      lessonWhy = 'পূর্ববর্তী ৯০ দিনের শব্দসমূহ আয়াতে প্রয়োগ ও সামগ্রিক ভাবার্থ অনুধাবন।';
+    } else if (this.currentDay > 30) {
+      phase = 'পর্ব ২: প্রাসঙ্গিক প্রয়োগ (Context)';
+      lessonWhy = 'শব্দের মূলধাতু (Roots) ও ব্যাকরণিক প্যাটার্ন চিনে সহজে অর্থ উদ্ধার করা।';
+    }
 
     return {
       day: this.currentDay,
-      phase: this.currentDay <= 30 ? 'পর্ব ১: মৌলিক ভিত্তি' : this.currentDay <= 60 ? 'পর্ব ২: প্রাসঙ্গিক প্রয়োগ' : 'পর্ব ৩: কুরআন ভাবার্থ ও পূর্ণাঙ্গ অনুশীলন',
-      newWords: newWords.slice(0, 15), // bite-sized daily target
-      dueWords: due.slice(0, 20),
-      weakWords: weak.slice(0, 10),
-      estimatedMinutes: this.settings.dailyTimeMinutes
+      phase,
+      lessonWhy,
+      newWords,
+      dueWords: due.slice(0, dueLimit),
+      weakWords: weak.slice(0, 8),
+      quranPracticeCount,
+      estimatedMinutes: timeMin
     };
   }
 
@@ -270,10 +341,12 @@ export class SRSEngine {
       this.currentDay += 1;
       this.saveState();
     }
+    return this.currentDay;
   }
 
   exportData() {
     return JSON.stringify({
+      version: 4,
       records: this.records,
       history: this.history,
       streak: this.streak,
@@ -289,7 +362,7 @@ export class SRSEngine {
       const data = JSON.parse(jsonString);
       if (data.records) this.records = data.records;
       if (data.streak !== undefined) this.streak = data.streak;
-      if (data.currentDay !== undefined) this.currentDay = data.currentDay;
+      if (data.currentDay !== undefined) this.currentDay = Math.min(90, Math.max(1, data.currentDay));
       if (data.settings) this.settings = { ...this.settings, ...data.settings };
       this.saveState();
       return true;
@@ -304,6 +377,7 @@ export class SRSEngine {
     this.history = [];
     this.streak = 1;
     this.currentDay = 1;
+    this.lastActiveDate = new Date().toISOString().slice(0, 10);
     this.saveState();
   }
 }

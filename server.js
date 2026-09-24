@@ -12,11 +12,34 @@ const HOST = '0.0.0.0';
 
 app.use(express.json());
 
+// Enable CORS and headers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+// Explicit static routes for data files with correct JSON headers
+app.use('/data', express.static(path.join(__dirname, 'data'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    }
+  }
+}));
+
+// Support sub-path /quran-vocab if referenced
+app.use('/quran-vocab/data', express.static(path.join(__dirname, 'data'), {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    }
+  }
+}));
+app.use('/quran-vocab', express.static(__dirname));
+
 // Serve static assets from root directory
 app.use(express.static(__dirname));
-
-// Support repository sub-path alias if referenced
-app.use('/quran-vocab', express.static(__dirname));
 
 // AI Tutor Proxy Route
 app.post('/api/tutor', async (req, res) => {
@@ -110,8 +133,12 @@ ${user_question ? `- ব্যবহারকারীর প্রশ্ন: ${
   }
 });
 
-// SPA fallback for all routes
+// SPA fallback for HTML navigation routes only
 app.get('*', (req, res) => {
+  // If the request is for data, API, or has a file extension, return a 404 JSON instead of HTML
+  if (req.path.startsWith('/api/') || req.path.startsWith('/data/') || path.extname(req.path)) {
+    return res.status(404).json({ error: `Not found: ${req.path}` });
+  }
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
