@@ -26,7 +26,7 @@ class QuranApp {
     // Vocab Screen state
     this.vocabStatusFilter = 'all'; // 'all', 'learned', 'unlearned'
     this.vscreenPage = 1;
-    this.vscreenPageSize = 40;
+    this.vscreenPageSize = 100; // 100 words per level
 
     // Memorize Drill state
     this.memorizeQueue = [];
@@ -115,12 +115,39 @@ class QuranApp {
       this.populateSurahSelector();
       this.renderVocabScreen();
 
+      // Dismiss Splash / Loading Screen
+      const hideSplash = () => {
+        const splash = document.getElementById('app-splash-screen');
+        if (splash && !splash.classList.contains('fade-out')) {
+          const prog = document.getElementById('splash-progress');
+          const stat = document.getElementById('splash-status-text');
+          if (prog) {
+            prog.style.animation = 'none';
+            prog.style.width = '100%';
+          }
+          if (stat) stat.textContent = 'প্রস্তুত!';
+          setTimeout(() => {
+            splash.classList.add('fade-out');
+            setTimeout(() => {
+              splash.style.display = 'none';
+            }, 450);
+          }, 400);
+        }
+      };
+      hideSplash();
+      setTimeout(hideSplash, 3500); // Safety fallback
+
       // Check onboarding
       if (!this.srs.settings.onboardingComplete) {
         this.openModal('onboarding-modal');
       }
     } catch (err) {
       console.error('Data initialization error:', err);
+      const splash = document.getElementById('app-splash-screen');
+      if (splash) {
+        splash.classList.add('fade-out');
+        setTimeout(() => { splash.style.display = 'none'; }, 400);
+      }
       const homeContainer = document.querySelector('.home-cards-container');
       if (homeContainer) {
         homeContainer.insertAdjacentHTML('afterbegin', `
@@ -1579,7 +1606,25 @@ class QuranApp {
     }
 
     let html = '';
+    let lastRenderedLevel = null;
+
     paged.forEach(w => {
+      // Show Level group divider when crossing level boundaries (in all/unfiltered level view)
+      if (lvl === 'all' && w.level && w.level !== lastRenderedLevel) {
+        lastRenderedLevel = w.level;
+        const lvlInfo = this.curriculum?.levels?.find(l => l.level === w.level);
+        const themeText = lvlInfo ? lvlInfo.theme : '';
+        html += `
+          <div class="level-group-divider">
+            <div class="level-divider-badge">
+              <span>📖 লেভেল ${w.level}</span>
+              ${themeText ? `<span style="font-weight:600; color:var(--text-secondary); font-size:12px;">• ${themeText}</span>` : ''}
+            </div>
+            <div class="level-divider-info">১০০টি শব্দ (${(w.level - 1) * 100 + 1}-${w.level * 100})</div>
+          </div>
+        `;
+      }
+
       const r = this.srs.getRecord(w.id);
       const isMastered = (r.state === MasteryState.MASTERED || r.state === MasteryState.STRONG);
       const stateClass = r.state.toLowerCase();
@@ -1609,9 +1654,23 @@ class QuranApp {
     });
 
     if (paged.length < filtered.length) {
+      const remaining = filtered.length - paged.length;
+      const nextBatchCount = Math.min(this.vscreenPageSize, remaining);
+      const nextLevel = Math.floor(paged.length / this.vscreenPageSize) + 1;
       html += `
-        <div style="text-align:center; margin:16px 0;">
-          <button class="pill-btn" style="padding:10px 20px; font-weight:700; border:1px solid var(--border);" onclick="app.loadMoreVocabScreen()">আরও শব্দ লোড করুন (${filtered.length - paged.length} বাকি) ▾</button>
+        <div class="vocab-load-more-wrap">
+          <button class="vocab-load-more-btn" onclick="app.loadMoreVocabScreen()">
+            <span>পরবর্তী লেভেলের আরও ${nextBatchCount}টি শব্দ লোড করুন</span>
+            <span style="opacity:0.85; font-size:12px;">(${remaining}টি বাকি) ▾</span>
+          </button>
+        </div>
+      `;
+    } else if (paged.length >= filtered.length && filtered.length > 50) {
+      html += `
+        <div class="vocab-all-loaded-banner">
+          <div class="check-icon">✓</div>
+          <div class="loaded-title">সকল ২০টি লেভেলের ২,০০০টি শব্দ সফলভাবে প্রদর্শিত হয়েছে</div>
+          <div class="loaded-sub">যেকোনো শব্দে স্পর্শ করে এর পূর্ণাঙ্গ ব্যাকরণ, রূপতত্ত্ব ও কুরআনিক আয়াত দেখুন</div>
         </div>
       `;
     }

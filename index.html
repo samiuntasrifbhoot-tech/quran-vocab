@@ -8,7 +8,9 @@
   <meta property="og:title" content="কুরআনিক শব্দকোষ">
   <meta property="og:description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ, রূপতত্ত্ব ও প্রেক্ষাপটভিত্তিক বৈজ্ঞানিক শিখন সিস্টেম">
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.png">
 
   <!-- Google Fonts & Confetti -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +35,25 @@
 <body>
 
 <div class="app-viewport">
+
+  <!-- ================= APP LAUNCH SPLASH / LOADING SCREEN ================= -->
+  <div id="app-splash-screen" class="app-splash-screen">
+    <div class="splash-inner">
+      <div class="splash-icon-wrapper">
+        <img src="icon.png" alt="কুরআনিক শব্দকোষ" class="splash-app-icon" referrerpolicy="no-referrer">
+      </div>
+      <div class="splash-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+      <h1 class="splash-title">কুরআনিক শব্দকোষ</h1>
+      <p class="splash-subtitle">কুরআনিক আরবির ২০০০ মৌলিক শব্দ ও রূপতত্ত্ব</p>
+      
+      <div class="splash-loader-bar-wrap">
+        <div class="splash-loader-bar">
+          <div class="splash-loader-progress" id="splash-progress"></div>
+        </div>
+        <div class="splash-status-text" id="splash-status-text">শব্দভাণ্ডার ও কুরআনিক আয়াত প্রস্তুত হচ্ছে...</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Screens Container -->
   <div class="screen-container">
@@ -158,15 +179,15 @@
 
           <!-- Quick Access Cards Row -->
           <div class="three-cards-row">
-            <!-- Left: শব্দকোষ -->
+            <!-- Left: সম্পূর্ণ শব্দকোষ -->
             <div class="screenshot-card mini-action-card" onclick="app.switchScreen('vocab')">
               <div class="icon-square-box mint-box">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 </svg>
               </div>
-              <div class="card-primary-title">শব্দকোষ</div>
-              <div class="card-secondary-subtitle" id="home-vocab-count-sub">২০০০ শব্দ</div>
+              <div class="card-primary-title">সম্পূর্ণ শব্দকোষ</div>
+              <div class="card-secondary-subtitle" id="home-vocab-count-sub">২০০০ শব্দ (২০টি লেভেল)</div>
             </div>
 
             <!-- Middle: শেখা শব্দ -->
@@ -450,15 +471,11 @@
 
   </div>
 
-  <!-- Bottom Navigation Bar (5 Primary Tabs) -->
+  <!-- Bottom Navigation Bar (4 Primary Tabs) -->
   <nav class="bottom-nav">
     <button class="nav-tab active" data-screen="home" onclick="app.switchScreen('home')">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       <span>হোম</span>
-    </button>
-    <button class="nav-tab" data-screen="vocab" onclick="app.switchScreen('vocab')">
-      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
-      <span>শব্দকোষ</span>
     </button>
     <button class="nav-tab" data-screen="review" onclick="app.switchScreen('review')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -639,7 +656,7 @@
   <!-- ================= MODAL: ONBOARDING ================= -->
   <div class="modal-overlay" id="onboarding-modal">
     <div class="modal-sheet" style="text-align:center;">
-      <div style="font-size:44px; margin-bottom:8px;">📖✨</div>
+      <img src="icon.png" alt="কুরআনিক শব্দকোষ" style="width:72px; height:72px; border-radius:18px; margin:0 auto 12px auto; display:block; box-shadow:0 6px 18px rgba(0,0,0,0.18); border: 2px solid rgba(212, 175, 55, 0.4);" referrerpolicy="no-referrer">
       <div style="font-family:'Amiri',serif; font-size:26px; color:var(--gold); margin-bottom:4px;">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
       <h2 style="font-size:22px; font-weight:700; color:var(--primary); margin-bottom:8px;">কুরআনিক শব্দকোষে স্বাগতম</h2>
       <p style="font-size:14px; color:var(--text-secondary); line-height:1.6; margin-bottom:18px;">

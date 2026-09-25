@@ -82,7 +82,14 @@ app.post('/api/tutor', async (req, res) => {
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const ai = new GoogleGenAI({
+      apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        },
+      },
+    });
     const systemPrompt = `You are a respectful, knowledgeable, and pedagogically focused Quranic Arabic tutor for Bengali-speaking learners.
 CRITICAL RULES:
 1. Ground your answer strictly on the verified data provided. NEVER invent Quranic verses, never hallucinate statistics, and never alter Quranic Arabic text.
