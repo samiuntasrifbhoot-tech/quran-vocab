@@ -23,11 +23,23 @@ class QuranApp {
     this.vocabPageSize = 30;
     this.activeWordId = null;
 
+    // Vocab Screen state
+    this.vocabStatusFilter = 'all'; // 'all', 'learned', 'unlearned'
+    this.vscreenPage = 1;
+    this.vscreenPageSize = 40;
+
+    // Memorize Drill state
+    this.memorizeQueue = [];
+    this.memorizeIndex = 0;
+    this.isMemorizeRevealed = false;
+    this.memorizeStats = { remembered: 0, repeat: 0 };
+
     // Guided Daily Session state
     this.sessionQueue = [];
     this.sessionStepIndex = 0;
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
     this.isSessionCardRevealed = false;
+    this.isSkipExam = false;
 
     // Word Inspector state
     this.currentSelectedToken = null;
@@ -101,6 +113,7 @@ class QuranApp {
       this.renderHome();
       this.renderLevelsGridChips();
       this.populateSurahSelector();
+      this.renderVocabScreen();
 
       // Check onboarding
       if (!this.srs.settings.onboardingComplete) {
@@ -219,6 +232,7 @@ class QuranApp {
 
     // Screen-specific renderers
     if (screenName === 'home') this.renderHome();
+    if (screenName === 'vocab') this.renderVocabScreen();
     if (screenName === 'learn') this.renderLearnScreen();
     if (screenName === 'review') this.renderReviewScreen();
     if (screenName === 'quran') this.renderQuranReader();
@@ -363,15 +377,17 @@ class QuranApp {
   }
 
   showLevelWords(levelNum) {
-    this.vocabFilterCat = 'all';
-    this.vocabFilterSearch = '';
-    this.switchScreen('progress');
-    this.switchProgressSubTab('library');
-    const levelSelect = document.getElementById('lib-level-select');
-    if (levelSelect) {
-      levelSelect.value = levelNum.toString();
-      this.filterVocabLibrary();
+    this.switchScreen('vocab');
+    this.setVocabStatusFilter('all');
+    const lvlSelect = document.getElementById('vscreen-level-select');
+    if (lvlSelect) {
+      lvlSelect.value = levelNum.toString();
     }
+    const catSelect = document.getElementById('vscreen-cat-select');
+    if (catSelect) catSelect.value = 'all';
+    const searchInput = document.getElementById('vscreen-search-input');
+    if (searchInput) searchInput.value = '';
+    this.filterVocabScreen();
   }
 
   openLevelPractice(levelNum) {
@@ -942,16 +958,74 @@ class QuranApp {
     // Trigger celebration confetti
     try {
       if (typeof confetti === 'function') {
-        confetti({ particleCount: 75, spread: 60, origin: { y: 0.6 } });
+        confetti({ particleCount: 80, spread: 65, origin: { y: 0.6 } });
       }
     } catch (e) {}
+
+    if (this.isSkipExam || item.isSkipExam) {
+      const isPassed = accuracy >= 80;
+      if (isPassed) {
+        this.sessionQueue.filter(it => it.type === 'active_recall' && it.word).forEach(it => {
+          this.srs.rateWord(it.word.id, 3);
+        });
+        this.srs.advanceDay();
+        this.srs.saveState();
+      }
+      container.innerHTML = `
+        <div class="session-complete-box">
+          <div class="session-complete-icon">${isPassed ? '⚡🏆' : '📝'}</div>
+          <div class="session-complete-title">${isPassed ? 'অভিনন্দন! ডে স্কিপ সফল হয়েছে' : 'টেস্ট সম্পন্ন হয়েছে'}</div>
+          <div class="session-complete-sub">
+            ${isPassed
+              ? `আপনি সফলভাবে <strong>${accuracy}%</strong> সঠিক উত্তর দিয়ে পরবর্তী দিনে (দিন ${this.srs.currentDay}) উত্তীর্ণ হয়েছেন!`
+              : `আপনার যথার্থতা ছিল <strong>${accuracy}%</strong>। ৮০% অর্জন করলে দিন স্কিপ হবে। পুনরায় চেষ্টা করতে পারেন।`}
+          </div>
+
+          <div class="mission-targets-grid" style="margin-bottom:24px;">
+            <div class="target-item">
+              <div class="target-val">${this.sessionStats.quizCorrect} / ${this.sessionStats.quizTotal}</div>
+              <div class="target-lbl">সঠিক উত্তর</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${accuracy}%</div>
+              <div class="target-lbl">স্কোর</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${isPassed ? 'উত্তীর্ণ ✓' : 'পুনরায় চেষ্টা'}</div>
+              <div class="target-lbl">ফলাফল</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">দিন ${this.srs.currentDay}</div>
+              <div class="target-lbl">নতুন দিন</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            ${isPassed ? `
+              <button class="btn-primary session-start-btn" onclick="app.startGuidedDailySession()">
+                🚀 নতুন দিনের মিশন শুরু করুন (Next Session)
+              </button>
+            ` : `
+              <button class="btn-primary session-start-btn" onclick="app.startDaySkipExam()">
+                ⚡ পুনরায় পরীক্ষা দিন
+              </button>
+            `}
+            <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitSession()">
+              হোম স্ক্রিনে ফিরে যান
+            </button>
+          </div>
+        </div>
+      `;
+      this.isSkipExam = false;
+      return;
+    }
 
     container.innerHTML = `
       <div class="session-complete-box">
         <div class="session-complete-icon">🌟🎉</div>
         <div class="session-complete-title">আলহামদুলিল্লাহ! সেশন সম্পন্ন</div>
         <div class="session-complete-sub">
-          আপনি আজকের নির্ধারিত শিখন লক্ষ্য সফলভাবে সম্পন্ন করেছেন। ধারাবাহিকভাবে অনুশীলনই কুরআন বোঝার মূল চাবিকাঠি।
+          আপনি আজকের নির্ধারিত শিখন লক্ষ্য সফলভাবে সম্পন্ন করেছেন। আপনি চাইলে সাথে সাথেই পরবর্তী দিনের সেশনও শুরু করতে পারেন (Duolingo Style)।
         </div>
 
         <div class="mission-targets-grid" style="margin-bottom:24px;">
@@ -973,11 +1047,23 @@ class QuranApp {
           </div>
         </div>
 
-        <button class="btn-primary session-start-btn" onclick="app.completeAndExitSession()">
-          ✓ মিশন সম্পন্ন করুন ও হোম স্ক্রিনে ফিরুন
-        </button>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn-primary session-start-btn" style="background:linear-gradient(135deg, #065f46 0%, #0f766e 100%);" onclick="app.startNextSessionImmediately()">
+            🚀 পরবর্তী সেশন শুরু করুন (দিন ${Math.min(90, this.srs.currentDay + 1)})
+          </button>
+          <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitSession()">
+            ✓ মিশন সম্পন্ন করুন ও হোম স্ক্রিনে ফিরুন
+          </button>
+        </div>
       </div>
     `;
+  }
+
+  startNextSessionImmediately() {
+    this.srs.advanceDay();
+    this.srs.saveState();
+    this.renderHome();
+    this.startGuidedDailySession();
   }
 
   nextSessionStep() {
@@ -1337,9 +1423,15 @@ class QuranApp {
     let html = '';
     paged.forEach(w => {
       const r = this.srs.getRecord(w.id);
+      const isMastered = (r.state === MasteryState.MASTERED || r.state === MasteryState.STRONG);
       const stateClass = r.state.toLowerCase();
       html += `
-        <div class="word-card ${stateClass}" onclick="app.openWordDetail('${w.id}')">
+        <div class="word-card-with-check ${stateClass}" data-id="${w.id}" onclick="app.openWordDetail('${w.id}')">
+          <div class="word-checkbox-wrap" onclick="event.stopPropagation(); app.toggleWordCheckbox('${w.id}')" title="শিখন স্থিতি পরিবর্তন করুন">
+            <div class="word-checkbox ${isMastered ? 'checked' : ''}" data-id="${w.id}">
+              ${isMastered ? '✓' : ''}
+            </div>
+          </div>
           <div class="word-info-side">
             <div class="word-tag-row">
               <span class="word-badge">L${w.level}</span>
@@ -1359,6 +1451,399 @@ class QuranApp {
     });
 
     container.innerHTML = html;
+  }
+
+  toggleWordCheckbox(wordId) {
+    const updatedRecord = this.srs.toggleWordLearned(wordId);
+    const isMastered = (updatedRecord.state === MasteryState.MASTERED || updatedRecord.state === MasteryState.STRONG);
+
+    // Update all checkbox instances in DOM
+    document.querySelectorAll(`.word-checkbox[data-id="${wordId}"]`).forEach(cb => {
+      cb.classList.toggle('checked', isMastered);
+      cb.textContent = isMastered ? '✓' : '';
+    });
+
+    // Update all card container instances in DOM
+    document.querySelectorAll(`.word-card-with-check[data-id="${wordId}"]`).forEach(card => {
+      card.classList.remove('new', 'learning', 'familiar', 'strong', 'mastered');
+      card.classList.add(updatedRecord.state.toLowerCase());
+      const badge = card.querySelector('.state-badge');
+      if (badge) {
+        badge.className = `state-badge state-${updatedRecord.state.toLowerCase()}`;
+        badge.textContent = this.getStateBengali(updatedRecord.state);
+      }
+    });
+
+    // Update tracked counter badge in vocab screen
+    const masteredWords = this.srs.getMasteredWords(this.vocab);
+    const trackedCountElem = document.getElementById('vscreen-tracked-count');
+    if (trackedCountElem) {
+      trackedCountElem.textContent = `${masteredWords.length} টি শেখা`;
+    }
+
+    // Recalculate Home Screen Donut & Stats immediately
+    this.renderHome();
+  }
+
+  // ================= DEDICATED VOCABULARY SCREEN (2000 WORDS) =================
+  setVocabStatusFilter(status) {
+    this.vocabStatusFilter = status;
+    document.querySelectorAll('.vocab-status-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.status === status);
+    });
+    this.vscreenPage = 1;
+    this.filterVocabScreen();
+  }
+
+  renderVocabScreen() {
+    this.vscreenPage = 1;
+    this.filterVocabScreen();
+  }
+
+  filterVocabScreen() {
+    const searchInput = document.getElementById('vscreen-search-input');
+    const catSelect = document.getElementById('vscreen-cat-select');
+    const lvlSelect = document.getElementById('vscreen-level-select');
+    const resultCount = document.getElementById('vscreen-result-count');
+    const container = document.getElementById('vscreen-words-container');
+    const headerCount = document.getElementById('vocab-screen-count');
+    const trackedCount = document.getElementById('vscreen-tracked-count');
+
+    if (!container) return;
+
+    if (!this.vocab || this.vocab.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:40px; color:var(--text-muted);">
+          <div style="font-size:32px; margin-bottom:8px;">⏳</div>
+          <div style="font-weight:700; color:var(--primary); margin-bottom:4px;">শব্দভাণ্ডার লোড হচ্ছে...</div>
+          <div style="font-size:12px;">২,০০০ কুরআনিক শব্দ প্রস্তুত হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন</div>
+        </div>
+      `;
+      return;
+    }
+
+    const masteredWords = this.srs.getMasteredWords(this.vocab);
+    if (trackedCount) trackedCount.textContent = `${masteredWords.length} টি শেখা`;
+
+    const q = (searchInput ? searchInput.value : '').trim().toLowerCase();
+    const cat = catSelect ? catSelect.value : 'all';
+    const lvl = lvlSelect ? lvlSelect.value : 'all';
+
+    let filtered = this.vocab;
+
+    if (cat !== 'all') {
+      filtered = filtered.filter(w => w.semantic_category === cat);
+    }
+    if (lvl !== 'all') {
+      filtered = filtered.filter(w => w.level.toString() === lvl);
+    }
+    if (this.vocabStatusFilter === 'learned') {
+      filtered = filtered.filter(w => {
+        const r = this.srs.records[w.id];
+        return r && (r.state === MasteryState.MASTERED || r.state === MasteryState.STRONG || r.state === MasteryState.FAMILIAR);
+      });
+    } else if (this.vocabStatusFilter === 'unlearned') {
+      filtered = filtered.filter(w => {
+        const r = this.srs.records[w.id];
+        return !r || r.state === MasteryState.NEW;
+      });
+    }
+
+    if (q) {
+      filtered = filtered.filter(w =>
+        w.lemma_ar.includes(q) ||
+        (w.lemma_clean && w.lemma_clean.includes(q)) ||
+        w.primary_meaning_bn.toLowerCase().includes(q) ||
+        w.primary_meaning_en.toLowerCase().includes(q) ||
+        (w.transliteration && w.transliteration.toLowerCase().includes(q)) ||
+        (w.root && w.root.includes(q))
+      );
+    }
+
+    if (resultCount) resultCount.textContent = `মোট ${filtered.length} টি শব্দ প্রদর্শিত`;
+    if (headerCount) headerCount.textContent = `${filtered.length} শব্দ`;
+
+    const limit = this.vscreenPage * this.vscreenPageSize;
+    const paged = filtered.slice(0, limit);
+
+    if (paged.length === 0) {
+      container.innerHTML = `
+        <div style="text-align:center; padding:40px; color:var(--text-muted);">
+          <div style="font-size:32px; margin-bottom:8px;">🔍</div>
+          <div style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">কোনো শব্দ খুঁজে পাওয়া যায়নি</div>
+          <p style="font-size:12px; margin-bottom:12px;">অনুসন্ধান শব্দ বা ফিল্টারে পরিবর্তন এনে চেষ্টা করুন।</p>
+          <button class="pill-btn" style="border:1px solid var(--border);" onclick="if(document.getElementById('vscreen-search-input')) document.getElementById('vscreen-search-input').value=''; if(document.getElementById('vscreen-cat-select')) document.getElementById('vscreen-cat-select').value='all'; if(document.getElementById('vscreen-level-select')) document.getElementById('vscreen-level-select').value='all'; app.setVocabStatusFilter('all');">সব ফিল্টার রিসেট করুন</button>
+        </div>
+      `;
+      return;
+    }
+
+    let html = '';
+    paged.forEach(w => {
+      const r = this.srs.getRecord(w.id);
+      const isMastered = (r.state === MasteryState.MASTERED || r.state === MasteryState.STRONG);
+      const stateClass = r.state.toLowerCase();
+      html += `
+        <div class="word-card-with-check ${stateClass}" data-id="${w.id}" onclick="app.openWordDetail('${w.id}')">
+          <div class="word-checkbox-wrap" onclick="event.stopPropagation(); app.toggleWordCheckbox('${w.id}')" title="শিখন স্থিতি পরিবর্তন করুন">
+            <div class="word-checkbox ${isMastered ? 'checked' : ''}" data-id="${w.id}">
+              ${isMastered ? '✓' : ''}
+            </div>
+          </div>
+          <div class="word-info-side">
+            <div class="word-tag-row">
+              <span class="word-badge">L${w.level}</span>
+              <span class="state-badge state-${stateClass}">${this.getStateBengali(r.state)}</span>
+              ${w.root ? `<span class="word-badge" style="color:var(--gold); font-weight:600;">মূল: ${w.root}</span>` : ''}
+            </div>
+            <div class="word-bn-title">${w.primary_meaning_bn}</div>
+            <div class="word-en-sub">${w.primary_meaning_en}</div>
+          </div>
+          <div class="word-ar-side">
+            <div class="arabic-lemma">${w.lemma_ar}</div>
+            ${this.srs.settings.transliteration ? `<div class="ar-translit">${w.transliteration}</div>` : ''}
+            <div style="font-size:10px; color:var(--text-muted);">${w.frequency_tokens} বার</div>
+          </div>
+        </div>
+      `;
+    });
+
+    if (paged.length < filtered.length) {
+      html += `
+        <div style="text-align:center; margin:16px 0;">
+          <button class="pill-btn" style="padding:10px 20px; font-weight:700; border:1px solid var(--border);" onclick="app.loadMoreVocabScreen()">আরও শব্দ লোড করুন (${filtered.length - paged.length} বাকি) ▾</button>
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+  }
+
+  loadMoreVocabScreen() {
+    this.vscreenPage += 1;
+    this.filterVocabScreen();
+  }
+
+  // ================= MEMORIZE DRILL (PURE RETENTION & TIMED BUCKETS) =================
+  startMemorizeDrillSession() {
+    this.memorizeQueue = this.srs.getMemorizeDeck(this.vocab);
+    this.memorizeIndex = 0;
+    this.isMemorizeRevealed = false;
+    this.memorizeStats = { remembered: 0, repeat: 0 };
+    this.switchScreen('memorize');
+    this.renderMemorizeCurrentCard();
+  }
+
+  renderMemorizeCurrentCard() {
+    const container = document.getElementById('memorize-body-container');
+    const counter = document.getElementById('memorize-counter');
+    const progressBar = document.getElementById('memorize-progress-bar');
+    if (!container) return;
+
+    if (this.memorizeIndex >= this.memorizeQueue.length) {
+      this.renderMemorizeSummary();
+      return;
+    }
+
+    const currentItem = this.memorizeQueue[this.memorizeIndex];
+    const word = currentItem.word;
+    const total = this.memorizeQueue.length;
+    const cur = this.memorizeIndex + 1;
+
+    if (counter) counter.textContent = `${cur} / ${total}`;
+    if (progressBar) progressBar.style.width = `${Math.round((cur / total) * 100)}%`;
+
+    this.isMemorizeRevealed = false;
+
+    let verseSnippet = '';
+    if (word.example_references && word.example_references[0]) {
+      const ref = word.example_references[0];
+      const v = this.quranVerses[`${ref.surah}:${ref.ayah}`];
+      if (v) {
+        verseSnippet = `
+          <div class="ayah-card" style="margin-top:14px; text-align:right;">
+            <div class="ayah-meta" style="direction:ltr; text-align:left;">
+              <span>কুরআন প্রেক্ষাপট</span>
+              <span>সূরা ${v.surah}:${v.ayah}</span>
+            </div>
+            <div class="ayah-arabic-text" style="font-size:20px;">${v.text_ar}</div>
+            <div class="ayah-bn-translation" style="direction:ltr; text-align:left;">${v.text_bn}</div>
+          </div>
+        `;
+      }
+    }
+
+    container.innerHTML = `
+      <div class="session-step-card" style="text-align:center;">
+        <div style="display:flex; justify-content:center;">
+          <span class="retention-bucket-pill">${currentItem.bucketLabel}</span>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin: 12px 0;">
+          <div class="arabic-lemma" style="font-size:56px;">${word.lemma_ar}</div>
+          <button class="icon-btn" onclick="app.playPronunciation('${word.lemma_ar}')" title="উচ্চারণ শুনুন">
+            <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </button>
+        </div>
+
+        ${this.srs.settings.transliteration ? `<div class="ar-translit" style="font-size:16px; margin-bottom:12px;">${word.transliteration}</div>` : ''}
+
+        <div id="memorize-reveal-area" style="display:none; margin-top:16px; border-top:1px solid var(--border); padding-top:16px; text-align:left;">
+          <div style="background:var(--surface-alt); border-radius:var(--radius-lg); padding:14px; text-align:center; margin-bottom:12px;">
+            <div class="word-bn-title" style="font-size:22px; margin-bottom:4px;">${word.primary_meaning_bn}</div>
+            <div class="word-en-sub" style="font-size:14px;">${word.primary_meaning_en}</div>
+            <div style="margin-top:8px; display:flex; justify-content:center; gap:8px;">
+              <span class="word-badge">${word.pos}</span>
+              ${word.root ? `<span class="word-badge" style="color:var(--gold);">মূলধাতু: ${word.root}</span>` : ''}
+              <span class="word-badge">${word.frequency_tokens} বার</span>
+            </div>
+          </div>
+
+          ${verseSnippet}
+
+          <div class="memorize-action-row">
+            <button class="memorize-btn-repeat" onclick="app.submitMemorizeAction(false)">
+              ↺ আবার পড়ব
+            </button>
+            <button class="memorize-btn-remembered" onclick="app.submitMemorizeAction(true)">
+              ✓ মনে আছে
+            </button>
+          </div>
+        </div>
+
+        <button id="memorize-reveal-btn" class="btn-primary" style="margin-top:20px;" onclick="app.revealMemorizeCard()">
+          👁️ অর্থ ও বিশ্লেষণ দেখুন (Reveal)
+        </button>
+      </div>
+    `;
+  }
+
+  revealMemorizeCard() {
+    this.isMemorizeRevealed = true;
+    const area = document.getElementById('memorize-reveal-area');
+    const btn = document.getElementById('memorize-reveal-btn');
+    if (area) area.style.display = 'block';
+    if (btn) btn.style.display = 'none';
+  }
+
+  submitMemorizeAction(isRemembered) {
+    const currentItem = this.memorizeQueue[this.memorizeIndex];
+    if (isRemembered) {
+      this.memorizeStats.remembered += 1;
+      this.srs.rateWord(currentItem.word.id, 2); // Good
+    } else {
+      this.memorizeStats.repeat += 1;
+      this.srs.rateWord(currentItem.word.id, 0); // Again
+      this.memorizeQueue.push({ ...currentItem, bucketLabel: '↺ পুনরাবৃত্তি শব্দ' });
+    }
+
+    this.memorizeIndex += 1;
+    this.renderMemorizeCurrentCard();
+  }
+
+  renderMemorizeSummary() {
+    const container = document.getElementById('memorize-body-container');
+    const counter = document.getElementById('memorize-counter');
+    if (counter) counter.textContent = 'সম্পন্ন';
+
+    try {
+      if (typeof confetti === 'function') {
+        confetti({ particleCount: 75, spread: 60, origin: { y: 0.6 } });
+      }
+    } catch (e) {}
+
+    container.innerHTML = `
+      <div class="session-complete-box">
+        <div class="session-complete-icon">🧠✨</div>
+        <div class="session-complete-title">মেমোরাইজ ড্রিল সম্পন্ন!</div>
+        <div class="session-complete-sub">
+          নতুন শব্দ, ১ দিন, ৭ দিন, ৩০ দিন ও পুরোনো রিভিশন শব্দসমূহ সফলভাবে ঝালাই করেছেন।
+        </div>
+
+        <div class="mission-targets-grid" style="margin-bottom:24px;">
+          <div class="target-item">
+            <div class="target-val">${this.memorizeStats.remembered}</div>
+            <div class="target-lbl">মনে আছে</div>
+          </div>
+          <div class="target-item">
+            <div class="target-val">${this.memorizeStats.repeat}</div>
+            <div class="target-lbl">পুনরাবৃত্তি</div>
+          </div>
+          <div class="target-item">
+            <div class="target-val">${this.memorizeQueue.length}</div>
+            <div class="target-lbl">মোট ড্রিল শব্দ</div>
+          </div>
+          <div class="target-item">
+            <div class="target-val">দিন ${this.srs.currentDay}</div>
+            <div class="target-lbl">বর্তমান দিন</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn-primary" onclick="app.startMemorizeDrillSession()">
+            ↺ আবারও মেমোরাইজ ড্রিল করুন
+          </button>
+          <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.switchScreen('home')">
+            হোম স্ক্রিনে ফিরে যান
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  confirmExitMemorize() {
+    if (confirm('আপনি কি মেমোরাইজ ড্রিল বন্ধ করে হোমে ফিরতে চান?')) {
+      this.switchScreen('home');
+    }
+  }
+
+  // ================= DAY SKIP & LEVEL JUMP (Duolingo Style) =================
+  openDaySkipModal() {
+    const select = document.getElementById('direct-day-select');
+    if (select && select.options.length === 0) {
+      let opts = '';
+      for (let d = 1; d <= 90; d++) {
+        opts += `<option value="${d}" ${d === this.srs.currentDay ? 'selected' : ''}>দিন ${d} (লেভেল ${Math.ceil(d / 4.5)})</option>`;
+      }
+      select.innerHTML = opts;
+    }
+    this.openModal('day-skip-modal');
+  }
+
+  executeDayJump() {
+    const select = document.getElementById('direct-day-select');
+    if (!select) return;
+    const targetDay = parseInt(select.value, 10);
+    this.srs.jumpToDay(targetDay);
+    this.closeModal('day-skip-modal');
+    this.renderHome();
+  }
+
+  startDaySkipExam() {
+    this.closeModal('day-skip-modal');
+    const wordsPerDay = 22;
+    const startIndex = (this.srs.currentDay - 1) * wordsPerDay;
+    const candidatePool = this.vocab.slice(startIndex, startIndex + 30);
+    const testWords = this.shuffleArray([...candidatePool]).slice(0, 10);
+
+    this.sessionQueue = [];
+    this.sessionStepIndex = 0;
+    this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
+    this.isSkipExam = true;
+
+    testWords.forEach((w, idx) => {
+      const qType = idx % 2 === 0 ? 'ar_to_bn' : 'bn_to_ar';
+      this.sessionQueue.push({
+        type: 'active_recall',
+        word: w,
+        qType,
+        ...this.generateQuizOptions(w, qType)
+      });
+    });
+
+    this.sessionQueue.push({ type: 'summary', isSkipExam: true });
+    this.switchScreen('session');
+    this.renderSessionCurrentStep();
   }
 
   loadMoreVocab() {

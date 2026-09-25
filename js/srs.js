@@ -344,6 +344,126 @@ export class SRSEngine {
     return this.currentDay;
   }
 
+  jumpToDay(dayNumber) {
+    this.currentDay = Math.min(90, Math.max(1, parseInt(dayNumber, 10) || 1));
+    this.saveState();
+    return this.currentDay;
+  }
+
+  toggleWordLearned(wordId, targetState = null) {
+    const r = this.getRecord(wordId);
+    const now = Date.now();
+
+    if (targetState) {
+      r.state = targetState;
+    } else {
+      // Toggle logic: if already MASTERED or STRONG, revert to NEW
+      if (r.state === MasteryState.MASTERED || r.state === MasteryState.STRONG) {
+        r.state = MasteryState.NEW;
+        r.consecutive_correct = 0;
+        r.interval = 0;
+        r.due_at = 0;
+      } else {
+        // Mark as MASTERED directly from library tracker
+        r.state = MasteryState.MASTERED;
+        r.interval = 60;
+        r.consecutive_correct = Math.max(3, (r.consecutive_correct || 0) + 1);
+        r.correct_count = (r.correct_count || 0) + 1;
+        r.last_reviewed_at = now;
+        r.due_at = now + 60 * 24 * 60 * 60 * 1000;
+      }
+    }
+
+    this.saveState();
+    return r;
+  }
+
+  /**
+   * Generates a focused Memorize Drill deck strictly organized by retention buckets:
+   * 1. শুরুতে নতুন শব্দ (New words)
+   * 2. আগের দিন প্র্যাকটিস করা শব্দ (Yesterday's words ~ 1 day ago)
+   * 3. ৭ দিন আগের প্র্যাকটিস করা শব্দ (7 days ago words ~ 5-9 days ago)
+   * 4. ৩০ দিন আগের শব্দ (30 days ago words ~ 20-40 days ago)
+   * 5. সর্বশেষ অনেকদিন আগে প্র্যাকটিস হওয়া শব্দ থেকে রেন্ডমলি (Randomly from oldest reviewed words)
+   */
+  getMemorizeDeck(vocabList) {
+    const now = Date.now();
+    const oneDayMs = 24 * 60 * 60 * 1000;
+    const deck = [];
+
+    // Bucket 1: New words (শুরুতে নতুন শব্দ) - 5 words
+    const unlearnedWords = vocabList.filter(w => {
+      const r = this.records[w.id];
+      return !r || r.state === MasteryState.NEW;
+    });
+    // Pick from current day/level area first
+    const wordsPerDay = 22;
+    const startIndex = (this.currentDay - 1) * wordsPerDay;
+    const dayPool = vocabList.slice(startIndex, startIndex + wordsPerDay);
+    let newWords = dayPool.filter(w => !this.records[w.id] || this.records[w.id].state === MasteryState.NEW);
+    if (newWords.length < 5) {
+      newWords = newWords.concat(unlearnedWords.filter(w => !newWords.some(x => x.id === w.id)).slice(0, 5 - newWords.length));
+    }
+    newWords.slice(0, 5).forEach(w => {
+      deck.push({ word: w, bucket: 'new', bucketLabel: '✨ ১. নতুন শব্দ' });
+    });
+
+    // All reviewed words
+    const reviewedWords = vocabList.filter(w => {
+      const r = this.records[w.id];
+      return r && r.last_reviewed_at > 0;
+    });
+
+    // Bucket 2: Yesterday's words (~1 day ago: 12h to 48h) - 4 words
+    const yesterdayWords = reviewedWords.filter(w => {
+      const diffDays = (now - this.records[w.id].last_reviewed_at) / oneDayMs;
+      return diffDays >= 0.5 && diffDays <= 2.5;
+    });
+    yesterdayWords.slice(0, 4).forEach(w => {
+      deck.push({ word: w, bucket: '1day', bucketLabel: '📅 ২. আগের দিনের শব্দ (Yesterday)' });
+    });
+
+    // Bucket 3: 7 days ago words (~5 to 10 days ago) - 4 words
+    const sevenDayWords = reviewedWords.filter(w => {
+      const diffDays = (now - this.records[w.id].last_reviewed_at) / oneDayMs;
+      return diffDays >= 4 && diffDays <= 12;
+    });
+    sevenDayWords.slice(0, 4).forEach(w => {
+      deck.push({ word: w, bucket: '7days', bucketLabel: '📆 ৩. ৭ দিন আগের শব্দ (7 Days Ago)' });
+    });
+
+    // Bucket 4: 30 days ago words (~20 to 45 days ago) - 3 words
+    const thirtyDayWords = reviewedWords.filter(w => {
+      const diffDays = (now - this.records[w.id].last_reviewed_at) / oneDayMs;
+      return diffDays >= 18 && diffDays <= 45;
+    });
+    thirtyDayWords.slice(0, 3).forEach(w => {
+      deck.push({ word: w, bucket: '30days', bucketLabel: '🗓️ ৪. ৩০ দিন আগের শব্দ (30 Days Ago)' });
+    });
+
+    // Bucket 5: Oldest reviewed words (সর্বশেষ অনেকদিন আগে প্র্যাকটিস হওয়া শব্দ থেকে রেন্ডমলি) - 4 words
+    const candidateOldest = reviewedWords.filter(w => !deck.some(d => d.word.id === w.id));
+    candidateOldest.sort((a, b) => {
+      return (this.records[a.id]?.last_reviewed_at || 0) - (this.records[b.id]?.last_reviewed_at || 0);
+    });
+    // Shuffle the top 20 oldest to select 4 randomly
+    const topOldestPool = candidateOldest.slice(0, 20);
+    const randomizedOldest = topOldestPool.sort(() => Math.random() - 0.5).slice(0, 4);
+    randomizedOldest.forEach(w => {
+      deck.push({ word: w, bucket: 'oldest', bucketLabel: '⏳ ৫. অনেকদিন আগের শব্দ (Random Old)' });
+    });
+
+    // If total deck has fewer than 15 words (e.g. beginner user), intelligently fill with more new words or earlier words
+    if (deck.length < 15) {
+      const fallbackPool = unlearnedWords.filter(w => !deck.some(d => d.word.id === w.id));
+      fallbackPool.slice(0, 15 - deck.length).forEach(w => {
+        deck.push({ word: w, bucket: 'new', bucketLabel: '✨ ১. নতুন শব্দ' });
+      });
+    }
+
+    return deck;
+  }
+
   exportData() {
     return JSON.stringify({
       version: 4,

@@ -1,4 +1,4 @@
-const CACHE = 'quran-v6';
+const CACHE = 'quran-v7';
 const CORE_ASSETS = [
   './',
   './index.html',

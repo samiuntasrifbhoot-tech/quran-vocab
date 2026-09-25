@@ -1498,5 +1498,185 @@ body.dark-mode .session-complete-title {
   margin-bottom: 24px;
 }
 
+/* ================= WORD CHECKBOX TRACKER IN VOCABULARY LIBRARY ================= */
+.word-card-with-check {
+  display: flex;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
+}
+.word-card-with-check:active {
+  transform: translateY(1px);
+}
+.word-card-with-check.mastered {
+  border-left: 4px solid var(--success);
+}
+.word-card-with-check.strong {
+  border-left: 4px solid #3b82f6;
+}
+.word-card-with-check.familiar {
+  border-left: 4px solid #10b981;
+}
+.word-card-with-check.learning {
+  border-left: 4px solid var(--warning);
+}
+
+.word-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.word-checkbox {
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  border: 2px solid #cbd5e1;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  transition: all 0.18s ease;
+  user-select: none;
+}
+.word-checkbox:hover {
+  border-color: var(--primary);
+}
+.word-checkbox.checked {
+  background: #0f766e;
+  border-color: #0f766e;
+}
+body.dark-mode .word-checkbox {
+  border-color: #334155;
+}
+body.dark-mode .word-checkbox.checked {
+  background: #10b981;
+  border-color: #10b981;
+}
+
+/* ================= MEMORIZE DRILL INTERFACE ================= */
+.memorize-drill-btn {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0d9488 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.28) !important;
+}
+.memorize-drill-btn:active {
+  transform: scale(0.98);
+}
+
+.retention-bucket-pill {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: var(--surface-alt);
+  color: var(--primary);
+  border: 1px solid var(--border-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+body.dark-mode .retention-bucket-pill {
+  color: #34d399;
+}
+
+.skip-day-btn {
+  background: rgba(202, 162, 91, 0.14);
+  border: 1px solid var(--gold-border);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+.skip-day-btn:active {
+  background: rgba(202, 162, 91, 0.25);
+  transform: scale(0.96);
+}
+
+.memorize-action-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+.memorize-btn-repeat {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.memorize-btn-repeat:active {
+  transform: scale(0.97);
+}
+.memorize-btn-remembered {
+  background: #0f766e;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 16px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.25);
+}
+.memorize-btn-remembered:active {
+  transform: scale(0.97);
+}
+body.dark-mode .memorize-btn-remembered {
+  background: #10b981;
+}
+body.dark-mode .memorize-btn-repeat {
+  background: #450a0a;
+  color: #fca5a5;
+  border-color: #7f1d1d;
+}
+
+.dual-actions-row .session-start-btn {
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 14px rgba(14, 56, 43, 0.18);
+  transition: all 0.2s ease;
+}
+.dual-actions-row .session-start-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(14, 56, 43, 0.24);
+}
+.dual-actions-row .session-start-btn:active {
+  transform: scale(0.97);
+}
+
+.memorize-bucket-info-bar {
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+body.dark-mode .memorize-bucket-info-bar {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: #334155;
+}
+
 
 
