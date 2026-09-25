@@ -36,22 +36,14 @@
 
 <div class="app-viewport">
 
-  <!-- ================= APP LAUNCH SPLASH / LOADING SCREEN ================= -->
+  <!-- ================= APP LAUNCH SPLASH (Native Play Store Style) ================= -->
   <div id="app-splash-screen" class="app-splash-screen">
     <div class="splash-inner">
       <div class="splash-icon-wrapper">
         <img src="icon.png" alt="কুরআনিক শব্দকোষ" class="splash-app-icon" referrerpolicy="no-referrer">
       </div>
-      <div class="splash-bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
       <h1 class="splash-title">কুরআনিক শব্দকোষ</h1>
       <p class="splash-subtitle">কুরআনিক আরবির ২০০০ মৌলিক শব্দ ও রূপতত্ত্ব</p>
-      
-      <div class="splash-loader-bar-wrap">
-        <div class="splash-loader-bar">
-          <div class="splash-loader-progress" id="splash-progress"></div>
-        </div>
-        <div class="splash-status-text" id="splash-status-text">শব্দভাণ্ডার ও কুরআনিক আয়াত প্রস্তুত হচ্ছে...</div>
-      </div>
     </div>
   </div>
 
@@ -77,106 +69,6 @@
         </div>
 
         <div class="home-cards-container">
-          <!-- Card 1: Progress Summary (Matching the user screenshot) -->
-          <div class="screenshot-card progress-summary-card" onclick="app.switchScreen('progress')">
-            <div class="progress-donut-container">
-              <svg class="progress-donut-svg" width="144" height="144" viewBox="0 0 144 144">
-                <circle
-                  class="donut-track"
-                  cx="72" cy="72" r="56"
-                  stroke-width="12"
-                  fill="transparent"
-                />
-                <circle
-                  id="home-progress-circle-fill"
-                  class="donut-fill"
-                  cx="72" cy="72" r="56"
-                  stroke-width="12"
-                  stroke-linecap="round"
-                  stroke-dasharray="351.86"
-                  stroke-dashoffset="351.86"
-                  fill="transparent"
-                  transform="rotate(-90 72 72)"
-                />
-              </svg>
-              <div class="donut-center-info">
-                <div class="summary-percent" id="home-mastered-pct">0%</div>
-                <div class="summary-sub">অগ্রগতি</div>
-              </div>
-            </div>
-            <div class="summary-footer-count" id="home-mastered-count-text">0 / 2000 শব্দ শেখা হয়েছে</div>
-          </div>
-
-          <!-- Card 2: TODAY'S MISSION (Primary Learning CTA - Sections 23, 27) -->
-          <div class="screenshot-card mission-feature-card">
-            <div class="mission-top-header">
-              <div class="day-tracker-pill">
-                <span class="day-num" id="home-day-badge">দিন ১ / ৯০</span>
-                <span class="day-phase-tag" id="home-phase-badge">পর্ব ১: ভিত্তি</span>
-              </div>
-              <button class="skip-day-btn" onclick="app.openDaySkipModal()" title="দিন স্কিপ বা জাম্প করুন">
-                ⚡ স্কিপ টেস্ট / জাম্প
-              </button>
-            </div>
-
-            <div class="mission-hero-title">আজকের শিখন মিশন</div>
-            <p class="mission-hero-why" id="home-lesson-why">
-              কুরআনের সর্বাধিক ব্যবহৃত মৌলিক অব্যয়, ক্রিয়া ও সর্বনাম যা প্রতিটি পাতায় একাধিকবার আসে।
-            </p>
-
-            <div class="mission-targets-grid">
-              <div class="target-item">
-                <div class="target-val" id="mission-new-val">১২</div>
-                <div class="target-lbl">নতুন শব্দ</div>
-              </div>
-              <div class="target-item">
-                <div class="target-val" id="mission-due-val">০</div>
-                <div class="target-lbl">রিভিউ বাকি</div>
-              </div>
-              <div class="target-item">
-                <div class="target-val" id="mission-ayah-val">৫</div>
-                <div class="target-lbl">কুরআন আয়াত</div>
-              </div>
-              <div class="target-item">
-                <div class="target-val">১</div>
-                <div class="target-lbl">ব্যাকরণ ধারণা</div>
-              </div>
-            </div>
-
-            <div class="dual-actions-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px;">
-              <button class="btn-primary session-start-btn" style="padding:14px 10px; font-size:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;" onclick="app.startGuidedDailySession()">
-                <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:15px;">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                  </svg>
-                  আজকের সেশন
-                </div>
-                <span style="font-size:11px; font-weight:400; opacity:0.9;">কুইজ ও আয়াত অনুশীলন</span>
-              </button>
-
-              <button class="btn-primary session-start-btn memorize-drill-btn" style="padding:14px 10px; font-size:14px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px;" onclick="app.startMemorizeDrillSession()">
-                <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:15px;">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.3">
-                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z"></path>
-                  </svg>
-                  মেমোরাইজ ড্রিল
-                </div>
-                <span style="font-size:11px; font-weight:400; opacity:0.9;">অনলি মুখস্থ ও ঝালাই</span>
-              </button>
-            </div>
-
-            <div class="memorize-bucket-info-bar" style="margin-top:10px; padding:8px 10px; background:var(--surface-alt); border-radius:var(--radius-md); font-size:11px; color:var(--text-secondary); display:flex; align-items:center; justify-content:space-between;">
-              <span>🧠 <strong>স্মৃতি চক্র:</strong> নতুন শব্দ ➔ ১ দিন ➔ ৭ দিন ➔ ৩০ দিন ➔ পুরোনো</span>
-              <span class="badge-accent" style="font-size:10px; font-weight:700; color:var(--primary); cursor:pointer;" onclick="app.startMemorizeDrillSession()">ড্রিল শুরু ▸</span>
-            </div>
-
-            <div style="margin-top:10px; font-size:11px; color:var(--text-muted); text-align:center; display:flex; justify-content:center; align-items:center; gap:4px;">
-              <span>⏱️ ১৫ মিনিট</span>
-              <span>•</span>
-              <span>⚡ একদিনে একাধিক সেশন সম্ভব (Duolingo Style)</span>
-            </div>
-          </div>
-
           <!-- Quick Access Cards Row -->
           <div class="three-cards-row">
             <!-- Left: সম্পূর্ণ শব্দকোষ -->
@@ -239,42 +131,98 @@
       </div>
     </div>
 
-    <!-- ================= 2. LEARN SCREEN (90-DAY CURRICULUM ROADMAP) ================= -->
+    <!-- ================= 2. LEARN SCREEN (DUOLINGO-STYLE 90-DAY MAP) ================= -->
     <div id="learn-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">৯০ দিনের কারিকুলাম রোডম্যাপ</div>
-        <button class="icon-btn" onclick="app.openModal('settings-modal')" title="সেটিংস">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <div class="top-bar-title">শিখন পথ (Learning Journey)</div>
+        <button class="skip-day-btn" onclick="app.openDaySkipModal()" title="দিন স্কিপ বা জাম্প করুন">
+          ⚡ স্কিপ টেস্ট
         </button>
       </div>
 
-      <div class="scroll-content" style="padding: 14px 16px 85px 16px;">
-        <!-- 3 Major Phases Banner -->
-        <div class="curriculum-phases-summary">
-          <div class="phase-card active">
-            <div class="phase-title">পর্ব ১: ভিত্তি</div>
-            <div class="phase-days">দিন ১ – ৩০</div>
-            <div class="phase-desc">অব্যয়, সর্বনাম ও সর্বাধিক ক্রিয়া</div>
+      <div class="scroll-content" id="learn-scroll-content" style="padding: 10px 14px 90px 14px;">
+        <!-- Top Sticky Stats & Today's Mission Banner -->
+        <div class="screenshot-card learn-mission-header" id="learn-top-mission-card">
+          <div class="mission-top-header">
+            <div class="day-tracker-pill">
+              <span class="day-num" id="learn-day-badge">দিন ১ / ৯০</span>
+              <span class="day-phase-tag" id="learn-phase-badge">পর্ব ১: ভিত্তি</span>
+            </div>
+            <button class="skip-day-btn" onclick="app.openDaySkipModal()" title="দিন স্কিপ বা জাম্প করুন" style="font-size:11px;">
+              ⚡ জাম্প টেস্ট
+            </button>
           </div>
-          <div class="phase-card">
-            <div class="phase-title">পর্ব ২: রূপতত্ত্ব</div>
-            <div class="phase-days">দিন ৩১ – ৬০</div>
-            <div class="phase-desc">মূলধাতু, ক্রিয়ার রূপ ও বাক্যগঠন</div>
+
+          <div class="mission-hero-title" style="margin-top:6px; font-size:17px;">আজকের শিখন মিশন</div>
+          <p class="mission-hero-why" id="learn-lesson-why" style="font-size:12px; margin-bottom:12px;">
+            কুরআনের সর্বাধিক ব্যবহৃত মৌলিক অব্যয়, ক্রিয়া ও সর্বনাম যা প্রতিটি পাতায় একাধিকবার আসে।
+          </p>
+
+          <!-- Numbers row requested by user (অগ্রগতির নতুন শব্দ, রিভিউ বাকি, আয়াত) -->
+          <div class="mission-targets-grid">
+            <div class="target-item">
+              <div class="target-val" id="learn-mission-new-val">১২</div>
+              <div class="target-lbl">নতুন শব্দ</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val" id="learn-mission-due-val">০</div>
+              <div class="target-lbl">রিভিউ বাকি</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val" id="learn-mission-ayah-val">৫</div>
+              <div class="target-lbl">কুরআন আয়াত</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val" id="learn-mission-grammar-val">১</div>
+              <div class="target-lbl">ব্যাকরণ ধারণা</div>
+            </div>
           </div>
-          <div class="phase-card">
-            <div class="phase-title">পর্ব ৩: বোধগম্যতা</div>
-            <div class="phase-days">দিন ৬১ – ৯০</div>
-            <div class="phase-desc">কুরআন আয়াত ও সামগ্রিক প্রয়োগ</div>
+
+          <!-- Direct launch Today's Session buttons -->
+          <div class="dual-actions-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+            <button class="btn-primary session-start-btn" style="padding:12px 8px; font-size:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startGuidedDailySession()">
+              <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                আজকের সেশন
+              </div>
+              <span style="font-size:10px; font-weight:400; opacity:0.9;">কুইজ ও আয়াত অনুশীলন</span>
+            </button>
+
+            <button class="btn-primary session-start-btn memorize-drill-btn" style="padding:12px 8px; font-size:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startMemorizeDrillSession()">
+              <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z"></path>
+                </svg>
+                মেমোরাইজ ড্রিল
+              </div>
+              <span style="font-size:10px; font-weight:400; opacity:0.9;">অনলি মুখস্থ ও ঝালাই</span>
+            </button>
           </div>
         </div>
 
-        <div style="margin: 18px 0 10px 0; display:flex; justify-content:space-between; align-items:center;">
-          <div style="font-weight:700; font-size:15px; color:var(--text-primary);">২০টি শিখন লেভেল তালিকা</div>
-          <span style="font-size:12px; color:var(--text-muted);">মোট ২০০০ শব্দ</span>
+        <!-- Duolingo-style Winding Map of 90 Days -->
+        <div class="duolingo-map-wrap">
+          <div class="duo-map-legend">
+            <span>🗺️ ডুওলিঙ্গো স্টাইল ৯০ দিনের রোডম্যাপ</span>
+            <span style="font-size:11px; color:var(--text-muted);">যেকোনো দিনে স্পর্শ করে অনুশীলন বা পরীক্ষা দিন</span>
+          </div>
+
+          <!-- Dynamic winding path container generated by JS -->
+          <div class="duolingo-map-container" id="duolingo-map-container">
+            <!-- 90 Days Winding Path Rendered by JS -->
+          </div>
         </div>
 
-        <!-- Rendered by JS: 20 Level Detailed Cards -->
-        <div id="curriculum-levels-list"></div>
+        <!-- 20 Levels Curriculum Accordion / Toggle -->
+        <div class="screenshot-card" style="margin-top:20px; padding:14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="app.toggleLearnLevelsList()">
+            <div style="font-weight:700; font-size:14px; color:var(--text-primary);">📋 ২০টি লেভেলের বিস্তারিত পাঠ্যসূচি</div>
+            <span class="mission-badge" id="learn-levels-toggle-badge" style="font-size:11px;">দেখুন ▸</span>
+          </div>
+          <div id="curriculum-levels-list" style="display:none; margin-top:14px; border-top:1px solid var(--border-light); padding-top:10px;"></div>
+        </div>
       </div>
     </div>
 
@@ -471,11 +419,15 @@
 
   </div>
 
-  <!-- Bottom Navigation Bar (4 Primary Tabs) -->
+  <!-- Bottom Navigation Bar (5 Primary Tabs) -->
   <nav class="bottom-nav">
     <button class="nav-tab active" data-screen="home" onclick="app.switchScreen('home')">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       <span>হোম</span>
+    </button>
+    <button class="nav-tab" data-screen="learn" onclick="app.switchScreen('learn')">
+      <svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      <span>লার্নিং</span>
     </button>
     <button class="nav-tab" data-screen="review" onclick="app.switchScreen('review')">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -734,40 +686,40 @@
   <div class="modal-overlay" id="day-skip-modal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <div style="font-size:17px; font-weight:800; color:var(--text-primary);">দিন স্কিপ ও দ্রুত অগ্রগমন (Duolingo Style)</div>
+        <div style="font-size:17px; font-weight:800; color:var(--text-primary);">লেভেল পরীক্ষা দিয়ে দিন স্কিপ (Duolingo Style)</div>
         <button class="icon-btn" onclick="app.closeModal('day-skip-modal')">✕</button>
       </div>
 
       <div style="background:var(--surface-alt); border-radius:var(--radius-md); padding:12px; margin-bottom:14px; font-size:13px; color:var(--text-secondary); line-height:1.45;">
-        আপনি যদি প্রাথমিক শব্দগুলো ইতোমধ্যে জেনে থাকেন, তবে পরীক্ষা দিয়ে পরবর্তী দিনে স্কিপ করতে পারেন অথবা সরাসরি যেকোনো দিন/লেভেলে জাম্প করতে পারেন।
+        যেকোনো দিনে যাওয়ার জন্য সংশ্লিষ্ট লেভেলের ১০টি প্রশ্নের পরীক্ষা দিন। ৮০% বা তার বেশি সঠিক উত্তর দিয়ে পাস করলেই ওই দিন পর্যন্ত সমস্ত ডে আনলক হয়ে যাবে।
       </div>
 
-      <!-- Option A: Take Skip Exam -->
-      <div class="card-section" style="border-left:3px solid var(--gold); margin-bottom:14px;">
-        <div style="font-size:14px; font-weight:700; color:var(--primary); margin-bottom:4px;">⚡ প্লেসমেন্ট টেস্ট দিয়ে স্কিপ করুন</div>
-        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">বর্তমান লেভেল ও দিনের ১০টি শব্দের কুইজ আসবে। ৮০% সঠিক করলেই সরাসরি পরবর্তী দিন আনলক হবে।</p>
-        <button class="btn-primary" style="padding:10px 16px; font-size:13px;" onclick="app.startDaySkipExam()">
-          টেস্ট শুরু করুন & দিন স্কিপ করুন ⚡
+      <!-- Option A: Take Level Exam to Skip -->
+      <div class="card-section" style="border-left:3px solid var(--primary); margin-bottom:14px;">
+        <div style="font-size:14px; font-weight:700; color:var(--primary); margin-bottom:6px;">⚡ লেভেল পরীক্ষা দিয়ে স্কিপ করুন</div>
+        <div style="margin-bottom:10px;">
+          <label style="font-size:12px; color:var(--text-muted); display:block; margin-bottom:4px;">টার্গেট দিন / লেভেল নির্বাচন করুন:</label>
+          <select id="exam-target-day-select" class="search-input" style="width:100%; padding:8px 12px; font-size:13px;" onchange="app.updateExamTargetInfo()">
+            <!-- Generated 1 to 90 by JS -->
+          </select>
+        </div>
+        <div id="exam-target-info-text" style="font-size:12px; color:var(--text-secondary); margin-bottom:10px; line-height:1.4;">
+          নির্বাচিত লেভেলের ১০টি বহুনির্বাচনী প্রশ্ন আসবে।
+        </div>
+        <button class="btn-primary" style="width:100%; padding:11px 16px; font-size:13px; font-weight:700;" onclick="app.startSelectedLevelExam()">
+          📝 পরীক্ষা শুরু করুন ও দিন আনলক করুন
         </button>
       </div>
 
-      <!-- Option B: Direct Jump to Day -->
+      <!-- Option B: Direct Jump -->
       <div class="card-section" style="margin-bottom:14px;">
-        <div style="font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:6px;">🎯 সরাসরি যেকোনো দিনে জাম্প করুন (১ - ৯০)</div>
-        <div style="display:flex; gap:8px;">
-          <select id="direct-day-select" class="search-input" style="flex:1; padding:8px 12px; font-size:13px;">
-            <!-- Generated 1 to 90 by JS or rendered -->
-          </select>
-          <button class="pill-btn" style="background:var(--primary); color:white; border:none; padding:8px 16px;" onclick="app.executeDayJump()">জাম্প করুন</button>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-size:13px; font-weight:700; color:var(--text-primary);">সরাসরি জাম্প (পরীক্ষা ছাড়া)</div>
+            <div style="font-size:11px; color:var(--text-muted);">টেস্ট না দিয়ে সরাসরি কাঙ্ক্ষিত দিনে যেতে চান?</div>
+          </div>
+          <button class="pill-btn" style="border:1px solid var(--border); padding:6px 14px; font-size:12px;" onclick="app.executeDayJumpFromModal()">সরাসরি জাম্প</button>
         </div>
-      </div>
-
-      <!-- Option C: Multiple Sessions Per Day note -->
-      <div class="card-section" style="background:#ecfdf5; border:1px solid #a7f3d0;">
-        <div style="font-size:13px; font-weight:700; color:#065f46; margin-bottom:4px;">💡 একদিনে একাধিক সেশন</div>
-        <p style="font-size:11px; color:#047857; line-height:1.4;">
-          আপনি চাইলে আজকের সেশন শেষ করার পর দিন শেষ হওয়ার অপেক্ষা না করে সাথে সাথেই পরবর্তী দিনের সেশন শুরু করতে পারেন।
-        </p>
       </div>
     </div>
   </div>

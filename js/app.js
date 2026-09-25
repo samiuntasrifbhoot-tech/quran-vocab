@@ -115,27 +115,16 @@ class QuranApp {
       this.populateSurahSelector();
       this.renderVocabScreen();
 
-      // Dismiss Splash / Loading Screen
-      const hideSplash = () => {
-        const splash = document.getElementById('app-splash-screen');
-        if (splash && !splash.classList.contains('fade-out')) {
-          const prog = document.getElementById('splash-progress');
-          const stat = document.getElementById('splash-status-text');
-          if (prog) {
-            prog.style.animation = 'none';
-            prog.style.width = '100%';
-          }
-          if (stat) stat.textContent = 'প্রস্তুত!';
+      // Dismiss Native Play Store Splash smoothly
+      const splash = document.getElementById('app-splash-screen');
+      if (splash) {
+        setTimeout(() => {
+          splash.classList.add('fade-out');
           setTimeout(() => {
-            splash.classList.add('fade-out');
-            setTimeout(() => {
-              splash.style.display = 'none';
-            }, 450);
-          }, 400);
-        }
-      };
-      hideSplash();
-      setTimeout(hideSplash, 3500); // Safety fallback
+            splash.style.display = 'none';
+          }, 350);
+        }, 120);
+      }
 
       // Check onboarding
       if (!this.srs.settings.onboardingComplete) {
@@ -278,51 +267,20 @@ class QuranApp {
 
   // ================= 1. HOME SCREEN =================
   renderHome() {
-    const stats = this.srs.getStats(this.vocab);
-    const mission = this.srs.getDailyMission(this.vocab);
     const masteredWords = this.srs.getMasteredWords(this.vocab);
     const dueWords = this.srs.getDueWords(this.vocab);
     const totalWords = this.vocab.length || 2000;
-
-    // Progress Donut
-    const elemPct = document.getElementById('home-mastered-pct');
-    const elemCount = document.getElementById('home-mastered-count-text');
-    const circleFill = document.getElementById('home-progress-circle-fill');
-
-    const masteredPct = Math.round((masteredWords.length / totalWords) * 100);
-    if (elemPct) elemPct.textContent = `${masteredPct}%`;
-    if (elemCount) elemCount.textContent = `${masteredWords.length} / ${totalWords} শব্দ শেখা হয়েছে`;
-    if (circleFill) {
-      const circumference = 351.86;
-      const offset = circumference - (circumference * masteredPct) / 100;
-      circleFill.style.strokeDashoffset = `${offset}`;
-    }
-
-    // Daily Mission Card Elements
-    const elemDayBadge = document.getElementById('home-day-badge');
-    const elemPhaseBadge = document.getElementById('home-phase-badge');
-    const elemEstTime = document.getElementById('home-est-time');
-    const elemWhy = document.getElementById('home-lesson-why');
-    const elemNewVal = document.getElementById('mission-new-val');
-    const elemDueVal = document.getElementById('mission-due-val');
-    const elemAyahVal = document.getElementById('mission-ayah-val');
-
-    if (elemDayBadge) elemDayBadge.textContent = `দিন ${mission.day} / ৯০`;
-    if (elemPhaseBadge) elemPhaseBadge.textContent = mission.phase.split(' ')[0] + ' ' + mission.phase.split(' ')[1];
-    if (elemEstTime) elemEstTime.textContent = `⏱️ ${mission.estimatedMinutes} মিনিট`;
-    if (elemWhy) elemWhy.textContent = mission.lessonWhy;
-    if (elemNewVal) elemNewVal.textContent = mission.newWords.length;
-    if (elemDueVal) elemDueVal.textContent = mission.dueWords.length;
-    if (elemAyahVal) elemAyahVal.textContent = mission.quranPracticeCount;
 
     // Action cards counts
     const elemVocabSub = document.getElementById('home-vocab-count-sub');
     const elemLearnedSub = document.getElementById('home-learned-count-sub');
     const elemDueSub = document.getElementById('home-due-count-sub');
 
-    if (elemVocabSub) elemVocabSub.textContent = `${totalWords} শব্দ`;
+    if (elemVocabSub) elemVocabSub.textContent = `${totalWords} শব্দ (২০টি লেভেল)`;
     if (elemLearnedSub) elemLearnedSub.textContent = `${masteredWords.length} টি শেখা`;
     if (elemDueSub) elemDueSub.textContent = `${dueWords.length} টি বাকি`;
+
+    this.renderLevelsGridChips();
   }
 
   toggleLevelsFold() {
@@ -357,8 +315,189 @@ class QuranApp {
     container.innerHTML = html;
   }
 
-  // ================= 2. LEARN SCREEN (CURRICULUM) =================
+  // ================= 2. LEARN SCREEN (DUOLINGO STYLE MAP) =================
   renderLearnScreen() {
+    const mission = this.srs.getDailyMission(this.vocab);
+    const dueWords = this.srs.getDueWords(this.vocab);
+
+    // Update Upper Stats Banner (numbers requested by user)
+    const elemDayBadge = document.getElementById('learn-day-badge');
+    const elemPhaseBadge = document.getElementById('learn-phase-badge');
+    const elemWhy = document.getElementById('learn-lesson-why');
+    const elemNewVal = document.getElementById('learn-mission-new-val');
+    const elemDueVal = document.getElementById('learn-mission-due-val');
+    const elemAyahVal = document.getElementById('learn-mission-ayah-val');
+    const elemGrammarVal = document.getElementById('learn-mission-grammar-val');
+
+    if (elemDayBadge) elemDayBadge.textContent = `দিন ${mission.day} / ৯০`;
+    if (elemPhaseBadge) elemPhaseBadge.textContent = mission.phase.split(' ')[0] + ' ' + (mission.phase.split(' ')[1] || '');
+    if (elemWhy) elemWhy.textContent = mission.lessonWhy;
+    if (elemNewVal) elemNewVal.textContent = mission.newWords.length;
+    if (elemDueVal) elemDueVal.textContent = dueWords.length;
+    if (elemAyahVal) elemAyahVal.textContent = mission.quranPracticeCount || 5;
+    if (elemGrammarVal) elemGrammarVal.textContent = mission.grammarFocus ? '১' : '০';
+
+    // Render 90 Days Duolingo Map
+    const mapContainer = document.getElementById('duolingo-map-container');
+    if (mapContainer) {
+      this.renderDuolingoMap(mapContainer, mission.day);
+    }
+
+    // Render 20 Levels Accordion content
+    this.renderLearnLevelsList();
+  }
+
+  toggleLearnLevelsList() {
+    const el = document.getElementById('curriculum-levels-list');
+    const badge = document.getElementById('learn-levels-toggle-badge');
+    if (!el) return;
+    const isHidden = el.style.display === 'none';
+    el.style.display = isHidden ? 'block' : 'none';
+    if (badge) badge.textContent = isHidden ? 'ফোল্ড করুন ▾' : 'দেখুন ▸';
+  }
+
+  renderDuolingoMap(container, currentDay) {
+    let html = '';
+
+    // 3 Major Units
+    const units = [
+      { unit: 1, startDay: 1, endDay: 30, title: 'পর্ব ১: মৌলিক ভিত্তি', desc: 'অব্যয়, সর্বনাম ও সর্বাধিক ক্রিয়া' },
+      { unit: 2, startDay: 31, endDay: 60, title: 'পর্ব ২: রূপতত্ত্ব ও ধাতু', desc: 'ধাতুরূপ, বাব ও বাক্যগঠন' },
+      { unit: 3, startDay: 61, endDay: 90, title: 'পর্ব ৩: গভীর ভাবার্থ', desc: 'আয়াত উপলব্ধি ও কুরআনিক প্রয়োগ' }
+    ];
+
+    // Checkpoint exam days corresponding to the 20 levels
+    const checkpointDays = new Map();
+    for (let l = 1; l <= 20; l++) {
+      const examDay = Math.min(90, Math.round(l * 4.5));
+      checkpointDays.set(examDay, l);
+    }
+
+    // Winding offset pattern (Duolingo style S-curve)
+    const offsets = [0, 52, 0, -52];
+
+    units.forEach(unit => {
+      html += `
+        <div class="duo-unit-section">
+          <div class="duo-unit-banner">
+            <div>
+              <div class="duo-unit-title">${unit.title}</div>
+              <div class="duo-unit-desc">${unit.desc}</div>
+            </div>
+            <div class="duo-unit-days">দিন ${unit.startDay} - ${unit.endDay}</div>
+          </div>
+      `;
+
+      for (let d = unit.startDay; d <= unit.endDay; d++) {
+        const xOffset = offsets[(d - 1) % 4];
+        const isCurrent = (d === currentDay);
+        const isCompleted = (d < currentDay);
+        const targetLevel = Math.min(20, Math.ceil(d / 4.5));
+        const lvlData = this.curriculum?.levels?.find(lvl => lvl.level === targetLevel);
+        const dayTheme = lvlData ? lvlData.theme : 'শব্দ অনুশীলন';
+
+        let nodeClass = 'duo-node';
+        let iconContent = '';
+        let clickHandler = '';
+
+        if (isCurrent) {
+          nodeClass += ' active';
+          iconContent = `
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+          `;
+          clickHandler = `app.startGuidedDailySession()`;
+        } else if (isCompleted) {
+          nodeClass += ' completed';
+          iconContent = `
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          `;
+          clickHandler = `app.openCompletedDayModal(${d})`;
+        } else {
+          nodeClass += ' locked';
+          iconContent = `
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          `;
+          clickHandler = `app.openDaySkipModal(${d})`;
+        }
+
+        html += `
+          <div class="duo-node-row">
+            <div class="duo-node-wrap" id="duo-day-node-${d}" style="transform: translateX(${xOffset}px);" onclick="${clickHandler}">
+              ${isCurrent ? `<div class="duo-node-bubble">আজকের সেশন • শুরু করুন! 🎯</div>` : ''}
+              <button class="${nodeClass}" title="দিন ${d}: ${dayTheme}">
+                ${iconContent}
+              </button>
+              <div class="duo-node-title">
+                ${isCurrent ? '⚡ ' : ''}দিন ${d}
+              </div>
+              <div class="duo-node-sub">${dayTheme}</div>
+            </div>
+          </div>
+        `;
+
+        // Check if there is a level milestone checkpoint at this day
+        if (checkpointDays.has(d)) {
+          const cpLevel = checkpointDays.get(d);
+          const cpPassed = currentDay > d;
+          const cpActive = (currentDay <= d && currentDay > (d - 4.5));
+          const cpLocked = currentDay < (d - 4.5);
+
+          html += `
+            <div class="duo-node-row" style="margin: 18px 0;">
+              <div class="duo-node-wrap" onclick="app.openDaySkipModal(${d})">
+                <button class="duo-node checkpoint ${cpLocked ? 'locked' : ''}" title="লেভেল ${cpLevel} সমাপ্তি পরীক্ষা">
+                  <svg viewBox="0 0 24 24" width="28" height="28" fill="${cpPassed ? '#ffffff' : (cpActive ? '#ffffff' : 'currentColor')}" stroke="currentColor" stroke-width="1.5">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                    <path d="M4 22h16"></path>
+                    <path d="M10 14.66V17c0 .55-.45 1-1 1H7v4h10v-4h-2c-.55 0-1-.45-1-1v-2.34"></path>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path>
+                  </svg>
+                </button>
+                <div class="duo-node-title" style="color:var(--primary); font-weight:800;">
+                  🏆 লেভেল ${cpLevel} পরীক্ষা
+                </div>
+                <div class="duo-node-sub">${cpPassed ? '✓ উত্তীর্ণ' : (cpActive ? '⚡ টেস্ট দিন' : '🔒 লক')}</div>
+              </div>
+            </div>
+          `;
+        } else if (d < unit.endDay) {
+          html += `
+            <div class="duo-track-line ${isCompleted ? 'completed' : ''}" style="transform: translateX(${xOffset / 2}px);"></div>
+          `;
+        }
+      }
+
+      html += `</div>`;
+    });
+
+    container.innerHTML = html;
+
+    // Auto-scroll to current active day node
+    setTimeout(() => {
+      const activeEl = document.getElementById(`duo-day-node-${currentDay}`);
+      if (activeEl) {
+        activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 150);
+  }
+
+  openCompletedDayModal(day) {
+    const targetLevel = Math.min(20, Math.ceil(day / 4.5));
+    const confirmed = confirm(`দিন ${day} সম্পন্ন হয়েছে! আপনি কি এই দিনের শব্দগুলো পুনরায় প্র্যাকটিস করতে চান?`);
+    if (confirmed) {
+      this.openLevelPractice(targetLevel);
+    }
+  }
+
+  renderLearnLevelsList() {
     const container = document.getElementById('curriculum-levels-list');
     if (!container) return;
 
@@ -374,27 +513,24 @@ class QuranApp {
       const pct = wordsInLevel.length > 0 ? Math.round((masteredCount / wordsInLevel.length) * 100) : 0;
 
       html += `
-        <div class="screenshot-card" style="padding: 16px; margin-bottom: 12px;">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+        <div class="screenshot-card" style="padding: 14px; margin-bottom: 10px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
             <div>
-              <span class="mission-badge" style="font-size:11px; margin-bottom:4px; display:inline-block;">লেভেল ${lvl.level}</span>
-              <div style="font-size:16px; font-weight:700; color:var(--text-primary);">${lvl.theme}</div>
+              <span class="mission-badge" style="font-size:11px; margin-bottom:3px; display:inline-block;">লেভেল ${lvl.level}</span>
+              <div style="font-size:15px; font-weight:700; color:var(--text-primary);">${lvl.theme}</div>
             </div>
             <div style="text-align:right;">
               <span style="font-size:14px; font-weight:800; color:var(--primary); font-family:'Plus Jakarta Sans';">${pct}%</span>
               <div style="font-size:11px; color:var(--text-muted);">${masteredCount}/100 শব্দ</div>
             </div>
           </div>
-
-          <p style="font-size:12px; color:var(--text-secondary); line-height:1.4; margin-bottom:12px;">${lvl.focus}</p>
-
-          <div class="progress-bar-wrap" style="height:6px; margin-bottom:12px;">
+          <p style="font-size:12px; color:var(--text-secondary); line-height:1.4; margin-bottom:10px;">${lvl.focus}</p>
+          <div class="progress-bar-wrap" style="height:6px; margin-bottom:10px;">
             <div class="progress-bar-fill" style="width: ${pct}%;"></div>
           </div>
-
           <div style="display:flex; gap:8px;">
             <button class="pill-btn" style="flex:1; border:1px solid var(--border);" onclick="app.showLevelWords(${lvl.level})">শব্দগুলো দেখুন</button>
-            <button class="pill-btn active" style="flex:1;" onclick="app.openLevelPractice(${lvl.level})">অনুশীলন শুরু করুন</button>
+            <button class="pill-btn active" style="flex:1;" onclick="app.openLevelPractice(${lvl.level})">অনুশীলন</button>
           </div>
         </div>
       `;
@@ -991,21 +1127,24 @@ class QuranApp {
 
     if (this.isSkipExam || item.isSkipExam) {
       const isPassed = accuracy >= 80;
+      const targetDay = item.targetExamDay || this.targetExamDay || (this.srs.currentDay + 1);
+      const targetLvl = item.targetExamLevel || this.targetExamLevel || Math.min(20, Math.ceil(targetDay / 4.5));
+
       if (isPassed) {
         this.sessionQueue.filter(it => it.type === 'active_recall' && it.word).forEach(it => {
           this.srs.rateWord(it.word.id, 3);
         });
-        this.srs.advanceDay();
+        this.srs.jumpToDay(targetDay);
         this.srs.saveState();
       }
       container.innerHTML = `
         <div class="session-complete-box">
           <div class="session-complete-icon">${isPassed ? '⚡🏆' : '📝'}</div>
-          <div class="session-complete-title">${isPassed ? 'অভিনন্দন! ডে স্কিপ সফল হয়েছে' : 'টেস্ট সম্পন্ন হয়েছে'}</div>
+          <div class="session-complete-title">${isPassed ? `অভিনন্দন! লেভেল ${targetLvl} টেস্টে উত্তীর্ণ` : 'টেস্ট সম্পন্ন হয়েছে'}</div>
           <div class="session-complete-sub">
             ${isPassed
-              ? `আপনি সফলভাবে <strong>${accuracy}%</strong> সঠিক উত্তর দিয়ে পরবর্তী দিনে (দিন ${this.srs.currentDay}) উত্তীর্ণ হয়েছেন!`
-              : `আপনার যথার্থতা ছিল <strong>${accuracy}%</strong>। ৮০% অর্জন করলে দিন স্কিপ হবে। পুনরায় চেষ্টা করতে পারেন।`}
+              ? `আপনি সফলভাবে <strong>${accuracy}%</strong> সঠিক উত্তর দিয়ে <strong>দিন ${targetDay} (লেভেল ${targetLvl})</strong> আনলক করেছেন!`
+              : `আপনার স্কোর ছিল <strong>${accuracy}%</strong>। পাস করতে ৮০% সঠিক প্রয়োজন। আরও প্রস্তুতি নিয়ে পুনরায় চেষ্টা করতে পারেন।`}
           </div>
 
           <div class="mission-targets-grid" style="margin-bottom:24px;">
@@ -1023,23 +1162,23 @@ class QuranApp {
             </div>
             <div class="target-item">
               <div class="target-val">দিন ${this.srs.currentDay}</div>
-              <div class="target-lbl">নতুন দিন</div>
+              <div class="target-lbl">বর্তমান দিন</div>
             </div>
           </div>
 
           <div style="display:flex; flex-direction:column; gap:10px;">
             ${isPassed ? `
-              <button class="btn-primary session-start-btn" onclick="app.startGuidedDailySession()">
-                🚀 নতুন দিনের মিশন শুরু করুন (Next Session)
+              <button class="btn-primary session-start-btn" onclick="app.completeAndExitToLearn()">
+                🗺️ শিখন পথে দিন ${this.srs.currentDay}-এ যান
               </button>
             ` : `
-              <button class="btn-primary session-start-btn" onclick="app.startDaySkipExam()">
+              <button class="btn-primary session-start-btn" onclick="app.startLevelSkipExam(${targetLvl}, ${targetDay})">
                 ⚡ পুনরায় পরীক্ষা দিন
               </button>
+              <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitToLearn()">
+                শিখন পথে ফিরে যান
+              </button>
             `}
-            <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitSession()">
-              হোম স্ক্রিনে ফিরে যান
-            </button>
           </div>
         </div>
       `;
@@ -1284,8 +1423,28 @@ class QuranApp {
   renderProgressStatsView(container) {
     const stats = this.srs.getStats(this.vocab);
     const weakWords = this.srs.getWeakWords(this.vocab);
+    const masteredWords = this.srs.getMasteredWords(this.vocab);
+    const totalWords = this.vocab.length || 2000;
+    const masteredPct = Math.round((masteredWords.length / totalWords) * 100);
+    const circumference = 351.86;
+    const offset = circumference - (circumference * masteredPct) / 100;
 
     container.innerHTML = `
+      <!-- Progress Donut (Sent from Home to Progress Tab) -->
+      <div class="screenshot-card progress-summary-card" style="margin-bottom:14px; text-align:center;">
+        <div class="progress-donut-container">
+          <svg class="progress-donut-svg" width="144" height="144" viewBox="0 0 144 144">
+            <circle class="donut-track" cx="72" cy="72" r="56" stroke-width="12" fill="transparent" />
+            <circle class="donut-fill" cx="72" cy="72" r="56" stroke-width="12" stroke-linecap="round" stroke-dasharray="351.86" stroke-dashoffset="${offset}" fill="transparent" transform="rotate(-90 72 72)" />
+          </svg>
+          <div class="donut-center-info">
+            <div class="summary-percent">${masteredPct}%</div>
+            <div class="summary-sub">অগ্রগতি</div>
+          </div>
+        </div>
+        <div class="summary-footer-count" style="margin-top:10px;">${masteredWords.length} / ${totalWords} শব্দ শেখা হয়েছে</div>
+      </div>
+
       <!-- Overall Metrics -->
       <div class="card-section" style="margin-bottom:14px;">
         <div class="section-title">৯০ দিনের শিখন অগ্রগতি</div>
@@ -1857,38 +2016,78 @@ class QuranApp {
   }
 
   // ================= DAY SKIP & LEVEL JUMP (Duolingo Style) =================
-  openDaySkipModal() {
-    const select = document.getElementById('direct-day-select');
-    if (select && select.options.length === 0) {
+  openDaySkipModal(targetDay) {
+    const select = document.getElementById('exam-target-day-select');
+    const defaultDay = targetDay || Math.min(90, this.srs.currentDay + 1);
+
+    if (select) {
       let opts = '';
       for (let d = 1; d <= 90; d++) {
-        opts += `<option value="${d}" ${d === this.srs.currentDay ? 'selected' : ''}>দিন ${d} (লেভেল ${Math.ceil(d / 4.5)})</option>`;
+        const lvl = Math.min(20, Math.ceil(d / 4.5));
+        opts += `<option value="${d}" ${d === defaultDay ? 'selected' : ''}>দিন ${d} (লেভেল ${lvl})</option>`;
       }
       select.innerHTML = opts;
     }
+    this.updateExamTargetInfo();
     this.openModal('day-skip-modal');
   }
 
-  executeDayJump() {
-    const select = document.getElementById('direct-day-select');
+  updateExamTargetInfo() {
+    const select = document.getElementById('exam-target-day-select');
+    const infoText = document.getElementById('exam-target-info-text');
+    if (!select || !infoText) return;
+    const targetDay = parseInt(select.value, 10);
+    const targetLvl = Math.min(20, Math.ceil(targetDay / 4.5));
+    infoText.innerHTML = `
+      <strong>দিন ${targetDay} (লেভেল ${targetLvl})</strong> আনলক করতে এই লেভেলের ১০টি প্রশ্নের কুইজ নেওয়া হবে। ৮০% (৮টি সঠিক) পেলে এই দিন পর্যন্ত সমস্ত দিন আনলক হয়ে যাবে!
+    `;
+  }
+
+  startSelectedLevelExam() {
+    const select = document.getElementById('exam-target-day-select');
+    const targetDay = select ? parseInt(select.value, 10) : (this.srs.currentDay + 1);
+    const targetLvl = Math.min(20, Math.ceil(targetDay / 4.5));
+
+    this.closeModal('day-skip-modal');
+    this.startLevelSkipExam(targetLvl, targetDay);
+  }
+
+  executeDayJumpFromModal() {
+    const select = document.getElementById('exam-target-day-select');
     if (!select) return;
     const targetDay = parseInt(select.value, 10);
     this.srs.jumpToDay(targetDay);
     this.closeModal('day-skip-modal');
-    this.renderHome();
+    this.switchScreen('learn');
+  }
+
+  executeDayJump() {
+    this.executeDayJumpFromModal();
   }
 
   startDaySkipExam() {
+    const targetDay = Math.min(90, this.srs.currentDay + 1);
+    const targetLvl = Math.min(20, Math.ceil(targetDay / 4.5));
+    this.startLevelSkipExam(targetLvl, targetDay);
+  }
+
+  startLevelSkipExam(targetLvl, targetDay) {
     this.closeModal('day-skip-modal');
-    const wordsPerDay = 22;
-    const startIndex = (this.srs.currentDay - 1) * wordsPerDay;
-    const candidatePool = this.vocab.slice(startIndex, startIndex + 30);
+
+    // Collect words from this level
+    let candidatePool = this.vocab.filter(w => w.level === targetLvl);
+    if (!candidatePool || candidatePool.length === 0) {
+      const startIndex = Math.max(0, (targetDay - 1) * 22);
+      candidatePool = this.vocab.slice(startIndex, startIndex + 30);
+    }
     const testWords = this.shuffleArray([...candidatePool]).slice(0, 10);
 
     this.sessionQueue = [];
     this.sessionStepIndex = 0;
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
     this.isSkipExam = true;
+    this.targetExamDay = targetDay;
+    this.targetExamLevel = targetLvl;
 
     testWords.forEach((w, idx) => {
       const qType = idx % 2 === 0 ? 'ar_to_bn' : 'bn_to_ar';
@@ -1900,9 +2099,18 @@ class QuranApp {
       });
     });
 
-    this.sessionQueue.push({ type: 'summary', isSkipExam: true });
+    this.sessionQueue.push({
+      type: 'summary',
+      isSkipExam: true,
+      targetExamDay: targetDay,
+      targetExamLevel: targetLvl
+    });
     this.switchScreen('session');
     this.renderSessionCurrentStep();
+  }
+
+  completeAndExitToLearn() {
+    this.switchScreen('learn');
   }
 
   loadMoreVocab() {
