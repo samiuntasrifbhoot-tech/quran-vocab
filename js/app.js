@@ -122,8 +122,8 @@ class QuranApp {
           splash.classList.add('fade-out');
           setTimeout(() => {
             splash.style.display = 'none';
-          }, 350);
-        }, 120);
+          }, 400);
+        }, 850);
       }
 
       // Check onboarding
@@ -239,12 +239,27 @@ class QuranApp {
     this.currentScreen = screenName;
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(`${screenName}-screen`);
-    if (target) target.classList.add('active');
+    if (target) {
+      target.classList.add('active');
+      const scroller = target.querySelector('.scroll-content');
+      if (scroller && screenName !== 'quran') {
+        scroller.scrollTop = 0;
+      }
+    }
 
-    // Update bottom nav active state
-    document.querySelectorAll('.bottom-nav .nav-tab').forEach(t => {
-      t.classList.toggle('active', t.dataset.screen === screenName);
-    });
+    // Update bottom nav active state and visibility
+    const bottomNav = document.querySelector('.bottom-nav');
+    if (bottomNav) {
+      const fullScreenViews = ['session', 'memorize'];
+      if (fullScreenViews.includes(screenName)) {
+        bottomNav.style.display = 'none';
+      } else {
+        bottomNav.style.display = 'flex';
+      }
+      document.querySelectorAll('.bottom-nav .nav-tab').forEach(t => {
+        t.classList.toggle('active', t.dataset.screen === screenName);
+      });
+    }
 
     // Screen-specific renderers
     if (screenName === 'home') this.renderHome();
