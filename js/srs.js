@@ -279,32 +279,21 @@ export class SRSEngine {
   }
 
   /**
-   * Generates Today's Mission tailored to 90-day trajectory & user's daily study time
+   * Generates Today's Mission tailored to user's 12-15 words curriculum and spaced intervals:
+   * 1. আজকের ১২টি নতুন শব্দ (Today's 12 new words)
+   * 2. কালকের ১২টি প্র্যাকটিস (Yesterday / Day - 1 words)
+   * 3. ৭ দিন আগের ১২টি প্র্যাকটিস (7 days ago / Day - 7 words)
+   * 4. ৩০ দিন আগের প্র্যাকটিস (30 days ago / Day - 30 words)
+   * 5. ওভারঅল দুর্বল ও রিভিউ প্র্যাকটিস (Overall review pool)
    */
   getDailyMission(vocabList) {
-    const due = this.getDueWords(vocabList);
-    const weak = this.getWeakWords(vocabList);
-
     const timeMin = this.settings.dailyTimeMinutes || 15;
-    let newWordsQuota = 12;
-    let dueLimit = 18;
-    let quranPracticeCount = 5;
+    const currentDay = this.currentDay;
+    const newWordsQuota = 12; // 12 new words per lesson
 
-    if (timeMin <= 10) {
-      newWordsQuota = 8;
-      dueLimit = 12;
-      quranPracticeCount = 3;
-    } else if (timeMin >= 20) {
-      newWordsQuota = 16;
-      dueLimit = 22;
-      quranPracticeCount = 7;
-    }
-
-    // Determine which words belong to today's slice based on day 1 to 90
-    // 2,000 words / 90 days = ~22.2 words per day total pool
-    const wordsPerDay = 22;
-    const startIndex = (this.currentDay - 1) * wordsPerDay;
-    const dayPool = vocabList.slice(startIndex, startIndex + wordsPerDay);
+    // Slice for current day (12 words per day)
+    const startIndex = (currentDay - 1) * 12;
+    const dayPool = vocabList.slice(startIndex, startIndex + 12);
     
     // Pick unlearned new words from the pool first; fallback to any NEW words
     let newWords = dayPool.filter(w => !this.records[w.id] || this.records[w.id].state === MasteryState.NEW);
@@ -313,6 +302,32 @@ export class SRSEngine {
       newWords = newWords.concat(remainingNew.slice(0, newWordsQuota - newWords.length));
     }
     newWords = newWords.slice(0, newWordsQuota);
+
+    // Yesterday's words (Day - 1):
+    let yesterdayWords = [];
+    if (currentDay > 1) {
+      const yStart = (currentDay - 2) * 12;
+      yesterdayWords = vocabList.slice(yStart, yStart + 12);
+    }
+
+    // 7 days ago words (Day - 7):
+    let day7AgoWords = [];
+    if (currentDay > 7) {
+      const d7Start = (currentDay - 8) * 12;
+      day7AgoWords = vocabList.slice(d7Start, d7Start + 12);
+    }
+
+    // 30 days ago words (Day - 30):
+    let day30AgoWords = [];
+    if (currentDay > 30) {
+      const d30Start = (currentDay - 31) * 12;
+      day30AgoWords = vocabList.slice(d30Start, d30Start + 12);
+    }
+
+    // Overall practice pool: weak words or due words across the system
+    const weak = this.getWeakWords(vocabList);
+    const due = this.getDueWords(vocabList);
+    const overallPool = Array.from(new Set([...weak, ...due])).filter(w => !newWords.some(x => x.id === w.id));
 
     let phase = 'পর্ব ১: মৌলিক ভিত্তি (Foundation)';
     let lessonWhy = 'কুরআনের সর্বাধিক ব্যবহৃত মৌলিক অব্যয়, ক্রিয়া ও সর্বনাম যা প্রতিটি পাতায় একাধিকবার আসে।';
@@ -329,9 +344,13 @@ export class SRSEngine {
       phase,
       lessonWhy,
       newWords,
-      dueWords: due.slice(0, dueLimit),
+      yesterdayWords,
+      day7AgoWords,
+      day30AgoWords,
+      overallWords: overallPool.slice(0, 8),
+      dueWords: due.slice(0, 18),
       weakWords: weak.slice(0, 8),
-      quranPracticeCount,
+      quranPracticeCount: 5,
       estimatedMinutes: timeMin
     };
   }

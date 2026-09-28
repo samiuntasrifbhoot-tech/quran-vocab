@@ -1,11 +1,8 @@
-const CACHE = 'quran-v8';
+const CACHE = 'quran-v9';
 const CORE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './icon.png',
-  './icon-192.png',
-  './icon-512.png',
   './icon.svg',
   './css/app.css',
   './js/app.js',

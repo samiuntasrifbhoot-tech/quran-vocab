@@ -152,14 +152,6 @@ class QuranApp {
   }
 
   setupEventListeners() {
-    // Bottom navigation clicks
-    document.querySelectorAll('.bottom-nav .nav-tab').forEach(tab => {
-      tab.addEventListener('click', (e) => {
-        const targetScreen = tab.dataset.screen;
-        if (targetScreen) this.switchScreen(targetScreen);
-      });
-    });
-
     // Close modals on overlay backdrop click
     document.querySelectorAll('.modal-overlay').forEach(modal => {
       modal.addEventListener('click', (e) => {
@@ -173,13 +165,20 @@ class QuranApp {
     window.addEventListener('keydown', (e) => {
       if (this.currentScreen === 'session' && this.sessionQueue.length > 0) {
         const currentItem = this.sessionQueue[this.sessionStepIndex];
-        if (currentItem && currentItem.type === 'review') {
+        if (currentItem && (currentItem.type === 'review' || currentItem.type === 'flashcard')) {
           if (e.code === 'Space') {
             e.preventDefault();
-            this.revealSessionCard();
+            if (currentItem.type === 'flashcard') this.revealFlashcardCard();
+            else this.revealSessionCard();
           } else if (this.isSessionCardRevealed) {
-            if (e.key === '1') this.submitSessionRating(0);
-            if (e.key === '2') this.submitSessionRating(1);
+            if (e.key === '1') {
+              if (currentItem.type === 'flashcard') this.submitFlashcardRating(0);
+              else this.submitSessionRating(0);
+            }
+            if (e.key === '2') {
+              if (currentItem.type === 'flashcard') this.submitFlashcardRating(2);
+              else this.submitSessionRating(1);
+            }
             if (e.key === '3') this.submitSessionRating(2);
             if (e.key === '4') this.submitSessionRating(3);
           }
@@ -245,6 +244,10 @@ class QuranApp {
       window.speechSynthesis.cancel();
     }
     document.querySelectorAll('.loading, .playing').forEach(el => el.classList.remove('loading', 'playing'));
+    // Close any open modals on screen switch
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      modal.style.display = 'none';
+    });
 
     this.currentScreen = screenName;
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -257,6 +260,10 @@ class QuranApp {
       }
     }
 
+    if (typeof window !== 'undefined' && window.scrollTo) {
+      window.scrollTo(0, 0);
+    }
+
     // Update bottom nav active state and visibility
     const bottomNav = document.querySelector('.bottom-nav');
     if (bottomNav) {
@@ -267,17 +274,22 @@ class QuranApp {
         bottomNav.style.display = 'flex';
       }
       document.querySelectorAll('.bottom-nav .nav-tab').forEach(t => {
-        t.classList.toggle('active', t.dataset.screen === screenName);
+        const isMatched = t.dataset.screen === screenName || (screenName === 'vocab' && t.dataset.screen === 'progress');
+        t.classList.toggle('active', isMatched);
       });
     }
 
-    // Screen-specific renderers
-    if (screenName === 'home') this.renderHome();
-    if (screenName === 'vocab') this.renderVocabScreen();
-    if (screenName === 'learn') this.renderLearnScreen();
-    if (screenName === 'review') this.renderReviewScreen();
-    if (screenName === 'quran') this.renderQuranReader();
-    if (screenName === 'progress') this.renderProgressScreen();
+    // Screen-specific renderers safely invoked
+    try {
+      if (screenName === 'home') this.renderHome();
+      else if (screenName === 'vocab') this.renderVocabScreen();
+      else if (screenName === 'learn') this.renderLearnScreen();
+      else if (screenName === 'review') this.renderReviewScreen();
+      else if (screenName === 'quran') this.renderQuranReader();
+      else if (screenName === 'progress') this.renderProgressScreen();
+    } catch (err) {
+      console.error(`Error rendering screen ${screenName}:`, err);
+    }
   }
 
   openModal(modalId) {
@@ -507,14 +519,6 @@ class QuranApp {
     });
 
     container.innerHTML = html;
-
-    // Auto-scroll to current active day node
-    setTimeout(() => {
-      const activeEl = document.getElementById(`duo-day-node-${currentDay}`);
-      if (activeEl) {
-        activeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    }, 150);
   }
 
   openCompletedDayModal(day) {
@@ -660,6 +664,16 @@ class QuranApp {
         </div>
 
         <div class="practice-options-grid">
+          <!-- Option 0: Flashcard Practice (Only learned words) -->
+          <div class="practice-choice-card" onclick="app.startFlashcardSession()">
+            <div class="practice-choice-icon" style="background:#fef3c7; color:#b45309;">🗂️</div>
+            <div class="practice-choice-info">
+              <div class="practice-choice-title">ফ্ল্যাশকার্ড ড্রিল (Flashcard Practice)</div>
+              <div class="practice-choice-desc">ইতিমধ্যে শেখা সম্পূর্ণ শব্দগুলো ফ্ল্যাশকার্ডে উল্টেপাল্টে মুখস্থ ঝালাই করুন।</div>
+            </div>
+            <span style="color:var(--text-muted); font-size:16px;">▸</span>
+          </div>
+
           <!-- Option 1: Vocabulary Recall -->
           <div class="practice-choice-card" onclick="app.startSpecificPractice('vocab_recall')">
             <div class="practice-choice-icon" style="background:#ecfdf5; color:#059669;">📖</div>
@@ -739,31 +753,76 @@ class QuranApp {
     this.sessionStepIndex = 0;
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
 
-    // 1. Part 1: Quick Due Reviews
-    mission.dueWords.slice(0, 10).forEach(w => {
-      this.sessionQueue.push({ type: 'review', word: w });
-    });
-
-    // 2. Part 2: New Words (See & Understand)
+    // 1. আজকের ১২টি নতুন শব্দ শিখন (Study cards)
     mission.newWords.forEach(w => {
-      this.sessionQueue.push({ type: 'new_word', word: w });
+      this.sessionQueue.push({ type: 'new_word', word: w, stageLabel: 'আজকের ১২টি নতুন শব্দ' });
     });
 
-    // 3. Part 3: Active Recall Quizzes (Rotate Question Types)
-    const combinedQuizPool = [...mission.newWords, ...mission.dueWords.slice(0, 5)];
-    const shuffledPool = this.shuffleArray([...combinedQuizPool]).slice(0, 8);
-    shuffledPool.forEach((w, idx) => {
-      const qTypes = ['ar_to_bn', 'bn_to_ar', 'root_id', 'context_ayah'];
-      const qType = qTypes[idx % qTypes.length];
+    // 2. আজকের ১২টি নতুন শব্দের প্রাথমিক কুইজ
+    mission.newWords.forEach((w, idx) => {
+      const qType = (idx % 2 === 0) ? 'ar_to_bn' : 'bn_to_ar';
       this.sessionQueue.push({
         type: 'active_recall',
         word: w,
         qType,
+        stageLabel: 'আজকের নতুন শব্দের কুইজ',
         ...this.generateQuizOptions(w, qType)
       });
     });
 
-    // 4. Part 4: Quran Context Practice (Authentic Ayah recognition)
+    // 3. কালকের (গতকালকের) ১২টি শব্দ প্র্যাকটিস
+    if (mission.yesterdayWords && mission.yesterdayWords.length > 0) {
+      mission.yesterdayWords.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: 'ar_to_bn',
+          stageLabel: 'কালকের ১২টি শব্দের প্র্যাকটিস',
+          ...this.generateQuizOptions(w, 'ar_to_bn')
+        });
+      });
+    }
+
+    // 4. ৭ দিন আগের ১২টি শব্দ প্র্যাকটিস
+    if (mission.day7AgoWords && mission.day7AgoWords.length > 0) {
+      mission.day7AgoWords.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: 'bn_to_ar',
+          stageLabel: '৭ দিন আগের ১২টি শব্দ প্র্যাকটিস',
+          ...this.generateQuizOptions(w, 'bn_to_ar')
+        });
+      });
+    }
+
+    // 5. ৩০ দিন আগের শব্দ প্র্যাকটিস
+    if (mission.day30AgoWords && mission.day30AgoWords.length > 0) {
+      mission.day30AgoWords.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: 'ar_to_bn',
+          stageLabel: '৩০ দিন আগের শব্দের প্র্যাকটিস',
+          ...this.generateQuizOptions(w, 'ar_to_bn')
+        });
+      });
+    }
+
+    // 6. ওভারঅল দুর্বল ও বকেয়া শব্দের প্র্যাকটিস
+    if (mission.overallWords && mission.overallWords.length > 0) {
+      mission.overallWords.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: w.root ? 'root_id' : 'ar_to_bn',
+          stageLabel: 'ওভারঅল পুনরাবৃত্তি',
+          ...this.generateQuizOptions(w, w.root ? 'root_id' : 'ar_to_bn')
+        });
+      });
+    }
+
+    // 7. কুরআন আয়াত প্রেক্ষাপট অনুশীলন
     const contextWords = mission.newWords.filter(w => w.example_references && w.example_references.length > 0).slice(0, 3);
     contextWords.forEach(w => {
       const ref = w.example_references[0];
@@ -771,27 +830,50 @@ class QuranApp {
       const verse = this.quranVerses[verseKey];
       if (verse) {
         this.sessionQueue.push({
-          type: 'quran_context',
+          type: 'active_recall',
           word: w,
+          qType: 'context_ayah',
           verseKey,
-          verse
+          verse,
+          stageLabel: 'কুরআন আয়াত প্রেক্ষাপট',
+          ...this.generateQuizOptions(w, 'context_ayah')
         });
       }
     });
 
-    // 5. Part 5: Mini Grammar Concept
-    const grammarSnippet = this.getDailyGrammarSnippet(mission.day);
-    if (grammarSnippet) {
-      this.sessionQueue.push({
-        type: 'mini_grammar',
-        concept: grammarSnippet
-      });
-    }
-
-    // 6. Part 6: Session Summary
+    // 8. সেশন সমাপ্তি
     this.sessionQueue.push({ type: 'summary' });
 
     // Switch to session screen
+    this.switchScreen('session');
+    this.renderSessionCurrentStep();
+  }
+
+  startFlashcardSession() {
+    this.closeModal('practice-options-modal');
+
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
+
+    // Flashcards only pull from already learned words
+    let pool = this.srs.getActiveLearnedWords(this.vocab);
+    if (pool.length === 0) {
+      // If user hasn't completed lessons yet, use Day 1 words as starting set
+      pool = this.vocab.slice(0, 12);
+    }
+
+    this.sessionQueue = [];
+    this.sessionStepIndex = 0;
+    this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
+
+    const selectedWords = this.shuffleArray([...pool]).slice(0, 25);
+    selectedWords.forEach(w => {
+      this.sessionQueue.push({ type: 'flashcard', word: w });
+    });
+
+    this.sessionQueue.push({ type: 'summary', customTitle: 'ফ্ল্যাশকার্ড প্র্যাকটিস সমাপ্ত' });
     this.switchScreen('session');
     this.renderSessionCurrentStep();
   }
@@ -846,6 +928,9 @@ class QuranApp {
     if (item.type === 'review') {
       if (stepTitle) stepTitle.textContent = 'পুনরাবৃত্তি (Active Recall)';
       this.renderSessionReviewCard(item.word);
+    } else if (item.type === 'flashcard') {
+      if (stepTitle) stepTitle.textContent = 'ফ্ল্যাশকার্ড ড্রিল (Flashcard Practice)';
+      this.renderSessionFlashcardCard(item.word);
     } else if (item.type === 'new_word') {
       if (stepTitle) stepTitle.textContent = 'নতুন শব্দ শিখন (See & Understand)';
       this.renderSessionNewWordCard(item.word);
@@ -920,6 +1005,109 @@ class QuranApp {
     if (item && item.word) {
       this.srs.rateWord(item.word.id, rating);
       this.sessionStats.reviewCount += 1;
+    }
+    this.nextSessionStep();
+  }
+
+  // Step 1B: Flashcard Card (Only already learned words)
+  renderSessionFlashcardCard(word) {
+    const container = document.getElementById('session-body-container');
+    const r = this.srs.getRecord(word.id);
+    const example = (word.example_references && word.example_references[0]) ? word.example_references[0] : null;
+    let verseHtml = '';
+    if (example) {
+      const verseKey = `${example.surah}:${example.ayah}`;
+      const v = this.quranVerses[verseKey];
+      if (v) {
+        verseHtml = `
+          <div class="ayah-card" style="margin: 14px 0 10px 0; text-align:right;">
+            <div class="ayah-meta" style="direction:ltr; text-align:left;">
+              <span>সূরা ${v.surah}:${v.ayah}</span>
+              <span style="color:var(--gold);">কুরআনিক প্রয়োগ</span>
+            </div>
+            <div class="ayah-arabic-text" style="font-size:20px; line-height:2.0;">${v.text_ar}</div>
+            <div class="ayah-bn-translation" style="direction:ltr; text-align:left; font-size:13px; margin-top:4px;">${v.text_bn}</div>
+          </div>
+        `;
+      }
+    }
+
+    container.innerHTML = `
+      <div class="session-step-card" style="text-align:center;">
+        <span class="session-step-label">🗂️ ফ্ল্যাশকার্ড • সক্রিয় স্মৃতি ঝালাই</span>
+
+        <div style="display:flex; justify-content:center; align-items:center; gap:8px; margin: 12px 0 6px 0;">
+          <div class="flashcard-ar" style="font-size:52px;">${word.lemma_ar}</div>
+          <button class="icon-btn" onclick="app.playPronunciation('${word.lemma_ar}')" title="উচ্চারণ শুনুন">
+            <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+          </button>
+        </div>
+
+        ${this.srs.settings.transliteration ? `<div class="flashcard-translit" style="font-size:16px; margin-bottom:8px;">${word.transliteration}</div>` : ''}
+
+        <div style="display:flex; justify-content:center; gap:8px; margin-bottom:12px;">
+          <span class="word-badge">${word.pos} (${word.word_type || 'শব্দ'})</span>
+          ${word.root ? `<span class="word-badge" style="color:var(--gold);">মূলধাতু: ${word.root}</span>` : ''}
+        </div>
+
+        <div id="flashcard-reveal-box" style="display:none; margin-top:14px; border-top:1px solid var(--border); padding-top:16px;">
+          <div class="fc-meaning-bn" style="font-size:24px; color:var(--primary); font-weight:700;">${word.primary_meaning_bn}</div>
+          <div class="fc-meaning-en" style="font-size:14px; color:var(--text-secondary); margin-top:4px;">${word.primary_meaning_en}</div>
+
+          ${verseHtml}
+
+          <div style="font-size:12px; color:var(--text-muted); margin: 16px 0 10px 0;">
+            আপনি কি এই শব্দটির সঠিক অর্থ মনে করতে পেরেছেন?
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <button class="pill-btn" style="background:#fee2e2; color:#b91c1c; border:1px solid #fca5a5; padding:12px 8px; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer;" onclick="app.submitFlashcardRating(0)">
+              ✕ পারি না / ভুল হয়েছে
+              <div style="font-size:10px; font-weight:400; opacity:0.85; margin-top:2px;">(বারবার আসবে ও চর্চা হবে)</div>
+            </button>
+            <button class="pill-btn" style="background:#dcfce7; color:#15803d; border:1px solid #86efac; padding:12px 8px; font-weight:700; font-size:14px; border-radius:14px; cursor:pointer;" onclick="app.submitFlashcardRating(2)">
+              ✓ পারি / মনে আছে
+              <div style="font-size:10px; font-weight:400; opacity:0.85; margin-top:2px;">(আয়ত্তে রয়েছে)</div>
+            </button>
+          </div>
+        </div>
+
+        <button id="flashcard-reveal-btn" class="btn-primary" style="margin-top:16px;" onclick="app.revealFlashcardCard()">
+          👁️ অর্থ দেখুন (Reveal Answer)
+        </button>
+      </div>
+    `;
+  }
+
+  revealFlashcardCard() {
+    this.isSessionCardRevealed = true;
+    const box = document.getElementById('flashcard-reveal-box');
+    const btn = document.getElementById('flashcard-reveal-btn');
+    if (box) box.style.display = 'block';
+    if (btn) btn.style.display = 'none';
+  }
+
+  submitFlashcardRating(rating) {
+    const item = this.sessionQueue[this.sessionStepIndex];
+    if (item && item.word) {
+      this.srs.rateWord(item.word.id, rating);
+      this.sessionStats.reviewCount += 1;
+
+      // If user rating is 0 (পারি না), this is a signal that more practice is needed!
+      // Add the word again to the session queue so it appears again in the same flashcard session!
+      if (rating === 0) {
+        // Insert 3 steps later or before summary
+        const summaryIdx = this.sessionQueue.findIndex(it => it.type === 'summary');
+        const insertIdx = summaryIdx !== -1
+          ? Math.min(summaryIdx, this.sessionStepIndex + 3)
+          : this.sessionQueue.length;
+        this.sessionQueue.splice(insertIdx, 0, { type: 'flashcard', word: item.word, isRetry: true });
+
+        // Light haptic feedback
+        try { if (navigator.vibrate) navigator.vibrate(45); } catch(e){}
+      } else {
+        try { if (navigator.vibrate) navigator.vibrate(25); } catch(e){}
+      }
     }
     this.nextSessionStep();
   }
@@ -1226,6 +1414,28 @@ class QuranApp {
       if (nextBtn) {
         nextBtn.style.display = 'block';
         nextBtn.textContent = 'বুঝেছি, পরবর্তী ধাপ ➔';
+      }
+
+      // Adaptive retry: Re-queue failed word so learner is re-tested on it until mastered!
+      if (word && !item.isRetryQueued) {
+        item.isRetryQueued = true;
+        this.srs.rateWord(word.id, 0);
+
+        const repeatItem = {
+          type: 'active_recall',
+          word: word,
+          qType: item.qType || 'ar_to_bn',
+          stageLabel: 'পুনঃস্মরণ অনুশীলন (ভুল সংশোধনী)',
+          isRetry: true,
+          ...this.generateQuizOptions(word, item.qType || 'ar_to_bn')
+        };
+        const summaryIdx = this.sessionQueue.findIndex(it => it.type === 'summary');
+        if (summaryIdx !== -1) {
+          const insertPos = Math.min(summaryIdx, this.sessionStepIndex + 3);
+          this.sessionQueue.splice(insertPos, 0, repeatItem);
+        } else {
+          this.sessionQueue.push(repeatItem);
+        }
       }
     }
   }
