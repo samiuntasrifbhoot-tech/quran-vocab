@@ -456,26 +456,26 @@
 
       <!-- Vertically scrollable container inside Word Detail -->
       <div class="word-detail-scroll-area" id="word-detail-scroll-container">
-        <!-- 1. Word + Meaning -->
-        <div style="text-align:center; padding-bottom:14px; border-bottom:1px solid var(--border); margin-bottom:14px;">
-          <div class="arabic-lemma" id="m-ar-lemma" style="font-size:48px; margin-bottom:4px;">مِنْ</div>
-          
-          <!-- 2. Pronunciation Audio Control -->
-          <div>
-            <button class="word-detail-audio-btn" id="m-audio-btn" onclick="app.playWordPronunciation()" title="উচ্চারণ শুনুন">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-              <span id="m-audio-label">🔊 উচ্চারণ শুনুন</span>
-            </button>
-          </div>
-
-          <div class="ar-translit" id="m-translit" style="font-size:15px; margin: 8px 0 4px 0;">min</div>
+        <!-- 1. Core Word (Arabic word, meanings, POS, level/difficulty) -->
+        <div style="text-align:center; padding-bottom:12px; border-bottom:1px solid var(--border); margin-bottom:12px;">
+          <div class="arabic-lemma" id="m-ar-lemma" style="font-size:48px; margin-bottom:6px;">مِنْ</div>
+          <div class="ar-translit" id="m-translit" style="font-size:15px; margin-bottom:6px;">min</div>
           <div class="word-bn-title" id="m-bn-meaning" style="font-size:22px; margin-bottom:2px;">থেকে, হইতে</div>
-          <div class="word-en-sub" id="m-en-meaning" style="font-size:14px;">from, of</div>
-          <div style="margin-top:8px; display:flex; justify-content:center; gap:6px;">
+          <div class="word-en-sub" id="m-en-meaning" style="font-size:14px; margin-bottom:8px;">from, of</div>
+          <div style="display:flex; justify-content:center; flex-wrap:wrap; gap:6px;">
             <span class="word-badge" id="m-pos-chip">Preposition</span>
+            <span class="word-badge" id="m-level-chip">লেভেল ১</span>
             <span class="word-badge" id="m-freq-chip">৩২২৬ বার</span>
             <span class="word-badge" id="m-state-chip" style="color:var(--gold);">নতুন</span>
           </div>
+        </div>
+
+        <!-- 2. Pronunciation Audio Control -->
+        <div style="text-align:center; margin-bottom:14px;">
+          <button class="word-detail-audio-btn" id="m-audio-btn" onclick="app.playWordPronunciation()" title="আরবি উচ্চারণ শুনুন">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            <span id="m-audio-label">🔊 উচ্চারণ শুনুন (Listen)</span>
+          </button>
         </div>
 
         <!-- 3. Root Section -->
@@ -774,7 +774,7 @@
   <div class="modal-overlay" id="day-skip-modal">
     <div class="modal-sheet">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-        <div style="font-size:17px; font-weight:800; color:var(--text-primary);">লেভেল পরীক্ষা দিয়ে দিন স্কিপ (Duolingo Style)</div>
+        <div style="font-size:17px; font-weight:800; color:var(--text-primary);">লেভেল পরীক্ষা দিয়ে দিন স্কিপ (Level Jump Exam)</div>
         <button class="icon-btn" onclick="app.closeModal('day-skip-modal')">✕</button>
       </div>
 

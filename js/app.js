@@ -1025,6 +1025,16 @@ class QuranApp {
           <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">(বোতামে চাপ দিয়ে আবার শুনুন)</div>
         </div>
       `;
+    } else if (item.qType === 'listening_ar') {
+      questionHeader = 'উচ্চারণ শুনে কোন আরবি শব্দটি বলা হয়েছে তা চিহ্নিত করুন:';
+      questionPrompt = `
+        <div style="margin: 16px 0;">
+          <button class="word-detail-audio-btn" style="font-size:16px; padding:10px 20px;" onclick="app.playPronunciation('${word.lemma_ar}')">
+            🔊 আরবি উচ্চারণ শুনুন
+          </button>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:8px;">(বোতামে চাপ দিয়ে আবার শুনুন)</div>
+        </div>
+      `;
     } else if (item.qType === 'root_id') {
       questionHeader = 'এই শব্দটির সঠিক মূলধাতু (Root) কোনটি?';
       questionPrompt = `<div class="flashcard-ar" style="font-size:46px; margin: 8px 0;">${word.lemma_ar}</div><div style="font-size:14px; color:var(--text-muted);">${word.primary_meaning_bn}</div>`;
@@ -1035,11 +1045,23 @@ class QuranApp {
       questionHeader = 'কুরআনিক আয়াত প্রেক্ষাপটে অর্থ চিহ্নিত করুন:';
       let snippet = '';
       if (item.verse) {
-        snippet = `<div style="font-size:17px; font-family:'Amiri',serif; color:var(--primary); line-height:1.8; margin-bottom:6px; background:var(--surface-alt); padding:8px 12px; border-radius:8px;">${item.verse.text_ar}</div>`;
+        const tokens = item.verse.text_ar.split(/\s+/);
+        const cleanTarget = (word.lemma_clean || word.lemma_ar || '').replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+        const tokensHtml = tokens.map(tok => {
+          const cleanTok = tok.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+          const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+          return `<span class="${isTarget ? 'session-ayah-highlight' : ''}">${tok}</span>`;
+        }).join(' ');
+        snippet = `
+          <div style="background:var(--surface-alt); padding:10px 14px; border-radius:var(--radius-md); margin-bottom:12px; border-left:3px solid var(--primary); text-align:right;">
+            <div style="font-size:11px; color:var(--text-muted); direction:ltr; text-align:left; margin-bottom:4px;">সূরা ${item.verse.surah} : আয়াত ${item.verse.ayah}</div>
+            <div class="ayah-arabic-text" style="font-size:22px; line-height:2.0; margin-bottom:4px;">${tokensHtml}</div>
+          </div>
+        `;
       }
       questionPrompt = `
         ${snippet}
-        <div style="font-size:13px; color:var(--text-muted);">লক্ষ্য শব্দ: <strong class="arabic-lemma" style="font-size:24px;">${word.lemma_ar}</strong></div>
+        <div style="font-size:13px; color:var(--text-secondary); margin-bottom:6px;">এই আয়াতে নির্দেশিত <strong class="arabic-lemma" style="font-size:24px; color:var(--primary);">${word.lemma_ar}</strong> শব্দটির অর্থ কোনটি?</div>
       `;
     } else {
       questionHeader = 'সঠিক অর্থ নির্বাচন করুন:';
@@ -1076,8 +1098,8 @@ class QuranApp {
       </div>
     `;
 
-    // Auto play audio for listening question type
-    if (item.qType === 'listening') {
+    // Auto play audio for listening question types
+    if (item.qType === 'listening' || item.qType === 'listening_ar') {
       setTimeout(() => {
         this.playPronunciation(word.lemma_ar);
       }, 300);
@@ -1096,7 +1118,7 @@ class QuranApp {
     if (qType === 'ar_to_bn' || qType === 'listening' || qType === 'context_ayah') {
       options = shuffledChoices.map(c => c.primary_meaning_bn);
       correctIndex = shuffledChoices.findIndex(c => c.id === targetWord.id);
-    } else if (qType === 'bn_to_ar') {
+    } else if (qType === 'bn_to_ar' || qType === 'listening_ar') {
       options = shuffledChoices.map(c => c.lemma_ar);
       correctIndex = shuffledChoices.findIndex(c => c.id === targetWord.id);
     } else if (qType === 'root_id') {
@@ -1112,7 +1134,7 @@ class QuranApp {
       let sibling = null;
       if (targetWord.root && this.rootMap.has(targetWord.root)) {
         const sibs = this.rootMap.get(targetWord.root).filter(w => w.id !== targetWord.id);
-        if (sibs.length > 0) sibling = sibs[0];
+        if (sibs.length > 0) sibling = this.shuffleArray(sibs)[0];
       }
       const correctWord = sibling || targetWord;
       const otherWords = this.shuffleArray(this.vocab.filter(w => w.root !== targetWord.root)).slice(0, 3);
@@ -1160,7 +1182,7 @@ class QuranApp {
         feedbackBox.style.display = 'block';
         feedbackBox.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; font-weight:700; font-size:14px; margin-bottom:2px;">
-            <span style="font-size:16px;">✓</span> সঠিক উত্তর
+            <span style="font-size:16px;">✓</span> Correct / সঠিক উত্তর
           </div>
           <div style="font-size:12px; opacity:0.9;">
             ${word ? `<strong>${word.lemma_ar}</strong> — ${word.primary_meaning_bn} (${word.primary_meaning_en})` : ''}
@@ -1191,12 +1213,13 @@ class QuranApp {
         const explanation = word ? (word.short_explanation_en || `শব্দশ্রেণি: ${word.pos}, মূলধাতু: ${word.root || 'নেই'}`) : '';
         feedbackBox.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; font-weight:700; font-size:14px; margin-bottom:2px;">
-            <span style="font-size:16px;">✕</span> ঠিক হয়নি
+            <span style="font-size:16px;">✕</span> Not quite / ঠিক হয়নি
           </div>
           <div style="font-size:13px; margin: 2px 0;">
             সঠিক উত্তর: <strong>${correctText}</strong>
           </div>
           ${word ? `<div style="font-size:12px; margin-top:2px;">অর্থ: <strong>${word.primary_meaning_bn}</strong> (${word.primary_meaning_en})</div>` : ''}
+          ${item && item.verse ? `<div style="font-size:11px; margin-top:3px; color:var(--text-muted);">আয়াত প্রেক্ষাপট (${item.verse.surah}:${item.verse.ayah}): "${item.verse.text_bn}"</div>` : ''}
           ${explanation ? `<div style="font-size:11px; margin-top:4px; opacity:0.85;">ব্যাখ্যা: ${explanation}</div>` : ''}
         `;
       }
@@ -1383,7 +1406,7 @@ class QuranApp {
         <div class="session-complete-icon">🌟🎉</div>
         <div class="session-complete-title">আলহামদুলিল্লাহ! সেশন সম্পন্ন</div>
         <div class="session-complete-sub">
-          আপনি আজকের নির্ধারিত শিখন লক্ষ্য সফলভাবে সম্পন্ন করেছেন। আপনি চাইলে সাথে সাথেই পরবর্তী দিনের সেশনও শুরু করতে পারেন (Duolingo Style)।
+          আপনি আজকের নির্ধারিত শিখন লক্ষ্য সফলভাবে সম্পন্ন করেছেন। আপনি চাইলে সাথে সাথেই পরবর্তী দিনের সেশনও শুরু করতে পারেন।
         </div>
 
         <div class="mission-targets-grid" style="margin-bottom:24px;">
@@ -1536,9 +1559,6 @@ class QuranApp {
         <div class="ayah-card">
           <div class="ayah-meta">
             <span>সূরা ${v.surah} : আয়াত ${v.ayah}</span>
-            <button class="icon-btn" onclick="app.playPronunciation('${v.text_ar.replace(/'/g, "\\'")}')" title="তেলাওয়াত শুনুন">
-              <svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-            </button>
           </div>
           <div class="ayah-arabic-text">${tokensHtml}</div>
           <div class="ayah-bn-translation">${v.text_bn}</div>
@@ -2417,6 +2437,7 @@ class QuranApp {
     const bnMeaning = document.getElementById('m-bn-meaning');
     const enMeaning = document.getElementById('m-en-meaning');
     const posChip = document.getElementById('m-pos-chip');
+    const levelChip = document.getElementById('m-level-chip');
     const freqChip = document.getElementById('m-freq-chip');
     const stateChip = document.getElementById('m-state-chip');
     const audioLabel = document.getElementById('m-audio-label');
@@ -2428,6 +2449,7 @@ class QuranApp {
     if (bnMeaning) bnMeaning.textContent = word.primary_meaning_bn;
     if (enMeaning) enMeaning.textContent = word.primary_meaning_en;
     if (posChip) posChip.textContent = `${word.pos} (${word.word_type || 'শব্দ'})`;
+    if (levelChip) levelChip.textContent = `লেভেল ${word.level || 1} • কাঠিন্য ${word.difficulty || 1}`;
     if (freqChip) freqChip.textContent = `${word.frequency_tokens} বার`;
 
     const r = this.srs.getRecord(word.id);
@@ -2438,7 +2460,7 @@ class QuranApp {
       audioBtn.classList.remove('loading');
       audioBtn.disabled = false;
     }
-    if (audioLabel) audioLabel.textContent = '🔊 উচ্চারণ শুনুন';
+    if (audioLabel) audioLabel.textContent = '🔊 উচ্চারণ শুনুন (Listen)';
 
     // Section 3: Root Information
     const rootSec = document.getElementById('m-root-section');
@@ -2576,12 +2598,12 @@ class QuranApp {
 
     this.playPronunciation(word.lemma_ar, () => {
       if (btn) btn.classList.remove('loading');
-      if (label) label.textContent = '🔊 উচ্চারণ শুনুন';
+      if (label) label.textContent = '🔊 উচ্চারণ শুনুন (Listen)';
     }, () => {
       if (btn) btn.classList.remove('loading');
-      if (label) label.textContent = 'অডিও অনুপলব্ধ';
+      if (label) label.textContent = 'অডিও অনুপলব্ধ (Audio unavailable)';
       setTimeout(() => {
-        if (label) label.textContent = '🔊 উচ্চারণ শুনুন';
+        if (label) label.textContent = '🔊 উচ্চারণ শুনুন (Listen)';
       }, 2000);
     });
   }
@@ -2630,17 +2652,19 @@ class QuranApp {
       });
     }
 
-    // Step 5: Ayah context if reference exists
+    // Step 5: Ayah context practice if reference exists
     if (word.example_references && word.example_references.length > 0) {
       const ref = word.example_references[0];
       const vKey = `${ref.surah}:${ref.ayah}`;
       const verse = this.quranVerses[vKey];
       if (verse) {
         this.sessionQueue.push({
-          type: 'quran_context',
+          type: 'active_recall',
           word,
+          qType: 'context_ayah',
           verseKey: vKey,
-          verse
+          verse,
+          ...this.generateQuizOptions(word, 'context_ayah')
         });
       }
     }
@@ -2696,19 +2720,8 @@ class QuranApp {
       });
     } else if (mode === 'listening') {
       const selectedWords = this.shuffleArray([...pool]).slice(0, 8);
-      selectedWords.forEach(w => {
-        this.sessionQueue.push({
-          type: 'active_recall',
-          word: w,
-          qType: 'listening',
-          ...this.generateQuizOptions(w, 'listening')
-        });
-      });
-    } else if (mode === 'roots') {
-      // Pick words with verified roots
-      const wordsWithRoots = this.shuffleArray(this.vocab.filter(w => w.root)).slice(0, 8);
-      wordsWithRoots.forEach((w, idx) => {
-        const qType = (idx % 2 === 0) ? 'root_id' : 'family_id';
+      selectedWords.forEach((w, idx) => {
+        const qType = (idx % 2 === 0) ? 'listening' : 'listening_ar';
         this.sessionQueue.push({
           type: 'active_recall',
           word: w,
@@ -2716,6 +2729,34 @@ class QuranApp {
           ...this.generateQuizOptions(w, qType)
         });
       });
+    } else if (mode === 'roots') {
+      // 1. Root ID questions for words with verified roots
+      const wordsWithRoots = this.shuffleArray(this.vocab.filter(w => w.root)).slice(0, 4);
+      wordsWithRoots.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: 'root_id',
+          ...this.generateQuizOptions(w, 'root_id')
+        });
+      });
+
+      // 2. Family ID questions from words having verified siblings in the vocabulary dataset
+      const wordsWithSibs = this.shuffleArray(this.vocab.filter(w => {
+        if (!w.root || !this.rootMap.has(w.root)) return false;
+        return this.rootMap.get(w.root).some(s => s.id !== w.id);
+      })).slice(0, 4);
+
+      wordsWithSibs.forEach(w => {
+        this.sessionQueue.push({
+          type: 'active_recall',
+          word: w,
+          qType: 'family_id',
+          ...this.generateQuizOptions(w, 'family_id')
+        });
+      });
+
+      this.sessionQueue = this.shuffleArray(this.sessionQueue);
     } else if (mode === 'quran_context') {
       const wordsWithAyah = this.shuffleArray(this.vocab.filter(w => w.example_references && w.example_references.length > 0)).slice(0, 6);
       wordsWithAyah.forEach(w => {
@@ -2724,10 +2765,12 @@ class QuranApp {
         const verse = this.quranVerses[vKey];
         if (verse) {
           this.sessionQueue.push({
-            type: 'quran_context',
+            type: 'active_recall',
             word: w,
+            qType: 'context_ayah',
             verseKey: vKey,
-            verse
+            verse,
+            ...this.generateQuizOptions(w, 'context_ayah')
           });
         }
       });
@@ -2897,6 +2940,11 @@ class QuranApp {
       // Remove diacritics tatweel/special formatting if necessary for cleaner synthesis
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'ar-SA';
+      try {
+        const voices = window.speechSynthesis.getVoices();
+        const arVoice = voices.find(v => v.lang && (v.lang.startsWith('ar') || v.lang.toLowerCase().includes('arabic')));
+        if (arVoice) u.voice = arVoice;
+      } catch (ve) {}
       u.rate = 0.82;
       u.onend = () => {
         if (typeof onEnd === 'function') onEnd();
