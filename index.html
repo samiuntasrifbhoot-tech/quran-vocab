@@ -230,7 +230,10 @@
     <div id="review-screen" class="screen">
       <div class="top-bar">
         <div class="top-bar-title">স্মৃতি পুনরাবৃত্তি (SRS Review)</div>
-        <span class="mission-badge" id="review-badge-count">০ বাকি</span>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:4px 10px; cursor:pointer;" onclick="app.openPracticeOptionsModal()" title="অনুশীলন মোড নির্বাচন">🎯 অনুশীলন মোড</button>
+          <span class="mission-badge" id="review-badge-count">০ বাকি</span>
+        </div>
       </div>
 
       <div class="filter-strip" style="justify-content:center;">

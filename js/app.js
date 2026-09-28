@@ -40,6 +40,7 @@ class QuranApp {
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
     this.isSessionCardRevealed = false;
     this.isSkipExam = false;
+    this._sessionAutoAdvanceTimer = null;
 
     // Word Inspector state
     this.currentSelectedToken = null;
@@ -236,6 +237,10 @@ class QuranApp {
   }
 
   switchScreen(screenName) {
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -725,6 +730,10 @@ class QuranApp {
 
   // ================= 4. GUIDED DAILY SESSION FLOW =================
   startGuidedDailySession() {
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
     const mission = this.srs.getDailyMission(this.vocab);
     this.sessionQueue = [];
     this.sessionStepIndex = 0;
@@ -1158,13 +1167,27 @@ class QuranApp {
           </div>
         `;
       }
+      if (nextBtn) {
+        nextBtn.style.display = 'block';
+        nextBtn.textContent = 'পরবর্তী ধাপ ➔';
+      }
+
+      // Auto-advance seamlessly on correct answer after 900ms
+      if (this._sessionAutoAdvanceTimer) clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = setTimeout(() => {
+        this.nextSessionStep();
+      }, 900);
     } else {
+      if (this._sessionAutoAdvanceTimer) {
+        clearTimeout(this._sessionAutoAdvanceTimer);
+        this._sessionAutoAdvanceTimer = null;
+      }
       if (selectedBtn) selectedBtn.classList.add('wrong');
       if (correctBtn) correctBtn.classList.add('correct');
       if (feedbackBox) {
         feedbackBox.className = 'subtle-feedback-wrong';
         feedbackBox.style.display = 'block';
-        const correctText = correctBtn ? correctBtn.querySelector('span').textContent.trim() : '';
+        const correctText = correctBtn ? (correctBtn.querySelector('span')?.textContent || correctBtn.textContent).trim() : '';
         const explanation = word ? (word.short_explanation_en || `শব্দশ্রেণি: ${word.pos}, মূলধাতু: ${word.root || 'নেই'}`) : '';
         feedbackBox.innerHTML = `
           <div style="display:flex; align-items:center; gap:6px; font-weight:700; font-size:14px; margin-bottom:2px;">
@@ -1177,9 +1200,11 @@ class QuranApp {
           ${explanation ? `<div style="font-size:11px; margin-top:4px; opacity:0.85;">ব্যাখ্যা: ${explanation}</div>` : ''}
         `;
       }
+      if (nextBtn) {
+        nextBtn.style.display = 'block';
+        nextBtn.textContent = 'বুঝেছি, পরবর্তী ধাপ ➔';
+      }
     }
-
-    if (nextBtn) nextBtn.style.display = 'block';
   }
 
   // Step 4: Quran Context Practice (Authentic Ayah recognition)
@@ -1400,6 +1425,10 @@ class QuranApp {
   }
 
   nextSessionStep() {
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
     this.sessionStepIndex += 1;
     if (this.sessionStepIndex >= this.sessionQueue.length) {
       this.completeAndExitSession();
@@ -1410,11 +1439,19 @@ class QuranApp {
 
   confirmExitSession() {
     if (confirm('আপনি কি নিশ্চিত যে এই সেশনটি বন্ধ করতে চান?')) {
+      if (this._sessionAutoAdvanceTimer) {
+        clearTimeout(this._sessionAutoAdvanceTimer);
+        this._sessionAutoAdvanceTimer = null;
+      }
       this.switchScreen('home');
     }
   }
 
   completeAndExitSession() {
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
     this.srs.advanceDay();
     this.srs.saveState();
     this.switchScreen('home');
@@ -2490,7 +2527,17 @@ class QuranApp {
       if (v) {
         if (verseBox) verseBox.style.display = 'block';
         if (verseRef) verseRef.textContent = `সূরা ${v.surah} : আয়াত ${v.ayah}`;
-        if (verseAr) verseAr.textContent = v.text_ar;
+        
+        const cleanTarget = (word.lemma_clean || word.lemma_ar || '').replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+        const tokens = (v.text_ar || '').split(/\s+/);
+        const tokensHtml = tokens.map(tok => {
+          const cleanTok = tok.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+          const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+          const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}')">${tok}</span>`;
+        }).join(' ');
+
+        if (verseAr) verseAr.innerHTML = tokensHtml;
         if (verseBn) verseBn.textContent = v.text_bn;
         if (verseEn) verseEn.textContent = v.text_en;
       } else {
@@ -2543,6 +2590,11 @@ class QuranApp {
     const word = this.vocabMap.get(this.activeWordId);
     if (!word) return;
     this.closeModal('word-detail-modal');
+
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
 
     // Build targeted practice session for this specific word
     this.sessionQueue = [];
@@ -2606,6 +2658,11 @@ class QuranApp {
 
   startSpecificPractice(mode) {
     this.closeModal('practice-options-modal');
+
+    if (this._sessionAutoAdvanceTimer) {
+      clearTimeout(this._sessionAutoAdvanceTimer);
+      this._sessionAutoAdvanceTimer = null;
+    }
 
     // Get active review or learned words pool
     let pool = this.srs.getDueWords(this.vocab);
