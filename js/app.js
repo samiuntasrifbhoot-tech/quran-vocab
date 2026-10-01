@@ -1,4 +1,47 @@
 import { SRSEngine, MasteryState } from './srs.js';
+import { offlineStorage } from './storage.js';
+
+export const VOCAB_CATEGORIES = [
+  { id: 'all', nameBn: 'সকল বিষয় / ক্যাটাগরি', sub: '১০০% সমগ্র কুরআনিক শব্দকোষ (২০০০ শব্দ)', icon: '🏷️', count: 2000 },
+  { id: 'Grammar / function words', nameBn: 'অব্যয় ও সর্বনাম', sub: 'কুরআনের মূল কাঠামো শব্দ', icon: '🧩', count: 101 },
+  { id: 'Actions', nameBn: 'ক্রিয়া ও কর্ম (Verbs)', sub: 'কুরআনে ব্যবহৃত সকল মৌলিক ফেল বা ক্রিয়া', icon: '⚡', count: 379 },
+  { id: 'People', nameBn: 'মানুষ ও সৃষ্টি', sub: 'মানবজাতি, প্রকৃতি ও সৃষ্টিজগতের নাম', icon: '👥', count: 1041 },
+  { id: 'Morality', nameBn: 'চরিত্র ও নৈতিকতা', sub: 'সদাচরণ, ইনসাফ, ধৈর্য ও আত্মশুদ্ধি', icon: '💎', count: 192 },
+  { id: 'Allah / Divine Attributes', nameBn: 'আল্লাহ ও তাঁর সিফাত', sub: 'রব্ব, আসমাউল হুসনা ও কুদরত', icon: '🕌', count: 32 },
+  { id: 'Guidance', nameBn: 'হেদায়েত ও পথনির্দেশ', sub: 'কিতাব, নুর, সত্য ও সঠিক পথ', icon: '🧭', count: 27 },
+  { id: 'Hell', nameBn: 'জাহান্নাম ও শাস্তি', sub: 'আজাব, জাহান্নাম ও সতর্কবাণী', icon: '🔥', count: 22 },
+  { id: 'Faith', nameBn: 'ঈমান ও বিশ্বাস', sub: 'তাওহীদ, তাকওয়া ও আনুগত্য', icon: '🤍', count: 17 },
+  { id: 'Prophets', nameBn: 'নবী-রাসূল ও বাণী', sub: 'আম্বিয়া কিরাম ও তাঁদের রিসালাত', icon: '📜', count: 16 },
+  { id: 'Paradise', nameBn: 'জান্নাত ও নিয়ামত', sub: 'জান্নাত, শান্তি ও জান্নাতী জীবন', icon: '🌿', count: 14 },
+  { id: 'Disbelief', nameBn: 'কুফর ও অস্বীকৃতি', sub: 'শিরক, নিফাক ও অবাধ্যতা', icon: '⚠️', count: 13 },
+  { id: 'Judgment', nameBn: 'আখিরাত ও বিচার দিবস', sub: 'কেয়ামত, পুনরুত্থান ও হিসাব', icon: '⚖️', count: 12 },
+  { id: 'Numbers / quantities', nameBn: 'সংখ্যা ও পরিমাপ', sub: 'গণনা, সংখ্যা ও পরিমাপবাচক শব্দ', icon: '🔢', count: 12 },
+  { id: 'Worship', nameBn: 'ইবাদত ও সালাত', sub: 'নামাজ, তাসবীহ ও আত্মনিবেদন', icon: '🤲', count: 7 }
+];
+
+export const VOCAB_LEVELS = [
+  { id: 'all', nameBn: 'সকল লেভেল (১-২০)', sub: 'সমগ্র ২০টি লেভেলের ২,০০০ শব্দ', icon: '🏆', range: '১ - ২০০০' },
+  { id: '1', nameBn: 'লেভেল ১', sub: 'পর্ব ১: প্রাথমিক ভিত্তি', icon: '🌱', range: 'শব্দ ১ - ১০০' },
+  { id: '2', nameBn: 'লেভেল ২', sub: 'পর্ব ১: প্রাথমিক ভিত্তি', icon: '🌱', range: 'শব্দ ১০১ - ২০০' },
+  { id: '3', nameBn: 'লেভেল ৩', sub: 'পর্ব ১: প্রাথমিক ভিত্তি', icon: '🌱', range: 'শব্দ ২০১ - ৩০০' },
+  { id: '4', nameBn: 'লেভেল ৪', sub: 'পর্ব ১: প্রাথমিক ভিত্তি', icon: '🌱', range: 'শব্দ ৩০১ - ৪০০' },
+  { id: '5', nameBn: 'লেভেল ৫', sub: 'পর্ব ২: শব্দভাণ্ডার বিকাশ', icon: '🌿', range: 'শব্দ ৪০১ - ৫০০' },
+  { id: '6', nameBn: 'লেভেল ৬', sub: 'পর্ব ২: শব্দভাণ্ডার বিকাশ', icon: '🌿', range: 'শব্দ ৫০১ - ৬০০' },
+  { id: '7', nameBn: 'লেভেল ৭', sub: 'পর্ব ২: শব্দভাণ্ডার বিকাশ', icon: '🌿', range: 'শব্দ ৬০১ - ৭০০' },
+  { id: '8', nameBn: 'লেভেল ৮', sub: 'পর্ব ২: শব্দভাণ্ডার বিকাশ', icon: '🌿', range: 'শব্দ ৭০১ - ৮০০' },
+  { id: '9', nameBn: 'লেভেল ৯', sub: 'পর্ব ৩: মধ্যম সাবলীলতা', icon: '⚡', range: 'শব্দ ৮০১ - ৯০০' },
+  { id: '10', nameBn: 'লেভেল ১০', sub: 'পর্ব ৩: মধ্যম সাবলীলতা', icon: '⚡', range: 'শব্দ ৯০১ - ১০০০' },
+  { id: '11', nameBn: 'লেভেল ১১', sub: 'পর্ব ৩: মধ্যম সাবলীলতা', icon: '⚡', range: 'শব্দ ১০০১ - ১১০০' },
+  { id: '12', nameBn: 'লেভেল ১২', sub: 'পর্ব ৩: মধ্যম সাবলীলতা', icon: '⚡', range: 'শব্দ ১১০১ - ১২০০' },
+  { id: '13', nameBn: 'লেভেল ১৩', sub: 'পর্ব ৪: অগ্রসর কুরআনিক অর্থ', icon: '📖', range: 'শব্দ ১২০১ - ১৩০০' },
+  { id: '14', nameBn: 'লেভেল ১৪', sub: 'পর্ব ৪: অগ্রসর কুরআনিক অর্থ', icon: '📖', range: 'শব্দ ১৩০১ - ১৪০০' },
+  { id: '15', nameBn: 'লেভেল ১৫', sub: 'পর্ব ৪: অগ্রসর কুরআনিক অর্থ', icon: '📖', range: 'শব্দ ১৪০১ - ১৫০০' },
+  { id: '16', nameBn: 'লেভেল ১৬', sub: 'পর্ব ৪: অগ্রসর কুরআনিক অর্থ', icon: '📖', range: 'শব্দ ১৫০১ - ১৬০০' },
+  { id: '17', nameBn: 'লেভেল ১৭', sub: 'পর্ব ৫: সর্বোচ্চ শব্দ দক্ষতা', icon: '👑', range: 'শব্দ ১৬০১ - ১৭০০' },
+  { id: '18', nameBn: 'লেভেল ১৮', sub: 'পর্ব ৫: সর্বোচ্চ শব্দ দক্ষতা', icon: '👑', range: 'শব্দ ১৭০১ - ১৮০০' },
+  { id: '19', nameBn: 'লেভেল ১৯', sub: 'পর্ব ৫: সর্বোচ্চ শব্দ দক্ষতা', icon: '👑', range: 'শব্দ ১৮০১ - ১৯০০' },
+  { id: '20', nameBn: 'লেভেল ২০', sub: 'পর্ব ৫: সম্পূর্ণ কুরআন সমাপ্তি', icon: '✨', range: 'শব্দ ১৯০১ - ২০০০' }
+];
 
 class QuranApp {
   constructor() {
@@ -45,13 +88,22 @@ class QuranApp {
     // Word Inspector state
     this.currentSelectedToken = null;
 
+    // Mobile navigation & hardware back button handling
+    this.screenHistory = ['home'];
+    this._isClosingModalFromUI = false;
+    this._lastExitPromptTime = 0;
+    this._exitToast = null;
+    this._exitToastTimeout = null;
+
     this.init();
   }
 
-  async fetchJsonData(candidates) {
+  async fetchJsonData(candidates, idbKey = null) {
     const candidateList = Array.isArray(candidates) ? candidates : [candidates];
+    const cacheKey = idbKey || ('data_cache_' + candidateList[0].split('/').pop());
     let lastError = null;
 
+    // 1. Try network / Service Worker cache first
     for (const path of candidateList) {
       const cleanPath = path.replace(/^\/+/, '');
       const urlsToTry = [
@@ -73,26 +125,60 @@ class QuranApp {
           const text = await res.text();
           const trimmed = text.trim();
           if (trimmed.startsWith('<')) continue;
-          return JSON.parse(trimmed);
+          const parsed = JSON.parse(trimmed);
+          // Persist in IndexedDB permanently for 100% offline access
+          offlineStorage.set(cacheKey, parsed).catch(() => {});
+          return parsed;
         } catch (e) {
           lastError = e;
         }
       }
     }
+
+    // 2. If network/SW fetch failed, try offline IndexedDB fallback!
+    try {
+      const cached = await offlineStorage.get(cacheKey);
+      if (cached && (Array.isArray(cached) ? cached.length > 0 : Object.keys(cached).length > 0)) {
+        console.log(`[Storage] Loaded ${cacheKey} from persistent IndexedDB.`);
+        return cached;
+      }
+    } catch (e) {
+      console.warn(`[Storage] IndexedDB fallback failed for ${cacheKey}:`, e);
+    }
+
     throw lastError || new Error(`Failed to load JSON data for: ${candidateList.join(', ')}`);
   }
 
   async init() {
+    this.initHistory();
     this.setupEventListeners();
     this.applyTheme(this.srs.settings.darkMode);
     this.applyArabicFontSize(this.srs.settings.arabicFontSize || 'large');
 
+    // 1. Await SRS Storage initialization so IndexedDB backups are merged BEFORE rendering
+    try {
+      await this.srs.initStorage();
+    } catch (e) {
+      console.warn('[App Init] SRS storage init warning:', e);
+    }
+
+    // 2. Request persistent storage from browser so OS never clears data
+    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist().then(persistent => {
+        console.log('[Storage] Persistent storage granted:', persistent);
+        const persistBadge = document.getElementById('storage-persist-status');
+        if (persistBadge) {
+          persistBadge.textContent = persistent ? 'স্থায়ী মোড সক্রিয় ✅' : 'স্ট্যান্ডার্ড মোড';
+        }
+      }).catch(() => {});
+    }
+
     try {
       const [vocab, quranVerses, curriculum, grammar] = await Promise.all([
-        this.fetchJsonData(['data/vocabulary.json', 'data/vocabulary-validation.json']),
-        this.fetchJsonData(['data/quran-context-verses.json', 'data/quran.json']),
-        this.fetchJsonData(['data/curriculum.json']),
-        this.fetchJsonData(['data/grammar.json'])
+        this.fetchJsonData(['data/vocabulary.json', 'data/vocabulary-validation.json'], 'data_cache_vocabulary.json'),
+        this.fetchJsonData(['data/quran-context-verses.json', 'data/quran.json'], 'data_cache_quran-context-verses.json'),
+        this.fetchJsonData(['data/curriculum.json'], 'data_cache_curriculum.json'),
+        this.fetchJsonData(['data/grammar.json'], 'data_cache_grammar.json')
       ]);
 
       this.vocab = vocab || [];
@@ -115,6 +201,7 @@ class QuranApp {
       this.renderLevelsGridChips();
       this.populateSurahSelector();
       this.renderVocabScreen();
+      this.updateStorageStatusUI();
 
       // Dismiss Native Play Store Splash smoothly
       const splash = document.getElementById('app-splash-screen');
@@ -143,8 +230,11 @@ class QuranApp {
         homeContainer.insertAdjacentHTML('afterbegin', `
           <div class="screenshot-card" style="border:1px solid #f87171; background:#fef2f2; padding:16px; margin-bottom:14px; text-align:center;">
             <div style="font-weight:700; color:#dc2626; margin-bottom:6px;">⚠️ ডেটা লোড হতে সাময়িক বিলম্ব হচ্ছে</div>
-            <div style="font-size:13px; color:#4b5563; margin-bottom:12px;">অনুগ্রহ করে পেজটি একবার রিলোড দিন।</div>
-            <button class="pill-btn" style="background:#dc2626; color:white; border:none; padding:8px 16px;" onclick="window.location.reload()">রিলোড দিন</button>
+            <div style="font-size:13px; color:#4b5563; margin-bottom:12px;">অনুগ্রহ করে পেজটি একবার রিলোড দিন অথবা ব্যাকআপ পুনরুদ্ধার করুন।</div>
+            <div style="display:flex; gap:8px; justify-content:center;">
+              <button class="pill-btn" style="background:#dc2626; color:white; border:none; padding:8px 16px;" onclick="window.location.reload()">রিলোড দিন</button>
+              <button class="pill-btn" style="background:var(--primary); color:white; border:none; padding:8px 16px;" onclick="app.restoreFromAnyBackupUI()">ব্যাকআপ উদ্ধার</button>
+            </div>
           </div>
         `);
       }
@@ -156,7 +246,7 @@ class QuranApp {
     document.querySelectorAll('.modal-overlay').forEach(modal => {
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-          modal.style.display = 'none';
+          this.closeModal(modal.id);
         }
       });
     });
@@ -235,7 +325,7 @@ class QuranApp {
     }
   }
 
-  switchScreen(screenName) {
+  switchScreen(screenName, skipHistory = false) {
     if (this._sessionAutoAdvanceTimer) {
       clearTimeout(this._sessionAutoAdvanceTimer);
       this._sessionAutoAdvanceTimer = null;
@@ -248,6 +338,23 @@ class QuranApp {
     document.querySelectorAll('.modal-overlay').forEach(modal => {
       modal.style.display = 'none';
     });
+
+    // History tracking for mobile hardware back button
+    if (!skipHistory) {
+      if (screenName === 'home') {
+        this.screenHistory = ['home'];
+      } else {
+        if (this.currentScreen && this.screenHistory[this.screenHistory.length - 1] !== this.currentScreen) {
+          this.screenHistory.push(this.currentScreen);
+        }
+        if (this.screenHistory[this.screenHistory.length - 1] !== screenName) {
+          this.screenHistory.push(screenName);
+        }
+      }
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: screenName }, '');
+      }
+    }
 
     this.currentScreen = screenName;
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -294,20 +401,175 @@ class QuranApp {
 
   openModal(modalId) {
     const el = document.getElementById(modalId);
-    if (el) el.style.display = 'flex';
+    if (el) {
+      el.style.display = 'flex';
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ modalId: modalId, appScreen: this.currentScreen }, '');
+      }
+    }
   }
 
-  closeModal(modalId) {
+  closeModal(modalId, fromPopState = false) {
     const el = document.getElementById(modalId);
     if (el) el.style.display = 'none';
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
+    if (!fromPopState && typeof window !== 'undefined' && window.history) {
+      if (window.history.state && window.history.state.modalId === modalId) {
+        this._isClosingModalFromUI = true;
+        window.history.back();
+      }
+    }
+  }
+
+  // ================= MOBILE NAVIGATION & HARDWARE BACK BUTTON =================
+  initHistory() {
+    if (typeof window === 'undefined' || !window.history) return;
+
+    // Set base state
+    window.history.replaceState({ appScreen: 'home', isRoot: true }, '');
+    // Push guard state so the first back tap is intercepted on mobile PWA
+    window.history.pushState({ appScreen: 'home', isGuard: true }, '');
+
+    window.addEventListener('popstate', (e) => {
+      this.handlePopState(e);
+    });
+  }
+
+  handlePopState(e) {
+    if (this._isClosingModalFromUI) {
+      this._isClosingModalFromUI = false;
+      return;
+    }
+
+    // 1. If any modal is open, close the top-most modal
+    const openModals = Array.from(document.querySelectorAll('.modal-overlay')).filter(m => {
+      return m.style.display === 'flex' || m.style.display === 'block';
+    });
+    if (openModals.length > 0) {
+      const topModal = openModals[openModals.length - 1];
+      this.closeModal(topModal.id, true);
+      // Re-push state so history remains guarded for future back clicks
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: this.currentScreen }, '');
+      }
+      return;
+    }
+
+    // 2. If in session screen
+    if (this.currentScreen === 'session') {
+      this.confirmExitSession(true);
+      return;
+    }
+
+    // 3. If in memorize screen
+    if (this.currentScreen === 'memorize') {
+      this.confirmExitMemorize(true);
+      return;
+    }
+
+    // 4. If in a sub-screen (vocab, learn, review, quran, progress)
+    if (this.currentScreen && this.currentScreen !== 'home') {
+      let prevScreen = 'home';
+      if (this.screenHistory.length > 1) {
+        this.screenHistory.pop(); // remove current screen
+        prevScreen = this.screenHistory[this.screenHistory.length - 1] || 'home';
+      } else {
+        this.screenHistory = ['home'];
+      }
+      this.switchScreen(prevScreen, true);
+      // Guard current screen
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: prevScreen }, '');
+      }
+      return;
+    }
+
+    // 5. On Home screen (no modal, no active subscreen):
+    // Standard mobile PWA pattern: Double-tap back within 2 seconds to exit app
+    const now = Date.now();
+    if (now - this._lastExitPromptTime < 2000) {
+      if (this._exitToast) {
+        this._exitToast.remove();
+        this._exitToast = null;
+      }
+      // Allow browser to exit / close
+      window.history.back();
+    } else {
+      this._lastExitPromptTime = now;
+      this.showExitToast();
+      // Re-push guard state so app does not close immediately
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: 'home', isGuard: true }, '');
+      }
+    }
+  }
+
+  handleBackAction() {
+    // 1. If any modal is open, close it
+    const openModals = Array.from(document.querySelectorAll('.modal-overlay')).filter(m => {
+      return m.style.display === 'flex' || m.style.display === 'block';
+    });
+    if (openModals.length > 0) {
+      const topModal = openModals[openModals.length - 1];
+      this.closeModal(topModal.id);
+      return;
+    }
+
+    // 2. If in session
+    if (this.currentScreen === 'session') {
+      this.confirmExitSession(false);
+      return;
+    }
+
+    // 3. If in memorize
+    if (this.currentScreen === 'memorize') {
+      this.confirmExitMemorize(false);
+      return;
+    }
+
+    // 4. If on sub-screen -> go back to previous screen or home
+    if (this.currentScreen && this.currentScreen !== 'home') {
+      let prevScreen = 'home';
+      if (this.screenHistory.length > 1) {
+        this.screenHistory.pop();
+        prevScreen = this.screenHistory[this.screenHistory.length - 1] || 'home';
+      } else {
+        this.screenHistory = ['home'];
+      }
+      this.switchScreen(prevScreen, false);
+      return;
+    }
+  }
+
+  showExitToast() {
+    if (this._exitToast) {
+      this._exitToast.remove();
+    }
+    const toast = document.createElement('div');
+    this._exitToast = toast;
+    toast.className = 'exit-confirm-toast';
+    toast.innerHTML = `
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+      <span>অ্যাপ থেকে বের হতে আর একবার ব্যাক বাটন চাপুন</span>
+    `;
+    document.body.appendChild(toast);
+    if (this._exitToastTimeout) clearTimeout(this._exitToastTimeout);
+    this._exitToastTimeout = setTimeout(() => {
+      if (toast.parentNode) {
+        toast.classList.add('toast-fade-out');
+        setTimeout(() => { toast.remove(); }, 250);
+      }
+      this._exitToast = null;
+    }, 2000);
   }
 
   // ================= 1. HOME SCREEN =================
   renderHome() {
-    const masteredWords = this.srs.getMasteredWords(this.vocab);
+    const learnedWords = this.srs.getActiveLearnedWords(this.vocab);
     const dueWords = this.srs.getDueWords(this.vocab);
     const totalWords = this.vocab.length || 2000;
 
@@ -317,10 +579,11 @@ class QuranApp {
     const elemDueSub = document.getElementById('home-due-count-sub');
 
     if (elemVocabSub) elemVocabSub.textContent = `${totalWords} শব্দ (২০টি লেভেল)`;
-    if (elemLearnedSub) elemLearnedSub.textContent = `${masteredWords.length} টি শেখা`;
+    if (elemLearnedSub) elemLearnedSub.textContent = `${learnedWords.length} টি শেখা`;
     if (elemDueSub) elemDueSub.textContent = `${dueWords.length} টি বাকি`;
 
     this.renderLevelsGridChips();
+    this.updateStorageStatusUI();
   }
 
   toggleLevelsFold() {
@@ -1670,13 +1933,17 @@ class QuranApp {
     }
   }
 
-  confirmExitSession() {
+  confirmExitSession(isFromBack = false) {
     if (confirm('আপনি কি নিশ্চিত যে এই সেশনটি বন্ধ করতে চান?')) {
       if (this._sessionAutoAdvanceTimer) {
         clearTimeout(this._sessionAutoAdvanceTimer);
         this._sessionAutoAdvanceTimer = null;
       }
-      this.switchScreen('home');
+      this.switchScreen('home', false);
+    } else if (isFromBack) {
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: 'session' }, '');
+      }
     }
   }
 
@@ -2120,6 +2387,125 @@ class QuranApp {
     this.filterVocabScreen();
   }
 
+  // ================= THEMED VOCAB FILTER BOTTOM SHEET METHODS =================
+  openVocabFilterSheet(tab = 'cat') {
+    this.switchVocabFilterTab(tab);
+    this.renderVocabFilterOptions();
+    this.openModal('vocab-filter-sheet-modal');
+  }
+
+  switchVocabFilterTab(tab) {
+    const isCat = tab === 'cat';
+    const catTabBtn = document.getElementById('vtab-cat-btn');
+    const levelTabBtn = document.getElementById('vtab-level-btn');
+    const catPanel = document.getElementById('vfilter-cat-panel');
+    const levelPanel = document.getElementById('vfilter-level-panel');
+    const iconElem = document.getElementById('vfilter-sheet-icon');
+    const titleElem = document.getElementById('vfilter-sheet-title');
+    const subElem = document.getElementById('vfilter-sheet-subtitle');
+
+    if (catTabBtn) catTabBtn.classList.toggle('active', isCat);
+    if (levelTabBtn) levelTabBtn.classList.toggle('active', !isCat);
+    if (catPanel) catPanel.style.display = isCat ? 'block' : 'none';
+    if (levelPanel) levelPanel.style.display = !isCat ? 'block' : 'none';
+
+    if (iconElem) iconElem.textContent = isCat ? '🏷️' : '⚡';
+    if (titleElem) titleElem.textContent = isCat ? 'বিষয় ও ক্যাটাগরি নির্বাচন' : 'কুরআনিক লেভেল নির্বাচন (১-২০)';
+    if (subElem) subElem.textContent = isCat ? 'পছন্দের বিষয় নির্বাচন করে শব্দ তালিকা ফিল্টার করুন' : 'নির্দিষ্ট লেভেলের ১০০টি করে শব্দ দেখুন';
+  }
+
+  renderVocabFilterOptions() {
+    const catSelect = document.getElementById('vscreen-cat-select');
+    const lvlSelect = document.getElementById('vscreen-level-select');
+    const currentCat = catSelect ? catSelect.value : 'all';
+    const currentLvl = lvlSelect ? lvlSelect.value : 'all';
+
+    const catGrid = document.getElementById('vfilter-categories-grid');
+    if (catGrid) {
+      catGrid.innerHTML = VOCAB_CATEGORIES.map(c => {
+        const isSelected = c.id === currentCat;
+        return `
+          <div class="vfilter-opt-card ${isSelected ? 'selected' : ''}" onclick="app.selectVocabCategory('${c.id}')">
+            <div class="vfilter-opt-left">
+              <div class="vfilter-opt-icon">${c.icon}</div>
+              <div class="vfilter-opt-titles">
+                <div class="vfilter-opt-name">${c.nameBn}</div>
+                <div class="vfilter-opt-sub">${c.sub}</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+              <span class="vfilter-opt-badge">${c.count} শব্দ</span>
+              <span class="vfilter-opt-check">✓</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    const lvlGrid = document.getElementById('vfilter-levels-grid');
+    if (lvlGrid) {
+      lvlGrid.innerHTML = VOCAB_LEVELS.map(l => {
+        const isSelected = l.id === currentLvl;
+        return `
+          <div class="vfilter-opt-card ${isSelected ? 'selected' : ''}" onclick="app.selectVocabLevel('${l.id}')">
+            <div class="vfilter-opt-left">
+              <div class="vfilter-opt-icon">${l.icon}</div>
+              <div class="vfilter-opt-titles">
+                <div class="vfilter-opt-name">${l.nameBn}</div>
+                <div class="vfilter-opt-sub">${l.sub}</div>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+              <span class="vfilter-opt-badge">${l.range}</span>
+              <span class="vfilter-opt-check">✓</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  }
+
+  selectVocabCategory(catId) {
+    const catSelect = document.getElementById('vscreen-cat-select');
+    if (catSelect) {
+      catSelect.value = catId;
+    }
+    this.closeModal('vocab-filter-sheet-modal');
+    this.filterVocabScreen();
+    const container = document.getElementById('vscreen-words-container');
+    if (container) container.scrollTop = 0;
+  }
+
+  selectVocabLevel(lvlId) {
+    const lvlSelect = document.getElementById('vscreen-level-select');
+    if (lvlSelect) {
+      lvlSelect.value = lvlId;
+    }
+    this.closeModal('vocab-filter-sheet-modal');
+    this.filterVocabScreen();
+    const container = document.getElementById('vscreen-words-container');
+    if (container) container.scrollTop = 0;
+  }
+
+  resetAllVocabFilters() {
+    const searchInput = document.getElementById('vscreen-search-input');
+    const catSelect = document.getElementById('vscreen-cat-select');
+    const lvlSelect = document.getElementById('vscreen-level-select');
+
+    if (searchInput) searchInput.value = '';
+    if (catSelect) catSelect.value = 'all';
+    if (lvlSelect) lvlSelect.value = 'all';
+
+    this.vocabStatusFilter = 'all';
+    document.querySelectorAll('.vocab-status-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.status === 'all');
+    });
+
+    this.filterVocabScreen();
+    const container = document.getElementById('vscreen-words-container');
+    if (container) container.scrollTop = 0;
+  }
+
   filterVocabScreen() {
     const searchInput = document.getElementById('vscreen-search-input');
     const catSelect = document.getElementById('vscreen-cat-select');
@@ -2148,6 +2534,34 @@ class QuranApp {
     const q = (searchInput ? searchInput.value : '').trim().toLowerCase();
     const cat = catSelect ? catSelect.value : 'all';
     const lvl = lvlSelect ? lvlSelect.value : 'all';
+
+    // Synchronize custom trigger buttons UI
+    const catBtn = document.getElementById('vscreen-cat-btn');
+    const catDisplay = document.getElementById('vscreen-cat-display');
+    const lvlBtn = document.getElementById('vscreen-level-btn');
+    const lvlDisplay = document.getElementById('vscreen-level-display');
+    const resetBtn = document.getElementById('vfilter-reset-btn');
+
+    if (catDisplay) {
+      const activeCat = VOCAB_CATEGORIES.find(c => c.id === cat);
+      catDisplay.textContent = activeCat ? (cat === 'all' ? 'সকল বিষয় (১০০%)' : activeCat.nameBn) : cat;
+    }
+    if (catBtn) {
+      catBtn.classList.toggle('active-filter', cat !== 'all');
+    }
+
+    if (lvlDisplay) {
+      const activeLvl = VOCAB_LEVELS.find(l => l.id === lvl);
+      lvlDisplay.textContent = activeLvl ? (lvl === 'all' ? 'সকল লেভেল (১-২০)' : `${activeLvl.nameBn} (${activeLvl.range})`) : `লেভেল ${lvl}`;
+    }
+    if (lvlBtn) {
+      lvlBtn.classList.toggle('active-filter', lvl !== 'all');
+    }
+
+    const hasActiveFilters = (q !== '') || (cat !== 'all') || (lvl !== 'all') || (this.vocabStatusFilter !== 'all');
+    if (resetBtn) {
+      resetBtn.style.display = hasActiveFilters ? 'inline-flex' : 'none';
+    }
 
     let filtered = this.vocab;
 
@@ -2180,7 +2594,7 @@ class QuranApp {
       );
     }
 
-    if (resultCount) resultCount.textContent = `মোট ${filtered.length} টি শব্দ প্রদর্শিত`;
+    if (resultCount) resultCount.textContent = `মোট ${filtered.length.toLocaleString('bn-BD')}টি শব্দ প্রদর্শিত`;
     if (headerCount) headerCount.textContent = `${filtered.length} শব্দ`;
 
     const limit = this.vscreenPage * this.vscreenPageSize;
@@ -2192,7 +2606,7 @@ class QuranApp {
           <div style="font-size:32px; margin-bottom:8px;">🔍</div>
           <div style="font-weight:700; color:var(--text-primary); margin-bottom:4px;">কোনো শব্দ খুঁজে পাওয়া যায়নি</div>
           <p style="font-size:12px; margin-bottom:12px;">অনুসন্ধান শব্দ বা ফিল্টারে পরিবর্তন এনে চেষ্টা করুন।</p>
-          <button class="pill-btn" style="border:1px solid var(--border);" onclick="if(document.getElementById('vscreen-search-input')) document.getElementById('vscreen-search-input').value=''; if(document.getElementById('vscreen-cat-select')) document.getElementById('vscreen-cat-select').value='all'; if(document.getElementById('vscreen-level-select')) document.getElementById('vscreen-level-select').value='all'; app.setVocabStatusFilter('all');">সব ফিল্টার রিসেট করুন</button>
+          <button class="pill-btn" style="border:1px solid var(--border);" onclick="app.resetAllVocabFilters()">সব ফিল্টার রিসেট করুন</button>
         </div>
       `;
       return;
@@ -2443,9 +2857,13 @@ class QuranApp {
     `;
   }
 
-  confirmExitMemorize() {
+  confirmExitMemorize(isFromBack = false) {
     if (confirm('আপনি কি মেমোরাইজ ড্রিল বন্ধ করে হোমে ফিরতে চান?')) {
-      this.switchScreen('home');
+      this.switchScreen('home', false);
+    } else if (isFromBack) {
+      if (typeof window !== 'undefined' && window.history) {
+        window.history.pushState({ appScreen: 'memorize' }, '');
+      }
     }
   }
 
@@ -3070,22 +3488,58 @@ class QuranApp {
   }
 
   // ================= 8. STATUS WORDS MODAL =================
-  showStatusWords(state) {
+  showStatusWords(state = 'learned', subFilter = 'all') {
     let list = [];
     let title = '';
+    const learnedWords = this.srs.getActiveLearnedWords(this.vocab);
+    const filterChipsContainer = document.getElementById('status-modal-filter-chips');
 
-    if (state === 'mastered') {
-      list = this.srs.getMasteredWords(this.vocab);
-      title = 'সম্পূর্ণ আয়ত্তে থাকা শব্দ';
-    } else if (state === 'due') {
-      list = this.srs.getDueWords(this.vocab);
-      title = 'আজকের রিভিউ বাকি শব্দ';
+    if (state === 'learned') {
+      title = 'শেখা হয়ে গেছে এমন শব্দ';
+      if (subFilter === 'all') {
+        list = learnedWords;
+      } else {
+        list = learnedWords.filter(w => {
+          const r = this.srs.records[w.id];
+          return r && r.state === subFilter;
+        });
+      }
+
+      // Render interactive filter chips
+      if (filterChipsContainer) {
+        filterChipsContainer.style.display = 'flex';
+        const counts = {
+          all: learnedWords.length,
+          LEARNING: learnedWords.filter(w => this.srs.records[w.id]?.state === MasteryState.LEARNING).length,
+          FAMILIAR: learnedWords.filter(w => this.srs.records[w.id]?.state === MasteryState.FAMILIAR).length,
+          STRONG: learnedWords.filter(w => this.srs.records[w.id]?.state === MasteryState.STRONG).length,
+          MASTERED: learnedWords.filter(w => this.srs.records[w.id]?.state === MasteryState.MASTERED).length
+        };
+
+        filterChipsContainer.innerHTML = `
+          <button class="pill-btn ${subFilter === 'all' ? 'active' : ''}" style="font-size:11px; padding:4px 10px;" onclick="app.showStatusWords('learned', 'all')">সকল (${counts.all})</button>
+          <button class="pill-btn ${subFilter === 'LEARNING' ? 'active' : ''}" style="font-size:11px; padding:4px 10px;" onclick="app.showStatusWords('learned', 'LEARNING')">শিখছি (${counts.LEARNING})</button>
+          <button class="pill-btn ${subFilter === 'FAMILIAR' ? 'active' : ''}" style="font-size:11px; padding:4px 10px;" onclick="app.showStatusWords('learned', 'FAMILIAR')">পরিচিত (${counts.FAMILIAR})</button>
+          <button class="pill-btn ${subFilter === 'STRONG' ? 'active' : ''}" style="font-size:11px; padding:4px 10px;" onclick="app.showStatusWords('learned', 'STRONG')">দক্ষ (${counts.STRONG})</button>
+          <button class="pill-btn ${subFilter === 'MASTERED' ? 'active' : ''}" style="font-size:11px; padding:4px 10px;" onclick="app.showStatusWords('learned', 'MASTERED')">আয়ত্তে (${counts.MASTERED})</button>
+        `;
+      }
     } else {
-      list = this.vocab.filter(w => {
-        const r = this.srs.records[w.id];
-        return r && r.state === state;
-      });
-      title = `${this.getStateBengali(state)} শব্দসমূহ`;
+      if (filterChipsContainer) filterChipsContainer.style.display = 'none';
+
+      if (state === 'mastered') {
+        list = this.srs.getMasteredWords(this.vocab);
+        title = 'সম্পূর্ণ আয়ত্তে থাকা শব্দ';
+      } else if (state === 'due') {
+        list = this.srs.getDueWords(this.vocab);
+        title = 'আজকের রিভিউ বাকি শব্দ';
+      } else {
+        list = this.vocab.filter(w => {
+          const r = this.srs.records[w.id];
+          return r && r.state === state;
+        });
+        title = `${this.getStateBengali(state)} শব্দসমূহ`;
+      }
     }
 
     const titleElem = document.getElementById('status-modal-title');
@@ -3102,12 +3556,15 @@ class QuranApp {
     }
 
     let html = '';
-    list.slice(0, 50).forEach(w => {
+    list.slice(0, 100).forEach(w => {
+      const r = this.srs.records[w.id];
+      const stateBadge = r ? this.getStateBengali(r.state) : '';
       html += `
         <div class="word-card" style="margin-bottom:8px;" onclick="app.closeModal('status-words-modal'); app.openWordDetail('${w.id}')">
           <div class="word-info-side">
             <div class="word-bn-title">${w.primary_meaning_bn}</div>
             <div class="word-en-sub">${w.primary_meaning_en}</div>
+            ${stateBadge ? `<span class="mission-badge" style="font-size:10px; margin-top:4px; display:inline-block;">${stateBadge}</span>` : ''}
           </div>
           <div class="word-ar-side">
             <div class="arabic-lemma" style="font-size:24px;">${w.lemma_ar}</div>
@@ -3204,6 +3661,31 @@ class QuranApp {
       this.srs.resetAll();
       alert('শিখন অগ্রগতি রিসেট করা হয়েছে। দিন ১ এ ফিরে যাওয়া হয়েছে।');
       window.location.reload();
+    }
+  }
+
+  async restoreFromAnyBackupUI() {
+    try {
+      const restoredCount = await this.srs.restoreFromAnyBackup();
+      if (restoredCount > 0) {
+        alert(`সফলভাবে ${restoredCount}টি শব্দের অগ্রগতি অভ্যন্তরীণ ব্যাকআপ থেকে উদ্ধার করা হয়েছে!`);
+        this.renderHome();
+        this.updateStorageStatusUI();
+      } else {
+        alert('ডিভাইসের অভ্যন্তরীণ ব্যাকআপে কোনো শিখন রেকর্ড পাওয়া যায়নি। আপনি যদি পূর্বে JSON ব্যাকআপ ডাউনলোড করে থাকেন, তবে "রিস্টোর করুন" বাটনে চাপ দিয়ে ফাইলটি সিলেক্ট করুন।');
+      }
+    } catch (e) {
+      console.error('Backup restoration failed:', e);
+      alert('ব্যাকআপ উদ্ধারে সমস্যা হয়েছে: ' + (e.message || 'অজানা ত্রুটি'));
+    }
+  }
+
+  updateStorageStatusUI() {
+    const countElem = document.getElementById('storage-records-count');
+    if (countElem) {
+      const activeLearned = this.srs.getActiveLearnedWords(this.vocab).length;
+      const totalRecs = Object.keys(this.srs.records).length;
+      countElem.textContent = `${activeLearned}টি শেখা শব্দ (${totalRecs}টি সক্রিয় ট্র্যাকিং রেকর্ড), দিন ${this.srs.currentDay}`;
     }
   }
 

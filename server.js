@@ -24,6 +24,7 @@ app.use('/data', express.static(path.join(__dirname, 'data'), {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.json')) {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
     }
   }
 }));
@@ -33,6 +34,7 @@ app.use('/quran-vocab/data', express.static(path.join(__dirname, 'data'), {
   setHeaders: (res, filePath) => {
     if (filePath.endsWith('.json')) {
       res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
     }
   }
 }));

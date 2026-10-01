@@ -20,9 +20,20 @@
   <!-- Application Styles -->
   <link rel="stylesheet" href="css/app.css">
   <script>
+    // 1. Request permanent storage so mobile OS/browser never purges user progress or offline cache
+    if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist().then(persistent => {
+        console.log('[Storage] Persistent storage granted:', persistent);
+      }).catch(err => {
+        console.warn('[Storage] Persistent storage request error:', err);
+      });
+    }
+
+    // 2. Register Service Worker with robust relative fallback
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').then(reg => {
+        const swUrl = window.location.pathname.startsWith('/quran-vocab') ? '/quran-vocab/sw.js' : 'sw.js';
+        navigator.serviceWorker.register(swUrl, { scope: './' }).then(reg => {
           reg.update().catch(() => {});
         }).catch(err => {
           console.warn('[SW] Registration failed:', err);
@@ -82,7 +93,7 @@
             </div>
 
             <!-- Middle: শেখা শব্দ -->
-            <div class="screenshot-card mini-action-card middle-learned-card" onclick="app.showStatusWords('mastered')">
+            <div class="screenshot-card mini-action-card middle-learned-card" onclick="app.showStatusWords('learned')">
               <div class="icon-square-box green-tick-box">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3">
                   <polyline points="20 6 9 17 4 12"></polyline>
@@ -133,7 +144,10 @@
     <!-- ================= 2. LEARN SCREEN (90-DAY JOURNEY MAP) ================= -->
     <div id="learn-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">শিখন পথ (Learning Journey)</div>
+        <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title" style="flex:1;">শিখন পথ (Learning Journey)</div>
         <button class="skip-day-btn" onclick="app.openDaySkipModal()" title="দিন স্কিপ বা জাম্প করুন">
           ⚡ স্কিপ টেস্ট
         </button>
@@ -228,7 +242,10 @@
     <!-- ================= 3. REVIEW SCREEN (SPACED REPETITION SRS) ================= -->
     <div id="review-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">স্মৃতি পুনরাবৃত্তি (SRS Review)</div>
+        <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title" style="flex:1;">স্মৃতি পুনরাবৃত্তি (SRS Review)</div>
         <div style="display:flex; align-items:center; gap:8px;">
           <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:4px 10px; cursor:pointer;" onclick="app.startFlashcardSession()" title="ফ্ল্যাশকার্ডে শব্দ ঝালাই">🗂️ ফ্ল্যাশকার্ড</button>
           <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:4px 10px; cursor:pointer;" onclick="app.openPracticeOptionsModal()" title="অনুশীলন মোড নির্বাচন">🎯 অনুশীলন মোড</button>
@@ -250,7 +267,10 @@
     <!-- ================= 4. QURAN AYAH READER & CONTEXT PRACTICE ================= -->
     <div id="quran-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">কুরআনের প্রেক্ষাপট পাঠ</div>
+        <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title" style="flex:1;">কুরআনের প্রেক্ষাপট পাঠ</div>
         <span class="mission-badge" title="Tanzil / Quranic Arabic Corpus">যাচাইকৃত ১,৪৫৯ আয়াত</span>
       </div>
 
@@ -275,7 +295,10 @@
     <!-- ================= 5. PROGRESS & VOCABULARY LIBRARY SCREEN ================= -->
     <div id="progress-screen" class="screen">
       <div class="top-bar">
-        <div class="top-bar-title">শিখন অগ্রগতি ও শব্দভাণ্ডার</div>
+        <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="top-bar-title" style="flex:1;">শিখন অগ্রগতি ও শব্দভাণ্ডার</div>
         <button class="icon-btn" onclick="app.openModal('settings-modal')" title="সেটিংস ও ব্যাকআপ">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
         </button>
@@ -297,10 +320,10 @@
     <!-- ================= VOCABULARY 2000 WORDS LIBRARY SCREEN ================= -->
     <div id="vocab-screen" class="screen">
       <div class="top-bar">
-        <button class="icon-btn" onclick="app.switchScreen('home')" title="হোমে ফিরুন">
+        <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="top-bar-title">কুরআনিক শব্দকোষ (২০০০ শব্দ)</div>
+        <div class="top-bar-title" style="flex:1;">কুরআনিক শব্দকোষ (২০০০ শব্দ)</div>
         <div style="display:flex; gap:6px; align-items:center;">
           <span class="mission-badge" id="vscreen-tracked-count" style="background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0; font-size:11px;">০টি শেখা</span>
           <span class="mission-badge" id="vocab-screen-count" style="font-size:11px;">২০০০ শব্দ</span>
@@ -318,53 +341,85 @@
       <div style="padding: 10px 16px 6px 16px; background:var(--surface); border-bottom:1px solid var(--border-light);">
         <input type="text" class="search-input" id="vscreen-search-input" placeholder="🔍 আরবি, বাংলা, ইংরেজি বা মূলধাতু দিয়ে খুঁজুন..." oninput="app.filterVocabScreen()">
         
-        <div style="display:flex; gap:8px; margin-top:8px;">
-          <select id="vscreen-cat-select" class="search-input" style="flex:1; padding:8px 10px; font-size:12px;" onchange="app.filterVocabScreen()">
-            <option value="all">সকল বিষয় / ক্যাটাগরি (১০০%)</option>
-            <option value="Grammar / function words">অব্যয় ও সর্বনাম (১০১)</option>
-            <option value="Actions">ক্রিয়া / Verbs (৩৭৯)</option>
-            <option value="People">মানুষ ও সৃষ্টি (১০৪১)</option>
-            <option value="Morality">চরিত্র ও নৈতিকতা (১৯২)</option>
-            <option value="Allah / Divine Attributes">আল্লাহ ও সিফাত (৩২)</option>
-            <option value="Guidance">হেদায়েত ও পথনির্দেশ (২৭)</option>
-            <option value="Hell">জাহান্নাম ও শাস্তি (২২)</option>
-            <option value="Faith">ঈমান ও বিশ্বাস (১৭)</option>
-            <option value="Prophets">নবী-রাসূলগণ (১৬)</option>
-            <option value="Paradise">জান্নাত ও নিয়ামত (১৪)</option>
-            <option value="Disbelief">কুফর ও অস্বীকৃতি (১৩)</option>
-            <option value="Judgment">আখিরাত ও বিচার (১২)</option>
-            <option value="Numbers / quantities">সংখ্যা ও পরিমাপ (১২)</option>
-            <option value="Worship">ইবাদত ও সালাত (৭)</option>
-          </select>
+        <!-- Themed Filter Trigger Buttons Row -->
+        <div class="vocab-filter-selectors-row">
+          <button type="button" class="vocab-filter-btn" id="vscreen-cat-btn" onclick="app.openVocabFilterSheet('cat')" title="বিষয় / ক্যাটাগরি ফিল্টার">
+            <div class="vfilter-icon-box">🏷️</div>
+            <div class="vfilter-text-col">
+              <span class="vfilter-label">বিষয় / ক্যাটাগরি</span>
+              <span class="vfilter-value" id="vscreen-cat-display">সকল বিষয় (১০০%)</span>
+            </div>
+            <svg class="vfilter-chevron" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
 
-          <select id="vscreen-level-select" class="search-input" style="flex:1; padding:8px 10px; font-size:12px;" onchange="app.filterVocabScreen()">
-            <option value="all">সকল লেভেল (১-২০)</option>
-            <option value="1">লেভেল ১ (১-১০০)</option>
-            <option value="2">লেভেল ২ (১০১-২০০)</option>
-            <option value="3">লেভেল ৩ (২০১-৩০০)</option>
-            <option value="4">লেভেল ৪ (৩০১-৪০০)</option>
-            <option value="5">লেভেল ৫ (৪০১-৫০০)</option>
-            <option value="6">লেভেল ৬ (৫০১-৬০০)</option>
-            <option value="7">লেভেল ৭ (৬০১-৭০০)</option>
-            <option value="8">লেভেল ৮ (৭০১-৮০০)</option>
-            <option value="9">লেভেল ৯ (৮০১-৯০০)</option>
-            <option value="10">লেভেল ১০ (৯০১-১০০০)</option>
-            <option value="11">লেভেল ১১ (১০০১-১১০০)</option>
-            <option value="12">লেভেল ১২ (১১০১-১২০০)</option>
-            <option value="13">লেভেল ১৩ (১২০১-১৩০০)</option>
-            <option value="14">লেভেল ১৪ (১৩০১-১৪০০)</option>
-            <option value="15">লেভেল ১৫ (১৪০১-১৫০০)</option>
-            <option value="16">লেভেল ১৬ (১৫০১-১৬০০)</option>
-            <option value="17">লেভেল ১৭ (১৬০১-১৭০০)</option>
-            <option value="18">লেভেল ১৮ (১৭০১-১৮০০)</option>
-            <option value="19">লেভেল ১৯ (১৮০১-১৯০০)</option>
-            <option value="20">লেভেল ২০ (১৯০১-২০০০)</option>
-          </select>
+          <button type="button" class="vocab-filter-btn" id="vscreen-level-btn" onclick="app.openVocabFilterSheet('level')" title="লেভেল ফিল্টার">
+            <div class="vfilter-icon-box">⚡</div>
+            <div class="vfilter-text-col">
+              <span class="vfilter-label">কুরআনিক লেভেল</span>
+              <span class="vfilter-value" id="vscreen-level-display">সকল লেভেল (১-২০)</span>
+            </div>
+            <svg class="vfilter-chevron" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px; color:var(--text-muted);">
-          <span id="vscreen-result-count">দেখাচ্ছে</span>
-          <span style="font-size:11px; color:var(--primary); font-weight:600;">☑️ বামের চেকবক্সে স্পর্শ করে ট্র্যাক করুন</span>
+        <!-- Hidden backward-compatible select elements -->
+        <select id="vscreen-cat-select" style="display:none;" onchange="app.filterVocabScreen()">
+          <option value="all">সকল বিষয় / ক্যাটাগরি (১০০%)</option>
+          <option value="Grammar / function words">অব্যয় ও সর্বনাম (১০১)</option>
+          <option value="Actions">ক্রিয়া / Verbs (৩৭৯)</option>
+          <option value="People">মানুষ ও সৃষ্টি (১০৪১)</option>
+          <option value="Morality">চরিত্র ও নৈতিকতা (১৯২)</option>
+          <option value="Allah / Divine Attributes">আল্লাহ ও সিফাত (৩২)</option>
+          <option value="Guidance">হেদায়েত ও পথনির্দেশ (২৭)</option>
+          <option value="Hell">জাহান্নাম ও শাস্তি (২২)</option>
+          <option value="Faith">ঈমান ও বিশ্বাস (১৭)</option>
+          <option value="Prophets">নবী-রাসূলগণ (১৬)</option>
+          <option value="Paradise">জান্নাত ও নিয়ামত (১৪)</option>
+          <option value="Disbelief">কুফর ও অস্বীকৃতি (১৩)</option>
+          <option value="Judgment">আখিরাত ও বিচার (১২)</option>
+          <option value="Numbers / quantities">সংখ্যা ও পরিমাপ (১২)</option>
+          <option value="Worship">ইবাদত ও সালাত (৭)</option>
+        </select>
+        <select id="vscreen-level-select" style="display:none;" onchange="app.filterVocabScreen()">
+          <option value="all">সকল লেভেল (১-২০)</option>
+          <option value="1">লেভেল ১ (১-১০০)</option>
+          <option value="2">লেভেল ২ (১০১-২০০)</option>
+          <option value="3">লেভেল ৩ (২০১-৩০০)</option>
+          <option value="4">লেভেল ৪ (৩০১-৪০০)</option>
+          <option value="5">লেভেল ৫ (৪০১-৫০০)</option>
+          <option value="6">লেভেল ৬ (৫০১-৬০০)</option>
+          <option value="7">লেভেল ৭ (৬০১-৭০০)</option>
+          <option value="8">লেভেল ৮ (৭০১-৮০০)</option>
+          <option value="9">লেভেল ৯ (৮০১-৯০০)</option>
+          <option value="10">লেভেল ১০ (৯০১-১০০০)</option>
+          <option value="11">লেভেল ১১ (১০০১-১১০০)</option>
+          <option value="12">লেভেল ১২ (১১০১-১২০০)</option>
+          <option value="13">লেভেল ১৩ (১২০১-১৩০০)</option>
+          <option value="14">লেভেল ১৪ (১৩০১-১৪০০)</option>
+          <option value="15">লেভেল ১৫ (১৪০১-১৫০০)</option>
+          <option value="16">লেভেল ১৬ (১৫০১-১৬০০)</option>
+          <option value="17">লেভেল ১৭ (১৬০১-১৭০০)</option>
+          <option value="18">লেভেল ১৮ (১৭০১-১৮০০)</option>
+          <option value="19">লেভেল ১৯ (১৮০১-১৯০০)</option>
+          <option value="20">লেভেল ২০ (১৯০১-২০০০)</option>
+        </select>
+
+        <!-- Clean, Elegant Result Count & Filter Status Strip -->
+        <div class="vocab-filter-status-strip">
+          <div class="vfilter-count-badge">
+            <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span id="vscreen-result-count">মোট ২,০০০টি শব্দ প্রদর্শিত</span>
+          </div>
+          <button type="button" class="vfilter-reset-pill-btn" id="vfilter-reset-btn" onclick="app.resetAllVocabFilters()" style="display:none;" title="সকল ফিল্টার মুছুন">
+            ✕ ফিল্টার মুছুন
+          </button>
         </div>
       </div>
 
@@ -376,10 +431,10 @@
     <!-- ================= MEMORIZE DRILL SCREEN (PURE RETENTION) ================= -->
     <div id="memorize-screen" class="screen">
       <div class="top-bar">
-        <button class="icon-btn" onclick="app.confirmExitMemorize()" title="হোমে ফিরুন">
+        <button class="icon-btn" onclick="app.confirmExitMemorize()" title="পেছনে যান">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="top-bar-title">মেমোরাইজ ড্রিল (স্মরণ চর্চা)</div>
+        <div class="top-bar-title" style="flex:1;">মেমোরাইজ ড্রিল (স্মরণ চর্চা)</div>
         <span class="mission-badge" id="memorize-counter">১ / ১৮</span>
       </div>
 
@@ -399,7 +454,7 @@
         <button class="icon-btn" onclick="app.confirmExitSession()" title="সেশন থেকে প্রস্থান">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="top-bar-title" id="session-step-title">আজকের সেশন</div>
+        <div class="top-bar-title" id="session-step-title" style="flex:1;">আজকের সেশন</div>
         <span class="mission-badge" id="session-step-counter">১ / ৫</span>
       </div>
 
@@ -684,6 +739,23 @@
         </p>
       </div>
 
+      <div class="card-section" style="background:var(--surface-alt); border:1px solid var(--border);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <div class="section-title" style="margin-bottom:0;">অফলাইন স্টোরেজ ও অটো-ব্যাকআপ</div>
+          <span id="storage-persist-status" style="font-size:11px; font-weight:700; color:var(--primary);">স্থায়ী মোড সক্রিয় ✅</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-secondary); line-height:1.45; margin-bottom:10px;">
+          শিখন অগ্রগতি এবং ২০০০ শব্দের সম্পূর্ণ ডাটাবেজ ডিভাইসের স্থায়ী IndexedDB মেমোরিতে স্বয়ংক্রিয়ভাবে সংরক্ষিত থাকে।
+        </p>
+        <div style="background:var(--surface); border-radius:var(--radius-md); padding:10px; margin-bottom:10px; border:1px solid var(--border-light);">
+          <div style="font-size:11px; color:var(--text-muted); margin-bottom:3px;">সংরক্ষিত অগ্রগতি স্থিতি:</div>
+          <div style="font-size:13px; font-weight:700; color:var(--text-primary);" id="storage-records-count">লোড হচ্ছে...</div>
+        </div>
+        <button class="pill-btn" style="width:100%; border:1px solid var(--border); font-size:12px; background:var(--surface);" onclick="app.restoreFromAnyBackupUI()">
+          🔄 ডিভাইস ইন্টারনাল ব্যাকআপ থেকে পুনরুদ্ধার করুন
+        </button>
+      </div>
+
       <div class="card-section">
         <div class="section-title">ডেটা ব্যাকআপ ও রিস্টোর</div>
         <p style="font-size:12px; color:var(--text-muted); margin-bottom:12px;">আপনার শিখন অগ্রগতি সুরক্ষিত রাখতে ব্যাকআপ ফাইল ডাউনলোড করুন অথবা অন্য ডিভাইস থেকে রিস্টোর করুন।</p>
@@ -766,6 +838,10 @@
         <button class="icon-btn" onclick="app.closeModal('status-words-modal')">✕</button>
       </div>
 
+      <div id="status-modal-filter-chips" style="display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:10px;">
+        <!-- Filter chips rendered by JS -->
+      </div>
+
       <div style="margin-bottom: 12px; display: flex; gap: 8px;">
         <button class="btn-primary" id="status-modal-practice-btn" style="padding: 10px; font-size: 13px;" onclick="app.startFilteredPractice()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:16px; height:16px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
@@ -816,6 +892,44 @@
             <div style="font-size:11px; color:var(--text-muted);">টেস্ট না দিয়ে সরাসরি কাঙ্ক্ষিত দিনে যেতে চান?</div>
           </div>
           <button class="pill-btn" style="border:1px solid var(--border); padding:6px 14px; font-size:12px;" onclick="app.executeDayJumpFromModal()">সরাসরি জাম্প</button>
+        </div>
+      </div>
+  <!-- ================= MODAL: THEMED VOCAB FILTER BOTTOM SHEET ================= -->
+  <div class="modal-overlay" id="vocab-filter-sheet-modal">
+    <div class="modal-sheet" style="max-height:86vh; padding-bottom:26px;">
+      <!-- Header -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border-light); padding-bottom:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div id="vfilter-sheet-icon" style="width:34px; height:34px; border-radius:9px; background:rgba(13,56,44,0.1); color:var(--primary); display:flex; align-items:center; justify-content:center; font-size:18px;">🏷️</div>
+          <div>
+            <div id="vfilter-sheet-title" style="font-weight:700; font-size:15px; color:var(--text-primary);">বিষয় ও ক্যাটাগরি নির্বাচন</div>
+            <div id="vfilter-sheet-subtitle" style="font-size:11px; color:var(--text-muted);">পছন্দের বিষয় নির্বাচন করে শব্দ তালিকা দেখুন</div>
+          </div>
+        </div>
+        <button class="icon-btn" onclick="app.closeModal('vocab-filter-sheet-modal')" title="বন্ধ করুন">✕</button>
+      </div>
+
+      <!-- Quick Switch Tabs inside sheet -->
+      <div class="vfilter-sheet-tabs">
+        <button type="button" class="vfilter-sheet-tab active" id="vtab-cat-btn" onclick="app.switchVocabFilterTab('cat')">
+          🏷️ বিষয় ও ক্যাটাগরি
+        </button>
+        <button type="button" class="vfilter-sheet-tab" id="vtab-level-btn" onclick="app.switchVocabFilterTab('level')">
+          ⚡ কুরআনিক লেভেল (১-২০)
+        </button>
+      </div>
+
+      <!-- Panel 1: Categories -->
+      <div id="vfilter-cat-panel" class="vfilter-panel">
+        <div class="vfilter-options-grid" id="vfilter-categories-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Panel 2: Levels -->
+      <div id="vfilter-level-panel" class="vfilter-panel" style="display:none;">
+        <div class="vfilter-options-grid" id="vfilter-levels-grid">
+          <!-- Populated by JS -->
         </div>
       </div>
     </div>

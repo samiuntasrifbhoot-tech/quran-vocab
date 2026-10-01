@@ -3,6 +3,8 @@
  * 90-Day Curriculum, SM-2 Spaced Repetition, and Mastery Tracking
  */
 
+import { offlineStorage } from './storage.js';
+
 export const MasteryState = {
   NEW: 'NEW',             // নতুন
   LEARNING: 'LEARNING',   // শিখছি
@@ -13,6 +15,7 @@ export const MasteryState = {
 
 const SRS_STORAGE_KEY = 'quran_srs_state_v4';
 const SETTINGS_STORAGE_KEY = 'quran_settings_v4';
+const EMERGENCY_STORAGE_KEY = 'quran_srs_state_emergency';
 
 export class SRSEngine {
   constructor() {
@@ -21,6 +24,7 @@ export class SRSEngine {
     this.streak = 0;
     this.lastActiveDate = null;
     this.currentDay = 1;
+    this.isInitialized = false;
     this.settings = {
       dailyTimeMinutes: 15,
       wordsPerDay: 22,
@@ -30,15 +34,31 @@ export class SRSEngine {
       transliteration: true,
       onboardingComplete: false
     };
-    this.loadState();
+    // Synchronous immediate load from LocalStorage
+    this.loadFromLocalStorage();
   }
 
-  loadState() {
+  loadFromLocalStorage() {
     try {
-      // Check v4 first, fallback to v3 if migrating
-      let saved = localStorage.getItem(SRS_STORAGE_KEY);
-      if (!saved) {
-        saved = localStorage.getItem('quran_srs_state_v3');
+      const keysToTry = [
+        SRS_STORAGE_KEY,
+        EMERGENCY_STORAGE_KEY,
+        'quran_srs_state_v3',
+        'quran_srs_state_v2',
+        'quran_srs_state',
+        'quran_vocab_srs'
+      ];
+      let saved = null;
+      for (const k of keysToTry) {
+        saved = localStorage.getItem(k);
+        if (saved) {
+          try {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.records && Object.keys(parsed.records).length > 0) {
+              break;
+            }
+          } catch (e) {}
+        }
       }
       if (saved) {
         const parsed = JSON.parse(saved);
@@ -49,32 +69,207 @@ export class SRSEngine {
         this.currentDay = Math.min(90, Math.max(1, parsed.currentDay || 1));
       }
 
-      let savedSettings = localStorage.getItem(SETTINGS_STORAGE_KEY);
-      if (!savedSettings) {
-        savedSettings = localStorage.getItem('quran_settings_v3');
+      const settingsKeysToTry = [
+        SETTINGS_STORAGE_KEY,
+        'quran_settings_v3',
+        'quran_settings_v2',
+        'quran_settings'
+      ];
+      let savedSettings = null;
+      for (const sk of settingsKeysToTry) {
+        savedSettings = localStorage.getItem(sk);
+        if (savedSettings) break;
       }
       if (savedSettings) {
         this.settings = { ...this.settings, ...JSON.parse(savedSettings) };
       }
-      this.checkStreak();
     } catch (e) {
-      console.warn('Could not load SRS state:', e);
+      console.warn('[SRS] Error loading from localStorage:', e);
     }
   }
 
-  saveState() {
+  /**
+   * Complete multi-tier asynchronous storage initialization.
+   * Compares LocalStorage and IndexedDB, merges records, and prevents any data loss.
+   */
+  async initStorage() {
+    this.loadFromLocalStorage();
+
     try {
-      localStorage.setItem(SRS_STORAGE_KEY, JSON.stringify({
-        records: this.records,
-        history: this.history.slice(-100),
-        streak: this.streak,
-        lastActiveDate: this.lastActiveDate,
-        currentDay: this.currentDay
-      }));
-      localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(this.settings));
-    } catch (e) {
-      console.warn('Could not save SRS state:', e);
+      // 1. Check IndexedDB primary backup
+      const backup = await offlineStorage.get('srs_state_backup');
+      const backupRecords = (backup && backup.records) ? backup.records : {};
+      const backupCount = Object.keys(backupRecords).length;
+      const memCount = Object.keys(this.records).length;
+
+      // 2. Also check stable snapshot if available
+      const stableSnap = await offlineStorage.get('srs_state_backup_stable');
+      const stableRecords = (stableSnap && stableSnap.records) ? stableSnap.records : {};
+      const stableCount = Object.keys(stableRecords).length;
+
+      console.log(`[SRS Storage Init] LocalStorage records: ${memCount}, IndexedDB backup: ${backupCount}, Stable snapshot: ${stableCount}`);
+
+      // 3. Merge: Take all records from LocalStorage and IndexedDB, always keeping the most progressed state
+      const allRecords = { ...this.records };
+      const sourceB = backupCount >= stableCount ? backupRecords : stableRecords;
+      const sourceObj = backupCount >= stableCount ? backup : stableSnap;
+
+      for (const [wid, rec] of Object.entries(sourceB)) {
+        if (!allRecords[wid]) {
+          allRecords[wid] = rec;
+        } else {
+          // Keep record with higher reps or higher state
+          if ((rec.reps || 0) > (allRecords[wid].reps || 0) || (rec.state === MasteryState.MASTERED)) {
+            allRecords[wid] = rec;
+          }
+        }
+      }
+
+      const totalMerged = Object.keys(allRecords).length;
+      if (totalMerged > memCount) {
+        console.log(`[SRS Storage] Successfully recovered & merged ${totalMerged} progress records into memory!`);
+        this.records = allRecords;
+        if (sourceObj) {
+          this.history = (sourceObj.history && sourceObj.history.length > this.history.length) ? sourceObj.history : this.history;
+          this.streak = Math.max(this.streak, sourceObj.streak || 0);
+          this.lastActiveDate = sourceObj.lastActiveDate || this.lastActiveDate;
+          this.currentDay = Math.max(this.currentDay, sourceObj.currentDay || 1);
+        }
+        // Sync the restored state immediately to LocalStorage
+        this.saveState(false, true);
+      } else if (memCount > 0 && memCount > backupCount) {
+        // LocalStorage had more, mirror to IndexedDB
+        this.saveState(false, true);
+      }
+    } catch (err) {
+      console.warn('[SRS Storage Init] IndexedDB sync warning:', err);
     }
+
+    this.checkStreak();
+    this.isInitialized = true;
+    return true;
+  }
+
+  /**
+   * Resilient storage save: saves to LocalStorage, Emergency Key, and IndexedDB.
+   * CRITICAL SAFETY: Never overwrites a non-empty IndexedDB backup with an empty state unless forceReset is explicitly true.
+   */
+  async saveState(forceReset = false, silent = false) {
+    const memCount = Object.keys(this.records).length;
+
+    const stateObj = {
+      records: this.records,
+      history: this.history.slice(-100),
+      streak: this.streak,
+      lastActiveDate: this.lastActiveDate,
+      currentDay: this.currentDay,
+      savedAt: new Date().toISOString()
+    };
+
+    // 1. LocalStorage primary
+    try {
+      localStorage.setItem(SRS_STORAGE_KEY, JSON.stringify(stateObj));
+      localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(this.settings));
+      if (memCount > 0) {
+        localStorage.setItem(EMERGENCY_STORAGE_KEY, JSON.stringify(stateObj));
+      }
+    } catch (e) {
+      console.warn('[SRS] Could not save state to localStorage:', e);
+    }
+
+    // 2. IndexedDB permanent storage with empty-state protection
+    try {
+      if (memCount === 0 && !forceReset) {
+        // Prevent accidental wipeout! Check if IndexedDB already has records.
+        const existing = await offlineStorage.get('srs_state_backup');
+        if (existing && existing.records && Object.keys(existing.records).length > 0) {
+          if (!silent) console.warn('[SRS Safety Guard] Blocked empty state from overwriting non-empty IndexedDB backup!');
+          return;
+        }
+      }
+
+      // Save primary backup
+      await offlineStorage.set('srs_state_backup', stateObj);
+
+      // Save stable snapshots if user has meaningful progress
+      if (memCount >= 5 || forceReset) {
+        await offlineStorage.set('srs_state_backup_stable', stateObj);
+        const today = new Date().toISOString().slice(0, 10);
+        await offlineStorage.set(`srs_state_backup_${today}`, stateObj);
+      }
+    } catch (e) {
+      console.warn('[SRS] IndexedDB save warning:', e);
+    }
+  }
+
+  /**
+   * Deep recovery scanner: scans all possible LocalStorage keys, IndexedDB backup keys, and snapshots.
+   * Restores the highest-progress state found.
+   */
+  async restoreFromAnyBackup() {
+    let candidateRecords = {};
+    let candidateMeta = null;
+    let maxCount = 0;
+
+    const testCandidate = (obj, sourceName) => {
+      if (!obj || !obj.records) return;
+      const cnt = Object.keys(obj.records).length;
+      if (cnt > maxCount) {
+        maxCount = cnt;
+        candidateRecords = obj.records;
+        candidateMeta = obj;
+        console.log(`[Backup Scanner] Found stronger candidate from ${sourceName}: ${cnt} records`);
+      }
+    };
+
+    // 1. Scan LocalStorage keys
+    const lsKeys = [
+      SRS_STORAGE_KEY,
+      EMERGENCY_STORAGE_KEY,
+      'quran_srs_state_v3',
+      'quran_srs_state_v2',
+      'quran_srs_state',
+      'quran_vocab_srs'
+    ];
+    for (const k of lsKeys) {
+      try {
+        const val = localStorage.getItem(k);
+        if (val) testCandidate(JSON.parse(val), `localStorage(${k})`);
+      } catch (e) {}
+    }
+
+    // 2. Scan IndexedDB backups
+    try {
+      const b1 = await offlineStorage.get('srs_state_backup');
+      testCandidate(b1, 'IndexedDB(srs_state_backup)');
+      const b2 = await offlineStorage.get('srs_state_backup_stable');
+      testCandidate(b2, 'IndexedDB(srs_state_backup_stable)');
+
+      // Scan all daily snapshots
+      const allKeys = await offlineStorage.keys();
+      for (const k of allKeys) {
+        if (typeof k === 'string' && k.startsWith('srs_state_backup_')) {
+          const snap = await offlineStorage.get(k);
+          testCandidate(snap, `IndexedDB(${k})`);
+        }
+      }
+    } catch (e) {
+      console.warn('[Backup Scanner] IndexedDB scan warning:', e);
+    }
+
+    if (maxCount > 0) {
+      this.records = candidateRecords;
+      if (candidateMeta) {
+        this.history = candidateMeta.history || this.history;
+        this.streak = Math.max(this.streak, candidateMeta.streak || 1);
+        this.lastActiveDate = candidateMeta.lastActiveDate || this.lastActiveDate;
+        this.currentDay = Math.max(this.currentDay, candidateMeta.currentDay || 1);
+      }
+      this.saveState(true);
+      return maxCount;
+    }
+
+    return 0;
   }
 
   checkStreak() {
@@ -517,6 +712,6 @@ export class SRSEngine {
     this.streak = 1;
     this.currentDay = 1;
     this.lastActiveDate = new Date().toISOString().slice(0, 10);
-    this.saveState();
+    this.saveState(true);
   }
 }
