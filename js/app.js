@@ -2544,7 +2544,8 @@ class QuranApp {
 
     if (catDisplay) {
       const activeCat = VOCAB_CATEGORIES.find(c => c.id === cat);
-      catDisplay.textContent = activeCat ? (cat === 'all' ? 'সকল বিষয় (১০০%)' : activeCat.nameBn) : cat;
+      catDisplay.textContent = activeCat ? (cat === 'all' ? 'সকল বিষয়' : activeCat.nameBn) : cat;
+      catDisplay.title = activeCat ? activeCat.nameBn : '';
     }
     if (catBtn) {
       catBtn.classList.toggle('active-filter', cat !== 'all');
@@ -2552,7 +2553,8 @@ class QuranApp {
 
     if (lvlDisplay) {
       const activeLvl = VOCAB_LEVELS.find(l => l.id === lvl);
-      lvlDisplay.textContent = activeLvl ? (lvl === 'all' ? 'সকল লেভেল (১-২০)' : `${activeLvl.nameBn} (${activeLvl.range})`) : `লেভেল ${lvl}`;
+      lvlDisplay.textContent = activeLvl ? (lvl === 'all' ? 'সকল লেভেল (১-২০)' : activeLvl.nameBn) : `লেভেল ${lvl}`;
+      lvlDisplay.title = activeLvl ? `${activeLvl.nameBn} (${activeLvl.range})` : '';
     }
     if (lvlBtn) {
       lvlBtn.classList.toggle('active-filter', lvl !== 'all');

@@ -2372,24 +2372,30 @@ body.dark-mode .subtle-feedback-wrong {
 /* ================= THEMED VOCAB FILTER SELECTORS & BOTTOM SHEET ================= */
 .vocab-filter-selectors-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 8px;
   margin-top: 8px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .vocab-filter-btn {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 8px 10px;
+  padding: 8px 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   text-align: left;
   transition: all 0.16s ease;
   box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .vocab-filter-btn:hover {
@@ -2413,14 +2419,14 @@ body.dark-mode .vocab-filter-btn.active-filter {
 }
 
 .vfilter-icon-box {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
   background: var(--surface-alt);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 13px;
   flex-shrink: 0;
   border: 1px solid var(--border-light);
 }
@@ -2430,6 +2436,7 @@ body.dark-mode .vocab-filter-btn.active-filter {
   min-width: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .vfilter-label {
@@ -2437,12 +2444,15 @@ body.dark-mode .vocab-filter-btn.active-filter {
   color: var(--text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
   line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .vfilter-value {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-primary);
   white-space: nowrap;
@@ -2454,11 +2464,38 @@ body.dark-mode .vocab-filter-btn.active-filter {
 .vfilter-chevron {
   color: var(--text-muted);
   flex-shrink: 0;
+  width: 14px;
+  height: 14px;
   transition: transform 0.18s ease;
 }
 
 .vocab-filter-btn:hover .vfilter-chevron {
   color: var(--primary);
+}
+
+@media (max-width: 380px) {
+  .vocab-filter-selectors-row {
+    gap: 6px;
+  }
+  .vocab-filter-btn {
+    padding: 6px 6px;
+    gap: 4px;
+  }
+  .vfilter-icon-box {
+    width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+  .vfilter-label {
+    font-size: 9px;
+  }
+  .vfilter-value {
+    font-size: 10.5px;
+  }
+  .vfilter-chevron {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* Filter Status Strip */
