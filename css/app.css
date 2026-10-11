@@ -25,6 +25,11 @@
   --shadow-md: 0 4px 14px rgba(11,61,36,0.06);
   --shadow-lg: 0 10px 25px rgba(11,61,36,0.10);
   --nav-height: 64px;
+
+  /* ST (Samiun Tasrif) Brand Watermark - Light Mode (subtle ~2.5 - 3.5%) */
+  --st-watermark-color: #0f172a;
+  --st-watermark-opacity-repeat: 0.026;
+  --st-watermark-opacity-center: 0.035;
 }
 
 body.dark-mode {
@@ -44,6 +49,11 @@ body.dark-mode {
   --border: #1e352b;
   --border-light: #182b23;
   --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
+
+  /* ST (Samiun Tasrif) Brand Watermark - Dark Mode (subtle ~3.5 - 4.5%) */
+  --st-watermark-color: #94a3b8;
+  --st-watermark-opacity-repeat: 0.036;
+  --st-watermark-opacity-center: 0.045;
 }
 
 * {
@@ -55,13 +65,32 @@ body.dark-mode {
 
 body {
   font-family: 'Hind Siliguri', sans-serif;
-  background-color: #cbd5e1;
+  background-color: var(--bg-app);
   color: var(--text-primary);
   display: flex;
   justify-content: center;
   min-height: 100vh;
   overflow: hidden;
   user-select: none;
+  position: relative;
+  transition: background-color 0.25s ease;
+}
+
+/* Desktop Widescreen Watermark Overlay */
+.desktop-bg-watermark {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .desktop-bg-watermark {
+    display: none;
+  }
 }
 
 .app-viewport {
@@ -76,6 +105,53 @@ body {
   flex-direction: column;
   box-shadow: 0 0 50px rgba(0,0,0,0.25);
   transition: background-color 0.25s ease;
+  z-index: 1;
+}
+
+/* ================= ST (SAMIUN TASRIF) BRAND WATERMARK SYSTEM ================= */
+.st-watermark-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.st-watermark-repeat-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--st-watermark-color);
+  opacity: var(--st-watermark-opacity-repeat);
+  transition: color 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.st-watermark-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 290px;
+  max-width: 82%;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.st-watermark-center-svg {
+  width: 100%;
+  height: auto;
+  color: var(--st-watermark-color);
+  opacity: var(--st-watermark-opacity-center);
+  transition: color 0.3s ease, opacity 0.3s ease;
+  pointer-events: none;
 }
 
 /* Screen Transitions */
@@ -86,6 +162,7 @@ body {
   width: 100%;
   height: 100%;
   min-height: 0;
+  z-index: 2; /* Content floats above the watermark */
 }
 
 .screen {
@@ -96,7 +173,7 @@ body {
   height: 100%;
   display: none;
   flex-direction: column;
-  background-color: var(--bg-app);
+  background-color: transparent; /* Allows watermark to gracefully blend */
   opacity: 0;
   min-height: 0;
 }
@@ -590,7 +667,7 @@ body.dark-mode .nav-tab.active {
 /* Search Box */
 .search-container {
   padding: 10px 16px;
-  background: var(--bg-app);
+  background: transparent;
 }
 .search-input {
   width: 100%;
