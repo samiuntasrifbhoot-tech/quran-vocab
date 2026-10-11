@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'quran-v14';
+const CACHE_VERSION = 'quran-v15';
 const STATIC_ASSETS = [
   './',
   './index.html',
@@ -15,7 +15,8 @@ const DATA_ASSETS = [
   './data/quran-context-verses.json',
   './data/curriculum.json',
   './data/grammar.json',
-  './data/vocabulary-validation.json'
+  './data/vocabulary-validation.json',
+  './data/quran-words.json'
 ];
 
 self.addEventListener('install', e => {

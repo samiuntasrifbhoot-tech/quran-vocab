@@ -87,6 +87,8 @@ class QuranApp {
 
     // Word Inspector state
     this.currentSelectedToken = null;
+    this.quranWords = null;
+    this.quranWordsDict = {};
 
     // Mobile navigation & hardware back button handling
     this.screenHistory = ['home'];
@@ -149,6 +151,21 @@ class QuranApp {
     throw lastError || new Error(`Failed to load JSON data for: ${candidateList.join(', ')}`);
   }
 
+  cleanArabic(str, normalizeLetters = true) {
+    if (!str) return '';
+    let s = str
+      .replace(/\s+/g, '')
+      .replace(/[\u064B-\u065F\u0670\u06D6-\u06ED\u0610-\u061A\u08D4-\u08E1\u08E3-\u08FF\u0640]/g, '')
+      .trim();
+    if (normalizeLetters) {
+      s = s
+        .replace(/[إأآٱ]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/ى/g, 'ي');
+    }
+    return s;
+  }
+
   async init() {
     this.initHistory();
     this.setupEventListeners();
@@ -186,15 +203,35 @@ class QuranApp {
       this.curriculum = curriculum || null;
       this.grammar = grammar || null;
 
-      // Index vocabulary
+      // Index vocabulary thoroughly with normalized lemmas and roots
       this.vocab.forEach(w => {
         this.vocabMap.set(w.id, w);
-        if (w.lemma_clean) this.lemmaMap.set(w.lemma_clean, w);
-        if (w.root && w.root.trim()) {
-          const r = w.root.trim();
-          if (!this.rootMap.has(r)) this.rootMap.set(r, []);
-          this.rootMap.get(r).push(w);
+        w.lemma_clean = this.cleanArabic(w.lemma_ar);
+        if (w.lemma_clean) {
+          this.lemmaMap.set(w.lemma_clean, w);
+          if (w.lemma_clean.startsWith('ال')) {
+            const wo = w.lemma_clean.slice(2);
+            if (!this.lemmaMap.has(wo)) this.lemmaMap.set(wo, w);
+          }
         }
+        if (w.root && w.root.trim()) {
+          const r = this.cleanArabic(w.root);
+          if (r) {
+            if (!this.rootMap.has(r)) this.rootMap.set(r, []);
+            this.rootMap.get(r).push(w);
+          }
+        }
+      });
+
+      // Load pre-computed word-by-word database in background (with offline IndexedDB cache)
+      this.fetchJsonData(['data/quran-words.json'], 'data_cache_quran_words.json').then(data => {
+        if (data && data.verses) {
+          this.quranWords = data.verses;
+          this.quranWordsDict = data.dict || {};
+          console.log('[QuranWords] Word-by-word database loaded successfully.');
+        }
+      }).catch(err => {
+        console.warn('[QuranWords] Background load non-fatal:', err);
       });
 
       this.renderHome();
@@ -1282,13 +1319,22 @@ class QuranApp {
       const verseKey = `${example.surah}:${example.ayah}`;
       const v = this.quranVerses[verseKey];
       if (v) {
+        const cleanTarget = (word.lemma_clean || this.cleanArabic(word.lemma_ar));
+        const tokens = (v.text_ar || '').split(/\s+/);
+        const tokensHtml = tokens.map((tok, tokIdx) => {
+          const cleanTok = this.cleanArabic(tok);
+          const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+          const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}', ${v.surah}, ${v.ayah}, ${tokIdx})">${tok}</span>`;
+        }).join(' ');
+
         verseHtml = `
           <div class="ayah-card" style="margin: 14px 0 10px 0; text-align:right;">
             <div class="ayah-meta" style="direction:ltr; text-align:left;">
               <span>সূরা ${v.surah}:${v.ayah}</span>
               <span style="color:var(--gold);">কুরআনিক প্রয়োগ</span>
             </div>
-            <div class="ayah-arabic-text" style="font-size:20px; line-height:2.0;">${v.text_ar}</div>
+            <div class="ayah-arabic-text" style="font-size:20px; line-height:2.0;">${tokensHtml}</div>
             <div class="ayah-bn-translation" style="direction:ltr; text-align:left; font-size:13px; margin-top:4px;">${v.text_bn}</div>
           </div>
         `;
@@ -1385,13 +1431,22 @@ class QuranApp {
       const verseKey = `${example.surah}:${example.ayah}`;
       const v = this.quranVerses[verseKey];
       if (v) {
+        const cleanTarget = (word.lemma_clean || this.cleanArabic(word.lemma_ar));
+        const tokens = (v.text_ar || '').split(/\s+/);
+        const tokensHtml = tokens.map((tok, tokIdx) => {
+          const cleanTok = this.cleanArabic(tok);
+          const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+          const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}', ${v.surah}, ${v.ayah}, ${tokIdx})">${tok}</span>`;
+        }).join(' ');
+
         verseHtml = `
           <div class="ayah-card" style="margin: 16px 0 10px 0; text-align:right;">
             <div class="ayah-meta" style="direction:ltr; text-align:left;">
               <span>কুরআনের আয়াত থেকে প্রেক্ষাপট</span>
               <span>সূরা ${v.surah}:${v.ayah}</span>
             </div>
-            <div class="ayah-arabic-text" style="font-size:20px;">${v.text_ar}</div>
+            <div class="ayah-arabic-text" style="font-size:20px; line-height:2.0;">${tokensHtml}</div>
             <div class="ayah-bn-translation" style="direction:ltr; text-align:left;">${v.text_bn}</div>
           </div>
         `;
@@ -1710,11 +1765,13 @@ class QuranApp {
     const word = item.word;
 
     // Tokenize verse Arabic text and highlight matching word
-    const tokens = verse.text_ar.split(/\s+/);
-    const tokensHtml = tokens.map(tok => {
-      const cleanTok = tok.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
-      const isTarget = cleanTok.includes(word.lemma_clean) || tok.includes(word.lemma_ar);
-      return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${tok}')">${tok}</span>`;
+    const tokens = (verse.text_ar || '').split(/\s+/);
+    const cleanTarget = (word.lemma_clean || this.cleanArabic(word.lemma_ar));
+    const tokensHtml = tokens.map((tok, tokIdx) => {
+      const cleanTok = this.cleanArabic(tok);
+      const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+      const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}', ${verse.surah}, ${verse.ayah}, ${tokIdx})">${tok}</span>`;
     }).join(' ');
 
     container.innerHTML = `
@@ -2026,10 +2083,11 @@ class QuranApp {
     let html = '';
     displayVerses.forEach(v => {
       const tokens = v.text_ar.split(/\s+/);
-      const tokensHtml = tokens.map(tok => {
-        const cleanTok = tok.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
-        const isKnownLemma = this.lemmaMap.has(cleanTok);
-        return `<span class="ayah-word-token ${isKnownLemma ? 'quran-token-highlighted' : ''}" onclick="app.inspectToken('${tok}')">${tok}</span>`;
+      const tokensHtml = tokens.map((tok, tokIdx) => {
+        const cleanTok = this.cleanArabic(tok);
+        const isKnownLemma = this.hasWordMatch(cleanTok);
+        const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+        return `<span class="ayah-word-token ${isKnownLemma ? 'quran-token-highlighted' : ''}" onclick="app.inspectToken('${safeTok}', ${v.surah}, ${v.ayah}, ${tokIdx})">${tok}</span>`;
       }).join(' ');
 
       html += `
@@ -2047,13 +2105,193 @@ class QuranApp {
     container.innerHTML = html;
   }
 
-  inspectToken(token) {
-    const cleanTok = token.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
-    let matchedWord = this.lemmaMap.get(cleanTok);
+  hasWordMatch(cleanTok) {
+    if (!cleanTok) return false;
+    if (this.lemmaMap.has(cleanTok)) return true;
+    if (this.quranWordsDict && this.quranWordsDict[cleanTok]) return true;
+    if (cleanTok.startsWith('ال') && this.lemmaMap.has(cleanTok.slice(2))) return true;
+    return false;
+  }
 
-    if (!matchedWord) {
-      matchedWord = this.vocab.find(w => w.lemma_ar === token || w.lemma_clean === cleanTok || cleanTok.includes(w.lemma_clean));
+  resolveWord(token, surah = null, ayah = null, wordIndex = null) {
+    const cleanTok = this.cleanArabic(token);
+    let result = {
+      token,
+      lemma: token,
+      root: '',
+      meaningBn: '',
+      meaningEn: '',
+      pos: 'শব্দ',
+      transliteration: '',
+      matchedWord: null,
+      breakdown: ''
+    };
+
+    // 1. Check pre-computed per-verse words if available
+    if (this.quranWords && surah !== null && ayah !== null) {
+      const vKey = `${surah}:${ayah}`;
+      const vWords = this.quranWords[vKey];
+      if (vWords && wordIndex !== null && vWords[wordIndex]) {
+        const item = vWords[wordIndex];
+        result.lemma = item.lem || token;
+        result.root = item.root || '';
+        result.meaningBn = item.bn || '';
+        result.meaningEn = item.en || '';
+        result.pos = item.pos || 'শব্দ';
+        result.breakdown = item.bk || '';
+        if (item.vid && this.vocabMap.has(item.vid)) {
+          result.matchedWord = this.vocabMap.get(item.vid);
+          result.transliteration = result.matchedWord.transliteration;
+        }
+        if (result.meaningBn) return result;
+      }
     }
+
+    // 2. Check token dictionary
+    if (this.quranWordsDict && this.quranWordsDict[cleanTok]) {
+      const dictItem = this.quranWordsDict[cleanTok];
+      result.lemma = dictItem.lem || token;
+      result.root = dictItem.root || '';
+      result.meaningBn = dictItem.bn || '';
+      result.meaningEn = dictItem.en || '';
+      result.pos = dictItem.pos || 'শব্দ';
+      result.breakdown = dictItem.bk || '';
+      if (dictItem.vid && this.vocabMap.has(dictItem.vid)) {
+        result.matchedWord = this.vocabMap.get(dictItem.vid);
+        result.transliteration = result.matchedWord.transliteration;
+      }
+      if (result.meaningBn) return result;
+    }
+
+    // 3. Direct match in lemmaMap
+    let matched = this.lemmaMap.get(cleanTok);
+    if (!matched && cleanTok.startsWith('ال')) {
+      matched = this.lemmaMap.get(cleanTok.slice(2));
+    }
+    if (matched) {
+      result.matchedWord = matched;
+      result.lemma = matched.lemma_ar;
+      result.root = matched.root || '';
+      result.meaningBn = matched.primary_meaning_bn;
+      result.meaningEn = matched.primary_meaning_en;
+      result.pos = `${matched.pos} (${matched.word_type || 'শব্দ'})`;
+      result.transliteration = matched.transliteration;
+      return result;
+    }
+
+    // 4. Morphological decomposition (prefixes and suffixes)
+    const prefixes = [
+      { ar: 'وَالـ', clean: 'وال', bn: 'এবং নির্দিষ্ট', en: 'and the', strip: 3 },
+      { ar: 'فَالـ', clean: 'فال', bn: 'অতঃপর নির্দিষ্ট', en: 'then the', strip: 3 },
+      { ar: 'بِالـ', clean: 'بال', bn: 'দ্বারা নির্দিষ্ট', en: 'by the', strip: 3 },
+      { ar: 'لِلـ', clean: 'لل', bn: 'জন্য নির্দিষ্ট', en: 'for the', strip: 2 },
+      { ar: 'الـ', clean: 'ال', bn: 'নির্দিষ্ট (the)', en: 'the', strip: 2 },
+      { ar: 'وَ', clean: 'و', bn: 'এবং / আর', en: 'and', strip: 1 },
+      { ar: 'فَـ', clean: 'ف', bn: 'অতঃপর / সুতরাং', en: 'then/so', strip: 1 },
+      { ar: 'بِـ', clean: 'ب', bn: 'দ্বারা / সাথে / নামে', en: 'by/with', strip: 1 },
+      { ar: 'لِـ', clean: 'ل', bn: 'জন্য / উদ্দেশ্যে', en: 'for', strip: 1 },
+      { ar: 'كَـ', clean: 'ك', bn: 'মতো / যেমন', en: 'like/as', strip: 1 },
+      { ar: 'سَـ', clean: 'س', bn: 'শীঘ্রই', en: 'will', strip: 1 },
+      { ar: 'أَ', clean: 'ا', bn: 'কি? (প্রশ্ন)', en: 'is/are?', strip: 1 }
+    ];
+
+    const suffixes = [
+      { ar: 'ـهُمَا', clean: 'هما', bn: 'তাদের উভয়ের', en: 'both of them', strip: 3 },
+      { ar: 'ـهُمْ', clean: 'هم', bn: 'তাদের / তাদেরকে', en: 'them/their', strip: 2 },
+      { ar: 'ـهُنَّ', clean: 'هن', bn: 'তাদের (স্ত্রী)', en: 'them fem', strip: 2 },
+      { ar: 'ـكُمْ', clean: 'كم', bn: 'তোমাদের / তোমাদেরকে', en: 'you all/your', strip: 2 },
+      { ar: 'ـنَا', clean: 'نا', bn: 'আমাদের / আমাদেরকে', en: 'us/our', strip: 2 },
+      { ar: 'ـهَا', clean: 'ها', bn: 'তার / তাকে (স্ত্রী)', en: 'her/its', strip: 2 },
+      { ar: 'ـوا', clean: 'وا', bn: 'তারা (ক্রিয়া বহুবচন)', en: 'they', strip: 2 },
+      { ar: 'ـونَ', clean: 'ون', bn: 'গণ / রা (বহুবচন)', en: 'plural', strip: 2 },
+      { ar: 'ـينَ', clean: 'ين', bn: 'গণ / দের (বহুবচন)', en: 'plural', strip: 2 },
+      { ar: 'ـات', clean: 'ات', bn: 'সমূহ (স্ত্রী বহুবচন)', en: 'plural fem', strip: 2 },
+      { ar: 'ـهُ', clean: 'ه', bn: 'তার / তাকে', en: 'him/his', strip: 1 },
+      { ar: 'ـكَ', clean: 'ك', bn: 'তোমার / তোমাকে', en: 'you/your', strip: 1 },
+      { ar: 'ـي', clean: 'ي', bn: 'আমার / আমাকে', en: 'me/my', strip: 1 }
+    ];
+
+    for (const p of prefixes) {
+      if (cleanTok.startsWith(p.clean) && cleanTok.length > p.strip + 1) {
+        const stem = cleanTok.slice(p.strip);
+        let m = this.lemmaMap.get(stem);
+        if (m) {
+          result.matchedWord = m;
+          result.lemma = m.lemma_ar;
+          result.root = m.root || '';
+          result.meaningBn = `${p.bn} : ${m.primary_meaning_bn}`;
+          result.meaningEn = `${p.en} : ${m.primary_meaning_en}`;
+          result.pos = `${m.pos} (${p.bn} + ${m.word_type || 'শব্দ'})`;
+          result.breakdown = `${p.ar} (${p.bn}) + ${m.lemma_ar} (${m.primary_meaning_bn})`;
+          result.transliteration = m.transliteration;
+          return result;
+        }
+
+        for (const s of suffixes) {
+          if (stem.endsWith(s.clean) && stem.length > s.strip + 1) {
+            const innerStem = stem.slice(0, -s.strip);
+            let innerM = this.lemmaMap.get(innerStem);
+            if (innerM) {
+              result.matchedWord = innerM;
+              result.lemma = innerM.lemma_ar;
+              result.root = innerM.root || '';
+              result.meaningBn = `${innerM.primary_meaning_bn} (${p.bn} + ${s.bn})`;
+              result.meaningEn = `${innerM.primary_meaning_en} (${p.en} + ${s.en})`;
+              result.pos = `${innerM.pos} (যৌগিক রূপ)`;
+              result.breakdown = `${p.ar} (${p.bn}) + ${innerM.lemma_ar} + ${s.ar} (${s.bn})`;
+              result.transliteration = innerM.transliteration;
+              return result;
+            }
+          }
+        }
+      }
+    }
+
+    for (const s of suffixes) {
+      if (cleanTok.endsWith(s.clean) && cleanTok.length > s.strip + 1) {
+        const stem = cleanTok.slice(0, -s.strip);
+        let m = this.lemmaMap.get(stem);
+        if (m) {
+          result.matchedWord = m;
+          result.lemma = m.lemma_ar;
+          result.root = m.root || '';
+          result.meaningBn = `${m.primary_meaning_bn} (${s.bn})`;
+          result.meaningEn = `${m.primary_meaning_en} (${s.en})`;
+          result.pos = `${m.pos} (${m.word_type || 'শব্দ'} + প্রত্যয়)`;
+          result.breakdown = `${m.lemma_ar} (${m.primary_meaning_bn}) + ${s.ar} (${s.bn})`;
+          result.transliteration = m.transliteration;
+          return result;
+        }
+      }
+    }
+
+    // 5. Root family match
+    const cleanRt = cleanTok.length >= 3 ? cleanTok.slice(0, 3) : '';
+    if (cleanRt && this.rootMap.has(cleanRt)) {
+      const rootWords = this.rootMap.get(cleanRt);
+      if (rootWords && rootWords.length > 0) {
+        const primaryRootWord = rootWords[0];
+        result.matchedWord = primaryRootWord;
+        result.root = primaryRootWord.root;
+        result.lemma = primaryRootWord.lemma_ar;
+        result.meaningBn = `${primaryRootWord.primary_meaning_bn} (গোত্রভুক্ত শব্দ)`;
+        result.meaningEn = `${primaryRootWord.primary_meaning_en} (Root family: ${primaryRootWord.root})`;
+        result.pos = primaryRootWord.pos || 'শব্দ';
+        result.breakdown = `মূলধাতু [ ${primaryRootWord.root} ] ভিত্তিক রূপ`;
+        return result;
+      }
+    }
+
+    // Fallback
+    result.meaningBn = 'কুরআনিক শব্দ (বিস্তারিত জানতে শিক্ষকের কাছে জানুন)';
+    result.meaningEn = 'Quranic word';
+    result.pos = 'শব্দ';
+    return result;
+  }
+
+  inspectToken(token, surah = null, ayah = null, wordIndex = null) {
+    const cleanTok = this.cleanArabic(token);
+    const resolved = this.resolveWord(token, surah, ayah, wordIndex);
 
     const arElem = document.getElementById('insp-ar-token');
     const translitElem = document.getElementById('insp-translit');
@@ -2062,33 +2300,55 @@ class QuranApp {
     const rootElem = document.getElementById('insp-root');
     const posElem = document.getElementById('insp-pos');
     const linkBox = document.getElementById('insp-vocab-link-box');
+    const verseRefElem = document.getElementById('insp-verse-ref');
+    const breakdownBox = document.getElementById('insp-breakdown-box');
+    const breakdownText = document.getElementById('insp-breakdown-text');
 
     if (arElem) arElem.textContent = token;
-
-    if (matchedWord) {
-      if (translitElem) translitElem.textContent = matchedWord.transliteration;
-      if (bnElem) bnElem.textContent = matchedWord.primary_meaning_bn;
-      if (enElem) enElem.textContent = matchedWord.primary_meaning_en;
-      if (rootElem) rootElem.textContent = matchedWord.root || '-';
-      if (posElem) posElem.textContent = `${matchedWord.pos} (${matchedWord.word_type || 'শব্দ'})`;
-
-      if (linkBox) {
-        linkBox.innerHTML = `
-          <button class="btn-primary" onclick="app.closeModal('word-inspector-modal'); app.openWordDetail('${matchedWord.id}')">
-            📖 এই শব্দের বিস্তারিত ও কুরআনিক রূপ দেখুন
-          </button>
-        `;
+    if (verseRefElem) {
+      if (surah && ayah) {
+        verseRefElem.textContent = `সূরা ${surah} : আয়াত ${ayah}`;
+        verseRefElem.style.display = 'inline-block';
+      } else {
+        verseRefElem.style.display = 'none';
       }
-    } else {
-      if (translitElem) translitElem.textContent = cleanTok;
-      if (bnElem) bnElem.textContent = 'কুরআনিক শব্দরূপ';
-      if (enElem) enElem.textContent = 'Quranic form';
-      if (rootElem) rootElem.textContent = '-';
-      if (posElem) posElem.textContent = 'শব্দ';
-      if (linkBox) {
+    }
+
+    if (translitElem) translitElem.textContent = resolved.transliteration || resolved.lemma || cleanTok;
+    if (bnElem) bnElem.textContent = resolved.meaningBn || 'কুরআনিক শব্দরূপ';
+    if (enElem) enElem.textContent = resolved.meaningEn || 'Quranic word';
+    if (rootElem) rootElem.textContent = resolved.root || '-';
+    if (posElem) posElem.textContent = resolved.pos || 'শব্দ';
+
+    if (breakdownBox && breakdownText) {
+      if (resolved.breakdown) {
+        breakdownText.textContent = resolved.breakdown;
+        breakdownBox.style.display = 'block';
+      } else {
+        breakdownBox.style.display = 'none';
+      }
+    }
+
+    if (linkBox) {
+      const safeToken = token.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const safeBn = (resolved.meaningBn || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const safeRoot = (resolved.root || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+      if (resolved.matchedWord) {
         linkBox.innerHTML = `
-          <button class="btn-primary" onclick="app.askAITutorForWord('${token}')">
-            🤖 এ শব্দের অর্থ ও ব্যাকরণ শিক্ষককে জিজ্ঞেস করুন
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <button class="btn-primary" onclick="app.closeModal('word-inspector-modal'); app.openWordDetail('${resolved.matchedWord.id}')">
+              📖 ২০০০ শব্দকোষে সম্পূর্ণ বিশ্লেষণ ও ফ্ল্যাশকার্ড দেখুন
+            </button>
+            <button class="pill-btn" style="border:1px solid var(--border); font-size:12px; padding:8px 12px; background:var(--surface-alt); color:var(--text-primary);" onclick="app.askAITutorForWord('${safeToken}', '${safeBn}', '${safeRoot}', ${surah || 'null'}, ${ayah || 'null'})">
+              🤖 এই আয়াতে শব্দটির প্রয়োগ নিয়ে এআই শিক্ষককে জিজ্ঞেস করুন
+            </button>
+          </div>
+        `;
+      } else {
+        linkBox.innerHTML = `
+          <button class="btn-primary" onclick="app.askAITutorForWord('${safeToken}', '${safeBn}', '${safeRoot}', ${surah || 'null'}, ${ayah || 'null'})">
+            🤖 এআই শিক্ষকের সাথে এই শব্দের গভীর ব্যাকরণ ও তাৎপর্য জানুন
           </button>
         `;
       }
@@ -2728,13 +2988,22 @@ class QuranApp {
       const ref = word.example_references[0];
       const v = this.quranVerses[`${ref.surah}:${ref.ayah}`];
       if (v) {
+        const cleanTarget = (word.lemma_clean || this.cleanArabic(word.lemma_ar));
+        const tokens = (v.text_ar || '').split(/\s+/);
+        const tokensHtml = tokens.map((tok, tokIdx) => {
+          const cleanTok = this.cleanArabic(tok);
+          const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
+          const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}', ${v.surah}, ${v.ayah}, ${tokIdx})">${tok}</span>`;
+        }).join(' ');
+
         verseSnippet = `
           <div class="ayah-card" style="margin-top:14px; text-align:right;">
             <div class="ayah-meta" style="direction:ltr; text-align:left;">
               <span>কুরআন প্রেক্ষাপট</span>
               <span>সূরা ${v.surah}:${v.ayah}</span>
             </div>
-            <div class="ayah-arabic-text" style="font-size:20px;">${v.text_ar}</div>
+            <div class="ayah-arabic-text" style="font-size:20px; line-height:2.0;">${tokensHtml}</div>
             <div class="ayah-bn-translation" style="direction:ltr; text-align:left;">${v.text_bn}</div>
           </div>
         `;
@@ -3180,13 +3449,13 @@ class QuranApp {
         if (verseBox) verseBox.style.display = 'block';
         if (verseRef) verseRef.textContent = `সূরা ${v.surah} : আয়াত ${v.ayah}`;
         
-        const cleanTarget = (word.lemma_clean || word.lemma_ar || '').replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+        const cleanTarget = (word.lemma_clean || this.cleanArabic(word.lemma_ar));
         const tokens = (v.text_ar || '').split(/\s+/);
-        const tokensHtml = tokens.map(tok => {
-          const cleanTok = tok.replace(/[\u064B-\u065F\u0670\u06D6-\u06ED]/g, '');
+        const tokensHtml = tokens.map((tok, tokIdx) => {
+          const cleanTok = this.cleanArabic(tok);
           const isTarget = (cleanTarget && (cleanTok === cleanTarget || cleanTok.includes(cleanTarget))) || (word.lemma_ar && tok.includes(word.lemma_ar));
           const safeTok = tok.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}')">${tok}</span>`;
+          return `<span class="ayah-word-token ${isTarget ? 'session-ayah-highlight' : ''}" onclick="app.inspectToken('${safeTok}', ${v.surah}, ${v.ayah}, ${tokIdx})">${tok}</span>`;
         }).join(' ');
 
         if (verseAr) verseAr.innerHTML = tokensHtml;
@@ -3472,21 +3741,64 @@ class QuranApp {
     }
   }
 
-  askAITutorForWord(token) {
+  askAITutorForWord(token, meaningBn = '', root = '', surah = null, ayah = null) {
     this.closeModal('word-inspector-modal');
     const contentElem = document.getElementById('ai-tutor-content');
     const titleElem = document.getElementById('ai-tutor-title');
-    if (titleElem) titleElem.textContent = `${token} - শিক্ষকের পরামর্শ`;
+    if (titleElem) titleElem.textContent = `${token} - কুরআনিক শিক্ষকের বিশ্লেষণ`;
     this.openModal('ai-tutor-modal');
 
     if (contentElem) {
       contentElem.innerHTML = `
-        <div style="line-height:1.6;">
-          <p><strong>আরবি রূপ:</strong> ${token}</p>
-          <p>শব্দটি কুরআনিক ব্যাকরণে বিশেষ হরফ বা যুক্ত ক্রিয়ারূপ হতে পারে। পূর্ণাঙ্গ অর্থ ও প্রেক্ষাপট জানতে আয়াতের সামগ্রিক অনুবাদ পাঠ করুন।</p>
+        <div style="text-align:center; padding:20px; color:var(--text-muted);">
+          <div style="font-size:24px; margin-bottom:8px;">⏳</div>
+          কুরআনিক শিক্ষক চিন্তা করছেন...
         </div>
       `;
     }
+
+    let verseContext = null;
+    if (surah && ayah && this.quranVerses[`${surah}:${ayah}`]) {
+      const v = this.quranVerses[`${surah}:${ayah}`];
+      verseContext = {
+        surah,
+        ayah,
+        text_ar: v.text_ar,
+        text_bn: v.text_bn,
+        text_en: v.text_en
+      };
+    }
+
+    fetch('/api/tutor', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lemma_ar: token,
+        meaning_bn: meaningBn,
+        root: root,
+        verse_context: verseContext,
+        user_question: surah && ayah ? `সূরা ${surah}, আয়াত ${ayah}-এ "${token}" শব্দের অর্থ ও প্রাসঙ্গিক রূপতত্ত্ব বুঝিয়ে বলুন।` : `"${token}" শব্দের কুরআনিক ব্যাকরণ ও অর্থ ব্যাখ্যা করুন।`
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (contentElem) {
+        const text = data.explanation || 'দুঃখিত, কোনো বিশ্লেষণ পাওয়া যায়নি।';
+        contentElem.innerHTML = this.formatMarkdown(text);
+      }
+    })
+    .catch(() => {
+      if (contentElem) {
+        contentElem.innerHTML = `
+          <div style="line-height:1.6;">
+            <p><strong>শব্দ:</strong> ${token}</p>
+            ${meaningBn ? `<p><strong>অর্থ:</strong> ${meaningBn}</p>` : ''}
+            ${root ? `<p><strong>মূলধাতু:</strong> ${root}</p>` : ''}
+            <p>এটি কুরআনিক পাঠে একটি গুরুত্বপূর্ণ পদ। আয়াতে এর অর্থ পূর্ণাঙ্গ বাক্যপ্রেক্ষাপটের সাথে সংযুক্ত।</p>
+          </div>
+        `;
+      }
+    });
   }
 
   // ================= 8. STATUS WORDS MODAL =================
