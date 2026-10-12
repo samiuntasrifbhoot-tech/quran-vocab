@@ -25,6 +25,7 @@
   --shadow-md: 0 4px 14px rgba(11,61,36,0.06);
   --shadow-lg: 0 10px 25px rgba(11,61,36,0.10);
   --nav-height: 64px;
+  --bottom-nav-total-height: calc(var(--nav-height) + env(safe-area-inset-bottom, 0px));
 
   /* ST (Samiun Tasrif) Brand Watermark - Light Mode (subtle ~2.5 - 3.5%) */
   --st-watermark-color: #0f172a;
@@ -198,7 +199,7 @@ body {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 16px 16px 85px 16px;
+  padding: 16px 16px calc(var(--bottom-nav-total-height) + 24px) 16px;
   min-height: 0;
   scrollbar-width: none;
 }
@@ -219,12 +220,14 @@ body {
 }
 
 .top-bar-title {
-  font-size: 17px;
+  font-size: clamp(14px, 4vw, 17px);
   font-weight: 700;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
+  line-height: 1.25;
 }
 
 .icon-btn {
@@ -485,7 +488,7 @@ body.dark-mode .btn-primary {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: var(--nav-height);
+  height: var(--bottom-nav-total-height);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   background: var(--surface);
   border-top: 1px solid var(--border);
@@ -494,6 +497,7 @@ body.dark-mode .btn-primary {
   z-index: 100;
   box-shadow: 0 -4px 16px rgba(0,0,0,0.04);
   touch-action: manipulation;
+  box-sizing: border-box;
 }
 .nav-tab {
   flex: 1;
@@ -636,18 +640,33 @@ body.dark-mode .nav-tab.active {
 /* Filter Strip */
 .filter-strip {
   display: flex;
-  gap: 6px;
-  padding: 8px 16px;
+  gap: 8px;
+  padding: 10px 16px;
   overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   background: var(--surface-alt);
   border-bottom: 1px solid var(--border);
   scrollbar-width: none;
+  align-items: center;
+  scroll-behavior: smooth;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: flex-start;
 }
 .filter-strip::-webkit-scrollbar {
   display: none;
 }
+.filter-strip::after {
+  content: '';
+  display: block;
+  flex-shrink: 0;
+  width: 12px;
+  height: 1px;
+}
 .pill-btn {
-  padding: 6px 14px;
+  flex-shrink: 0;
+  padding: 7px 14px;
   border-radius: 20px;
   font-size: 12px;
   font-weight: 600;
@@ -657,11 +676,24 @@ body.dark-mode .nav-tab.active {
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pill-btn:active {
+  transform: scale(0.96);
 }
 .pill-btn.active {
   background: var(--primary);
   color: #ffffff;
   border-color: var(--primary);
+  box-shadow: 0 2px 8px rgba(11, 61, 36, 0.2);
+}
+body.dark-mode .pill-btn.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #062218;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.25);
 }
 
 /* Search Box */
@@ -801,12 +833,29 @@ body.dark-mode .nav-tab.active {
   background: var(--surface);
   border-top-left-radius: var(--radius-xl);
   border-top-right-radius: var(--radius-xl);
-  padding: 22px 18px 30px 18px;
+  padding: 14px 18px calc(24px + env(safe-area-inset-bottom, 0px)) 18px;
   overflow-y: auto;
   border: 1px solid var(--border);
   box-shadow: 0 -10px 40px rgba(0,0,0,0.3);
   scrollbar-width: none;
   animation: slideUpModal 0.26s cubic-bezier(0.2, 0.9, 0.3, 1);
+  touch-action: pan-y;
+  will-change: transform;
+}
+.sheet-drag-handle-bar {
+  width: 44px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--border);
+  margin: 0 auto 14px auto;
+  cursor: grab;
+  touch-action: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+.sheet-drag-handle-bar:active {
+  background: var(--text-muted);
+  transform: scaleY(1.3);
 }
 .modal-sheet::-webkit-scrollbar {
   display: none;
@@ -950,23 +999,52 @@ body.dark-mode .nav-tab.active {
 }
 .ayah-arabic-text {
   font-family: 'Amiri', serif;
-  font-size: 24px;
-  line-height: 2.1;
+  font-size: 25px;
+  line-height: 2.3;
   color: var(--primary);
   direction: rtl;
   text-align: right;
   margin-bottom: 12px;
-  word-spacing: 4px;
+  word-spacing: 6px;
 }
 .ayah-word-token {
   display: inline-block;
-  padding: 0 4px;
-  border-radius: 4px;
+  position: relative;
+  padding: 4px 6px;
+  margin: 2px 2px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.15s ease;
+  min-width: 28px;
+  text-align: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(179, 130, 42, 0.2);
+  user-select: none;
 }
-.ayah-word-token:hover, .ayah-word-token:active {
+.ayah-word-token::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 42px;
+  width: calc(100% + 8px);
+  height: 100%;
+  pointer-events: auto;
+}
+.ayah-word-token:hover {
   background: var(--gold-light);
+  color: var(--gold);
+}
+.ayah-word-token:active {
+  background: var(--gold-light);
+  color: var(--gold);
+  transform: scale(0.95);
+}
+body.dark-mode .ayah-word-token:hover,
+body.dark-mode .ayah-word-token:active {
+  background: rgba(212, 175, 55, 0.2);
   color: var(--gold);
 }
 .ayah-word-token.known {
@@ -1341,16 +1419,20 @@ body.dark-mode .flashcard-icon-box {
 }
 
 .card-primary-title {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 2px;
+  line-height: 1.25;
+  word-break: keep-all;
 }
 
 .card-secondary-subtitle {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
+  line-height: 1.3;
+  word-break: keep-all;
 }
 
 .three-cards-row {
@@ -1561,7 +1643,9 @@ body.dark-mode .target-val {
   color: var(--text-muted);
   font-weight: 600;
   margin-top: 4px;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.2;
+  word-break: keep-all;
 }
 
 .session-start-btn {
@@ -2767,6 +2851,42 @@ body.dark-mode .vfilter-opt-card.selected {
 
 .vfilter-opt-card.selected .vfilter-opt-check {
   display: inline-block;
+}
+
+/* Responsive Mobile Polish & Overflow Protections */
+@media (max-width: 480px) {
+  .top-bar {
+    padding: 10px 14px;
+    gap: 8px;
+  }
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+  }
+  .top-bar-title {
+    font-size: 15px;
+  }
+  .filter-strip {
+    padding: 8px 12px;
+    gap: 6px;
+  }
+  .pill-btn {
+    padding: 6px 12px;
+    font-size: 11.5px;
+  }
+  .ayah-card {
+    padding: 16px 14px;
+  }
+  .ayah-arabic-text {
+    font-size: 24px;
+    line-height: 2.3;
+    word-spacing: 5px;
+  }
+  .ayah-word-token {
+    padding: 3px 5px;
+    min-width: 26px;
+    margin: 2px 2px;
+  }
 }
 
 

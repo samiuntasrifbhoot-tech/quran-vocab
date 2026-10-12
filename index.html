@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>কুরআনিক শব্দকোষ - ৯০ দিনের শিখন যাত্রা</title>
   <meta name="description" content="কুরআনিক আরবির ২০০০টি মৌলিক শব্দ, ব্যাকরণ, রূপতত্ত্ব ও প্রেক্ষাপটভিত্তিক বৈজ্ঞানিক শিখন সিস্টেম">
   <meta property="og:title" content="কুরআনিক শব্দকোষ">
@@ -125,7 +125,7 @@
 
     <!-- ================= 1. HOME SCREEN (DAILY MISSION & JOURNEY) ================= -->
     <div id="home-screen" class="screen active">
-      <div class="scroll-content" style="padding: 0 0 85px 0;">
+      <div class="scroll-content" style="padding: 0 0 calc(var(--bottom-nav-total-height) + 24px) 0;">
         <!-- Top Curved Green Banner Matching User Screenshot -->
         <div class="quran-hero-curved">
           <div class="hero-top-actions">
@@ -308,15 +308,15 @@
         <button class="icon-btn" onclick="app.handleBackAction()" title="পেছনে যান">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
-        <div class="top-bar-title" style="flex:1;">স্মৃতি পুনরাবৃত্তি (SRS Review)</div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:4px 10px; cursor:pointer;" onclick="app.startFlashcardSession()" title="ফ্ল্যাশকার্ডে শব্দ ঝালাই">🗂️ ফ্ল্যাশকার্ড</button>
-          <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:4px 10px; cursor:pointer;" onclick="app.openPracticeOptionsModal()" title="অনুশীলন মোড নির্বাচন">🎯 অনুশীলন মোড</button>
-          <span class="mission-badge" id="review-badge-count">০ বাকি</span>
+        <div class="top-bar-title" style="flex:1;">স্মৃতি পুনরাবৃত্তি</div>
+        <div style="display:flex; align-items:center; gap:6px; flex-shrink:0;">
+          <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:5px 8px; cursor:pointer;" onclick="app.startFlashcardSession()" title="ফ্ল্যাশকার্ডে শব্দ ঝালাই">🗂️ কার্ড</button>
+          <button class="pill-btn" style="border:1px solid var(--border); font-size:11px; padding:5px 8px; cursor:pointer;" onclick="app.openPracticeOptionsModal()" title="অনুশীলন মোড নির্বাচন">🎯 অনুশীলন</button>
+          <span class="mission-badge" id="review-badge-count" style="font-size:11px; padding:3px 8px;">০ বাকি</span>
         </div>
       </div>
 
-      <div class="filter-strip" style="justify-content:center;">
+      <div class="filter-strip" id="review-filter-strip">
         <button class="pill-btn review-filter-pill active" data-filter="due" onclick="app.setReviewFilter('due')">আজকের রিভিউ</button>
         <button class="pill-btn review-filter-pill" data-filter="weak" onclick="app.setReviewFilter('weak')">দুর্বল শব্দ</button>
         <button class="pill-btn review-filter-pill" data-filter="all_active" onclick="app.setReviewFilter('all_active')">সকল সক্রিয় শব্দ</button>
@@ -368,14 +368,14 @@
       </div>
 
       <!-- Segment Tabs inside Progress Screen -->
-      <div class="filter-strip" style="justify-content:center;">
+      <div class="filter-strip" id="progress-subtabs-strip">
         <button class="pill-btn progress-subtab-btn active" data-sub="stats" onclick="app.switchProgressSubTab('stats')">📊 পরিসংখ্যান ও ট্র্যাকার</button>
         <button class="pill-btn progress-subtab-btn" data-sub="library" onclick="app.switchProgressSubTab('library')">📚 ২০০০ শব্দকোষ লাইব্রেরি</button>
         <button class="pill-btn progress-subtab-btn" data-sub="roots" onclick="app.switchProgressSubTab('roots')">🌱 মূলধাতু (Roots)</button>
         <button class="pill-btn progress-subtab-btn" data-sub="grammar" onclick="app.switchProgressSubTab('grammar')">📖 ব্যাকরণ গাইড</button>
       </div>
 
-      <div class="scroll-content" id="progress-subtab-content" style="padding: 14px 16px 85px 16px;">
+      <div class="scroll-content" id="progress-subtab-content" style="padding: 14px 16px calc(var(--bottom-nav-total-height) + 24px) 16px;">
         <!-- Subtabs Rendered by JS -->
       </div>
     </div>
@@ -394,7 +394,7 @@
       </div>
 
       <!-- Quick Filter Pills -->
-      <div class="filter-strip" style="justify-content:center;">
+      <div class="filter-strip" id="vocab-status-filter-strip">
         <button class="pill-btn vocab-status-filter active" data-status="all" onclick="app.setVocabStatusFilter('all')">সকল শব্দ (২০০০)</button>
         <button class="pill-btn vocab-status-filter" data-status="learned" onclick="app.setVocabStatusFilter('learned')">✓ শুধু ট্র্যাক করা শব্দ</button>
         <button class="pill-btn vocab-status-filter" data-status="unlearned" onclick="app.setVocabStatusFilter('unlearned')">বাকি শব্দ</button>
@@ -567,6 +567,7 @@
   <!-- ================= MODAL: WORD DETAIL ================= -->
   <div class="modal-overlay" id="word-detail-modal">
     <div class="modal-sheet">
+      <div class="sheet-drag-handle-bar" aria-hidden="true"></div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <span class="mission-badge" id="m-id-tag">QCV-0001</span>
         <button class="icon-btn" onclick="app.closeModal('word-detail-modal')">✕</button>
@@ -662,6 +663,7 @@
   <!-- ================= MODAL: PRACTICE OPTIONS ================= -->
   <div class="modal-overlay" id="practice-options-modal">
     <div class="modal-sheet">
+      <div class="sheet-drag-handle-bar" aria-hidden="true"></div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
         <div>
           <div style="font-size:16px; font-weight:800; color:var(--primary);">অনুশীলন মোড নির্বাচন করুন</div>
@@ -863,6 +865,7 @@
   <!-- ================= MODAL: WORD INSPECTOR (TAPPING IN QURAN READER) ================= -->
   <div class="modal-overlay" id="word-inspector-modal">
     <div class="modal-sheet">
+      <div class="sheet-drag-handle-bar" aria-hidden="true"></div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
         <div style="display:flex; align-items:center; gap:8px;">
           <span class="mission-badge" id="insp-badge">শব্দ বিশ্লেষণ</span>
@@ -976,6 +979,7 @@
   <!-- ================= MODAL: THEMED VOCAB FILTER BOTTOM SHEET ================= -->
   <div class="modal-overlay" id="vocab-filter-sheet-modal">
     <div class="modal-sheet" style="max-height:86vh; padding-bottom:26px;">
+      <div class="sheet-drag-handle-bar" aria-hidden="true"></div>
       <!-- Header -->
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--border-light); padding-bottom:10px;">
         <div style="display:flex; align-items:center; gap:8px;">

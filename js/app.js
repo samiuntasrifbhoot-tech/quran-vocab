@@ -288,6 +288,9 @@ class QuranApp {
       });
     });
 
+    // Mobile Bottom Sheet: Swipe down to dismiss gesture
+    this.setupModalSwipeToDismiss();
+
     // Global keyboard shortcuts (Space to reveal, 1-4 for SRS)
     window.addEventListener('keydown', (e) => {
       if (this.currentScreen === 'session' && this.sessionQueue.length > 0) {
@@ -311,6 +314,88 @@ class QuranApp {
           }
         }
       }
+    });
+  }
+
+  setupModalSwipeToDismiss() {
+    document.querySelectorAll('.modal-overlay').forEach(modal => {
+      const sheet = modal.querySelector('.modal-sheet');
+      if (!sheet) return;
+
+      // Ensure visual drag handle bar exists
+      if (!sheet.querySelector('.sheet-drag-handle-bar')) {
+        const handle = document.createElement('div');
+        handle.className = 'sheet-drag-handle-bar';
+        handle.setAttribute('aria-hidden', 'true');
+        sheet.insertBefore(handle, sheet.firstChild);
+      }
+
+      let startY = 0;
+      let currentY = 0;
+      let isDragging = false;
+      let canDrag = false;
+
+      sheet.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        startY = e.touches[0].clientY;
+        currentY = startY;
+        // Allowed to drag if scroll position is at the very top
+        canDrag = (sheet.scrollTop <= 0);
+        isDragging = false;
+        sheet.style.transition = 'none';
+      }, { passive: true });
+
+      sheet.addEventListener('touchmove', (e) => {
+        if (!canDrag || e.touches.length !== 1) return;
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchY - startY;
+
+        // Pulling downward when at top
+        if (deltaY > 6 && sheet.scrollTop <= 0) {
+          isDragging = true;
+          currentY = touchY;
+          const translate = Math.max(0, deltaY);
+          sheet.style.transform = `translateY(${translate}px)`;
+          if (e.cancelable) e.preventDefault();
+        } else if (deltaY < 0) {
+          isDragging = false;
+          sheet.style.transform = '';
+        }
+      }, { passive: false });
+
+      const handleTouchEnd = () => {
+        if (!isDragging) {
+          sheet.style.transition = '';
+          sheet.style.transform = '';
+          return;
+        }
+
+        const deltaY = currentY - startY;
+        isDragging = false;
+        canDrag = false;
+
+        if (deltaY > 80) {
+          // Dismiss sheet with downward slide animation
+          sheet.style.transition = 'transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1)';
+          sheet.style.transform = 'translateY(100%)';
+          setTimeout(() => {
+            this.closeModal(modal.id);
+            sheet.style.transition = '';
+            sheet.style.transform = '';
+          }, 220);
+        } else {
+          // Snap back to top
+          sheet.style.transition = 'transform 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+          sheet.style.transform = 'translateY(0)';
+          setTimeout(() => {
+            sheet.style.transition = '';
+            sheet.style.transform = '';
+          }, 200);
+        }
+      };
+
+      sheet.addEventListener('touchend', handleTouchEnd, { passive: true });
+      sheet.addEventListener('touchcancel', handleTouchEnd, { passive: true });
     });
   }
 
@@ -439,6 +524,11 @@ class QuranApp {
   openModal(modalId) {
     const el = document.getElementById(modalId);
     if (el) {
+      const sheet = el.querySelector('.modal-sheet');
+      if (sheet) {
+        sheet.style.transform = '';
+        sheet.style.transition = '';
+      }
       el.style.display = 'flex';
       if (typeof window !== 'undefined' && window.history) {
         window.history.pushState({ modalId: modalId, appScreen: this.currentScreen }, '');
@@ -448,7 +538,14 @@ class QuranApp {
 
   closeModal(modalId, fromPopState = false) {
     const el = document.getElementById(modalId);
-    if (el) el.style.display = 'none';
+    if (el) {
+      el.style.display = 'none';
+      const sheet = el.querySelector('.modal-sheet');
+      if (sheet) {
+        sheet.style.transform = '';
+        sheet.style.transition = '';
+      }
+    }
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel();
     }
@@ -894,7 +991,11 @@ class QuranApp {
   setReviewFilter(filterType) {
     this.reviewFilter = filterType;
     document.querySelectorAll('.review-filter-pill').forEach(p => {
-      p.classList.toggle('active', p.dataset.filter === filterType);
+      const isActive = (p.dataset.filter === filterType);
+      p.classList.toggle('active', isActive);
+      if (isActive && typeof p.scrollIntoView === 'function') {
+        p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     });
     this.renderReviewScreen();
   }
@@ -2361,7 +2462,11 @@ class QuranApp {
   switchProgressSubTab(subTab) {
     this.progressSubTab = subTab;
     document.querySelectorAll('.progress-subtab-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.sub === subTab);
+      const isActive = (btn.dataset.sub === subTab);
+      btn.classList.toggle('active', isActive);
+      if (isActive && typeof btn.scrollIntoView === 'function') {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     });
     this.renderProgressScreen();
   }
@@ -2636,7 +2741,11 @@ class QuranApp {
   setVocabStatusFilter(status) {
     this.vocabStatusFilter = status;
     document.querySelectorAll('.vocab-status-filter').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.status === status);
+      const isActive = (btn.dataset.status === status);
+      btn.classList.toggle('active', isActive);
+      if (isActive && typeof btn.scrollIntoView === 'function') {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
     });
     this.vscreenPage = 1;
     this.filterVocabScreen();
