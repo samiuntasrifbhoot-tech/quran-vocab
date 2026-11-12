@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.65"
+        android:scaleY="0.65"
+        android:translateX="18.9"
+        android:translateY="18.9">
+        <!-- Golden Crescent / Book Arch -->
+        <path
+            android:fillColor="#D4AF37"
+            android:pathData="M54,16 C33.01,16 16,33.01 16,54 C16,74.99 33.01,92 54,92 C74.99,92 92,74.99 92,54 C92,33.01 74.99,16 54,16 Z M54,84 C37.43,84 24,70.57 24,54 C24,37.43 37.43,24 54,24 C70.57,24 84,37.43 84,54 C84,70.57 70.57,84 54,84 Z" />
+        <!-- Open Quran Pages -->
+        <path
+            android:fillColor="#FEF08A"
+            android:pathData="M54,42 C48,36 38,36 30,38 L30,68 C38,66 48,66 54,72 C60,66 70,66 78,68 L78,38 C70,36 60,36 54,42 Z" />
+        <path
+            android:fillColor="#093126"
+            android:strokeColor="#D4AF37"
+            android:strokeWidth="1.5"
+            android:pathData="M54,42 L54,72" />
+        <!-- Center Star -->
+        <path
+            android:fillColor="#D4AF37"
+            android:pathData="M54,27 L56,32 L61,33 L57,36 L58,41 L54,38 L50,41 L51,36 L47,33 L52,32 Z" />
+    </group>
+</vector>

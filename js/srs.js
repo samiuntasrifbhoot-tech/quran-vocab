@@ -24,6 +24,7 @@ export class SRSEngine {
     this.streak = 0;
     this.lastActiveDate = null;
     this.currentDay = 1;
+    this.completedDays = {}; // day_number -> { completedAt, stats }
     this.isInitialized = false;
     this.settings = {
       dailyTimeMinutes: 15,
@@ -48,18 +49,25 @@ export class SRSEngine {
         'quran_srs_state',
         'quran_vocab_srs'
       ];
-      let saved = null;
+      let bestCandidate = null;
       for (const k of keysToTry) {
-        saved = localStorage.getItem(k);
-        if (saved) {
+        const item = localStorage.getItem(k);
+        if (item) {
           try {
-            const parsed = JSON.parse(saved);
-            if (parsed && parsed.records && Object.keys(parsed.records).length > 0) {
-              break;
+            const parsed = JSON.parse(item);
+            if (parsed && typeof parsed === 'object') {
+              if (!bestCandidate) bestCandidate = item;
+              const hasRecords = parsed.records && Object.keys(parsed.records).length > 0;
+              const hasDays = parsed.completedDays && Object.keys(parsed.completedDays).length > 0;
+              if (hasRecords || hasDays) {
+                bestCandidate = item;
+                break;
+              }
             }
           } catch (e) {}
         }
       }
+      const saved = bestCandidate;
       if (saved) {
         const parsed = JSON.parse(saved);
         this.records = parsed.records || {};
@@ -67,6 +75,7 @@ export class SRSEngine {
         this.streak = parsed.streak || 0;
         this.lastActiveDate = parsed.lastActiveDate || null;
         this.currentDay = Math.min(90, Math.max(1, parsed.currentDay || 1));
+        this.completedDays = parsed.completedDays || {};
       }
 
       const settingsKeysToTry = [
@@ -118,9 +127,17 @@ export class SRSEngine {
         if (!allRecords[wid]) {
           allRecords[wid] = rec;
         } else {
-          // Keep record with higher reps or higher state
-          if ((rec.reps || 0) > (allRecords[wid].reps || 0) || (rec.state === MasteryState.MASTERED)) {
+          const currentRec = allRecords[wid];
+          const recTime = rec.last_reviewed_at || 0;
+          const currTime = currentRec.last_reviewed_at || 0;
+          if (recTime > currTime) {
+            // Backup has more recent review activity
             allRecords[wid] = rec;
+          } else if (recTime === currTime) {
+            // Equal timestamps: prefer record with higher repetitions or verified progression
+            if ((rec.reps || 0) > (currentRec.reps || 0) || (rec.state === MasteryState.MASTERED && currentRec.state !== MasteryState.MASTERED)) {
+              allRecords[wid] = rec;
+            }
           }
         }
       }
@@ -134,6 +151,9 @@ export class SRSEngine {
           this.streak = Math.max(this.streak, sourceObj.streak || 0);
           this.lastActiveDate = sourceObj.lastActiveDate || this.lastActiveDate;
           this.currentDay = Math.max(this.currentDay, sourceObj.currentDay || 1);
+          if (sourceObj.completedDays) {
+            this.completedDays = { ...sourceObj.completedDays, ...this.completedDays };
+          }
         }
         // Sync the restored state immediately to LocalStorage
         this.saveState(false, true);
@@ -163,6 +183,7 @@ export class SRSEngine {
       streak: this.streak,
       lastActiveDate: this.lastActiveDate,
       currentDay: this.currentDay,
+      completedDays: this.completedDays,
       savedAt: new Date().toISOString()
     };
 
@@ -273,25 +294,58 @@ export class SRSEngine {
   }
 
   checkStreak() {
-    const today = new Date().toISOString().slice(0, 10);
     if (!this.lastActiveDate) {
-      this.streak = 1;
-      this.lastActiveDate = today;
       return;
     }
+    const today = new Date().toISOString().slice(0, 10);
     if (this.lastActiveDate === today) return;
 
     const last = new Date(this.lastActiveDate);
     const curr = new Date(today);
     const diffDays = Math.round((curr - last) / (1000 * 60 * 60 * 24));
-    if (diffDays === 1) {
-      this.streak += 1;
-      this.lastActiveDate = today;
-    } else if (diffDays > 1) {
+    if (diffDays > 1) {
+      this.streak = 0;
+      this.saveState();
+    }
+  }
+
+  recordActivity() {
+    const today = new Date().toISOString().slice(0, 10);
+    if (!this.lastActiveDate) {
       this.streak = 1;
       this.lastActiveDate = today;
+      this.saveState();
+      return;
     }
+    if (this.lastActiveDate === today) {
+      return;
+    }
+    const last = new Date(this.lastActiveDate);
+    const curr = new Date(today);
+    const diffDays = Math.round((curr - last) / (1000 * 60 * 60 * 24));
+    if (diffDays === 1) {
+      this.streak += 1;
+    } else {
+      this.streak = 1;
+    }
+    this.lastActiveDate = today;
     this.saveState();
+  }
+
+  markDayCompleted(day, stats = {}) {
+    const d = parseInt(day, 10);
+    this.completedDays[d] = {
+      completedAt: Date.now(),
+      dateStr: new Date().toISOString().slice(0, 10),
+      ...stats
+    };
+    this.recordActivity();
+    this.saveState();
+  }
+
+  isDayCompleted(day) {
+    const d = parseInt(day, 10);
+    return !!this.completedDays[d];
   }
 
   getRecord(wordId) {
@@ -347,9 +401,9 @@ export class SRSEngine {
       // Good: normal recall
       r.correct_count += 1;
       r.consecutive_correct += 1;
-      if (r.reps === 1) {
+      if (r.consecutive_correct === 1) {
         r.interval = 1;
-      } else if (r.reps === 2) {
+      } else if (r.consecutive_correct === 2) {
         r.interval = 3;
       } else {
         r.interval = Math.max(4, Math.round((r.interval || 1) * r.ease));
@@ -360,8 +414,10 @@ export class SRSEngine {
       r.correct_count += 1;
       r.consecutive_correct += 1;
       r.ease = Math.min(3.2, r.ease + 0.15);
-      if (r.reps === 1) {
+      if (r.consecutive_correct === 1) {
         r.interval = 3;
+      } else if (r.consecutive_correct === 2) {
+        r.interval = 6;
       } else {
         r.interval = Math.max(6, Math.round((r.interval || 1) * r.ease * 1.3));
       }
@@ -680,12 +736,13 @@ export class SRSEngine {
 
   exportData() {
     return JSON.stringify({
-      version: 4,
+      version: 5,
       records: this.records,
       history: this.history,
       streak: this.streak,
       lastActiveDate: this.lastActiveDate,
       currentDay: this.currentDay,
+      completedDays: this.completedDays,
       settings: this.settings,
       exportedAt: new Date().toISOString()
     }, null, 2);
@@ -695,8 +752,13 @@ export class SRSEngine {
     try {
       const data = JSON.parse(jsonString);
       if (data.records) this.records = data.records;
+      if (data.history && Array.isArray(data.history)) this.history = data.history;
       if (data.streak !== undefined) this.streak = data.streak;
+      if (data.lastActiveDate) this.lastActiveDate = data.lastActiveDate;
       if (data.currentDay !== undefined) this.currentDay = Math.min(90, Math.max(1, data.currentDay));
+      if (data.completedDays && typeof data.completedDays === 'object') {
+        this.completedDays = { ...this.completedDays, ...data.completedDays };
+      }
       if (data.settings) this.settings = { ...this.settings, ...data.settings };
       this.saveState();
       return true;
@@ -711,6 +773,7 @@ export class SRSEngine {
     this.history = [];
     this.streak = 1;
     this.currentDay = 1;
+    this.completedDays = {};
     this.lastActiveDate = new Date().toISOString().slice(0, 10);
     this.saveState(true);
   }

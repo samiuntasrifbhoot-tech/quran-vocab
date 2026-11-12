@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "node server.js",
-    "build": "echo 'Build complete'",
+    "build": "node scripts/sync-android-assets.js && node scripts/verify-sync.js",
+    "test": "node test/comprehensive-test-suite.js",
     "lint": "node -e \"console.log('Lint check passed')\"",
+    "check:sync": "node scripts/verify-sync.js",
+    "audit:data": "node scripts/audit-datasets.js",
+    "sync:android": "node scripts/sync-android-assets.js && node scripts/verify-sync.js",
     "start": "node server.js"
   },
   "dependencies": {

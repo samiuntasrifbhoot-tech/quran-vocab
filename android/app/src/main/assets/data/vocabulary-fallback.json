@@ -1,0 +1,4667 @@
+[
+  {
+    "lemma_ar": "وَـ",
+    "root": "",
+    "transliteration": "wa",
+    "pos": "CONJ",
+    "word_type": "conjunction",
+    "primary_meaning_en": "and, by (oath), while",
+    "primary_meaning_bn": "এবং, আর, শপথ",
+    "alternative_meanings": [
+      "as",
+      "while (waw al-hal)"
+    ],
+    "short_explanation_en": "The most frequent connective in Arabic; functions as conjunction, resumption, oath, or circumstantial clause.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 8177,
+    "ayah_count": 4181,
+    "surah_count": 113,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 5
+      },
+      {
+        "surah": 1,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 3
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "وَـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Most common syntactic connector in the entire Quran (8,000+ tokens).",
+    "priority_score": 91,
+    "difficulty": 1,
+    "id": "QCV-0001",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "مِنْ",
+    "root": "",
+    "transliteration": "min",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "from, of",
+    "primary_meaning_bn": "থেকে, হইতে, মধ্য থেকে",
+    "alternative_meanings": [
+      "out of",
+      "part of",
+      "since"
+    ],
+    "short_explanation_en": "Primary preposition indicating origin, separation, or partitivity (harf jarr).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 3226,
+    "ayah_count": 2230,
+    "surah_count": 95,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 5
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "مِنْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Foundational preposition occurring 3,200+ times across 95 surahs.",
+    "priority_score": 84,
+    "difficulty": 1,
+    "id": "QCV-0002",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بِـ",
+    "root": "",
+    "transliteration": "bi",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "with, by, in, through",
+    "primary_meaning_bn": "দিয়ে, দ্বারা, সাথে, মধ্যে",
+    "alternative_meanings": [
+      "because of",
+      "at"
+    ],
+    "short_explanation_en": "Inseparable preposition of instrumentality, accompaniment, and oath.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 2544,
+    "ayah_count": 1898,
+    "surah_count": 103,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بِـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Inseparable particle occurring 2,500+ times in Quran.",
+    "priority_score": 83.9,
+    "difficulty": 1,
+    "id": "QCV-0003",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لِـ",
+    "root": "",
+    "transliteration": "li",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "for, to, belonging to, so that",
+    "primary_meaning_bn": "জন্য, নিমিত্তে, উদ্দেশ্যে",
+    "alternative_meanings": [
+      "in order that",
+      "due to"
+    ],
+    "short_explanation_en": "Inseparable preposition of possession, benefit, destination, or purpose.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 2449,
+    "ayah_count": 1869,
+    "surah_count": 104,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 7
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لِـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Key particle of purpose (lam al-ta'lil) and ownership (lam al-tamlik).",
+    "priority_score": 83.8,
+    "difficulty": 1,
+    "id": "QCV-0004",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "مَا",
+    "root": "",
+    "transliteration": "maa",
+    "pos": "REL",
+    "word_type": "particle",
+    "primary_meaning_en": "what, that which, not",
+    "primary_meaning_bn": "যা, যা কিছু, নয়",
+    "alternative_meanings": [
+      "whatever",
+      "not"
+    ],
+    "short_explanation_en": "Multi-functional word: relative pronoun (that which), interrogative (what?), or negation (not).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 2565,
+    "ayah_count": 1841,
+    "surah_count": 102,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 8
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "مَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Most versatile core functional word in Quran (2,500+ tokens).",
+    "priority_score": 83.7,
+    "difficulty": 1,
+    "id": "QCV-0005",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِنَّ",
+    "root": "",
+    "transliteration": "iina",
+    "pos": "ACC",
+    "word_type": "particle",
+    "primary_meaning_en": "indeed, truly, verily",
+    "primary_meaning_bn": "নিশ্চয়ই, প্রকৃতপক্ষে",
+    "alternative_meanings": [
+      "truly",
+      "verily"
+    ],
+    "short_explanation_en": "Accusative emphatic particle (harf tawkeed wa nasb) introducing nominal sentences.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1682,
+    "ayah_count": 1503,
+    "surah_count": 97,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 11
+      },
+      {
+        "surah": 2,
+        "ayah": 12
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِنَّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary sentence-initial affirmative particle (1,600+ tokens).",
+    "priority_score": 81.1,
+    "difficulty": 1,
+    "id": "QCV-0006",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "فِي",
+    "root": "",
+    "transliteration": "fiy",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "in, inside, concerning",
+    "primary_meaning_bn": "মধ্যে, ভেতরে, ব্যাপারে",
+    "alternative_meanings": [
+      "at",
+      "during",
+      "within"
+    ],
+    "short_explanation_en": "Primary preposition of container, space, time, or circumstance.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1701,
+    "ayah_count": 1364,
+    "surah_count": 97,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 10
+      },
+      {
+        "surah": 2,
+        "ayah": 11
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "فِي"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Foundational preposition occurring 1,700+ times across 97 surahs.",
+    "priority_score": 80.9,
+    "difficulty": 1,
+    "id": "QCV-0007",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَا",
+    "root": "",
+    "transliteration": "laa",
+    "pos": "NEG",
+    "word_type": "particle",
+    "primary_meaning_en": "no, not, do not (prohibition)",
+    "primary_meaning_bn": "না, নয়, করবে না (নিষেধ)",
+    "alternative_meanings": [
+      "there is no"
+    ],
+    "short_explanation_en": "Primary negative particle and prohibitive particle with jussive verbs.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1738,
+    "ayah_count": 1284,
+    "surah_count": 94,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 6
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Fundamental negative particle (1,700+ tokens).",
+    "priority_score": 80.5,
+    "difficulty": 1,
+    "id": "QCV-0008",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "اللَّهُ",
+    "root": "ا ل ه",
+    "transliteration": "allahu",
+    "pos": "PN",
+    "word_type": "proper_noun",
+    "primary_meaning_en": "Allah",
+    "primary_meaning_bn": "আল্লাহ",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic proper_noun (Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 2699,
+    "ayah_count": 1821,
+    "surah_count": 85,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 7
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "ٱللَّهِ",
+        "ٱللَّهُ",
+        "ٱللَّهَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0122",
+      "QCV-1087"
+    ],
+    "inclusion_reason": "Vital Quranic proper noun marking pivotal sacred history.",
+    "priority_score": 79.8,
+    "difficulty": 1,
+    "id": "QCV-0009",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَلَى",
+    "root": "",
+    "transliteration": "'alaa",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "on, upon, against, duty upon",
+    "primary_meaning_bn": "উপরে, বিরুদ্ধে, কর্তব্যে",
+    "alternative_meanings": [
+      "over",
+      "according to"
+    ],
+    "short_explanation_en": "Preposition expressing elevation, obligation, or opposition.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1445,
+    "ayah_count": 1177,
+    "surah_count": 93,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 6
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "عَلَى"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential particle of obligation, position, and power.",
+    "priority_score": 79.5,
+    "difficulty": 1,
+    "id": "QCV-0010",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "الَّذِي",
+    "root": "",
+    "transliteration": "aladhiy",
+    "pos": "REL",
+    "word_type": "pronoun",
+    "primary_meaning_en": "who, which, that (masculine singular)",
+    "primary_meaning_bn": "যিনি, যে (পুং একবচন)",
+    "alternative_meanings": [
+      "the one who"
+    ],
+    "short_explanation_en": "Singular masculine relative pronoun introducing relative descriptive clauses.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1464,
+    "ayah_count": 1243,
+    "surah_count": 88,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "الَّذِي"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Most common relative pronoun in Quran (1,400+ tokens).",
+    "priority_score": 79,
+    "difficulty": 1,
+    "id": "QCV-0011",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَـ",
+    "root": "",
+    "transliteration": "la",
+    "pos": "EMPH",
+    "word_type": "particle",
+    "primary_meaning_en": "surely, verily, definitely",
+    "primary_meaning_bn": "অবশ্যই, নিশ্চিতভাবেই",
+    "alternative_meanings": [
+      "indeed"
+    ],
+    "short_explanation_en": "Inseparable emphatic particle (lām al-tawkīd or lām al-ibtidā').",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 1001,
+    "ayah_count": 810,
+    "surah_count": 86,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 45
+      },
+      {
+        "surah": 2,
+        "ayah": 64
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "High frequency oath and certainty marker (900+ occurrences).",
+    "priority_score": 76.5,
+    "difficulty": 1,
+    "id": "QCV-0012",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "قَالَ",
+    "root": "ق و ل",
+    "transliteration": "qaala",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He said",
+    "primary_meaning_bn": "বললেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He said) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 1618,
+    "ayah_count": 1321,
+    "surah_count": 82,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 8
+      },
+      {
+        "surah": 2,
+        "ayah": 11
+      },
+      {
+        "surah": 2,
+        "ayah": 13
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "قَالَ",
+        "قَالُ",
+        "قُلْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0162"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 82 surahs.",
+    "priority_score": 76.1,
+    "difficulty": 1,
+    "id": "QCV-0013",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "رَبِّ",
+    "root": "ر ب ب",
+    "transliteration": "rabi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Lord",
+    "primary_meaning_bn": "প্রতিপালক",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Lord) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 975,
+    "ayah_count": 866,
+    "surah_count": 94,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 5
+      },
+      {
+        "surah": 2,
+        "ayah": 21
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "رَبِّ",
+        "رَبَّ",
+        "رَبُّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 75.1,
+    "difficulty": 1,
+    "id": "QCV-0014",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِلَى",
+    "root": "",
+    "transliteration": "iilaa",
+    "pos": "P",
+    "word_type": "preposition",
+    "primary_meaning_en": "to, towards, until",
+    "primary_meaning_bn": "দিকে, প্রতি, পর্যন্ত",
+    "alternative_meanings": [
+      "into",
+      "reaching"
+    ],
+    "short_explanation_en": "Preposition indicating direction, destination, or terminus.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 742,
+    "ayah_count": 653,
+    "surah_count": 82,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 14
+      },
+      {
+        "surah": 2,
+        "ayah": 28
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِلَى"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Crucial directional preposition across all Quranic narrative.",
+    "priority_score": 74.4,
+    "difficulty": 1,
+    "id": "QCV-0015",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِلَّا",
+    "root": "",
+    "transliteration": "iilaa",
+    "pos": "RES",
+    "word_type": "particle",
+    "primary_meaning_en": "except, unless, but",
+    "primary_meaning_bn": "ব্যতীত, ছাড়া, তবে",
+    "alternative_meanings": [
+      "only",
+      "save"
+    ],
+    "short_explanation_en": "Exceptive particle (harf istithnā') critical for defining monotheism (lā ilāha illā Allāh).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 663,
+    "ayah_count": 605,
+    "surah_count": 79,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 9
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 32
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِلَّا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Foundational exception and creedal restriction particle (660+ tokens).",
+    "priority_score": 73.5,
+    "difficulty": 1,
+    "id": "QCV-0016",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِنْ",
+    "root": "",
+    "transliteration": "iin",
+    "pos": "COND",
+    "word_type": "particle",
+    "primary_meaning_en": "if (conditional), not (in in... illa)",
+    "primary_meaning_bn": "যদি, নয় (যদি ... তবে নয়)",
+    "alternative_meanings": [
+      "if",
+      "not"
+    ],
+    "short_explanation_en": "Conditional particle taking jussive mood, also acts as negative particle.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 697,
+    "ayah_count": 588,
+    "surah_count": 74,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 23
+      },
+      {
+        "surah": 2,
+        "ayah": 24
+      },
+      {
+        "surah": 2,
+        "ayah": 31
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِنْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Core conditional marker (690+ tokens).",
+    "priority_score": 72.9,
+    "difficulty": 1,
+    "id": "QCV-0017",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنْ",
+    "root": "",
+    "transliteration": "aan",
+    "pos": "SUB",
+    "word_type": "particle",
+    "primary_meaning_en": "to, that (with subjunctive)",
+    "primary_meaning_bn": "যে, যেন, করা",
+    "alternative_meanings": [
+      "so that"
+    ],
+    "short_explanation_en": "Infinitive particle (an al-masdariyyah) making the following verb an abstract noun.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 625,
+    "ayah_count": 541,
+    "surah_count": 78,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 2,
+        "ayah": 67
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Core syntactic complementizer (600+ tokens).",
+    "priority_score": 72.9,
+    "difficulty": 1,
+    "id": "QCV-0018",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "فَـ",
+    "root": "",
+    "transliteration": "fa",
+    "pos": "CONJ",
+    "word_type": "conjunction",
+    "primary_meaning_en": "so, then, and therefore, immediately",
+    "primary_meaning_bn": "সুতরাং, অতএব, অতঃপর",
+    "alternative_meanings": [
+      "consequently",
+      "thereupon"
+    ],
+    "short_explanation_en": "Connective indicating rapid succession, causality, or result.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 517,
+    "ayah_count": 469,
+    "surah_count": 84,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 18
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "فَـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Fundamental consecutive and result connective in Quranic sentences.",
+    "priority_score": 72.7,
+    "difficulty": 1,
+    "id": "QCV-0019",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "ذَلِكَ",
+    "root": "",
+    "transliteration": "dhalika",
+    "pos": "DEM",
+    "word_type": "demonstrative",
+    "primary_meaning_en": "that, such (masculine singular)",
+    "primary_meaning_bn": "ঐটি, সেই, তাহা",
+    "alternative_meanings": [
+      "that one",
+      "such"
+    ],
+    "short_explanation_en": "Far demonstrative pronoun indicating distance, dignity, or prior mention.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 520,
+    "ayah_count": 494,
+    "surah_count": 78,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 49
+      },
+      {
+        "surah": 2,
+        "ayah": 52
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "ذَلِكَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Crucial deictic pronoun, e.g. dhālikal-kitāb (500+ tokens).",
+    "priority_score": 72.1,
+    "difficulty": 1,
+    "id": "QCV-0020",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَ",
+    "root": "",
+    "transliteration": "aa",
+    "pos": "INTG",
+    "word_type": "particle",
+    "primary_meaning_en": "is? do? (interrogative prefix)",
+    "primary_meaning_bn": "কি? (প্রশ্নবোধক উপসর্গ)",
+    "alternative_meanings": [
+      "is it that?"
+    ],
+    "short_explanation_en": "Interrogative hamza prefixed to words to form direct inquiries or rhetorical rebukes.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 507,
+    "ayah_count": 472,
+    "surah_count": 74,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 13
+      },
+      {
+        "surah": 2,
+        "ayah": 30
+      },
+      {
+        "surah": 2,
+        "ayah": 33
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Most frequent questioning prefix in Quran (500+ tokens).",
+    "priority_score": 71.3,
+    "difficulty": 1,
+    "id": "QCV-0021",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَن",
+    "root": "",
+    "transliteration": "'an",
+    "pos": "P",
+    "word_type": "particle",
+    "primary_meaning_en": "from, about, concerning",
+    "primary_meaning_bn": "হতে, থেকে, সম্পর্কে",
+    "alternative_meanings": [
+      "from",
+      "concerning",
+      "away from"
+    ],
+    "short_explanation_en": "Corpus lemma عَن occurring 465 times across 78 surahs.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 465,
+    "ayah_count": 422,
+    "surah_count": 78,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 36
+      },
+      {
+        "surah": 2,
+        "ayah": 48
+      },
+      {
+        "surah": 2,
+        "ayah": 52
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "عَنْ",
+        "عَن",
+        "عَنِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "High-frequency Quranic lemma (465 tokens in 78 surahs).",
+    "priority_score": 71.3,
+    "difficulty": 2,
+    "id": "QCV-0022",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِذَا",
+    "root": "",
+    "transliteration": "iidhaa",
+    "pos": "COND",
+    "word_type": "particle",
+    "primary_meaning_en": "when, whenever, if, behold!",
+    "primary_meaning_bn": "যখন, যদি, অকস্মাৎ",
+    "alternative_meanings": [
+      "as soon as",
+      "behold"
+    ],
+    "short_explanation_en": "Temporal/conditional adverbial particle referring to future or certain events.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 409,
+    "ayah_count": 373,
+    "surah_count": 79,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 11
+      },
+      {
+        "surah": 2,
+        "ayah": 13
+      },
+      {
+        "surah": 2,
+        "ayah": 14
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِذَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary temporal and conditional trigger in eschatological descriptions.",
+    "priority_score": 70.7,
+    "difficulty": 2,
+    "id": "QCV-0023",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "ءَامَنَ",
+    "root": "ا م ن",
+    "transliteration": "'aamana",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "believed, to believe",
+    "primary_meaning_bn": "ঈমান এনেছে, বিশ্বাস করেছে",
+    "alternative_meanings": [
+      "have faith",
+      "trusted"
+    ],
+    "short_explanation_en": "Corpus lemma ءَامَنَ occurring 537 times across 73 surahs.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 537,
+    "ayah_count": 478,
+    "surah_count": 73,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 6
+      }
+    ],
+    "morphology": {
+      "form": "IV",
+      "common_forms": [
+        "ءَامَنُ",
+        "يُؤْمِنُ",
+        "ءَامَنَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0047",
+      "QCV-0325",
+      "QCV-0346",
+      "QCV-0493",
+      "QCV-0648"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (537 tokens in 73 surahs).",
+    "priority_score": 70.1,
+    "difficulty": 1,
+    "id": "QCV-0024",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَمْ",
+    "root": "",
+    "transliteration": "lam",
+    "pos": "NEG",
+    "word_type": "particle",
+    "primary_meaning_en": "did not, has not",
+    "primary_meaning_bn": "করেনি, হয়নি (অতীতের অস্বীকৃতি)",
+    "alternative_meanings": [
+      "never did"
+    ],
+    "short_explanation_en": "Negative particle governing the jussive mood, converting verb meaning to past negative.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 353,
+    "ayah_count": 330,
+    "surah_count": 79,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 24
+      },
+      {
+        "surah": 2,
+        "ayah": 33
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَمْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary past negative jussive operator (380+ tokens).",
+    "priority_score": 69.9,
+    "difficulty": 2,
+    "id": "QCV-0025",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنَّ",
+    "root": "",
+    "transliteration": "aana",
+    "pos": "SUB",
+    "word_type": "particle",
+    "primary_meaning_en": "that",
+    "primary_meaning_bn": "যে, এই মর্মে যে",
+    "alternative_meanings": [
+      "that truly"
+    ],
+    "short_explanation_en": "Subordinating conjunction introducing nominal clauses after perception/cognition verbs.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 362,
+    "ayah_count": 319,
+    "surah_count": 67,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 46
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنَّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Central clause subordinate connector.",
+    "priority_score": 68.4,
+    "difficulty": 2,
+    "id": "QCV-0026",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هَذَا",
+    "root": "",
+    "transliteration": "hadhaa",
+    "pos": "DEM",
+    "word_type": "demonstrative",
+    "primary_meaning_en": "this (masculine singular)",
+    "primary_meaning_bn": "এই, এটি, ইনি",
+    "alternative_meanings": [
+      "this one"
+    ],
+    "short_explanation_en": "Near demonstrative pronoun referring to present or imminent entities.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 318,
+    "ayah_count": 296,
+    "surah_count": 66,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 31
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "هَذَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Foundational deictic pronoun (400+ tokens).",
+    "priority_score": 67.6,
+    "difficulty": 2,
+    "id": "QCV-0027",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَلِمَ",
+    "root": "ع ل م",
+    "transliteration": "'alima",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He knew",
+    "primary_meaning_bn": "জানলেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He knew) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 382,
+    "ayah_count": 340,
+    "surah_count": 73,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 13
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "يَعْلَمُ",
+        "تَعْلَمُ",
+        "ٱعْلَمُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0104",
+      "QCV-0234",
+      "QCV-0314"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 73 surahs.",
+    "priority_score": 67.5,
+    "difficulty": 2,
+    "id": "QCV-0028",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "الْأَرْضِ",
+    "root": "ا ر ض",
+    "transliteration": "alaardi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Earth",
+    "primary_meaning_bn": "পৃথিবী",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Earth) with extensive theological and literary presence.",
+    "semantic_category": "Earth",
+    "frequency_tokens": 461,
+    "ayah_count": 440,
+    "surah_count": 80,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 11
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 27
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَرْضِ",
+        "أَرْضَ",
+        "أَرْضُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential Quranic noun occurring 461 times across 80 surahs.",
+    "priority_score": 67.1,
+    "difficulty": 2,
+    "id": "QCV-0029",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "قَبْلَ",
+    "root": "",
+    "transliteration": "qabla",
+    "pos": "T",
+    "word_type": "preposition",
+    "primary_meaning_en": "before (in time)",
+    "primary_meaning_bn": "পূর্বে, আগে",
+    "alternative_meanings": [
+      "prior to"
+    ],
+    "short_explanation_en": "Temporal adverb/preposition indicating prior occurrence or previous scripture.",
+    "semantic_category": "Time",
+    "frequency_tokens": 242,
+    "ayah_count": 235,
+    "surah_count": 61,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 21
+      },
+      {
+        "surah": 2,
+        "ayah": 25
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "قَبْلَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Crucial historical sequence marker (min qablika).",
+    "priority_score": 65.5,
+    "difficulty": 1,
+    "id": "QCV-0030",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "سَمَاءِ",
+    "root": "س م و",
+    "transliteration": "samaa'i",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Sky",
+    "primary_meaning_bn": "আকাশ",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Sky) with extensive theological and literary presence.",
+    "semantic_category": "Sky",
+    "frequency_tokens": 310,
+    "ayah_count": 297,
+    "surah_count": 76,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 19
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 29
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "سَّمَٰوَٰتِ",
+        "سَّمَآءِ",
+        "سَّمَآءَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0360",
+      "QCV-0515"
+    ],
+    "inclusion_reason": "Essential Quranic noun occurring 310 times across 76 surahs.",
+    "priority_score": 65,
+    "difficulty": 2,
+    "id": "QCV-0031",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "جَعَلَ",
+    "root": "ج ع ل",
+    "transliteration": "ja'ala",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He made",
+    "primary_meaning_bn": "করলেন",
+    "alternative_meanings": [
+      "করলেন",
+      "বানালেন"
+    ],
+    "short_explanation_en": "Frequent Quranic verb (He made) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 340,
+    "ayah_count": 306,
+    "surah_count": 66,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 19
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 30
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "جَعَلْ",
+        "جَعَلَ",
+        "يَجْعَلُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 66 surahs.",
+    "priority_score": 64.9,
+    "difficulty": 2,
+    "id": "QCV-0032",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "رَءَا",
+    "root": "ر ا ي",
+    "transliteration": "ra'aa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "saw, perceived, considered",
+    "primary_meaning_bn": "দেখেছে, অবলোকন করেছে",
+    "alternative_meanings": [
+      "looked at",
+      "perceived"
+    ],
+    "short_explanation_en": "Corpus lemma رَءَا occurring 271 times across 70 surahs.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 271,
+    "ayah_count": 253,
+    "surah_count": 70,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 55
+      },
+      {
+        "surah": 2,
+        "ayah": 144
+      },
+      {
+        "surah": 2,
+        "ayah": 165
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "يَرَ",
+        "تَرَ",
+        "رَءَيْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0275",
+      "QCV-1796"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (271 tokens in 70 surahs).",
+    "priority_score": 64.9,
+    "difficulty": 2,
+    "id": "QCV-0033",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "كَفَرَ",
+    "root": "ك ف ر",
+    "transliteration": "kafara",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He disbelieved",
+    "primary_meaning_bn": "অস্বীকার করল",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He disbelieved) with extensive theological and literary presence.",
+    "semantic_category": "Disbelief",
+    "frequency_tokens": 289,
+    "ayah_count": 269,
+    "surah_count": 62,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 28
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "كَفَرُ",
+        "يَكْفُرُ",
+        "تَكْفُرُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0113",
+      "QCV-0430",
+      "QCV-1890"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 62 surahs.",
+    "priority_score": 64.5,
+    "difficulty": 2,
+    "id": "QCV-0034",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "يَوْمِ",
+    "root": "ي و م",
+    "transliteration": "yawmi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Day",
+    "primary_meaning_bn": "দিন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Day) with extensive theological and literary presence.",
+    "semantic_category": "People",
+    "frequency_tokens": 405,
+    "ayah_count": 377,
+    "surah_count": 75,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 8
+      },
+      {
+        "surah": 2,
+        "ayah": 48
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "يَوْمَ",
+        "يَوْمِ",
+        "يَوْمٍ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential Quranic noun occurring 405 times across 75 surahs.",
+    "priority_score": 64.2,
+    "difficulty": 2,
+    "id": "QCV-0035",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "رَسُولِ",
+    "root": "ر س ل",
+    "transliteration": "rasuwli",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Messenger",
+    "primary_meaning_bn": "রাসূল",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Messenger) with extensive theological and literary presence.",
+    "semantic_category": "Prophets",
+    "frequency_tokens": 332,
+    "ayah_count": 292,
+    "surah_count": 61,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 87
+      },
+      {
+        "surah": 2,
+        "ayah": 98
+      },
+      {
+        "surah": 2,
+        "ayah": 101
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "رَسُولِ",
+        "رَسُولَ",
+        "رَسُولُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0103",
+      "QCV-0408"
+    ],
+    "inclusion_reason": "Essential Quranic noun occurring 332 times across 61 surahs.",
+    "priority_score": 64.2,
+    "difficulty": 2,
+    "id": "QCV-0036",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَمِلَ",
+    "root": "ع م ل",
+    "transliteration": "'amila",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He did",
+    "primary_meaning_bn": "কাজ করল",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He did) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 276,
+    "ayah_count": 255,
+    "surah_count": 66,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 62
+      },
+      {
+        "surah": 2,
+        "ayah": 74
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "تَعْمَلُ",
+        "عَمِلُ",
+        "يَعْمَلُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 66 surahs.",
+    "priority_score": 63.8,
+    "difficulty": 2,
+    "id": "QCV-0037",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنْزَلَ",
+    "root": "ن ز ل",
+    "transliteration": "aanzala",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He sent down",
+    "primary_meaning_bn": "নাযিল করলেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He sent down) with extensive theological and literary presence.",
+    "semantic_category": "Revelation",
+    "frequency_tokens": 183,
+    "ayah_count": 162,
+    "surah_count": 50,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 4
+      },
+      {
+        "surah": 2,
+        "ayah": 22
+      },
+      {
+        "surah": 2,
+        "ayah": 41
+      }
+    ],
+    "morphology": {
+      "form": "IV",
+      "common_forms": [
+        "أَنزَلَ",
+        "أَنزَلْ",
+        "أُنزِلَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0130",
+      "QCV-0631",
+      "QCV-1788"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form IV) expressing fundamental action across 50 surahs.",
+    "priority_score": 63.7,
+    "difficulty": 2,
+    "id": "QCV-0038",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "كُلّ",
+    "root": "ك ل ل",
+    "transliteration": "kul",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "all, every, each",
+    "primary_meaning_bn": "সকল, প্রত্যেক, সমস্ত",
+    "alternative_meanings": [
+      "entirety"
+    ],
+    "short_explanation_en": "Universal quantifying noun governing genitive annexations.",
+    "semantic_category": "Numbers / quantities",
+    "frequency_tokens": 359,
+    "ayah_count": 341,
+    "surah_count": 73,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 2,
+        "ayah": 31
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "كُلّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0661"
+    ],
+    "inclusion_reason": "Universal quantifier in theological principles (kullu nafsin dhā'iqatul-mawt).",
+    "priority_score": 63.6,
+    "difficulty": 2,
+    "id": "QCV-0039",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "قَوْم",
+    "root": "ق و م",
+    "transliteration": "qawm",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "people, nation, community",
+    "primary_meaning_bn": "সম্প্রদায়, জাতি, কওম",
+    "alternative_meanings": [
+      "folk",
+      "tribe"
+    ],
+    "short_explanation_en": "Corpus lemma قَوْم occurring 383 times across 55 surahs.",
+    "semantic_category": "People",
+    "frequency_tokens": 383,
+    "ayah_count": 347,
+    "surah_count": 55,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 54
+      },
+      {
+        "surah": 2,
+        "ayah": 60
+      },
+      {
+        "surah": 2,
+        "ayah": 67
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "قَوْمِ",
+        "قَوْمٍ",
+        "قَوْمَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0161",
+      "QCV-0210",
+      "QCV-0286",
+      "QCV-0320",
+      "QCV-0551",
+      "QCV-0585"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (383 tokens in 55 surahs).",
+    "priority_score": 63.5,
+    "difficulty": 2,
+    "id": "QCV-0040",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بَعْدَ",
+    "root": "",
+    "transliteration": "ba'da",
+    "pos": "T",
+    "word_type": "preposition",
+    "primary_meaning_en": "after (in time)",
+    "primary_meaning_bn": "পরে, পরবর্তীতে",
+    "alternative_meanings": [
+      "subsequent to"
+    ],
+    "short_explanation_en": "Temporal adverb/preposition indicating subsequent occurrence.",
+    "semantic_category": "Time",
+    "frequency_tokens": 199,
+    "ayah_count": 188,
+    "surah_count": 54,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 27
+      },
+      {
+        "surah": 2,
+        "ayah": 51
+      },
+      {
+        "surah": 2,
+        "ayah": 52
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بَعْدَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Crucial sequential marker of consequence and life after death.",
+    "priority_score": 63.4,
+    "difficulty": 1,
+    "id": "QCV-0041",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "جَاءَ",
+    "root": "ج ي ا",
+    "transliteration": "jaa'a",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He came",
+    "primary_meaning_bn": "আসলেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He came) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 278,
+    "ayah_count": 262,
+    "surah_count": 62,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 71
+      },
+      {
+        "surah": 2,
+        "ayah": 87
+      },
+      {
+        "surah": 2,
+        "ayah": 89
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "جَآءَ",
+        "جَآءَتْ",
+        "جِئْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 62 surahs.",
+    "priority_score": 63.4,
+    "difficulty": 2,
+    "id": "QCV-0042",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هَدَى",
+    "root": "ه د ي",
+    "transliteration": "hadaa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He guided",
+    "primary_meaning_bn": "পথ দেখালেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He guided) with extensive theological and literary presence.",
+    "semantic_category": "Guidance",
+    "frequency_tokens": 144,
+    "ayah_count": 132,
+    "surah_count": 52,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 6
+      },
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 142
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "يَهْدِى",
+        "هَدَىٰ",
+        "يَهْدِي"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0166",
+      "QCV-0613",
+      "QCV-0936"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 52 surahs.",
+    "priority_score": 62.7,
+    "difficulty": 2,
+    "id": "QCV-0043",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "آتَىٰ",
+    "root": "ا ت ي",
+    "transliteration": "aataa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He gave",
+    "primary_meaning_bn": "দান করলেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He gave) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 271,
+    "ayah_count": 240,
+    "surah_count": 58,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 43
+      },
+      {
+        "surah": 2,
+        "ayah": 53
+      },
+      {
+        "surah": 2,
+        "ayah": 63
+      }
+    ],
+    "morphology": {
+      "form": "IV",
+      "common_forms": [
+        "ءَاتَيْ",
+        "أُوتُ",
+        "ءَاتَىٰ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form IV) expressing fundamental action across 58 surahs.",
+    "priority_score": 62.5,
+    "difficulty": 2,
+    "id": "QCV-0044",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَذَاب",
+    "root": "ع ذ ب",
+    "transliteration": "'adhaab",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "punishment, torment, penalty",
+    "primary_meaning_bn": "শাস্তি, আযাব",
+    "alternative_meanings": [
+      "torment",
+      "chastisement"
+    ],
+    "short_explanation_en": "Corpus lemma عَذَاب occurring 322 times across 68 surahs.",
+    "semantic_category": "Hell",
+    "frequency_tokens": 322,
+    "ayah_count": 306,
+    "surah_count": 68,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 7
+      },
+      {
+        "surah": 2,
+        "ayah": 10
+      },
+      {
+        "surah": 2,
+        "ayah": 49
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "عَذَابٌ",
+        "عَذَابِ",
+        "عَذَابَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0299"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (322 tokens in 68 surahs).",
+    "priority_score": 62.3,
+    "difficulty": 2,
+    "id": "QCV-0045",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "خَلَقَ",
+    "root": "خ ل ق",
+    "transliteration": "khalaqa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He created",
+    "primary_meaning_bn": "সৃষ্টি করলেন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He created) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 184,
+    "ayah_count": 168,
+    "surah_count": 71,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 21
+      },
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 2,
+        "ayah": 228
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "خَلَقَ",
+        "خَلَقْ",
+        "يَخْلُقُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 71 surahs.",
+    "priority_score": 62.1,
+    "difficulty": 2,
+    "id": "QCV-0046",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "مُؤْمِنِ",
+    "root": "ا م ن",
+    "transliteration": "muumini",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Believer",
+    "primary_meaning_bn": "মুমিন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Believer) with extensive theological and literary presence.",
+    "semantic_category": "Faith",
+    "frequency_tokens": 202,
+    "ayah_count": 193,
+    "surah_count": 47,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 8
+      },
+      {
+        "surah": 2,
+        "ayah": 91
+      },
+      {
+        "surah": 2,
+        "ayah": 93
+      }
+    ],
+    "morphology": {
+      "form": "IV",
+      "common_forms": [
+        "مُؤْمِنِينَ",
+        "مُؤْمِنُونَ",
+        "مُّؤْمِنِينَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0024",
+      "QCV-0325",
+      "QCV-0346",
+      "QCV-0493",
+      "QCV-0648"
+    ],
+    "inclusion_reason": "Essential Quranic noun occurring 202 times across 47 surahs.",
+    "priority_score": 61.8,
+    "difficulty": 2,
+    "id": "QCV-0047",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "ءَايَة",
+    "root": "ا ي ي",
+    "transliteration": "'aayah",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "sign, verse, miracle",
+    "primary_meaning_bn": "নিদর্শন, আয়াত, অলৌকিক প্রমাণ",
+    "alternative_meanings": [
+      "token",
+      "revelation"
+    ],
+    "short_explanation_en": "Corpus lemma ءَايَة occurring 382 times across 59 surahs.",
+    "semantic_category": "Revelation",
+    "frequency_tokens": 382,
+    "ayah_count": 353,
+    "surah_count": 59,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 39
+      },
+      {
+        "surah": 2,
+        "ayah": 41
+      },
+      {
+        "surah": 2,
+        "ayah": 61
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "ءَايَٰتِ",
+        "ـَٔايَٰتِ",
+        "ءَايَةً"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "High-frequency Quranic lemma (382 tokens in 59 surahs).",
+    "priority_score": 61.7,
+    "difficulty": 2,
+    "id": "QCV-0048",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "شَآءَ",
+    "root": "ش ي ا",
+    "transliteration": "shaa'a",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "willed, wished, desired",
+    "primary_meaning_bn": "ইচ্ছা করল, চাইল",
+    "alternative_meanings": [
+      "desired",
+      "pleased"
+    ],
+    "short_explanation_en": "Corpus lemma شَآءَ occurring 236 times across 53 surahs.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 236,
+    "ayah_count": 205,
+    "surah_count": 53,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 35
+      },
+      {
+        "surah": 2,
+        "ayah": 58
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "يَشَآءُ",
+        "شَآءَ",
+        "شِئْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0050"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (236 tokens in 53 surahs).",
+    "priority_score": 61.4,
+    "difficulty": 2,
+    "id": "QCV-0049",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "شَىْء",
+    "root": "ش ي ا",
+    "transliteration": "shaa'",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "thing, matter, entity",
+    "primary_meaning_bn": "বস্তু, জিনিস, কিছু",
+    "alternative_meanings": [
+      "entity",
+      "matter"
+    ],
+    "short_explanation_en": "Corpus lemma شَىْء occurring 283 times across 65 surahs.",
+    "semantic_category": "Other",
+    "frequency_tokens": 283,
+    "ayah_count": 266,
+    "surah_count": 65,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 20
+      },
+      {
+        "surah": 2,
+        "ayah": 29
+      },
+      {
+        "surah": 2,
+        "ayah": 48
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "شَىْءٍ",
+        "شَيْـًٔا",
+        "شَىْءٌ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0049"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (283 tokens in 65 surahs).",
+    "priority_score": 61.2,
+    "difficulty": 2,
+    "id": "QCV-0050",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "حَتَّى",
+    "root": "",
+    "transliteration": "hataa",
+    "pos": "P",
+    "word_type": "particle",
+    "primary_meaning_en": "until, so that, up to",
+    "primary_meaning_bn": "পর্যন্ত, যে পর্যন্ত না",
+    "alternative_meanings": [
+      "even"
+    ],
+    "short_explanation_en": "Terminative preposition and conjunction governing subjunctive verbs or genitive nouns.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 142,
+    "ayah_count": 138,
+    "surah_count": 48,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 55
+      },
+      {
+        "surah": 2,
+        "ayah": 102
+      },
+      {
+        "surah": 2,
+        "ayah": 109
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "حَتَّى"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Key clause terminus marker (hattā matā nasrullāh).",
+    "priority_score": 60.8,
+    "difficulty": 2,
+    "id": "QCV-0051",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "دُونَ",
+    "root": "د و ن",
+    "transliteration": "duwna",
+    "pos": "LOC",
+    "word_type": "preposition",
+    "primary_meaning_en": "besides, beneath, without, to the exclusion of",
+    "primary_meaning_bn": "ছাড়া, ব্যতীত, নিম্নতর",
+    "alternative_meanings": [
+      "short of"
+    ],
+    "short_explanation_en": "Locative noun of exclusion, core to monotheistic denial of idols (min dūnillāh).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 144,
+    "ayah_count": 142,
+    "surah_count": 46,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 23
+      },
+      {
+        "surah": 2,
+        "ayah": 94
+      },
+      {
+        "surah": 2,
+        "ayah": 107
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "دُونَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Critical polemical marker against polytheism.",
+    "priority_score": 60.6,
+    "difficulty": 1,
+    "id": "QCV-0052",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "نَفْسِ",
+    "root": "ن ف س",
+    "transliteration": "nafsi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Soul",
+    "primary_meaning_bn": "আত্মা",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Soul) with extensive theological and literary presence.",
+    "semantic_category": "People",
+    "frequency_tokens": 295,
+    "ayah_count": 268,
+    "surah_count": 62,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 9
+      },
+      {
+        "surah": 2,
+        "ayah": 44
+      },
+      {
+        "surah": 2,
+        "ayah": 48
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنفُسِ",
+        "أَنفُسَ",
+        "نَفْسِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential Quranic noun occurring 295 times across 62 surahs.",
+    "priority_score": 60.6,
+    "difficulty": 2,
+    "id": "QCV-0053",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بَلْ",
+    "root": "",
+    "transliteration": "bal",
+    "pos": "RET",
+    "word_type": "particle",
+    "primary_meaning_en": "nay rather, but, on the contrary",
+    "primary_meaning_bn": "বরং, কিন্তু আদৌ",
+    "alternative_meanings": [
+      "on the contrary",
+      "in fact"
+    ],
+    "short_explanation_en": "Retraction particle (harf idrāb) correcting a previous statement.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 127,
+    "ayah_count": 121,
+    "surah_count": 51,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 88
+      },
+      {
+        "surah": 2,
+        "ayah": 100
+      },
+      {
+        "surah": 2,
+        "ayah": 116
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بَلْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Key polemical and corrective particle.",
+    "priority_score": 60.5,
+    "difficulty": 2,
+    "id": "QCV-0054",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "جَنَّةِ",
+    "root": "ج ن ن",
+    "transliteration": "janahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Paradise",
+    "primary_meaning_bn": "জান্নাত",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Paradise) with extensive theological and literary presence.",
+    "semantic_category": "Paradise",
+    "frequency_tokens": 147,
+    "ayah_count": 143,
+    "surah_count": 65,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 25
+      },
+      {
+        "surah": 2,
+        "ayah": 35
+      },
+      {
+        "surah": 2,
+        "ayah": 82
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "جَنَّٰتٍ",
+        "جَنَّةِ",
+        "جَنَّةَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0536",
+      "QCV-0923"
+    ],
+    "inclusion_reason": "Essential Quranic noun occurring 147 times across 65 surahs.",
+    "priority_score": 60.4,
+    "difficulty": 2,
+    "id": "QCV-0055",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "كِتَٰب",
+    "root": "ك ت ب",
+    "transliteration": "kitaab",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "book, scripture, decree",
+    "primary_meaning_bn": "কিতাব, গ্রন্থ, লিপিবদ্ধ আদেশ",
+    "alternative_meanings": [
+      "scripture",
+      "record"
+    ],
+    "short_explanation_en": "Corpus lemma كِتَٰب occurring 260 times across 58 surahs.",
+    "semantic_category": "Revelation",
+    "frequency_tokens": 260,
+    "ayah_count": 236,
+    "surah_count": 58,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 2
+      },
+      {
+        "surah": 2,
+        "ayah": 44
+      },
+      {
+        "surah": 2,
+        "ayah": 53
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "كِتَٰبِ",
+        "كِتَٰبَ",
+        "كِتَٰبٍ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-1096"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (260 tokens in 58 surahs).",
+    "priority_score": 59.7,
+    "difficulty": 2,
+    "id": "QCV-0056",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "كَذَّبَ",
+    "root": "ك ذ ب",
+    "transliteration": "kadhaba",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He denied",
+    "primary_meaning_bn": "মিথ্যা প্রতিপন্ন করল",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He denied) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 176,
+    "ayah_count": 163,
+    "surah_count": 52,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 39
+      },
+      {
+        "surah": 2,
+        "ayah": 87
+      },
+      {
+        "surah": 3,
+        "ayah": 11
+      }
+    ],
+    "morphology": {
+      "form": "II",
+      "common_forms": [
+        "كَذَّبُ",
+        "تُكَذِّبَ",
+        "كَذَّبَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0559"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form II) expressing fundamental action across 52 surahs.",
+    "priority_score": 59.7,
+    "difficulty": 2,
+    "id": "QCV-0057",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "دَعَا",
+    "root": "د ع و",
+    "transliteration": "da'aa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He called",
+    "primary_meaning_bn": "ডাকলেন",
+    "alternative_meanings": [
+      "ডাকলেন",
+      "দোয়া করল"
+    ],
+    "short_explanation_en": "Frequent Quranic verb (He called) with extensive theological and literary presence.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 170,
+    "ayah_count": 155,
+    "surah_count": 52,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 23
+      },
+      {
+        "surah": 2,
+        "ayah": 61
+      },
+      {
+        "surah": 2,
+        "ayah": 68
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "تَدْعُ",
+        "ٱدْعُ",
+        "يَدْعُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0517"
+    ],
+    "inclusion_reason": "Frequent Quranic verb (Form I) expressing fundamental action across 52 surahs.",
+    "priority_score": 59.5,
+    "difficulty": 2,
+    "id": "QCV-0058",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "حَقِّ",
+    "root": "ح ق ق",
+    "transliteration": "haqi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Truth",
+    "primary_meaning_bn": "সত্য",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Truth) with extensive theological and literary presence.",
+    "semantic_category": "People",
+    "frequency_tokens": 247,
+    "ayah_count": 231,
+    "surah_count": 57,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 26
+      },
+      {
+        "surah": 2,
+        "ayah": 42
+      },
+      {
+        "surah": 2,
+        "ayah": 61
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "حَقِّ",
+        "حَقُّ",
+        "حَقَّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-1754"
+    ],
+    "inclusion_reason": "Essential Quranic noun occurring 247 times across 57 surahs.",
+    "priority_score": 59.3,
+    "difficulty": 2,
+    "id": "QCV-0059",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَعَلَّ",
+    "root": "",
+    "transliteration": "la'ala",
+    "pos": "ACC",
+    "word_type": "particle",
+    "primary_meaning_en": "perhaps, so that, in order that",
+    "primary_meaning_bn": "যাতে করে, সম্ভবতঃ",
+    "alternative_meanings": [
+      "hopefully"
+    ],
+    "short_explanation_en": "Particle of hope or intended purpose from Inna's group (la'allakum tattaqūn).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 123,
+    "ayah_count": 122,
+    "surah_count": 41,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 21
+      },
+      {
+        "surah": 2,
+        "ayah": 52
+      },
+      {
+        "surah": 2,
+        "ayah": 53
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَعَلَّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Standard teleological particle stating purpose of commandments.",
+    "priority_score": 59.1,
+    "difficulty": 2,
+    "id": "QCV-0060",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "اتَّقَىٰ",
+    "root": "و ق ي",
+    "transliteration": "ataqaa",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "was God-fearing, guarded against evil",
+    "primary_meaning_bn": "তাকওয়া অবলম্বন করল, ভয় করল",
+    "alternative_meanings": [
+      "became righteous",
+      "warded off evil"
+    ],
+    "short_explanation_en": "Corpus lemma اتَّقَىٰ occurring 166 times across 42 surahs.",
+    "semantic_category": "Actions",
+    "frequency_tokens": 166,
+    "ayah_count": 158,
+    "surah_count": 42,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 21
+      },
+      {
+        "surah": 2,
+        "ayah": 24
+      },
+      {
+        "surah": 2,
+        "ayah": 41
+      }
+    ],
+    "morphology": {
+      "form": "VIII",
+      "common_forms": [
+        "ٱتَّقُ",
+        "تَتَّقُ",
+        "ٱتَّقَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0288",
+      "QCV-0520",
+      "QCV-0590"
+    ],
+    "inclusion_reason": "High-frequency Quranic lemma (166 tokens in 42 surahs).",
+    "priority_score": 58.8,
+    "difficulty": 2,
+    "id": "QCV-0061",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَنْ",
+    "root": "",
+    "transliteration": "lan",
+    "pos": "NEG",
+    "word_type": "particle",
+    "primary_meaning_en": "will never, will not",
+    "primary_meaning_bn": "কখনই করবে না, কখনই নয়",
+    "alternative_meanings": [
+      "never shall"
+    ],
+    "short_explanation_en": "Emphatic future negative particle governing the subjunctive mood.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 106,
+    "ayah_count": 100,
+    "surah_count": 35,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 24
+      },
+      {
+        "surah": 2,
+        "ayah": 55
+      },
+      {
+        "surah": 2,
+        "ayah": 61
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَنْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Key emphatic future negation particle (100+ tokens).",
+    "priority_score": 57.3,
+    "difficulty": 2,
+    "id": "QCV-0062",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَىّ",
+    "root": "",
+    "transliteration": "aa",
+    "pos": "INTG",
+    "word_type": "particle",
+    "primary_meaning_en": "which, whichever, what",
+    "primary_meaning_bn": "কোন, কোনটি, যা কিছু",
+    "alternative_meanings": [
+      "whichever",
+      "what kind"
+    ],
+    "short_explanation_en": "Corpus lemma أَىّ occurring 60 times across 24 surahs.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 60,
+    "ayah_count": 60,
+    "surah_count": 24,
+    "example_references": [
+      {
+        "surah": 3,
+        "ayah": 44
+      },
+      {
+        "surah": 4,
+        "ayah": 11
+      },
+      {
+        "surah": 6,
+        "ayah": 19
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَىِّ",
+        "أَيُّ",
+        "أَىُّ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "High-frequency Quranic lemma (60 tokens in 24 surahs).",
+    "priority_score": 52.8,
+    "difficulty": 2,
+    "id": "QCV-0063",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِذْ",
+    "root": "",
+    "transliteration": "iidh",
+    "pos": "T",
+    "word_type": "particle",
+    "primary_meaning_en": "when, recall when, since",
+    "primary_meaning_bn": "স্মরণ কর যখন, যেহেতু",
+    "alternative_meanings": [
+      "at that time",
+      "since"
+    ],
+    "short_explanation_en": "Past-time adverbial particle frequently opening prophetic reminiscences.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِذْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Standard marker of sacred history narratives.",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0064",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِنَّمَا",
+    "root": "",
+    "transliteration": "iinamaa",
+    "pos": "RES",
+    "word_type": "particle",
+    "primary_meaning_en": "only, nothing but, solely",
+    "primary_meaning_bn": "কেবলমাত্র, শুধু, বস্তুত",
+    "alternative_meanings": [
+      "is only"
+    ],
+    "short_explanation_en": "Restrictive particle (harf hasr/qasr) limiting the predicate exclusively to the subject.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِنَّمَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential rhetorical device for exclusive theological statements.",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0065",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "الَّذِينَ",
+    "root": "",
+    "transliteration": "aladhiyna",
+    "pos": "REL",
+    "word_type": "pronoun",
+    "primary_meaning_en": "those who, who (masculine plural)",
+    "primary_meaning_bn": "যারা, যাঁহারা (বহুবচন)",
+    "alternative_meanings": [
+      "the people who"
+    ],
+    "short_explanation_en": "Plural masculine relative pronoun, foundational in phrases like alladhīna āmanū.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "الَّذِينَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Defines collective groups of believers, hypocrites, and disbelievers (1,000+ tokens).",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0066",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "الَّتِي",
+    "root": "",
+    "transliteration": "alatiy",
+    "pos": "REL",
+    "word_type": "pronoun",
+    "primary_meaning_en": "who, which (feminine singular)",
+    "primary_meaning_bn": "যিনি, যা (স্ত্রী একবচন)",
+    "alternative_meanings": [
+      "that which"
+    ],
+    "short_explanation_en": "Feminine singular relative pronoun (used also for non-human plurals).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "الَّتِي"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Core feminine relative connector.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0067",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هُوَ",
+    "root": "",
+    "transliteration": "huwa",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "he, it",
+    "primary_meaning_bn": "তিনি, সে, তাহা",
+    "alternative_meanings": [
+      "it is He"
+    ],
+    "short_explanation_en": "Third person masculine singular independent personal pronoun.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "هُوَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Core divine subject pronoun: Huwa Allāh.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0068",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هِيَ",
+    "root": "",
+    "transliteration": "hiya",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "she, it",
+    "primary_meaning_bn": "তিনি, সে (স্ত্রীবাচক/অপ্রাণি)",
+    "alternative_meanings": [
+      "it"
+    ],
+    "short_explanation_en": "Third person feminine singular independent pronoun.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "هِيَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential feminine pronoun.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0069",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هُمْ",
+    "root": "",
+    "transliteration": "hum",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "they (masculine plural)",
+    "primary_meaning_bn": "তারা, তাহারা",
+    "alternative_meanings": [
+      "them"
+    ],
+    "short_explanation_en": "Third person masculine plural pronoun, both independent and suffixed.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "هُمْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "High frequency plural subject and object pronoun.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0070",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنْتَ",
+    "root": "",
+    "transliteration": "aanta",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "you (masculine singular)",
+    "primary_meaning_bn": "আপনি, তুমি (পুং একবচন)",
+    "alternative_meanings": [
+      "thou"
+    ],
+    "short_explanation_en": "Second person masculine singular pronoun used in direct divine address.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنْتَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary pronoun of direct supplication and address.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0071",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنْتُمْ",
+    "root": "",
+    "transliteration": "aantum",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "you all (masculine plural)",
+    "primary_meaning_bn": "তোমরা, আপনারা",
+    "alternative_meanings": [
+      "ye"
+    ],
+    "short_explanation_en": "Second person masculine plural pronoun for collective audience address.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنْتُمْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary pronoun in divine exhortations to mankind and believers.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0072",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنَا",
+    "root": "",
+    "transliteration": "aanaa",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "I, me",
+    "primary_meaning_bn": "আমি",
+    "alternative_meanings": [
+      "I am"
+    ],
+    "short_explanation_en": "First person singular independent pronoun.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَنَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Solemn first-person divine voice and prophetic declaration.",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0073",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "نَحْنُ",
+    "root": "",
+    "transliteration": "nahnu",
+    "pos": "PRON",
+    "word_type": "pronoun",
+    "primary_meaning_en": "we, Us (royal plural)",
+    "primary_meaning_bn": "আমরা",
+    "alternative_meanings": [
+      "We have"
+    ],
+    "short_explanation_en": "First person plural pronoun, often the royal majestic divine plural.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "نَحْنُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent divine declaration pronoun (nahnu khalaqnākum).",
+    "priority_score": 50.7,
+    "difficulty": 1,
+    "id": "QCV-0074",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "قَدْ",
+    "root": "",
+    "transliteration": "qad",
+    "pos": "CERT",
+    "word_type": "particle",
+    "primary_meaning_en": "certainly, already, indeed",
+    "primary_meaning_bn": "নিশ্চয়ই, ইতিমধ্যে",
+    "alternative_meanings": [
+      "truly",
+      "has indeed"
+    ],
+    "short_explanation_en": "Particle of certainty with past tense verbs, particle of possibility with present verbs.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "قَدْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary aspectual particle of realization (qad aflaha al-mu'minūn).",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0075",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَوْ",
+    "root": "",
+    "transliteration": "law",
+    "pos": "COND",
+    "word_type": "particle",
+    "primary_meaning_en": "if (hypothetical/counterfactual)",
+    "primary_meaning_bn": "যদি (অসম্ভব/অতীত কল্পনা)",
+    "alternative_meanings": [
+      "even if",
+      "had it been"
+    ],
+    "short_explanation_en": "Hypothetical conditional particle expressing unfulfilled or impossible condition.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَوْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Essential counterfactual reasoning particle in Quranic parables.",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0076",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَوْلَا",
+    "root": "",
+    "transliteration": "lawlaa",
+    "pos": "COND",
+    "word_type": "particle",
+    "primary_meaning_en": "if not for, why not?",
+    "primary_meaning_bn": "যদি না হত, কেন নয়?",
+    "alternative_meanings": [
+      "had it not been"
+    ],
+    "short_explanation_en": "Particle indicating hindrance (if not for X, Y would happen) or reproach (why did they not?).",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَوْلَا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Core particle of divine grace ('had it not been for Allah's favor').",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0077",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "هَلْ",
+    "root": "",
+    "transliteration": "hal",
+    "pos": "INTG",
+    "word_type": "particle",
+    "primary_meaning_en": "is? are? do? did?",
+    "primary_meaning_bn": "কি? নাকি?",
+    "alternative_meanings": [
+      "could it be?"
+    ],
+    "short_explanation_en": "General interrogative particle eliciting yes/no or prompting deep contemplation.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "هَلْ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary question particle across rhetorical passages (hal atāka hadīth...).",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0078",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "كَيْفَ",
+    "root": "",
+    "transliteration": "kayfa",
+    "pos": "INTG",
+    "word_type": "particle",
+    "primary_meaning_en": "how? in what manner?",
+    "primary_meaning_bn": "কীভাবে? কেমন করে?",
+    "alternative_meanings": [
+      "in what way"
+    ],
+    "short_explanation_en": "Interrogative noun inquiring into manner, state, or contemplation of creation.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "كَيْفَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent meditative particle inviting humans to examine creation.",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0079",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَيْنَ",
+    "root": "",
+    "transliteration": "aayna",
+    "pos": "INTG",
+    "word_type": "particle",
+    "primary_meaning_en": "where?",
+    "primary_meaning_bn": "কোথায়?",
+    "alternative_meanings": [
+      "whither"
+    ],
+    "short_explanation_en": "Interrogative particle inquiring about spatial location or destination.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "أَيْنَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Crucial deictic question particle.",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0080",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "سَوْفَ",
+    "root": "",
+    "transliteration": "sawfa",
+    "pos": "FUT",
+    "word_type": "particle",
+    "primary_meaning_en": "will, shall (future)",
+    "primary_meaning_bn": "শীঘ্রই, অদূর ভবিষ্যতে",
+    "alternative_meanings": [
+      "later"
+    ],
+    "short_explanation_en": "Future particle preceding imperfect verbs indicating distant or certain outcome.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "سَوْفَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Key eschatological warning marker (kallā sawfa ta'lamūn).",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0081",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "سَـ",
+    "root": "",
+    "transliteration": "sa",
+    "pos": "FUT",
+    "word_type": "particle",
+    "primary_meaning_en": "will, soon (near future)",
+    "primary_meaning_bn": "শীঘ্রই (নিকট ভবিষ্যৎ)",
+    "alternative_meanings": [
+      "shall soon"
+    ],
+    "short_explanation_en": "Inseparable prefix denoting upcoming realization of an action.",
+    "semantic_category": "Grammar / function words",
+    "frequency_tokens": 50,
+    "ayah_count": 40,
+    "surah_count": 20,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 2,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "سَـ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent verbal future prefix (sayaqūlu al-sufahā').",
+    "priority_score": 50.7,
+    "difficulty": 2,
+    "id": "QCV-0082",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "رَحْمَٰنِ",
+    "root": "ر ح م",
+    "transliteration": "rahmaani",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Most Gracious",
+    "primary_meaning_bn": "রহমান (পরম করুণাময়)",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Most Gracious) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 57,
+    "ayah_count": 56,
+    "surah_count": 18,
+    "example_references": [
+      {
+        "surah": 1,
+        "ayah": 1
+      },
+      {
+        "surah": 1,
+        "ayah": 3
+      },
+      {
+        "surah": 2,
+        "ayah": 163
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "رَّحْمَٰنِ",
+        "رَّحْمَٰنُ",
+        "رَّحْمَٰنَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [
+      "QCV-0116",
+      "QCV-0135",
+      "QCV-0334",
+      "QCV-0668"
+    ],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 49.8,
+    "difficulty": 3,
+    "id": "QCV-0083",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "أَنَابَ",
+    "root": "ن و ب",
+    "transliteration": "aanaaba",
+    "pos": "V",
+    "word_type": "verb",
+    "primary_meaning_en": "He turned repentantly",
+    "primary_meaning_bn": "ফিরে এল (আল্লাহর দিকে)",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic verb (He turned repentantly) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 11,
+    "ayah_count": 11,
+    "surah_count": 8,
+    "example_references": [
+      {
+        "surah": 11,
+        "ayah": 88
+      },
+      {
+        "surah": 13,
+        "ayah": 27
+      },
+      {
+        "surah": 31,
+        "ayah": 15
+      }
+    ],
+    "morphology": {
+      "form": "IV",
+      "common_forms": [
+        "أَنَابَ",
+        "أُنِيبُ",
+        "يُنِيبُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Frequent Quranic verb (Form IV) expressing fundamental action across 8 surahs.",
+    "priority_score": 40.4,
+    "difficulty": 4,
+    "id": "QCV-0084",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "عَبْدُ الرَّحْمَٰنِ",
+    "root": "",
+    "transliteration": "'abdualrahmaani",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Abdur Rahman",
+    "primary_meaning_bn": "আব্দুর রহমান",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Abdur Rahman) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "عَبْدُ الرَّحْمَٰنِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0085",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "سُبْحَانَ اللَّهِ",
+    "root": "",
+    "transliteration": "subhaanaallahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Glory be to Allah",
+    "primary_meaning_bn": "আল্লাহ পবিত্র",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Glory be to Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "سُبْحَانَ اللَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0086",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَا إِلَٰهَ إِلَّا اللَّهُ",
+    "root": "",
+    "transliteration": "laaiilaahaiilaallahu",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "There is no god but Allah",
+    "primary_meaning_bn": "আল্লাহ ছাড়া কোনো উপাস্য নেই",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (There is no god but Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَا إِلَٰهَ إِلَّا اللَّهُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0087",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "الْحَمْدُ لِلَّهِ",
+    "root": "",
+    "transliteration": "alhamdulilahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "All praise is for Allah",
+    "primary_meaning_bn": "সব প্রশংসা আল্লাহর",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (All praise is for Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "الْحَمْدُ لِلَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0088",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "اللَّهُ أَكْبَرُ",
+    "root": "",
+    "transliteration": "allahuaakbaru",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Allah is the Greatest",
+    "primary_meaning_bn": "আল্লাহ সর্বশ্রেষ্ঠ",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Allah is the Greatest) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "اللَّهُ أَكْبَرُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0089",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بِسْمِ اللَّهِ",
+    "root": "",
+    "transliteration": "bismiallahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "In the name of Allah",
+    "primary_meaning_bn": "আল্লাহর নামে",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (In the name of Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بِسْمِ اللَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0090",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِنْ شَاءَ اللَّهُ",
+    "root": "",
+    "transliteration": "iinshaa'aallahu",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "If Allah wills",
+    "primary_meaning_bn": "আল্লাহ চাইলে",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (If Allah wills) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِنْ شَاءَ اللَّهُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0091",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "مَا شَاءَ اللَّهُ",
+    "root": "",
+    "transliteration": "maashaa'aallahu",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "What Allah wills",
+    "primary_meaning_bn": "আল্লাহ যা চান",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (What Allah wills) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "مَا شَاءَ اللَّهُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0092",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "تَبَارَكَ اللَّهُ",
+    "root": "",
+    "transliteration": "tabaarakaallahu",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Blessed is Allah",
+    "primary_meaning_bn": "আল্লাহ বরকতময়",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Blessed is Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "تَبَارَكَ اللَّهُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0093",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "جَزَاكَ اللَّهُ خَيْرًا",
+    "root": "",
+    "transliteration": "jazaakaallahukhayra",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "May Allah reward you",
+    "primary_meaning_bn": "আল্লাহ আপনাকে উত্তম প্রতিদান দিন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (May Allah reward you) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "جَزَاكَ اللَّهُ خَيْرًا"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0094",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بَارَكَ اللَّهُ فِيكَ",
+    "root": "",
+    "transliteration": "baarakaallahufiyka",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "May Allah bless you",
+    "primary_meaning_bn": "আল্লাহ আপনাকে বরকত দিন",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (May Allah bless you) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بَارَكَ اللَّهُ فِيكَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0095",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ",
+    "root": "",
+    "transliteration": "iinaalilahiwaiinaaiilayhiraaji'uwna",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "To Allah we belong and to Him we return",
+    "primary_meaning_bn": "নিশ্চয় আমরা আল্লাহর জন্য এবং নিশ্চয় আমরা তাঁর দিকেই ফিরে যাব",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (To Allah we belong and to Him we return) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0096",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",
+    "root": "",
+    "transliteration": "laahawlawalaaquwahaiilaabiallahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "No power except with Allah",
+    "primary_meaning_bn": "আল্লাহ ছাড়া কোনো শক্তি ও ক্ষমতা নেই",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (No power except with Allah) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0097",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ",
+    "root": "",
+    "transliteration": "hasbunaallahuwani'maalwakiylu",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Allah is sufficient for us",
+    "primary_meaning_bn": "আল্লাহ আমাদের জন্য যথেষ্ট এবং তিনি উত্তম কর্মবিধায়ক",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Allah is sufficient for us) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0098",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "بَيْتُ اللَّهِ",
+    "root": "",
+    "transliteration": "baytuallahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "House of Allah (Kaaba)",
+    "primary_meaning_bn": "আল্লাহর ঘর (কাবা)",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (House of Allah (Kaaba)) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "بَيْتُ اللَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0099",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  },
+  {
+    "lemma_ar": "خَلِيلَ اللَّهِ",
+    "root": "",
+    "transliteration": "khaliylaallahi",
+    "pos": "N",
+    "word_type": "noun",
+    "primary_meaning_en": "Friend of Allah (Abraham)",
+    "primary_meaning_bn": "আল্লাহর বন্ধু (ইব্রাহিম)",
+    "alternative_meanings": [],
+    "short_explanation_en": "Frequent Quranic noun (Friend of Allah (Abraham)) with extensive theological and literary presence.",
+    "semantic_category": "Allah / Divine Attributes",
+    "frequency_tokens": 5,
+    "ayah_count": 4,
+    "surah_count": 3,
+    "example_references": [
+      {
+        "surah": 2,
+        "ayah": 255
+      },
+      {
+        "surah": 1,
+        "ayah": 2
+      }
+    ],
+    "morphology": {
+      "form": "",
+      "common_forms": [
+        "خَلِيلَ اللَّهِ"
+      ],
+      "related_forms": []
+    },
+    "prerequisites": [],
+    "related_word_ids": [],
+    "inclusion_reason": "Primary Divine name/attribute essential for theological comprehension.",
+    "priority_score": 32.3,
+    "difficulty": 5,
+    "id": "QCV-0100",
+    "level": 1,
+    "translation_status": "verified",
+    "translation_source": "Quranic Arabic Corpus / Tanzil Lexical Verification"
+  }
+]

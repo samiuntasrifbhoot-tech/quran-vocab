@@ -44,69 +44,11 @@
 </head>
 <body>
 
-<!-- ================= DESKTOP WIDESCREEN BACKGROUND WATERMARK ================= -->
-<div class="desktop-bg-watermark" aria-hidden="true">
-  <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
-    <defs>
-      <pattern id="st-hatch-desk" width="5.5" height="5.5" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-        <line x1="0" y1="0" x2="0" y2="5.5" stroke="currentColor" stroke-width="2.3" stroke-linecap="square" />
-      </pattern>
-      <pattern id="st-repeat-desk" width="160" height="130" patternUnits="userSpaceOnUse">
-        <g transform="translate(40, 36) rotate(-24)">
-          <text x="0" y="-2" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="28" letter-spacing="-1.2" fill="url(#st-hatch-desk)">ST</text>
-          <text x="0" y="11" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.2" fill="currentColor">Samiun Tasrif</text>
-        </g>
-        <g transform="translate(120, 101) rotate(-24)">
-          <text x="0" y="-2" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="28" letter-spacing="-1.2" fill="url(#st-hatch-desk)">ST</text>
-          <text x="0" y="11" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.2" fill="currentColor">Samiun Tasrif</text>
-        </g>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#st-repeat-desk)" class="st-watermark-repeat-svg" />
-  </svg>
-</div>
-
 <div class="app-viewport">
 
-  <!-- ================= ST (SAMIUN TASRIF) BRAND WATERMARK LAYER ================= -->
-  <div class="st-watermark-layer" aria-hidden="true">
-    <!-- Repeating diagonal grid of ST monograms with "Samiun Tasrif" -->
-    <svg class="st-watermark-repeat-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none">
-      <defs>
-        <!-- 45-degree diagonal hatched fill for small ST monograms -->
-        <pattern id="st-hatch-sm" width="5.5" height="5.5" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-          <line x1="0" y1="0" x2="0" y2="5.5" stroke="currentColor" stroke-width="2.3" stroke-linecap="square" />
-        </pattern>
-        <!-- Staggered repeating diagonal grid tile -->
-        <pattern id="st-repeat-grid" width="160" height="130" patternUnits="userSpaceOnUse">
-          <!-- Item A -->
-          <g transform="translate(40, 36) rotate(-24)">
-            <text x="0" y="-2" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="28" letter-spacing="-1.2" fill="url(#st-hatch-sm)">ST</text>
-            <text x="0" y="11" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.2" fill="currentColor">Samiun Tasrif</text>
-          </g>
-          <!-- Item B (Staggered half-drop offset) -->
-          <g transform="translate(120, 101) rotate(-24)">
-            <text x="0" y="-2" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="28" letter-spacing="-1.2" fill="url(#st-hatch-sm)">ST</text>
-            <text x="0" y="11" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="7.5" letter-spacing="0.2" fill="currentColor">Samiun Tasrif</text>
-          </g>
-        </pattern>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#st-repeat-grid)" />
-    </svg>
-
-    <!-- Central Featured ST Monogram with Samiun Tasrif Name -->
-    <div class="st-watermark-center">
-      <svg class="st-watermark-center-svg" viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- 45-degree diagonal hatched fill for central large ST monogram -->
-          <pattern id="st-hatch-lg" width="9.5" height="9.5" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="0" y2="9.5" stroke="currentColor" stroke-width="4.2" stroke-linecap="square" />
-          </pattern>
-        </defs>
-        <text x="160" y="98" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="124" letter-spacing="-5" fill="url(#st-hatch-lg)">ST</text>
-        <text x="160" y="142" text-anchor="middle" font-family="'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="21" letter-spacing="1.2" fill="currentColor">Samiun Tasrif</text>
-      </svg>
-    </div>
+  <!-- ================= SUBTLE OWNER IDENTITY WATERMARK ================= -->
+  <div class="st-brand-bg-watermark" aria-hidden="true">
+    <div class="st-watermark-text">ST • Samiun Tasrif</div>
   </div>
 
   <!-- ================= APP LAUNCH SPLASH (Native Play Store Style) ================= -->
@@ -178,6 +120,9 @@
               <div class="card-secondary-subtitle" id="home-due-count-sub">০ টি বাকি</div>
             </div>
           </div>
+
+          <!-- Today's Daily Mission Dynamic Card -->
+          <div id="home-daily-mission-slot" style="margin-bottom: 12px;"></div>
 
           <!-- 20 Levels Grid Foldable View -->
           <div class="screenshot-card levels-foldable-card">
@@ -255,7 +200,7 @@
           </div>
 
           <!-- Direct launch Today's Session buttons -->
-          <div class="dual-actions-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
+          <div id="learn-mission-actions-row" class="dual-actions-row" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px;">
             <button class="btn-primary session-start-btn" style="padding:12px 8px; font-size:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startGuidedDailySession()">
               <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
                 <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -782,11 +727,14 @@
         </div>
       </div>
 
-      <div class="card-section">
-        <div class="section-title">উচ্চারণ ও লিপ্যন্তর (Transliteration)</div>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:13px; color:var(--text-primary);">ইংরেজি লিপ্যন্তর প্রদর্শন করুন</span>
-          <button class="pill-btn" id="translit-toggle-btn" onclick="app.toggleTransliteration()">সক্রিয়</button>
+      <!-- App Ownership & Creator Identity -->
+      <div class="card-section" style="background:linear-gradient(135deg, rgba(9,49,38,0.06), rgba(212,175,55,0.08)); border:1px solid rgba(212,175,55,0.3); border-radius:var(--radius-md);">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div style="width:40px; height:40px; border-radius:12px; background:var(--primary); color:var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Plus Jakarta Sans',sans-serif; font-weight:900; font-size:18px;">ST</div>
+          <div>
+            <div style="font-size:14px; font-weight:800; color:var(--text-primary);">কুরআনিক শব্দকোষ</div>
+            <div style="font-size:11px; color:var(--text-secondary); font-weight:600;">উদ্যোক্তা ও স্বত্বাধিকারী: <span style="color:var(--gold); font-weight:700;">Samiun Tasrif (ST)</span></div>
+          </div>
         </div>
       </div>
 

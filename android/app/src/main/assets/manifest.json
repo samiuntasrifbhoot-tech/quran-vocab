@@ -1,0 +1,17 @@
+{
+  "name": "কুরআনিক শব্দকোষ",
+  "short_name": "القرآن",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#071f18",
+  "theme_color": "#0d382c",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "512x512 192x192 any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#041812" />
+      <stop offset="50%" stop-color="#093126" />
+      <stop offset="100%" stop-color="#0f4939" />
+    </linearGradient>
+
+    <!-- Gold Foil Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="35%" stop-color="#d4af37" />
+      <stop offset="70%" stop-color="#b48316" />
+      <stop offset="100%" stop-color="#fef08a" />
+    </linearGradient>
+
+    <!-- Radiant Light Radial Gradient -->
+    <radialGradient id="haloGrad" cx="50%" cy="46%" r="48%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#d4af37" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#041812" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Page Shadow -->
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- App Rounded Squircle Background -->
+  <rect width="512" height="512" rx="115" fill="url(#bgGrad)" />
+
+  <!-- Outer Golden Accent Border -->
+  <rect x="10" y="10" width="492" height="492" rx="105" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.6" />
+  <rect x="20" y="20" width="472" height="472" rx="95" fill="none" stroke="#d4af37" stroke-width="1.2" opacity="0.3" />
+
+  <!-- Subtle Radiant Glow in Center -->
+  <circle cx="256" cy="240" r="210" fill="url(#haloGrad)" />
+
+  <!-- Islamic Geometric Rosette (Watermark Background) -->
+  <g opacity="0.12" stroke="url(#goldGrad)" stroke-width="1.8" fill="none" transform="translate(256, 235)">
+    <rect x="-90" y="-90" width="180" height="180" rx="4" />
+    <rect x="-90" y="-90" width="180" height="180" rx="4" transform="rotate(45)" />
+    <circle r="120" stroke-dasharray="4 6" />
+    <circle r="70" />
+  </g>
+
+  <!-- Luminous Crescent & Star atop Book -->
+  <g transform="translate(256, 118)" filter="url(#cardShadow)">
+    <!-- Crescent -->
+    <path d="M 6 -32 A 28 28 0 1 0 6 22 A 22 22 0 1 1 6 -32 Z" fill="url(#goldGrad)" />
+    <!-- 8-Point Star -->
+    <g transform="translate(18, -6) scale(0.65)">
+      <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4" fill="#fef08a" />
+      <polygon points="0,-16 4,-4 16,0 4,4 0,16 -4,4 -16,0 -4,-4" fill="#d4af37" transform="rotate(45)" opacity="0.8" />
+    </g>
+  </g>
+
+  <!-- Holy Quran Book on Rehal Stand -->
+  <g filter="url(#cardShadow)">
+    <!-- Wooden / Golden Rehal Stand (X-Stand Base) -->
+    <path d="M 170 375 L 140 415 C 138 418 142 422 146 422 L 205 422 L 256 360 L 307 422 L 366 422 C 370 422 374 418 372 415 L 342 375 Z" fill="#78350f" opacity="0.9" />
+    <path d="M 185 365 L 256 312 L 327 365 L 295 405 L 256 362 L 217 405 Z" fill="#92400e" stroke="url(#goldGrad)" stroke-width="2" />
+    <circle cx="256" cy="362" r="6" fill="url(#goldGrad)" />
+
+    <!-- Open Quran Pages Left -->
+    <path d="M 256 315 C 220 300 160 295 110 310 C 104 312 98 307 98 300 L 102 210 C 102 204 108 200 114 198 C 160 185 220 190 256 210 Z" fill="#f8fafc" stroke="url(#goldGrad)" stroke-width="2.5" />
+    <!-- Book Leaves Left Layer -->
+    <path d="M 256 310 C 220 297 165 292 116 306 L 118 206 C 164 193 220 198 256 215 Z" fill="#ffffff" />
+    <path d="M 128 222 C 165 212 210 216 242 228 M 128 244 C 165 234 210 238 242 250 M 128 266 C 165 256 210 260 242 272 M 128 288 C 165 278 210 282 242 294" stroke="#059669" stroke-width="2.2" stroke-linecap="round" opacity="0.4" />
+
+    <!-- Open Quran Pages Right -->
+    <path d="M 256 315 C 292 300 352 295 402 310 C 408 312 414 307 414 300 L 410 210 C 410 204 404 200 398 198 C 352 185 292 190 256 210 Z" fill="#f8fafc" stroke="url(#goldGrad)" stroke-width="2.5" />
+    <!-- Book Leaves Right Layer -->
+    <path d="M 256 310 C 292 297 347 292 396 306 L 394 206 C 348 193 292 198 256 215 Z" fill="#ffffff" />
+    <path d="M 270 228 C 302 216 347 212 384 222 M 270 250 C 302 238 347 234 384 244 M 270 272 C 302 260 347 256 384 266 M 270 294 C 302 282 347 278 384 288" stroke="#059669" stroke-width="2.2" stroke-linecap="round" opacity="0.4" />
+
+    <!-- Spine / Center Ribbon Bookmark -->
+    <path d="M 252 205 L 260 205 L 260 345 L 256 340 L 252 345 Z" fill="url(#goldGrad)" />
+    <!-- Golden Quran Cover Trim Left & Right -->
+    <path d="M 98 300 C 98 307 104 312 110 310 C 160 295 220 300 256 315" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round" />
+    <path d="M 414 300 C 414 307 408 312 402 310 C 352 295 292 300 256 315" fill="none" stroke="url(#goldGrad)" stroke-width="4.5" stroke-linecap="round" />
+  </g>
+
+  <!-- Elegant Arabic Calligraphy Accent: "القرآن" or Decorative Star -->
+  <g transform="translate(256, 462)" text-anchor="middle">
+    <text font-family="'Amiri', 'Traditional Arabic', serif" font-size="22" font-weight="700" fill="url(#goldGrad)" letter-spacing="2">কুরআনিক শব্দকোষ</text>
+  </g>
+</svg>

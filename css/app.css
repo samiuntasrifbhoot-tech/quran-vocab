@@ -77,23 +77,6 @@ body {
   transition: background-color 0.25s ease;
 }
 
-/* Desktop Widescreen Watermark Overlay */
-.desktop-bg-watermark {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-@media (max-width: 600px) {
-  .desktop-bg-watermark {
-    display: none;
-  }
-}
-
 .app-viewport {
   width: 100%;
   max-width: 540px;
@@ -109,50 +92,32 @@ body {
   z-index: 1;
 }
 
-/* ================= ST (SAMIUN TASRIF) BRAND WATERMARK SYSTEM ================= */
-.st-watermark-layer {
+/* ================= SUBTLE OWNER IDENTITY WATERMARK ================= */
+.st-brand-bg-watermark {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  bottom: calc(var(--bottom-nav-total-height) + 10px);
+  right: 16px;
   pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
+  z-index: 30;
+  opacity: 0.25;
   user-select: none;
-  -webkit-user-select: none;
+  transition: opacity 0.3s ease;
 }
-
-.st-watermark-repeat-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--st-watermark-color);
-  opacity: var(--st-watermark-opacity-repeat);
-  transition: color 0.3s ease, opacity 0.3s ease;
-  pointer-events: none;
+.st-watermark-text {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  background: var(--surface);
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
-
-.st-watermark-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 290px;
-  max-width: 82%;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.st-watermark-center-svg {
-  width: 100%;
-  height: auto;
-  color: var(--st-watermark-color);
-  opacity: var(--st-watermark-opacity-center);
-  transition: color 0.3s ease, opacity 0.3s ease;
-  pointer-events: none;
+body.dark-mode .st-brand-bg-watermark {
+  opacity: 0.32;
 }
 
 /* Screen Transitions */
@@ -174,7 +139,7 @@ body {
   height: 100%;
   display: none;
   flex-direction: column;
-  background-color: transparent; /* Allows watermark to gracefully blend */
+  background-color: var(--bg-app);
   opacity: 0;
   min-height: 0;
 }

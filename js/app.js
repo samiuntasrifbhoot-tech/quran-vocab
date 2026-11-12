@@ -81,6 +81,7 @@ class QuranApp {
     this.sessionQueue = [];
     this.sessionStepIndex = 0;
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
+    this.sessionType = 'daily_mission'; // 'daily_mission', 'review', 'flashcard', 'practice', 'single_word', 'skip_exam'
     this.isSessionCardRevealed = false;
     this.isSkipExam = false;
     this._sessionAutoAdvanceTimer = null;
@@ -100,7 +101,7 @@ class QuranApp {
     this.init();
   }
 
-  async fetchJsonData(candidates, idbKey = null) {
+  async fetchJsonData(candidates, idbKey = null, validator = null) {
     const candidateList = Array.isArray(candidates) ? candidates : [candidates];
     const cacheKey = idbKey || ('data_cache_' + candidateList[0].split('/').pop());
     let lastError = null;
@@ -128,8 +129,27 @@ class QuranApp {
           const trimmed = text.trim();
           if (trimmed.startsWith('<')) continue;
           const parsed = JSON.parse(trimmed);
+
+          // Validate payload schema before accepting
+          if (typeof validator === 'function') {
+            const isValid = validator(parsed);
+            if (!isValid) {
+              console.warn(`[Data Validator] Candidate ${url} rejected by schema validator.`);
+              continue;
+            }
+          }
+
           // Persist in IndexedDB permanently for 100% offline access
-          offlineStorage.set(cacheKey, parsed).catch(() => {});
+          if (cacheKey === 'data_cache_vocabulary.json' && Array.isArray(parsed) && parsed.length < 500) {
+            // Protect full 2000-word cache from being overwritten by 100-word fallback
+            offlineStorage.get(cacheKey).then(existing => {
+              if (!existing || (Array.isArray(existing) && existing.length < parsed.length)) {
+                offlineStorage.set(cacheKey, parsed).catch(() => {});
+              }
+            }).catch(() => {});
+          } else {
+            offlineStorage.set(cacheKey, parsed).catch(() => {});
+          }
           return parsed;
         } catch (e) {
           lastError = e;
@@ -140,15 +160,24 @@ class QuranApp {
     // 2. If network/SW fetch failed, try offline IndexedDB fallback!
     try {
       const cached = await offlineStorage.get(cacheKey);
-      if (cached && (Array.isArray(cached) ? cached.length > 0 : Object.keys(cached).length > 0)) {
-        console.log(`[Storage] Loaded ${cacheKey} from persistent IndexedDB.`);
-        return cached;
+      if (cached) {
+        if (typeof validator === 'function') {
+          if (validator(cached)) {
+            console.log(`[Storage] Loaded verified ${cacheKey} from persistent IndexedDB.`);
+            return cached;
+          } else {
+            console.warn(`[Storage] Cached ${cacheKey} in IndexedDB failed validation.`);
+          }
+        } else if (Array.isArray(cached) ? cached.length > 0 : Object.keys(cached).length > 0) {
+          console.log(`[Storage] Loaded ${cacheKey} from persistent IndexedDB.`);
+          return cached;
+        }
       }
     } catch (e) {
       console.warn(`[Storage] IndexedDB fallback failed for ${cacheKey}:`, e);
     }
 
-    throw lastError || new Error(`Failed to load JSON data for: ${candidateList.join(', ')}`);
+    throw lastError || new Error(`Failed to load valid JSON data for: ${candidateList.join(', ')}`);
   }
 
   cleanArabic(str, normalizeLetters = true) {
@@ -191,14 +220,54 @@ class QuranApp {
     }
 
     try {
-      const [vocab, quranVerses, curriculum, grammar] = await Promise.all([
-        this.fetchJsonData(['data/vocabulary.json', 'data/vocabulary-validation.json'], 'data_cache_vocabulary.json'),
-        this.fetchJsonData(['data/quran-context-verses.json', 'data/quran.json'], 'data_cache_quran-context-verses.json'),
-        this.fetchJsonData(['data/curriculum.json'], 'data_cache_curriculum.json'),
-        this.fetchJsonData(['data/grammar.json'], 'data_cache_grammar.json')
+      // Validator ensuring vocabulary is an array of valid word objects, NEVER a validation report object
+      const isVocabularyArray = (data) => {
+        if (!Array.isArray(data)) return false;
+        if (data.length === 0) return false;
+        // Verify first and middle elements have lemma_ar and meanings
+        const sample = data[0];
+        return !!(sample && sample.lemma_ar && (sample.primary_meaning_bn || sample.primary_meaning_en));
+      };
+
+      const [rawVocab, quranVerses, curriculum, grammar] = await Promise.all([
+        this.fetchJsonData(['data/vocabulary.json', 'data/vocabulary-fallback.json'], 'data_cache_vocabulary.json', isVocabularyArray),
+        this.fetchJsonData(['data/quran-context-verses.json', 'data/quran.json'], 'data_cache_quran-context-verses.json', (d) => typeof d === 'object' && d !== null),
+        this.fetchJsonData(['data/curriculum.json'], 'data_cache_curriculum.json', (d) => typeof d === 'object' && d !== null),
+        this.fetchJsonData(['data/grammar.json'], 'data_cache_grammar.json', (d) => typeof d === 'object' && d !== null)
       ]);
 
-      this.vocab = vocab || [];
+      // Normalize vocabulary to genuine array
+      let normalizedVocab = [];
+      if (Array.isArray(rawVocab)) {
+        normalizedVocab = rawVocab;
+      } else if (rawVocab && Array.isArray(rawVocab.vocabulary)) {
+        normalizedVocab = rawVocab.vocabulary;
+      } else if (rawVocab && Array.isArray(rawVocab.words)) {
+        normalizedVocab = rawVocab.words;
+      } else {
+        throw new Error('Vocabulary data format invalid: expected array of words');
+      }
+
+      // Validate records and unique IDs
+      const seenIds = new Set();
+      this.vocab = [];
+      normalizedVocab.forEach((w, idx) => {
+        if (!w || !w.lemma_ar) return; // skip malformed entries
+        const cleanId = w.id || `QCV-${String(idx + 1).padStart(4, '0')}`;
+        if (seenIds.has(cleanId)) {
+          w.id = `${cleanId}_${idx + 1}`;
+        } else {
+          w.id = cleanId;
+          seenIds.add(cleanId);
+        }
+        this.vocab.push(w);
+      });
+
+      this.isFallbackMode = (this.vocab.length < 500);
+      if (this.isFallbackMode) {
+        console.warn(`[App Init] Running in Fallback Mode: Loaded ${this.vocab.length} core vocabulary words.`);
+      }
+
       this.quranVerses = quranVerses || {};
       this.curriculum = curriculum || null;
       this.grammar = grammar || null;
@@ -712,9 +781,82 @@ class QuranApp {
     const elemLearnedSub = document.getElementById('home-learned-count-sub');
     const elemDueSub = document.getElementById('home-due-count-sub');
 
-    if (elemVocabSub) elemVocabSub.textContent = `${totalWords} শব্দ (২০টি লেভেল)`;
+    if (elemVocabSub) {
+      elemVocabSub.textContent = this.isFallbackMode
+        ? `${totalWords} মৌলিক শব্দ (অফলাইন মোড)`
+        : `${totalWords} শব্দ (২০টি লেভেল)`;
+    }
     if (elemLearnedSub) elemLearnedSub.textContent = `${learnedWords.length} টি শেখা`;
     if (elemDueSub) elemDueSub.textContent = `${dueWords.length} টি বাকি`;
+
+    // Render Today's Mission Dynamic Card on Home
+    const missionSlot = document.getElementById('home-daily-mission-slot');
+    if (missionSlot) {
+      const mission = this.srs.getDailyMission(this.vocab);
+      const isCompleted = this.srs.isDayCompleted(mission.day);
+
+      const fallbackBanner = this.isFallbackMode ? `
+        <div class="fallback-warning-banner" style="background:#fffbeb; border:1px solid #fcd34d; border-radius:12px; padding:12px 14px; margin-bottom:12px; display:flex; align-items:center; gap:10px; font-size:12px; color:#92400e;">
+          <span style="font-size:18px;">⚠️</span>
+          <span><strong>মৌলিক অফলাইন মোড সক্রিয় (${this.vocab.length} শব্দ):</strong> সম্পূর্ণ ২০০০ শব্দভাণ্ডার লোড করতে ইন্টারনেট সংযোগ পরীক্ষা করুন। আপনার পূর্বের রেকর্ড সংরক্ষিত রয়েছে।</span>
+        </div>
+      ` : '';
+
+      if (isCompleted) {
+        missionSlot.innerHTML = fallbackBanner + `
+          <div class="screenshot-card" style="padding:16px; border:1px solid #86efac; background:linear-gradient(135deg, rgba(240,253,244,0.9) 0%, rgba(220,252,231,0.6) 100%);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="day-tracker-pill" style="margin:0;">
+                <span class="day-num">দিন ${mission.day} / ৯০</span>
+                <span class="day-phase-tag" style="background:#15803d; color:white;">✓ সম্পন্ন</span>
+              </span>
+              <span style="font-size:12px; font-weight:700; color:#15803d;">আলহামদুলিল্লাহ!</span>
+            </div>
+            <div style="font-size:15px; font-weight:800; color:var(--text-primary); margin-bottom:4px;">
+              আজকের শিখন মিশন সম্পন্ন হয়েছে
+            </div>
+            <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">
+              আপনি চাইলে আজই পরবর্তী দিন শুরু করতে পারেন অথবা দিন ${mission.day}-এর শব্দগুলো পুনরায় অনুশীলন করতে পারেন।
+            </p>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+              <button class="btn-primary" style="padding:10px 8px; font-size:12px; background:linear-gradient(135deg, #065f46 0%, #0f766e 100%);" onclick="app.startNextSessionImmediately()">
+                🚀 পরবর্তী দিন (${Math.min(90, mission.day + 1)})
+              </button>
+              <button class="pill-btn" style="border:1px solid var(--border); padding:10px 8px; font-size:12px; background:var(--surface);" onclick="app.openCompletedDayModal(${mission.day})">
+                🔄 আজকের দিন রিভিশন
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        missionSlot.innerHTML = fallbackBanner + `
+          <div class="screenshot-card" style="padding:16px; border:1px solid var(--border-light);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="day-tracker-pill" style="margin:0;">
+                <span class="day-num">দিন ${mission.day} / ৯০</span>
+                <span class="day-phase-tag">${mission.phase.split(' ')[0]}</span>
+              </span>
+              <span style="font-size:12px; font-weight:700; color:var(--gold);">🎯 আজকের লক্ষ্য</span>
+            </div>
+            <div style="font-size:16px; font-weight:800; color:var(--text-primary); margin-bottom:4px;">
+              আজকের শিখন মিশন শুরু করুন
+            </div>
+            <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">
+              ${mission.lessonWhy || 'কুরআনের সর্বাধিক ব্যবহৃত মৌলিক শব্দ, কুইজ ও সরাসরি আয়াত অনুশীলন।'}
+            </p>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-primary" style="flex:1; padding:11px 16px; font-size:13px;" onclick="app.startGuidedDailySession()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align:middle; margin-right:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                আজকের সেশন শুরু করুন
+              </button>
+              <button class="pill-btn" style="border:1px solid var(--border); padding:10px 14px; font-size:12px;" onclick="app.switchScreen('learn')">
+                🗺️ রোডম্যাপ
+              </button>
+            </div>
+          </div>
+        `;
+      }
+    }
 
     this.renderLevelsGridChips();
     this.updateStorageStatusUI();
@@ -756,6 +898,7 @@ class QuranApp {
   renderLearnScreen() {
     const mission = this.srs.getDailyMission(this.vocab);
     const dueWords = this.srs.getDueWords(this.vocab);
+    const isCompleted = this.srs.isDayCompleted(mission.day);
 
     // Update Upper Stats Banner (numbers requested by user)
     const elemDayBadge = document.getElementById('learn-day-badge');
@@ -767,12 +910,58 @@ class QuranApp {
     const elemGrammarVal = document.getElementById('learn-mission-grammar-val');
 
     if (elemDayBadge) elemDayBadge.textContent = `দিন ${mission.day} / ৯০`;
-    if (elemPhaseBadge) elemPhaseBadge.textContent = mission.phase.split(' ')[0] + ' ' + (mission.phase.split(' ')[1] || '');
+    if (elemPhaseBadge) {
+      elemPhaseBadge.textContent = isCompleted ? '✓ সম্পন্ন' : (mission.phase.split(' ')[0] + ' ' + (mission.phase.split(' ')[1] || ''));
+      elemPhaseBadge.style.background = isCompleted ? '#15803d' : '';
+      elemPhaseBadge.style.color = isCompleted ? '#ffffff' : '';
+    }
     if (elemWhy) elemWhy.textContent = mission.lessonWhy;
     if (elemNewVal) elemNewVal.textContent = mission.newWords.length;
     if (elemDueVal) elemDueVal.textContent = dueWords.length;
     if (elemAyahVal) elemAyahVal.textContent = mission.quranPracticeCount || 5;
     if (elemGrammarVal) elemGrammarVal.textContent = mission.grammarFocus ? '১' : '০';
+
+    // Update Learn Screen action buttons depending on completion state
+    const actionsRow = document.getElementById('learn-mission-actions-row');
+    if (actionsRow) {
+      if (isCompleted) {
+        actionsRow.innerHTML = `
+          <button class="btn-primary session-start-btn" style="padding:12px 8px; font-size:13px; background:linear-gradient(135deg, #065f46 0%, #0f766e 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startNextSessionImmediately()">
+            <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+              🚀 পরবর্তী দিন শুরু করুন
+            </div>
+            <span style="font-size:10px; font-weight:400; opacity:0.9;">দিন ${Math.min(90, mission.day + 1)} আনলক করুন</span>
+          </button>
+          <button class="pill-btn" style="padding:12px 8px; font-size:13px; border:1px solid var(--border); background:var(--surface); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.openCompletedDayModal(${mission.day})">
+            <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+              🔄 আজকের দিন রিভিশন
+            </div>
+            <span style="font-size:10px; font-weight:400; opacity:0.85;">১২টি শব্দ পুনরায় ঝালাই</span>
+          </button>
+        `;
+      } else {
+        actionsRow.innerHTML = `
+          <button class="btn-primary session-start-btn" style="padding:12px 8px; font-size:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startGuidedDailySession()">
+            <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              আজকের সেশন
+            </div>
+            <span style="font-size:10px; font-weight:400; opacity:0.9;">কুইজ ও আয়াত অনুশীলন</span>
+          </button>
+          <button class="btn-primary session-start-btn memorize-drill-btn" style="padding:12px 8px; font-size:13px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;" onclick="app.startMemorizeDrillSession()">
+            <div style="display:flex; align-items:center; gap:6px; font-weight:800; font-size:14px;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-2h2zm0-4h-2V7h2z"></path>
+              </svg>
+              মেমোরাইজ ড্রিল
+            </div>
+            <span style="font-size:10px; font-weight:400; opacity:0.9;">অনলি মুখস্থ ও ঝালাই</span>
+          </button>
+        `;
+      }
+    }
 
     // Render 90 Days Duolingo Map
     const mapContainer = document.getElementById('duolingo-map-container');
@@ -828,7 +1017,7 @@ class QuranApp {
       for (let d = unit.startDay; d <= unit.endDay; d++) {
         const xOffset = offsets[(d - 1) % 4];
         const isCurrent = (d === currentDay);
-        const isCompleted = (d < currentDay);
+        const isCompleted = this.srs.isDayCompleted(d);
         const targetLevel = Math.min(20, Math.ceil(d / 4.5));
         const lvlData = this.curriculum?.levels?.find(lvl => lvl.level === targetLevel);
         const dayTheme = lvlData ? lvlData.theme : 'শব্দ অনুশীলন';
@@ -836,8 +1025,18 @@ class QuranApp {
         let nodeClass = 'duo-node';
         let iconContent = '';
         let clickHandler = '';
+        let bubbleContent = '';
 
-        if (isCurrent) {
+        if (isCurrent && isCompleted) {
+          nodeClass += ' active completed';
+          iconContent = `
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          `;
+          clickHandler = `app.openCompletedDayModal(${d})`;
+          bubbleContent = `<div class="duo-node-bubble" style="background:#15803d; border-color:#86efac; color:white;">আজকের দিন সম্পন্ন! ✓</div>`;
+        } else if (isCurrent) {
           nodeClass += ' active';
           iconContent = `
             <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
@@ -845,11 +1044,21 @@ class QuranApp {
             </svg>
           `;
           clickHandler = `app.startGuidedDailySession()`;
+          bubbleContent = `<div class="duo-node-bubble">আজকের সেশন • শুরু করুন! 🎯</div>`;
         } else if (isCompleted) {
           nodeClass += ' completed';
           iconContent = `
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3">
               <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          `;
+          clickHandler = `app.openCompletedDayModal(${d})`;
+        } else if (d < currentDay) {
+          nodeClass += ' skipped';
+          iconContent = `
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
             </svg>
           `;
           clickHandler = `app.openCompletedDayModal(${d})`;
@@ -867,7 +1076,7 @@ class QuranApp {
         html += `
           <div class="duo-node-row">
             <div class="duo-node-wrap" id="duo-day-node-${d}" style="transform: translateX(${xOffset}px);" onclick="${clickHandler}">
-              ${isCurrent ? `<div class="duo-node-bubble">আজকের সেশন • শুরু করুন! 🎯</div>` : ''}
+              ${bubbleContent}
               <button class="${nodeClass}" title="দিন ${d}: ${dayTheme}">
                 ${iconContent}
               </button>
@@ -919,11 +1128,11 @@ class QuranApp {
   }
 
   openCompletedDayModal(day) {
-    const targetLevel = Math.min(20, Math.ceil(day / 4.5));
-    const confirmed = confirm(`দিন ${day} সম্পন্ন হয়েছে! আপনি কি এই দিনের শব্দগুলো পুনরায় প্র্যাকটিস করতে চান?`);
-    if (confirmed) {
-      this.openLevelPractice(targetLevel);
-    }
+    const dayWords = this.vocab.filter(w => w.day === day || w.target_day === day);
+    const targetWords = (dayWords && dayWords.length > 0)
+      ? dayWords
+      : this.vocab.slice(Math.max(0, (day - 1) * 12), day * 12);
+    this.buildCustomSession(targetWords, `দিন ${day} রিভিশন ড্রিল`, true);
   }
 
   renderLearnLevelsList() {
@@ -941,8 +1150,11 @@ class QuranApp {
       }).length;
       const pct = wordsInLevel.length > 0 ? Math.round((masteredCount / wordsInLevel.length) * 100) : 0;
 
+      const isLevelAvailable = wordsInLevel.length > 0;
+      const countLabel = isLevelAvailable ? `${masteredCount}/100 শব্দ` : 'অফলাইন মোডে অনুপলব্ধ';
+
       html += `
-        <div class="screenshot-card" style="padding: 14px; margin-bottom: 10px;">
+        <div class="screenshot-card" style="padding: 14px; margin-bottom: 10px; ${!isLevelAvailable ? 'opacity:0.75;' : ''}">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
             <div>
               <span class="mission-badge" style="font-size:11px; margin-bottom:3px; display:inline-block;">লেভেল ${lvl.level}</span>
@@ -950,7 +1162,7 @@ class QuranApp {
             </div>
             <div style="text-align:right;">
               <span style="font-size:14px; font-weight:800; color:var(--primary); font-family:'Plus Jakarta Sans';">${pct}%</span>
-              <div style="font-size:11px; color:var(--text-muted);">${masteredCount}/100 শব্দ</div>
+              <div style="font-size:11px; color:var(--text-muted);">${countLabel}</div>
             </div>
           </div>
           <p style="font-size:12px; color:var(--text-secondary); line-height:1.4; margin-bottom:10px;">${lvl.focus}</p>
@@ -958,8 +1170,12 @@ class QuranApp {
             <div class="progress-bar-fill" style="width: ${pct}%;"></div>
           </div>
           <div style="display:flex; gap:8px;">
-            <button class="pill-btn" style="flex:1; border:1px solid var(--border);" onclick="app.showLevelWords(${lvl.level})">শব্দগুলো দেখুন</button>
-            <button class="pill-btn active" style="flex:1;" onclick="app.openLevelPractice(${lvl.level})">অনুশীলন</button>
+            ${isLevelAvailable ? `
+              <button class="pill-btn" style="flex:1; border:1px solid var(--border);" onclick="app.showLevelWords(${lvl.level})">শব্দগুলো দেখুন</button>
+              <button class="pill-btn active" style="flex:1;" onclick="app.openLevelPractice(${lvl.level})">অনুশীলন</button>
+            ` : `
+              <button class="pill-btn" style="flex:1; opacity:0.6; border:1px solid var(--border);" disabled title="সম্পূর্ণ ২০০০ শব্দের ডাটা প্রয়োজন">অফলাইনে অনুপলব্ধ</button>
+            `}
           </div>
         </div>
       `;
@@ -1145,6 +1361,7 @@ class QuranApp {
 
   // ================= 4. GUIDED DAILY SESSION FLOW =================
   startGuidedDailySession() {
+    this.sessionType = 'daily_mission';
     if (this._sessionAutoAdvanceTimer) {
       clearTimeout(this._sessionAutoAdvanceTimer);
       this._sessionAutoAdvanceTimer = null;
@@ -1251,6 +1468,7 @@ class QuranApp {
   }
 
   startFlashcardSession() {
+    this.sessionType = 'flashcard';
     this.closeModal('practice-options-modal');
 
     if (this._sessionAutoAdvanceTimer) {
@@ -1280,6 +1498,7 @@ class QuranApp {
   }
 
   buildCustomSession(wordsList, title = 'অনুশীলন', isReviewOnly = false) {
+    this.sessionType = isReviewOnly ? 'review' : 'practice';
     this.sessionQueue = [];
     this.sessionStepIndex = 0;
     this.sessionStats = { newCount: 0, reviewCount: 0, quizCorrect: 0, quizTotal: 0 };
@@ -2032,43 +2251,92 @@ class QuranApp {
       return;
     }
 
-    container.innerHTML = `
-      <div class="session-complete-box">
-        <div class="session-complete-icon">🌟🎉</div>
-        <div class="session-complete-title">আলহামদুলিল্লাহ! সেশন সম্পন্ন</div>
-        <div class="session-complete-sub">
-          আপনি আজকের নির্ধারিত শিখন লক্ষ্য সফলভাবে সম্পন্ন করেছেন। আপনি চাইলে সাথে সাথেই পরবর্তী দিনের সেশনও শুরু করতে পারেন।
-        </div>
+    // Handle Daily Mission vs Reviews / Drills
+    if (this.sessionType === 'daily_mission') {
+      this.srs.markDayCompleted(this.srs.currentDay, this.sessionStats);
+      this.srs.saveState();
 
-        <div class="mission-targets-grid" style="margin-bottom:24px;">
-          <div class="target-item">
-            <div class="target-val">${this.sessionStats.newCount}</div>
-            <div class="target-lbl">নতুন শব্দ</div>
+      container.innerHTML = `
+        <div class="session-complete-box">
+          <div class="session-complete-icon">🌟🎉</div>
+          <div class="session-complete-title">আলহামদুলিল্লাহ! দিন ${this.srs.currentDay}-এর মিশন সম্পন্ন</div>
+          <div class="session-complete-sub">
+            আপনি আজকের নির্ধারিত ১২টি নতুন শব্দ ও কুরআন আয়াত অনুশীলন সফলভাবে শেষ করেছেন। আপনি চাইলে সাথে সাথেই পরবর্তী দিন শুরু করতে পারেন অথবা হোম স্ক্রিনে ফিরতে পারেন।
           </div>
-          <div class="target-item">
-            <div class="target-val">${this.sessionStats.reviewCount}</div>
-            <div class="target-lbl">রিভিউ</div>
-          </div>
-          <div class="target-item">
-            <div class="target-val">${accuracy}%</div>
-            <div class="target-lbl">কুইজ যথার্থতা</div>
-          </div>
-          <div class="target-item">
-            <div class="target-val">${this.srs.streak} দিন</div>
-            <div class="target-lbl">ধারাবাহিকতা</div>
-          </div>
-        </div>
 
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <button class="btn-primary session-start-btn" style="background:linear-gradient(135deg, #065f46 0%, #0f766e 100%);" onclick="app.startNextSessionImmediately()">
-            🚀 পরবর্তী সেশন শুরু করুন (দিন ${Math.min(90, this.srs.currentDay + 1)})
-          </button>
-          <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitSession()">
-            ✓ মিশন সম্পন্ন করুন ও হোম স্ক্রিনে ফিরুন
-          </button>
+          <div class="mission-targets-grid" style="margin-bottom:24px;">
+            <div class="target-item">
+              <div class="target-val">${this.sessionStats.newCount || 12}</div>
+              <div class="target-lbl">নতুন শব্দ</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${this.sessionStats.reviewCount}</div>
+              <div class="target-lbl">রিভিউ</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${accuracy}%</div>
+              <div class="target-lbl">কুইজ যথার্থতা</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${this.srs.streak} দিন</div>
+              <div class="target-lbl">ধারাবাহিকতা</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="btn-primary session-start-btn" style="background:linear-gradient(135deg, #065f46 0%, #0f766e 100%);" onclick="app.startNextSessionImmediately()">
+              🚀 পরবর্তী দিন শুরু করুন (দিন ${Math.min(90, this.srs.currentDay + 1)})
+            </button>
+            <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitSession()">
+              ✓ মিশন সম্পন্ন করুন ও হোম স্ক্রিনে ফিরুন
+            </button>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    } else {
+      // Review deck, Flashcards, or targeted practice session
+      this.srs.recordActivity();
+      this.srs.saveState();
+
+      const wordsPracticed = this.sessionStats.reviewCount || this.sessionStats.quizTotal || 1;
+      container.innerHTML = `
+        <div class="session-complete-box">
+          <div class="session-complete-icon">🔄✨</div>
+          <div class="session-complete-title">${item.customTitle || 'আলহামদুলিল্লাহ! রিভিশন সম্পন্ন'}</div>
+          <div class="session-complete-sub">
+            সফলভাবে স্মৃতি ঝালাই সম্পন্ন করেছেন। স্পেসড রিপিটেশন (SM-2) ব্যবধান অনুযায়ী শব্দগুলো যথাসময়ে পুনরায় মনে করিয়ে দেওয়া হবে।
+          </div>
+
+          <div class="mission-targets-grid" style="margin-bottom:24px;">
+            <div class="target-item">
+              <div class="target-val">${wordsPracticed}</div>
+              <div class="target-lbl">অনুশীলিত শব্দ</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${accuracy}%</div>
+              <div class="target-lbl">স্মরণ যথার্থতা</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">${this.srs.streak} দিন</div>
+              <div class="target-lbl">ধারাবাহিকতা</div>
+            </div>
+            <div class="target-item">
+              <div class="target-val">দিন ${this.srs.currentDay}</div>
+              <div class="target-lbl">বর্তমান দিন</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <button class="btn-primary session-start-btn" onclick="app.completeAndExitSession()">
+              ✓ হোমে ফিরুন
+            </button>
+            <button class="pill-btn" style="border:1px solid var(--border); padding:12px;" onclick="app.completeAndExitToLearn()">
+              🗺️ শিখন রোডম্যাপে যান
+            </button>
+          </div>
+        </div>
+      `;
+    }
   }
 
   startNextSessionImmediately() {
@@ -2110,7 +2378,7 @@ class QuranApp {
       clearTimeout(this._sessionAutoAdvanceTimer);
       this._sessionAutoAdvanceTimer = null;
     }
-    this.srs.advanceDay();
+    this.srs.recordActivity();
     this.srs.saveState();
     this.switchScreen('home');
     this.renderHome();
@@ -3304,6 +3572,7 @@ class QuranApp {
   }
 
   startLevelSkipExam(targetLvl, targetDay) {
+    this.sessionType = 'skip_exam';
     this.closeModal('day-skip-modal');
 
     // Collect words from this level
@@ -3617,6 +3886,7 @@ class QuranApp {
   }
 
   practiceActiveWord() {
+    this.sessionType = 'single_word';
     const word = this.vocabMap.get(this.activeWordId);
     if (!word) return;
     this.closeModal('word-detail-modal');
@@ -3689,6 +3959,7 @@ class QuranApp {
   }
 
   startSpecificPractice(mode) {
+    this.sessionType = 'practice';
     this.closeModal('practice-options-modal');
 
     if (this._sessionAutoAdvanceTimer) {

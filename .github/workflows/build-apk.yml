@@ -1,0 +1,127 @@
+name: Build Android APK
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      create_release:
+        description: 'Create a GitHub Release with downloadable APK'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: 📱 Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: ☕ Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 📦 Sync Web Assets to Android
+        run: |
+          npm run sync:android
+
+      - name: 🔧 Ensure Gradle Wrapper
+        run: |
+          cd android
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Downloading gradle-wrapper.jar..."
+            mkdir -p gradle/wrapper
+            curl -sSL -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.6.0/gradle/wrapper/gradle-wrapper.jar || \
+            curl -sSL -o gradle/wrapper/gradle-wrapper.jar https://repo.gradle.org/artifactory/libs-releases/org/gradle/gradle-wrapper/8.6/gradle-wrapper-8.6.jar
+          fi
+          chmod +x gradlew
+
+      - name: 🔑 Generate Release Keystore (if not present)
+        run: |
+          cd android/app
+          if [ ! -f release.keystore ]; then
+            echo "Generating self-signed release keystore for APK signing..."
+            keytool -genkeypair -v \
+              -keystore release.keystore \
+              -alias quranvocab \
+              -keypass quranvocab123 \
+              -storepass quranvocab123 \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=QuranVocab, OU=App, O=QuranVocab, L=Dhaka, ST=Dhaka, C=BD"
+          fi
+
+      - name: 🏗️ Build Android APKs (Debug & Release)
+        run: |
+          cd android
+          ./gradlew assembleDebug assembleRelease --no-daemon --stacktrace
+
+      - name: 📦 Prepare APKs for Download
+        run: |
+          mkdir -p build-output
+          # Copy and rename debug APK
+          if [ -f android/app/build/outputs/apk/debug/app-debug.apk ]; then
+            cp android/app/build/outputs/apk/debug/app-debug.apk build-output/Quran-Vocab-debug.apk
+          fi
+          # Copy and rename release APK (self-signed, ready to install)
+          if [ -f android/app/build/outputs/apk/release/app-release.apk ]; then
+            cp android/app/build/outputs/apk/release/app-release.apk build-output/Quran-Vocab-release.apk
+          elif [ -f android/app/build/outputs/apk/release/app-release-unsigned.apk ]; then
+            cp android/app/build/outputs/apk/release/app-release-unsigned.apk build-output/Quran-Vocab-release-unsigned.apk
+          fi
+          echo "Build artifacts ready:"
+          ls -lh build-output/
+
+      - name: 🚀 Upload APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Quran-Vocab-APK
+          path: build-output/*.apk
+          retention-days: 90
+
+      - name: 🏷️ Publish GitHub Release (if tagged or requested)
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build-output/*.apk
+          name: "কুরআনিক শব্দকোষ ${{ github.ref_name || 'v1.0.0' }}"
+          body: |
+            ## 📱 কুরআনিক শব্দকোষ অ্যান্ড্রয়েড অ্যাপ (APK)
+            
+            এই রিলিজের APK ফাইলটি ডাউনলোড করে আপনার অ্যান্ড্রয়েড ফোনে সরাসরি ইনস্টল করতে পারবেন।
+            
+            ### 📥 ডাউনলোড লিংক:
+            - **[Quran-Vocab-release.apk](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name || 'v1.0.0' }}/Quran-Vocab-release.apk)** (রেকমেন্ডেড ইনস্টলযোগ্য APK)
+            - **[Quran-Vocab-debug.apk](https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name || 'v1.0.0' }}/Quran-Vocab-debug.apk)** (ডেভেলপার ডেবগ APK)
+            
+            ### 📲 ইনস্টল করার নিয়ম:
+            1. ডাউনলোড হওয়া `.apk` ফাইলে চাপ দিন।
+            2. "Install unknown apps" অপশন অন করতে বললে সেটি Allow করুন।
+            3. "Install" বাটনে চাপ দিয়ে অ্যাপটি ইনস্টল করুন।
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

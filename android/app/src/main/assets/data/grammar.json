@@ -1,0 +1,151 @@
+{
+  "title": "Quranic Arabic Grammar Foundations",
+  "description": "Essential grammatical frameworks and function word classifications supporting the 2,000 core vocabulary items.",
+  "parts_of_speech": {
+    "ism": "Noun / Substantive (includes adjectives, pronouns, demonstratives, and adverbs)",
+    "fi'l": "Verb (classified by tense: māḍī / past, muḍāri' / present-future, and amr / imperative)",
+    "harf": "Particle (function words that only have complete meaning when combined with a noun or verb)"
+  },
+  "particle_classifications": [
+    {
+      "category": "Hurūf al-Jarr (Prepositions)",
+      "function": "Causes the governed noun to take the genitive case (majrūr / kasrah).",
+      "primary_examples": [
+        "مِنْ (from)",
+        "إِلَى (to)",
+        "عَنْ (about/from)",
+        "عَلَى (upon)",
+        "فِي (in)",
+        "بِـ (with/by)",
+        "لِـ (for/to)",
+        "كَـ (as/like)",
+        "حَتَّى (until)"
+      ]
+    },
+    {
+      "category": "Hurūf al-'Atf (Coordinating Conjunctions)",
+      "function": "Connects words or sentences with matching grammatical case and mood.",
+      "primary_examples": [
+        "وَـ (and)",
+        "فَـ (then/so)",
+        "ثُمَّ (thereafter)",
+        "أَوْ (or)",
+        "أَمْ (or in questions)",
+        "بَلْ (nay rather)",
+        "لَكِنْ (but)"
+      ]
+    },
+    {
+      "category": "Inna and Its Sisters (al-Ahruf al-Mushabbahah bil-Fi'l)",
+      "function": "Enters nominal sentences, causing the subject (ism) to take the accusative case (manṣūb) and keeping predicate (khabar) nominative (marfū').",
+      "primary_examples": [
+        "إِنَّ (verily/indeed)",
+        "أَنَّ (that)",
+        "كَأَنَّ (as if)",
+        "لَكِنَّ (but)",
+        "لَيْتَ (if only)",
+        "لَعَلَّ (perhaps/so that)"
+      ]
+    },
+    {
+      "category": "Adawāt al-Nafy (Negative Particles)",
+      "function": "Negates sentences across past, present, and future time frames.",
+      "primary_examples": [
+        "لَا (general/future negation or prohibition)",
+        "مَا (past/nominal negation)",
+        "لَمْ (past negative jussive)",
+        "لَنْ (emphatic future negative)",
+        "لَيْسَ (negative verb is not)"
+      ]
+    },
+    {
+      "category": "Adawāt al-Shart (Conditional Particles)",
+      "function": "Connects condition clause (shart) and response clause (jawāb al-shart).",
+      "primary_examples": [
+        "إِنْ (if - general jussive)",
+        "إِذَا (when/if - future realizable)",
+        "لَوْ (if - hypothetical counterfactual)",
+        "لَوْلَا (if not for)"
+      ]
+    },
+    {
+      "category": "Asmā' al-Ishārah (Demonstrative Pronouns)",
+      "function": "Points to proximal or distal entities.",
+      "primary_examples": [
+        "هَذَا (this m.)",
+        "هَذِهِ (this f.)",
+        "ذَلِكَ (that m.)",
+        "تِلْكَ (that f.)",
+        "هَؤُلَاءِ (these pl.)",
+        "أُولَئِكَ (those pl.)"
+      ]
+    },
+    {
+      "category": "al-Asmā' al-Mawṣūlah (Relative Pronouns)",
+      "function": "Connects main clause to descriptive subordinate relative clauses (ṣilah).",
+      "primary_examples": [
+        "الَّذِي (who/which m.)",
+        "الَّتِي (who/which f.)",
+        "الَّذِينَ (those who pl.)",
+        "مَنْ (whoever)",
+        "مَا (whatever/that which)"
+      ]
+    }
+  ],
+  "verb_forms_table": [
+    {
+      "form": "I",
+      "pattern": "فَعَلَ / يَفْعُلُ",
+      "meaning_connotation": "Basic root action",
+      "quran_example": "قَالَ (said), عَلِمَ (knew)"
+    },
+    {
+      "form": "II",
+      "pattern": "فَعَّلَ / يُفَعِّلُ",
+      "meaning_connotation": "Intensive or causative",
+      "quran_example": "نَزَّلَ (sent down gradually), عَلَّمَ (taught)"
+    },
+    {
+      "form": "III",
+      "pattern": "فَاعَلَ / يُفَاعِلُ",
+      "meaning_connotation": "Reciprocal or aiming at",
+      "quran_example": "جَاهَدَ (strove), قَاتَلَ (fought)"
+    },
+    {
+      "form": "IV",
+      "pattern": "أَفْعَلَ / يُفْعِلُ",
+      "meaning_connotation": "Causative or transitive",
+      "quran_example": "أَنزَلَ (sent down at once), أَسْلَمَ (submitted)"
+    },
+    {
+      "form": "V",
+      "pattern": "تَفَعَّلَ / يَتَفَعَّلُ",
+      "meaning_connotation": "Reflexive of Form II / gradual process",
+      "quran_example": "تَذَكَّرَ (reflected), تَوَكَّلَ (relied)"
+    },
+    {
+      "form": "VI",
+      "pattern": "تَفَاعَلَ / يَتَفَاعَلُ",
+      "meaning_connotation": "Mutual interaction",
+      "quran_example": "تَعَاوَنَ (cooperated)"
+    },
+    {
+      "form": "VII",
+      "pattern": "انْفَعَلَ / يَنْفَعِلُ",
+      "meaning_connotation": "Passive/reflexive of Form I",
+      "quran_example": "انقَلَبَ (turned back)"
+    },
+    {
+      "form": "VIII",
+      "pattern": "افْتَعَلَ / يَفْتَعِلُ",
+      "meaning_connotation": "Participative / intense internal action",
+      "quran_example": "اتَّقَى (guarded/feared), اهْتَدَى (was guided)"
+    },
+    {
+      "form": "X",
+      "pattern": "اسْتَفْعَلَ / يَسْتَفْعِلُ",
+      "meaning_connotation": "Seeking, requesting, considering",
+      "quran_example": "اسْتَغْفَرَ (sought forgiveness)"
+    }
+  ]
+}
